@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Core.models;
+using System.Diagnostics;
 
 public class DataContext : DbContext
 {
@@ -13,6 +14,7 @@ public class DataContext : DbContext
     {
         optionsBuilder.UseMySql(@"Server=localhost;Database=artsprint;user=root;password=1234;",
             new MySqlServerVersion(new Version(8, 0, 21)));
+        optionsBuilder.LogTo(massage=>Debug.WriteLine(massage));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

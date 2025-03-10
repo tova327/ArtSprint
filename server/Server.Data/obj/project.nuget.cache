@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "CugJ4HKrrtYq4CWjiWQXjfS5f5t/cm6WpGqXWmTd9/shUvoa9BlvzeYbRAYVuMH1rW+8QMnnodDMQhSUVy83Sw==",
+  "dgSpecHash": "f9Eot8rB4+eczS1iM1Z4gS4uDw7kQkkW4R4hL8lIAPv6QSZsYK4dnelGGFgrSTH4RoKxjsBOVrCeW92ZDyXXWQ==",
   "success": true,
   "projectFilePath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Data\\Server.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.20\\microsoft.entityframeworkcore.7.0.20.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.20\\microsoft.entityframeworkcore.abstractions.7.0.20.nupkg.sha512",
