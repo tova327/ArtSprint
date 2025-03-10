@@ -1,0 +1,17 @@
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.deps.json
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.runtimeconfig.json
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.pdb
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\bin\Debug\net7.0\Server.Core.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\bin\Debug\net7.0\Server.Core.pdb
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.csproj.AssemblyReference.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.AssemblyInfoInputs.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.AssemblyInfo.cs
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.csproj.CoreCompileInputs.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.csproj.CopyComplete
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\refint\Server.Data.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.pdb
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.genruntimeconfig.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\obj\Debug\net7.0\ref\Server.Data.dll

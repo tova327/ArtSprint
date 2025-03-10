@@ -1,0 +1,14 @@
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.deps.json
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.runtimeconfig.json
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.pdb
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.csproj.AssemblyReference.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.AssemblyInfoInputs.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.AssemblyInfo.cs
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.csproj.CoreCompileInputs.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\refint\Server.Core.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.pdb
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.genruntimeconfig.cache
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Core\obj\Debug\net7.0\ref\Server.Core.dll
