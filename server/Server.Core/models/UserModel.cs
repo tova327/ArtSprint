@@ -19,7 +19,8 @@ namespace Server.Core.models
         public string Name { get; set; }
 
         public DateTime CameOn { get; set; } = DateTime.Now;
-
+        public string Email { get; set; }
+        public string Password { get; set; }    
         [Required]
         [DataType(DataType.Date)]
         [CheckMinimumAge(18)]
@@ -27,7 +28,7 @@ namespace Server.Core.models
 
         public bool IsMedal { get; set; } = false;
 
-        public DateTime? LastPaint { get; set; }
+        public DateTime? LastPaint { get; set; }= DateTime.Now;
 
         public ICollection<PaintingModel> Paintings { get; set; }
         public ICollection<CommentModel> Comments { get; set; }
