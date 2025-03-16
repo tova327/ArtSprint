@@ -1,3 +1,6 @@
+using Server.Core;
+using server;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(MappingPostProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

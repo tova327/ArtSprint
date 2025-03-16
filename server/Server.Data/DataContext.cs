@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Server.Core.models;
+using Server.Data;
 using System.Diagnostics;
 
-public class DataContext : DbContext
+public class DataContext : DbContext,IDataContext
 {
     public DbSet<UserModel> Users { get; set; }
     public DbSet<PaintingModel> Paintings { get; set; }
@@ -23,5 +25,9 @@ public class DataContext : DbContext
         modelBuilder.Entity<CompetitionPaintingModel>()
             .HasKey(cp => new { cp.IdPaint, cp.IdCompetition });
 
+    }
+    public virtual EntityEntry Entry(object entity)
+    {
+        return base.Entry(entity);
     }
 }

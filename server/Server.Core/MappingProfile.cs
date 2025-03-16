@@ -6,7 +6,7 @@ namespace Server.Core
 {
     public class MappingProfile : Profile
     {
-        protected MappingProfile()
+        public MappingProfile()
         {
             CreateMap<UserModel,UserDTO>().ReverseMap();
             CreateMap<CompetitionModel,CompetitionDTO>().ReverseMap();

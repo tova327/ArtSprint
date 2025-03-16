@@ -4,20 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Core.models;
+using Server.Core.Repositories;
+using Server.Data.repositories;
 
-public class UserRepository
+public class UserRepository:GenericRepository<UserModel> , IUserRepository
 {
     private readonly DataContext _context;
 
-    public UserRepository(DataContext context)
+    public UserRepository(DataContext context):base(context)
     {
         _context = context;
     }
 
-    public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
-    {
-        return await _context.Users.ToListAsync();
-    }
+    
 
     public async Task<UserModel> GetUserDetailsByIdAsync(int id)
     {
@@ -30,18 +29,11 @@ public class UserRepository
                 IsMedal = u.IsMedal
             })
             .FirstOrDefaultAsync();
+        
     }
 
-    public async Task<UserModel> GetUserByIdAsync(int id)
-    {
-        return await _context.Users.FindAsync(id);
-    }
-
-    public async Task AddUserAsync(UserModel user)
-    {
-        await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
-    }
+    
+   
 
     public async Task UpdateUserNameAsync(int id, string name)
     {
@@ -83,7 +75,7 @@ public class UserRepository
         }
     }
 
-    public async Task DeleteUserAsync(int id)
+    public  async Task DeleteAsync(int id)   
     {
         var user = await _context.Users.FindAsync(id);
         if (user != null)
@@ -92,4 +84,19 @@ public class UserRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    
+
+    
+
+    public override async Task<UserModel> UpdateAsync(int id, UserModel entity)
+    { 
+        await UpdateUserCameOnAsync(id, entity.CameOn);
+        await UpdateUserIsMedalAsync(id, entity.IsMedal);
+        await UpdateUserLastPaintAsync(id, entity.LastPaint);
+        await UpdateUserNameAsync(id, entity.Name);
+        return entity;
+    }
+
+    
 }
