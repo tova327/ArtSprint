@@ -11,11 +11,11 @@ namespace Server.Data.repositories
     {
         private readonly IDataContext _context;
 
-        IUserRepository Users { get; }
-        ICompetitionRepository Competitions { get; }
-        ICompetitionPaintingRepository CompetitionPaintings { get; }
-        ICommentRepository Comments { get; }
-        IPaintingRepository Paintings { get; }
+        public IUserRepository Users { get; }
+        public ICompetitionRepository Competitions { get; }
+        public ICompetitionPaintingRepository CompetitionPaintings { get; }
+        public ICommentRepository Comments { get; }
+        public IPaintingRepository Paintings { get; }
 
         public RepositoryManager(
             IDataContext context,
