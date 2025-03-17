@@ -201,7 +201,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Core\\Server.Core.csproj": {
+                "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Core\\Server.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
