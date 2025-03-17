@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using server.Post_Models;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
@@ -12,14 +14,16 @@ namespace server.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll()
+        public async Task<ActionResult<IEnumerable<UserModel>>> GetAll()
         {
             var users = await _userService.GetAllAsync();
             return Ok(users);
@@ -37,15 +41,17 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> Add(UserDTO userDto)
+        public async Task<ActionResult<UserDTO>> Add([FromBody] UserPostModel userPostModel)
         {
+            var userDto = _mapper.Map<UserDTO>(userPostModel);
             var user = await _userService.AddAsync(userDto);
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserDTO>> Update(int id, UserDTO userDto)
+        public async Task<ActionResult<UserDTO>> Update(int id, [FromBody] UserPostModel userPostModel)
         {
+            var userDto = _mapper.Map<UserDTO>(userPostModel);
             var user = await _userService.UpdateAsync(id, userDto);
             if (user == null)
             {

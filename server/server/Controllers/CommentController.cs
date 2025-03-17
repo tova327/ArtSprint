@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using server.Post_Models;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
@@ -11,10 +13,12 @@ namespace server.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,21 +40,31 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CommentDTO>> Add(CommentDTO commentDto)
+        public async Task<ActionResult<CommentDTO>> Add(CommentPostModel comment)
         {
-            var comment = await _commentService.AddAsync(commentDto);
-            return CreatedAtAction(nameof(GetById), new { id = comment.Id }, comment);
+            if (comment == null)
+            {
+                return BadRequest();
+            }
+            var commentDto = _mapper.Map<CommentDTO>(comment);
+            var commentAdded = await _commentService.AddAsync(commentDto);
+            return CreatedAtAction(nameof(GetById), new { id = commentAdded.Id }, comment);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CommentDTO>> Update(int id, CommentDTO commentDto)
+        public async Task<ActionResult<CommentDTO>> Update(int id, CommentPostModel comment)
         {
-            var comment = await _commentService.UpdateAsync(id, commentDto);
             if (comment == null)
+            {
+                return BadRequest();
+            }
+            var commentDto = _mapper.Map<CommentDTO>(comment);
+            var commentPut = await _commentService.UpdateAsync(id, commentDto);
+            if (commentPut == null)
             {
                 return NotFound();
             }
-            return Ok(comment);
+            return Ok(commentPut);
         }
 
         [HttpDelete("{id}")]

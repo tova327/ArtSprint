@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using server.Post_Models;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
@@ -11,10 +13,12 @@ namespace server.Controllers
     public class CompetitionController : ControllerBase
     {
         private readonly ICompetitionService _competitionService;
+        private readonly IMapper _mapper;
 
-        public CompetitionController(ICompetitionService competitionService)
+        public CompetitionController(ICompetitionService competitionService, IMapper mapper)
         {
             _competitionService = competitionService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,15 +40,17 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CompetitionDTO>> Add(CompetitionDTO competitionDto)
+        public async Task<ActionResult<CompetitionDTO>> Add([FromBody] CompetitionPostModel competitionPostModel)
         {
+            var competitionDto = _mapper.Map<CompetitionDTO>(competitionPostModel);
             var competition = await _competitionService.AddAsync(competitionDto);
             return CreatedAtAction(nameof(GetById), new { id = competition.Id }, competition);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CompetitionDTO>> Update(int id, CompetitionDTO competitionDto)
+        public async Task<ActionResult<CompetitionDTO>> Update(int id, [FromBody] CompetitionPostModel competitionPostModel)
         {
+            var competitionDto = _mapper.Map<CompetitionDTO>(competitionPostModel);
             var competition = await _competitionService.UpdateAsync(id, competitionDto);
             if (competition == null)
             {

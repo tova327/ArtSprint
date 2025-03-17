@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using server.Post_Models;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
@@ -11,10 +13,12 @@ namespace server.Controllers
     public class PaintingController : ControllerBase
     {
         private readonly IPaintingService _paintingService;
+        private readonly IMapper _mapper;
 
-        public PaintingController(IPaintingService paintingService)
+        public PaintingController(IPaintingService paintingService, IMapper mapper)
         {
             _paintingService = paintingService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -36,15 +40,17 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PaintingDTO>> Add(PaintingDTO paintingDto)
+        public async Task<ActionResult<PaintingDTO>> Add([FromBody] PaintingPostModel paintingPostModel)
         {
+            var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
             var painting = await _paintingService.AddAsync(paintingDto);
             return CreatedAtAction(nameof(GetById), new { id = painting.Id }, painting);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<PaintingDTO>> Update(int id, PaintingDTO paintingDto)
+        public async Task<ActionResult<PaintingDTO>> Update(int id, [FromBody] PaintingPostModel paintingPostModel)
         {
+            var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
             var painting = await _paintingService.UpdateAsync(id, paintingDto);
             if (painting == null)
             {
