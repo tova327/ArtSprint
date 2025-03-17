@@ -10,7 +10,7 @@ namespace Server.Core.Services
 {
     public interface ICompetitionService
     {
-        Task<IEnumerable<CompetitionModel>> GetAllAsync();
+        Task<IEnumerable<CompetitionDTO>> GetAllAsync();
         Task<CompetitionDTO?> GetByIdAsync(int id);
         Task<CompetitionDTO> AddAsync(CompetitionDTO entity);
         Task<CompetitionDTO> UpdateAsync(int id, CompetitionDTO entity);

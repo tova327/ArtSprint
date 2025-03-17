@@ -22,10 +22,11 @@ namespace Server.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CompetitionPaintingModel>> GetAllAsync()
+        public async Task<IEnumerable<CompetitionPaintingDTO>> GetAllAsync()
         {
             var competitionPaintings = await _repositoryManager.CompetitionPaintings.GetAllAsync();
-            return competitionPaintings.ToList();
+            var competitionPaintingsList=competitionPaintings.ToList();
+            return _mapper.Map<List<CompetitionPaintingDTO>>(competitionPaintingsList);
         }
 
         public async Task<CompetitionPaintingDTO?> GetByIdAsync(int id)

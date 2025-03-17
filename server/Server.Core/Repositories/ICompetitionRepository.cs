@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server.Core.Repositories
 {
-    public interface ICompetitionRepository
+    public interface ICompetitionRepository:IRepository<CompetitionModel>
     {
          Task<CompetitionModel> GetCompetitionDetailsBySubjectAsync(ESubject subject);
         Task<CompetitionModel> GetLastCompetitionAsync();

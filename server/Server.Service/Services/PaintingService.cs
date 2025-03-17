@@ -22,10 +22,11 @@ namespace Server.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<PaintingModel>> GetAllAsync()
+        public async Task<IEnumerable<PaintingDTO>> GetAllAsync()
         {
             var paintings = await _repositoryManager.Paintings.GetAllAsync();
-            return paintings.ToList();
+            var paintingsList= paintings.ToList();
+            return _mapper.Map<List<PaintingDTO>>(paintingsList);
         }
 
         public async Task<PaintingDTO?> GetByIdAsync(int id)
@@ -62,10 +63,11 @@ namespace Server.Service.Services
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task<IEnumerable<PaintingModel>> GetAllFromDateToDateAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<PaintingDTO>> GetAllFromDateToDateAsync(DateTime startDate, DateTime endDate)
         {
             var paintings = await _repositoryManager.Paintings.GetAllFromDateToDateAsync(startDate, endDate);
-            return paintings.ToList();
+            var paintingsList=paintings.ToList();
+            return _mapper.Map<List<PaintingDTO>>(paintingsList);   
         }
     }
 }

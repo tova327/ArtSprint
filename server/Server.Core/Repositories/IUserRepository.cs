@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Server.Core.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository:IRepository<UserModel>
     {
         Task<UserModel> GetUserDetailsByIdAsync(int id);
         Task UpdateUserNameAsync(int id, string name);

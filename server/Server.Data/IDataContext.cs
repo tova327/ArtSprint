@@ -20,7 +20,7 @@ namespace Server.Data
         public DbSet<CompetitionPaintingModel> CompetitionPaintings { get; set; }
         public DbSet<PaintingModel> Paintings { get; set; } 
 
-        public int SaveChanges();
+        public Task<int> SaveChangesAsync(); 
         EntityEntry Entry(object entity);
 
     }

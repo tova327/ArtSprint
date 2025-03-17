@@ -18,7 +18,7 @@ namespace Server.Core.DTOs
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public UserModel User { get; set; }
-        public PaintingModel Paint { get; set; }
+        //public UserModel User { get; set; }
+        //public PaintingModel Paint { get; set; }
     }
 }

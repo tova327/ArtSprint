@@ -10,7 +10,7 @@ namespace Server.Core.Services
 {
     public interface ICommentService
     {
-        Task<IEnumerable<CommentModel>> GetAllAsync();
+        Task<IEnumerable<CommentDTO>> GetAllAsync();
         Task<CommentDTO?> GetByIdAsync(int id);
         Task<CommentDTO> AddAsync(CommentDTO entity);
         Task<CommentDTO> UpdateAsync(int id, CommentDTO entity);

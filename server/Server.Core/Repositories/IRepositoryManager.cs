@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Server.Core.Repositories
 {
-    internal interface IRepositoryManager
+    public interface IRepositoryManager
     {
+        IUserRepository Users { get; }
+        ICompetitionRepository Competitions { get; }
+        ICompetitionPaintingRepository CompetitionPaintings { get; }
+        ICommentRepository Comments { get; }
+        IPaintingRepository Paintings { get; }  
+
+        Task SaveAsync();
     }
 }

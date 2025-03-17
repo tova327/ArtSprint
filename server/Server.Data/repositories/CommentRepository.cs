@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Core.models;
+using Server.Core.Repositories;
 using Server.Data.repositories;
 
 public class CommentRepository:GenericRepository<CommentModel>,ICommentRepository

@@ -22,10 +22,11 @@ namespace Server.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CommentModel>> GetAllAsync()
+        public async Task<IEnumerable<CommentDTO>> GetAllAsync()
         {
             var comments = await _repositoryManager.Comments.GetAllAsync();
-            return comments.ToList();
+            var commentsList=comments.ToList();
+            return _mapper.Map<IEnumerable<CommentDTO>>(commentsList);
         }
 
         public async Task<CommentDTO?> GetByIdAsync(int id)

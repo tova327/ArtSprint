@@ -30,7 +30,7 @@ namespace Server.Data.repositories
             if (user != null)
             {
                 _dataContext.Users.Remove(user);
-                 _dataContext.SaveChanges();
+                await  _dataContext.SaveChangesAsync();
             }
         }
 

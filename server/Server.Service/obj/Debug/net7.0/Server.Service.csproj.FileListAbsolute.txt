@@ -12,3 +12,6 @@ D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint
 D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Service\obj\Debug\net7.0\Server.Service.pdb
 D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Service\obj\Debug\net7.0\Server.Service.genruntimeconfig.cache
 D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Service\obj\Debug\net7.0\ref\Server.Service.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Service\bin\Debug\net7.0\Server.Core.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Service\bin\Debug\net7.0\Server.Core.pdb
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Service\obj\Debug\net7.0\Server.Service.csproj.CopyComplete

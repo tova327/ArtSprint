@@ -275,7 +275,8 @@
       "Server.Service/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "7.0.20",
-          "Pomelo.EntityFrameworkCore.MySql": "7.0.0"
+          "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
+          "Server.Core": "1.0.0"
         },
         "runtime": {
           "Server.Service.dll": {}

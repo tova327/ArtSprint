@@ -34,10 +34,11 @@ namespace Server.Service.Services
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task<IEnumerable<UserModel>> GetAllAsync()
+        public async Task<IEnumerable<UserDTO>> GetAllAsync()
         {
             var users = await _repositoryManager.Users.GetAllAsync();
-            return users.ToList();
+            var usersList=users.ToList();
+            return _mapper.Map<List<UserDTO>>(usersList);
         }
 
         public async Task<UserDTO?> GetByIdAsync(int id)
