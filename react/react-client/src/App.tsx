@@ -1,11 +1,12 @@
 import './App.css'
-import FileUpload from './components/UploadFile'
+import GaleryArea from './pages/GaleryArea'
+import FileUpload from './pages/UploadFile'
 
 function App() {
   
   return (
     <>
-      <FileUpload/>
+      <GaleryArea/>
     </>
   )
 }

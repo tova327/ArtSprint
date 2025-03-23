@@ -19,8 +19,8 @@ namespace Server.Core.DTOs
         public string Url { get; set; }
         public bool IsMedal { get; set; } = false;
         public ESubject Subject { get; set; }
-        public UserModel Owner { get; set; }
-        public ICollection<CommentModel> Comments { get; set; }
-        public CompetitionPaintingModel CompetitionPainting { get; set; }
+       // public UserModel Owner { get; set; }
+        public ICollection<CommentDTO> Comments { get; set; }
+        public CompetitionPaintingDTO? CompetitionPainting { get; set; }
     }
 }

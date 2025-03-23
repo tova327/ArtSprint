@@ -38,6 +38,17 @@ namespace server.Controllers
             }
             return Ok(painting);
         }
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IEnumerable<PaintingDTO>>> GetPaintingsForUser(int userId)
+        {
+            var paintings = await _paintingService.GetAllAsync();
+            if (paintings == null)
+            {
+                return NotFound();
+            }
+            var specificPaintings = paintings.Where(p => p.OwnerId == userId);
+            return Ok(specificPaintings);
+        }
 
         [HttpPost]
         public async Task<ActionResult<PaintingDTO>> Add([FromBody] PaintingPostModel paintingPostModel)

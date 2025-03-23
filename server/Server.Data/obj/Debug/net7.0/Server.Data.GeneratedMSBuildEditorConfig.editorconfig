@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Server.Data
-build_property.ProjectDir = D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\Server.Data\
+build_property.ProjectDir = Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Data\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

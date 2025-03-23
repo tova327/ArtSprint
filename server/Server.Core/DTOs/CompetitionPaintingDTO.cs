@@ -16,6 +16,6 @@ namespace Server.Core.DTOs
         public int CountPositive { get; set; } = 0;
         public int Place { get; set; }
         public DateTime JoinedAt { get; set; } = DateTime.Now;
-        public PaintingModel Painting { get; set; }
+        //public PaintingModel Painting { get; set; }
     }
 }
