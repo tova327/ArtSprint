@@ -16,19 +16,19 @@ namespace Server.Core.models
 
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string Name { get; set; }// V
 
-        public DateTime CameOn { get; set; } = DateTime.Now;
-        public string Email { get; set; }
+        public DateTime CameOn { get; set; } = DateTime.Now;// V
+        public string Email { get; set; }// X
         public string Password { get; set; }    
         [Required]
         [DataType(DataType.Date)]
         [CheckMinimumAge(18)]
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }// X
 
-        public bool IsMedal { get; set; } = false;
+        public bool IsMedal { get; set; } = false;// V
 
-        public DateTime? LastPaint { get; set; }= DateTime.Now;
+        public DateTime? LastPaint { get; set; }= DateTime.Now;// V
 
         public ICollection<PaintingModel> Paintings { get; set; }
         public ICollection<CommentModel> Comments { get; set; }

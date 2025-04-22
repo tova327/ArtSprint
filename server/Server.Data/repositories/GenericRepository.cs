@@ -21,15 +21,18 @@ namespace Server.Data.repositories
         public async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _dataContext.SaveChangesAsync();
             return entity;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var user = await _dataContext.Users.FindAsync(id);
-            if (user != null)
+            var item=await _dbSet.FindAsync(id);
+            //var user = await _dataContext.Users.FindAsync(id);
+            if (item != null)
             {
-                _dataContext.Users.Remove(user);
+                //_dataContext.Users.Remove(user);
+                _dbSet.Remove(item);
                 await  _dataContext.SaveChangesAsync();
             }
         }
@@ -51,7 +54,7 @@ namespace Server.Data.repositories
 
         
 
-        public virtual Task<T> UpdateAsync(int id, T entity)
+        public async virtual Task<T> UpdateAsync(int id, T entity)
         {
             var existingEntity = _dbSet.Find(id);
             if (existingEntity != null)
@@ -66,8 +69,10 @@ namespace Server.Data.repositories
                     }
                 }
                 _dataContext.Entry(existingEntity).State = EntityState.Modified;
-                return Task.Run(()=>existingEntity) ;
+                await _dataContext.SaveChangesAsync();
+                return existingEntity;
             }
+            await _dataContext.SaveChangesAsync();
             return null;
         }
     }

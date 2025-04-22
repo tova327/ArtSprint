@@ -16,6 +16,7 @@ public class DataContext : DbContext,IDataContext
     {
         optionsBuilder.UseMySql(@"Server=localhost;Database=artsprint;user=root;password=1234;",
             new MySqlServerVersion(new Version(8, 0, 21)));
+        
         optionsBuilder.LogTo(massage=>Debug.WriteLine(massage));
     }
 

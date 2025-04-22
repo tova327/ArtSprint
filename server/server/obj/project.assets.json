@@ -1568,23 +1568,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hitmachut\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\server\\server.csproj",
+      "projectUniqueName": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\hitmachut\\.nuget\\packages\\",
-      "outputPath": "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\server\\obj\\",
+      "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hitmachut\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1593,21 +1593,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\Server.Core\\Server.Core.csproj": {
-              "projectPath": "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\Server.Core\\Server.Core.csproj"
+            "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Core\\Server.Core.csproj": {
+              "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Core\\Server.Core.csproj"
             },
-            "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\Server.Data\\Server.Data.csproj": {
-              "projectPath": "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\Server.Data\\Server.Data.csproj"
+            "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Data\\Server.Data.csproj": {
+              "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Data\\Server.Data.csproj"
             },
-            "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\Server.Service\\Server.Service.csproj": {
-              "projectPath": "Y:\\Groups\\Group_5\\יעקבסון טובה\\fullstack project\\ArtSprint\\server\\Server.Service\\Server.Service.csproj"
+            "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Service\\Server.Service.csproj": {
+              "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Service\\Server.Service.csproj"
             }
           }
         }
@@ -1616,11 +1615,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -1675,7 +1669,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

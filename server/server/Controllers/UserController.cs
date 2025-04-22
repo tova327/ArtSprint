@@ -45,20 +45,20 @@ namespace server.Controllers
         {
             var userDto = _mapper.Map<UserDTO>(userPostModel);
             var user = await _userService.AddAsync(userDto);
-            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult<UserDTO>> Update(int id, [FromBody] UserPostModel userPostModel)
-        {
-            var userDto = _mapper.Map<UserDTO>(userPostModel);
-            var user = await _userService.UpdateAsync(id, userDto);
-            if (user == null)
-            {
-                return NotFound();
-            }
             return Ok(user);
         }
+
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult<UserDTO>> Update(int id, [FromBody] UserPostModel userPostModel)
+        //{
+        //    var userDto = _mapper.Map<UserDTO>(userPostModel);
+        //    var user = await _userService.UpdateAsync(id, userDto);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -68,16 +68,16 @@ namespace server.Controllers
         }
 
         // Additional methods to use other service functions
-        [HttpGet("{id}/details")]
-        public async Task<ActionResult<UserDTO>> GetUserDetailsById(int id)
-        {
-            var user = await _userService.GetUserDetailsByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
+        //[HttpGet("{id}/details")]
+        //public async Task<ActionResult<UserDTO>> GetUserDetailsById(int id)
+        //{
+        //    var user = await _userService.GetUserDetailsByIdAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
 
         [HttpPut("{id}/name")]
         public async Task<IActionResult> UpdateUserName(int id, [FromBody] string name)

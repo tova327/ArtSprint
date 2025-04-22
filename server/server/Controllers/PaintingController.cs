@@ -55,7 +55,7 @@ namespace server.Controllers
         {
             var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
             var painting = await _paintingService.AddAsync(paintingDto);
-            return CreatedAtAction(nameof(GetById), new { id = painting.Id }, painting);
+            return Ok( painting);
         }
 
         [HttpPut("{id}")]

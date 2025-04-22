@@ -1,4 +1,4 @@
-import { CommentType, ESubject, PaintingType } from "@/models/types"
+import { ESubject, PaintingType } from "@/models/types"
 
 const getPaintingsForUser = (userId: number): PaintingType[] => {
     return [{
@@ -75,9 +75,9 @@ const getAllPaintings = ():PaintingType[] => {
 function isDateInCurrentWeek(date: Date): boolean {
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay())); // Sunday
-    const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6)); // Saturday
+    //const endOfWeek = new Date(now.setDate(startOfWeek.getDate() + 6)); // Saturday
 
-    return date >= startOfWeek && date <= endOfWeek;
+    return date >= startOfWeek
 }
 const getAllPaintingsLastWeek=():PaintingType[]=>{
     const all=getAllPaintings()
@@ -85,5 +85,9 @@ const getAllPaintingsLastWeek=():PaintingType[]=>{
    return weekPaintings
 }
 
-
-export { getPaintingsForUser, getAllPaintings ,getAllPaintingsLastWeek}
+const getOldPaintings=()=>{
+    const all=getAllPaintings()
+   const oldPaintings=all.filter(p=>!isDateInCurrentWeek(p.CreatedAt) )
+   return oldPaintings
+}
+export { getPaintingsForUser, getAllPaintings ,getAllPaintingsLastWeek,getOldPaintings}
