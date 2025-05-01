@@ -7,7 +7,7 @@ namespace server.Post_Models
     {
         public int OwnerId { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
         public ESubject Subject { get; set; }
+        public IFormFile paintingFile { get; set; }
     }
 }

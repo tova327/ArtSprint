@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Server.Core.models
 {
@@ -33,6 +34,9 @@ namespace Server.Core.models
 
         [Required]
         public ESubject Subject { get; set; }
+        [Required]
+        //public IFormFile paintingFile { get; set; }
+        //art-sprint-bucket/folder1/Untitled-135.pdf
 
         public UserModel Owner { get; set; }
         public ICollection<CommentModel> Comments { get; set; }

@@ -35,6 +35,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ICompetitionService, CompetitionService>();
 builder.Services.AddScoped<IPaintingService, PaintingService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IDataContext, DataContext>();
 //==================
 builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(MappingPostProfile));

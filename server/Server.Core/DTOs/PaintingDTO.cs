@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Server.Core.DTOs
 {
@@ -18,6 +19,8 @@ namespace Server.Core.DTOs
         public int Likes { get; set; } = 0;
         public string Url { get; set; }
         public bool IsMedal { get; set; } = false;
+        //public IFormFile paintingFile { get; set; }
+
         public ESubject Subject { get; set; }
        // public UserModel Owner { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }

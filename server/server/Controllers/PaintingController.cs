@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Google.Apis.Storage.v1;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Post_Models;
@@ -14,11 +15,15 @@ namespace server.Controllers
     {
         private readonly IPaintingService _paintingService;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IStorageService _storageService;
 
-        public PaintingController(IPaintingService paintingService, IMapper mapper)
+        public PaintingController(IPaintingService paintingService, IMapper mapper,IUserService userService, IStorageService storageService)
         {
             _paintingService = paintingService;
             _mapper = mapper;
+            _userService = userService;
+            _storageService = storageService;
         }
 
         [HttpGet]
@@ -90,6 +95,105 @@ namespace server.Controllers
         {
             var paintings = await _paintingService.GetAllFromDateToDateAsync(startDate, endDate);
             return Ok(paintings);
+        }
+
+
+        //*****************************************************************************************************
+        [HttpPost("upload")]
+        public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
+        {
+            if (paintingPostModel.paintingFile == null)
+            {
+                return BadRequest("No files uploaded.");
+            }
+
+            string fileName = Path.GetFileName(paintingPostModel.paintingFile.FileName);
+            var filePath = Path.Combine(Path.GetTempPath(), fileName);
+
+            try
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await paintingPostModel.paintingFile.CopyToAsync(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
+            var owner = await _userService.GetByIdAsync(paintingPostModel.OwnerId);
+            if (owner == null)
+            {
+                return NotFound("Owner not found.");
+            }
+
+            var path = await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
+            var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
+            paintingDto.Url = path;
+
+            return Ok(new { message = "Files uploaded successfully.", path });
+        }
+
+        //public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
+        //{
+        //    if (paintingPostModel.paintingFile == null)
+        //    {
+        //        return BadRequest("No files uploaded.");
+        //    }
+        //    //////////////////////////////////////////////////////////////////
+        //    ///////////////////////////////////////
+        //    string fileName = Path.GetFileName(paintingPostModel.paintingFile.FileName);
+        //    var filePath = Path.Combine(Path.GetTempPath(), fileName);
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        paintingPostModel.paintingFile.CopyTo(stream);
+        //    }
+        //    /////////////////////////////////////////////////////////////////////////
+
+        //    var owner = await _userService.GetByIdAsync(paintingPostModel.OwnerId);
+        //    if (owner == null)
+        //    {
+        //        return NotFound("owner not found.");
+        //    }
+        //    var path =await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
+        //    var paintingDto=_mapper.Map<PaintingDTO>(paintingPostModel);
+        //    paintingDto.Url = path;
+
+        //    return Ok(new { message = "Files uploaded successfully.", path });
+        //}
+
+        //**************************************************************************************
+
+
+        [HttpGet("download")]
+        public async Task<IActionResult> Download(string fileNamePrefix)
+        {
+
+            if (string.IsNullOrEmpty(fileNamePrefix))
+            {
+                return BadRequest("File name cannot be null or empty.");
+            }
+
+            try
+            {
+
+                var fileStream = await _storageService.DownloadFileAsync(fileNamePrefix);
+                if (fileStream == null)
+                {
+                    return NotFound("File not found.");
+                }
+
+                var contentType = "image/png";
+
+                var fileName = Path.GetFileName(fileNamePrefix);
+                Response.Headers.Add("Content-Disposition", $"attachment; filename={fileName}");
+                return File(fileStream, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error downloading file: {ex.Message}");
+            }
         }
     }
 }
