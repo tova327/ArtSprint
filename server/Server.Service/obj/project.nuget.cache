@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "XaCjzedyp0/LuuWWI3vW2HCt9sk85XF5QzH+9PgiqfL2zNTFuW6omQfIw3w0+vmUNu0LsmnexJeyzvQcIQOA7A==",
+  "dgSpecHash": "sWp9Rdr98vLsEMwptmXccJXQvDJKkQ7UwLIeWiZq3cLQAyXT9EMgqQ9DBrNtLOV712icHKJFmJIcj9IpxRdNDw==",
   "success": true,
   "projectFilePath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Service\\Server.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\google.api.gax\\4.9.0\\google.api.gax.4.9.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\google.api.gax.rest\\4.9.0\\google.api.gax.rest.4.9.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\google.apis\\1.68.0\\google.apis.1.68.0.nupkg.sha512",

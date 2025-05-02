@@ -1,12 +1,16 @@
+import { Provider } from 'react-redux'
 import './App.css'
 import Try from './components/Try'
+import store from './store/store'
 
 function App() {
-  
+
 
   return (
     <>
-      <Try/>
+      <Provider store={store}>
+        <Try />
+      </Provider>
     </>
   )
 }
