@@ -166,6 +166,10 @@ namespace Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("HashedPassword")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("IsMedal")
                         .HasColumnType("tinyint(1)");
 
@@ -177,7 +181,7 @@ namespace Server.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("longtext");
 

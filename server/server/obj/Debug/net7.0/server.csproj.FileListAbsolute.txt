@@ -125,3 +125,13 @@ D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint
 D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\System.Diagnostics.DiagnosticSource.dll
 D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\System.Text.Encodings.Web.dll
 D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\libman.json
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\BCrypt.Net.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\Users\User\Desktop\טובי\2025\פרויקט פולסטק סופי\artSprint\server\server\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

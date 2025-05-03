@@ -83,5 +83,8 @@ public class UserRepository:GenericRepository<UserModel> , IUserRepository
         return entity;
     }
 
-    
+    public async Task<UserModel> GetUserByUsername(string username)
+    {
+        return await _context.Users.SingleOrDefaultAsync(u => u.Name.Equals(username));
+    }
 }

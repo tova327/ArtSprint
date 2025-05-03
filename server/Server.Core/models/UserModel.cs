@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Server.Core.models.CheckMinimumAgeAttribute;
 
 namespace Server.Core.models
 {
@@ -20,14 +21,14 @@ namespace Server.Core.models
 
         public DateTime CameOn { get; set; } = DateTime.Now;// V
         public string Email { get; set; }// X
-        public string Password { get; set; }    
+        public string HashedPassword { get; set; }    
         [Required]
         [DataType(DataType.Date)]
         [CheckMinimumAge(18)]
         public DateTime BirthDate { get; set; }// X
 
         public bool IsMedal { get; set; } = false;// V
-
+        public string Role { get; set; } = "member";
         public DateTime? LastPaint { get; set; }= DateTime.Now;// V
 
         public ICollection<PaintingModel> Paintings { get; set; }
@@ -53,5 +54,7 @@ namespace Server.Core.models
             }
             return ValidationResult.Success;
         }
+
+        
     }
 }

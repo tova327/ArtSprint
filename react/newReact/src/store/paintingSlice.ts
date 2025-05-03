@@ -113,7 +113,7 @@ const paintingSlice=createSlice({
             state.loading=true
             state.error=null
         })
-        .addCase(addLikeAsync.fulfilled,(state,action)=>{
+        .addCase(addLikeAsync.fulfilled,(state)=>{
             state.loading=false
             /////////////////////?????????????????????????
         })

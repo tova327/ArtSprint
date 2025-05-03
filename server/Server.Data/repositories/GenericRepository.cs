@@ -18,7 +18,7 @@ namespace Server.Data.repositories
             _dataContext = context; 
             _dbSet = context.Set<T>();
         }
-        public async Task<T> AddAsync(T entity)
+        public  async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
             await _dataContext.SaveChangesAsync();

@@ -23,7 +23,9 @@ namespace Server.Service.Services
         }
         public async Task<UserDTO> AddAsync(UserDTO entity)
         {
-            var user=await _repositoryManager.Users.AddAsync(_mapper.Map<UserModel>(entity));
+            var userModel = _mapper.Map<UserModel>(entity);
+            userModel.HashedPassword =BCrypt.Net.BCrypt.HashPassword(entity.Password); 
+            var user=await _repositoryManager.Users.AddAsync(userModel);
             await _repositoryManager.SaveAsync();
             return _mapper.Map<UserDTO>(user);
         }

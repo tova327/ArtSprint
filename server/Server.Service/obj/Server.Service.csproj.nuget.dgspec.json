@@ -137,9 +137,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "BCrypt.Net-Next": {
+            "BCrypt.Net": {
               "target": "Package",
-              "version": "[4.0.3, )"
+              "version": "[0.1.0, )"
             },
             "Google.Cloud.Storage.V1": {
               "target": "Package",
@@ -176,6 +176,10 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.7.1, )"
             }
           },
           "imports": [

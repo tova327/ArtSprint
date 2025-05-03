@@ -11,15 +11,16 @@
 
 import axios from "axios"
 import { PaintingToAddType } from "./paintingSlice";
+import { UserLoginType } from "./userSlice";
 
 
 const globalAPI="localhost:7001"
-const paintingURL='api/painting'
-
+const paintingURL=globalAPI+'/api/painting'
+const userURL=globalAPI+'/api/user'
 export const fetchPaintings=async()=>{
     try{
         const response=
-        await axios.get(`${globalAPI}/${paintingURL}`);
+        await axios.get(paintingURL);
         return response.data
     }catch(error){
         console.log(error);
@@ -27,16 +28,11 @@ export const fetchPaintings=async()=>{
         throw error
     }
 }
-// {
-//     "ownerId": 0,
-//     "name": "string",
-//     "subject": 0,
-//     "paintingFile": "string"
-//  }
+
 export const addPainting=async (painting:PaintingToAddType)=>{
     try{
         const response=
-        await axios.post(`${globalAPI}/${paintingURL}`,painting)
+        await axios.post(paintingURL,painting)
         return response.data
     }catch(error){
         console.log(error);
@@ -47,10 +43,21 @@ export const addPainting=async (painting:PaintingToAddType)=>{
 export const addLike=async (id:number)=>{
     try{
         const response=
-        await axios.post(`${globalAPI}/${paintingURL}/${id}/like`)
+        await axios.post(`${paintingURL}/${id}/like`)
         return response.data
     }catch(error){
         console.log(error);
         throw error
+    }
+}
+
+export const Login=async(user:UserLoginType)=>{
+    try{
+        const response=
+        await axios.post(userURL,user)
+        return response.data
+    }catch(e){
+        console.log(e);
+        throw e
     }
 }

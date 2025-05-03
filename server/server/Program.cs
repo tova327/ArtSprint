@@ -87,6 +87,7 @@ builder.Services.AddScoped<ICompetitionService, CompetitionService>();
 builder.Services.AddScoped<IPaintingService, PaintingService>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IDataContext, DataContext>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 //==================
 builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(MappingPostProfile));
 builder.Services.AddDbContext<IDataContext, DataContext>();

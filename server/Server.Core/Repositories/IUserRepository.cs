@@ -14,5 +14,6 @@ namespace Server.Core.Repositories
         Task UpdateUserCameOnAsync(int id, DateTime cameOn);
         Task UpdateUserIsMedalAsync(int id, bool isMedal);
         Task UpdateUserLastPaintAsync(int id, DateTime? lastPaint);
+        Task<UserModel> GetUserByUsername(string username);
     }
 }

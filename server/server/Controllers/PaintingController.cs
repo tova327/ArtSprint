@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Google.Apis.Storage.v1;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Post_Models;
@@ -54,7 +55,7 @@ namespace server.Controllers
             var specificPaintings = paintings.Where(p => p.OwnerId == userId);
             return Ok(specificPaintings);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<PaintingDTO>> Add([FromBody] PaintingPostModel paintingPostModel)
         {
@@ -62,7 +63,7 @@ namespace server.Controllers
             var painting = await _paintingService.AddAsync(paintingDto);
             return Ok( painting);
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<PaintingDTO>> Update(int id, [FromBody] PaintingPostModel paintingPostModel)
         {
@@ -74,7 +75,7 @@ namespace server.Controllers
             }
             return Ok(painting);
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -99,6 +100,7 @@ namespace server.Controllers
 
 
         //*****************************************************************************************************
+        [Authorize]
         [HttpPost("upload")]
         public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
         {
