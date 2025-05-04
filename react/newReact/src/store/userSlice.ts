@@ -1,3 +1,5 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { Login } from "./axioscalls"
 
 
 export type UserType={
@@ -10,7 +12,7 @@ export type UserType={
     isMedal:boolean,
     role:"member"|"admin",
     lastPaint:Date,
-    token?:string
+    
 }
 
 export type UserToAddType={
@@ -25,3 +27,57 @@ export type UserLoginType={
     password:string
 }
 
+export const LoginAsync=createAsyncThunk(
+    'user/login',
+    async({user}:{user:UserLoginType},thunkAPI)=>{
+        try{
+            const response=await Login(user)
+            return response
+        }catch(e:any){
+            console.log("error login async");
+            
+            return thunkAPI.rejectWithValue(e.message)
+        }
+    }
+)
+
+const userSlice=createSlice({
+    name:'user',
+    initialState:{
+        user: {
+            id: 0,
+            name: '',
+            cameOn: Date.now(),
+            email: '',
+            hashedPassword: '',
+            birthDate: Date.now(),
+            isMedal: false,
+            role: "member",
+            lastPaint: Date.now(),
+            
+        } as unknown   as UserType,
+        token:null as string|null,
+        loading:false,
+        error:null as null|undefined|string
+    },
+    reducers:{
+
+    },
+    extraReducers:(builder)=>{
+        builder
+        .addCase(LoginAsync.pending,(state)=>{
+            state.loading=true
+            state.error=null
+        })
+        .addCase(LoginAsync.fulfilled,(state,action)=>{
+            state.loading=false,
+            state.token=action.payload.token
+        })
+        .addCase(LoginAsync.rejected ,(state,action)=>{
+            state.error=action.error.message
+            state.loading=false
+        })
+    }
+})
+
+export default userSlice.reducer

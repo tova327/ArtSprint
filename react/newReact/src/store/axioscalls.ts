@@ -1,22 +1,14 @@
 
-// export const fetchUsers = async () => {
-//     try {
-//         const response = 
-//         	await axios.get('https://jsonplaceholder.typicode.com/users');
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-// };
 
 import axios from "axios"
 import { PaintingToAddType } from "./paintingSlice";
 import { UserLoginType } from "./userSlice";
 
 
-const globalAPI="localhost:7001"
+const globalAPI="https://localhost:7001"
 const paintingURL=globalAPI+'/api/painting'
 const userURL=globalAPI+'/api/user'
+const authURL=globalAPI+'/api/Auth'
 export const fetchPaintings=async()=>{
     try{
         const response=
@@ -28,11 +20,12 @@ export const fetchPaintings=async()=>{
         throw error
     }
 }
+//return axios.get(URLConstants.USER_URL, { headers: { Authorization: `Bearer ${data.token}` } });
 
-export const addPainting=async (painting:PaintingToAddType)=>{
+export const addPainting=async (painting:PaintingToAddType,token:string)=>{
     try{
         const response=
-        await axios.post(paintingURL,painting)
+        await axios.post(paintingURL,painting,{headers:{Authorization: `Bearer ${token}`}})
         return response.data
     }catch(error){
         console.log(error);
@@ -40,10 +33,10 @@ export const addPainting=async (painting:PaintingToAddType)=>{
     }
 }
 
-export const addLike=async (id:number)=>{
+export const addLike=async (id:number,token:string)=>{
     try{
         const response=
-        await axios.post(`${paintingURL}/${id}/like`)
+        await axios.post(`${paintingURL}/${id}/like`,{},{headers:{Authorization: `Bearer ${token}`}})
         return response.data
     }catch(error){
         console.log(error);
@@ -53,10 +46,15 @@ export const addLike=async (id:number)=>{
 
 export const Login=async(user:UserLoginType)=>{
     try{
+        console.log(userURL);
+        console.log(user);
+        
         const response=
-        await axios.post(userURL,user)
+        await axios.post(authURL,user)
         return response.data
     }catch(e){
+        console.log("login error");
+        
         console.log(e);
         throw e
     }
