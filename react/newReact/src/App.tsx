@@ -12,6 +12,7 @@ function App() {
 
   return (
     <>
+    <h1>helo!!!!!!!!!!</h1>
       <Provider store={store}>
         {/* <Try /> */}
         {showStart?<StartPage toClose={()=>setShowStart(false)}/>:<SubApp/>}
