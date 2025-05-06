@@ -1,0 +1,76 @@
+import { PaintingType } from "./paintingSlice";
+
+  const initialPaintingsState: PaintingType[] = [
+  {
+    id: 1,
+    ownerId: 101,
+    name: 'Moonlit Symphony',
+    createdAt: new Date('2025-01-15'),
+    likes: 153,
+    url: 'https://example.com/images/painting1.jpg',
+    isMedal: true,
+    subject: 1
+  },
+  {
+    id: 2,
+    ownerId: 102,
+    name: 'Forest Melody',
+    createdAt: new Date('2025-02-20'),
+    likes: 96,
+    url: 'https://example.com/images/painting2.jpg',
+    isMedal: false,
+    subject: 2,
+  },
+  {
+    id: 3,
+    ownerId: 103,
+    name: 'Colorful Sketch',
+    createdAt: new Date('2025-03-05'),
+    likes: 87,
+    url: 'https://example.com/images/painting3.jpg',
+    isMedal: false,
+    subject: 3,
+  },
+  {
+    id: 4,
+    ownerId: 104,
+    name: 'Portrait of a Dreamer',
+    createdAt: new Date('2025-03-10'),
+    likes: 112,
+    url: 'https://example.com/images/painting4.jpg',
+    isMedal: true,
+    subject: 4,
+  },
+  {
+    id: 5,
+    ownerId: 105,
+    name: 'Golden Hour',
+    createdAt: new Date('2025-04-01'),
+    likes: 200,
+    url: 'https://example.com/images/painting5.jpg',
+    isMedal: true,
+    subject:0,
+  },
+  {
+    id: 6,
+    ownerId: 106,
+    name: 'Urban Canvas',
+    createdAt: new Date('2025-04-15'),
+    likes: 80,
+    url: 'https://example.com/images/painting6.jpg',
+    isMedal: false,
+    subject: 0,
+  },
+  {
+    id: 7,
+    ownerId: 107,
+    name: 'Words of the Heart',
+    createdAt: new Date('2025-05-01'),
+    likes: 134,
+    url: 'https://example.com/images/painting7.jpg',
+    isMedal: true,
+    subject: 4,
+  },
+];
+
+export default initialPaintingsState

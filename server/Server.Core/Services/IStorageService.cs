@@ -10,6 +10,6 @@ namespace Server.Core.Services
     public interface IStorageService
     {
         public  Task<Stream> DownloadFileAsync(string fileName);
-        public  string UploadFileAsync(string filePath, string objectName);
+        public  Task<string> UploadFileAsync(string filePath, string objectName);
     }
 }

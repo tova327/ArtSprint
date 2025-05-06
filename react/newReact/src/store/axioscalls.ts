@@ -34,9 +34,10 @@ export const addPainting=async (painting:PaintingToAddType,token:string)=>{
 }
 
 export const addLike=async (id:number,count:number,token:string)=>{
+    console.log(count+'  add like');
     try{
         const response=
-        await axios.post(`${paintingURL}/${id}/like`, count,{headers:{Authorization: `Bearer ${token}`}})
+        await axios.post(`${paintingURL}/${id}/like?count=${count}`,{},{headers:{Authorization: `Bearer ${token}`}})
         return response.data
     }catch(error){
         console.log(error);

@@ -1,20 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
 using Server.Core.models;
 using Server.Data;
 using System.Diagnostics;
 
 public class DataContext : DbContext,IDataContext
 {
+    private readonly IConfiguration _configuration;
     public DbSet<UserModel> Users { get; set; }
     public DbSet<PaintingModel> Paintings { get; set; }
     public DbSet<CompetitionModel> Competitions { get; set; }
     public DbSet<CompetitionPaintingModel> CompetitionPaintings { get; set; }
     public DbSet<CommentModel> Comments { get; set; }
+    public DataContext(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySql(@"Server=localhost;Database=artsprint;user=root;password=1234;",
+        optionsBuilder.UseMySql(_configuration["DbConnectionString"],
             new MySqlServerVersion(new Version(8, 0, 21)));
         
         optionsBuilder.LogTo(massage=>Debug.WriteLine(massage));

@@ -85,9 +85,15 @@ namespace server.Controllers
 
         // Additional methods to use other service functions
         [HttpPost("{id}/like")]
-        public async Task<IActionResult> AddLike(int id, [FromBody]int count)
+        public async Task<IActionResult> AddLike(int id, [FromQuery]string count)
         {
-            var res=await _paintingService.AddLikeAsync(id,count);
+            int intCount;
+            var isInt=int.TryParse(count,out intCount);
+            if (!isInt)
+            {
+                return BadRequest();
+            }
+            var res=await _paintingService.AddLikeAsync(id,intCount);
             if(!res)
                 return BadRequest("PAINTING DOES NOT EXIST OR LIKES ARE INCORRECT");
             return Ok($"painting: {id}, likes: {count}");
