@@ -17,8 +17,6 @@ export type PaintingType = {
     url: string,
     isMedal: boolean,
     subject: ESubject,
-
-
 }
 export type PaintingToAddType = {
     ownerId: number,
@@ -61,9 +59,9 @@ export const addPaintingAsync=createAsyncThunk(
 
 export const addLikeAsync=createAsyncThunk(
     'paintings/like',
-    async({id,token}:{id:number,token:string},thunkAPI)=>{
+    async({id,count,token}:{id:number,count:number,token:string},thunkAPI)=>{
         try{
-            const response=await addLike(id,token);
+            const response=await addLike(id,count,token);
             return response
         }catch(e:any){
             thunkAPI.rejectWithValue(e.message)

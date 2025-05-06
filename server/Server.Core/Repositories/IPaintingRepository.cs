@@ -9,7 +9,7 @@ namespace Server.Core.Repositories
 {
     public interface IPaintingRepository:IRepository<PaintingModel>
     {
-        Task AddLikeAsync(int id);
+        Task<bool> AddLikeAsync(int id,int count);
         Task<IEnumerable<PaintingModel>> GetAllFromDateToDateAsync(DateTime startDate, DateTime endDate);
     }
 }

@@ -18,14 +18,16 @@ public class PaintingRepository:GenericRepository<PaintingModel>, IPaintingRepos
 
     
 
-    public async Task AddLikeAsync(int id)
+    public async Task<bool> AddLikeAsync(int id,int count)
     {
         var painting = await _context.Paintings.FindAsync(id);
         if (painting != null)
         {
-            painting.Likes++;
+            painting.Likes+=count;
             await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 
     

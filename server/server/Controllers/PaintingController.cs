@@ -55,14 +55,14 @@ namespace server.Controllers
             var specificPaintings = paintings.Where(p => p.OwnerId == userId);
             return Ok(specificPaintings);
         }
-        [Authorize]
-        [HttpPost]
-        public async Task<ActionResult<PaintingDTO>> Add([FromBody] PaintingPostModel paintingPostModel)
-        {
-            var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
-            var painting = await _paintingService.AddAsync(paintingDto);
-            return Ok( painting);
-        }
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<ActionResult<PaintingDTO>> Add([FromBody] PaintingPostModel paintingPostModel)
+        //{
+        //    var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
+        //    var painting = await _paintingService.AddAsync(paintingDto);
+        //    return Ok( painting);
+        //}
         [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<PaintingDTO>> Update(int id, [FromBody] PaintingPostModel paintingPostModel)
@@ -85,10 +85,12 @@ namespace server.Controllers
 
         // Additional methods to use other service functions
         [HttpPost("{id}/like")]
-        public async Task<IActionResult> AddLike(int id)
+        public async Task<IActionResult> AddLike(int id, [FromBody]int count)
         {
-            await _paintingService.AddLikeAsync(id);
-            return NoContent();
+            var res=await _paintingService.AddLikeAsync(id,count);
+            if(!res)
+                return BadRequest("PAINTING DOES NOT EXIST OR LIKES ARE INCORRECT");
+            return Ok($"painting: {id}, likes: {count}");
         }
 
         [HttpGet("date")]
@@ -100,7 +102,7 @@ namespace server.Controllers
 
 
         //*****************************************************************************************************
-        [Authorize]
+        //[Authorize]
         [HttpPost("upload")]
         public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
         {
@@ -108,6 +110,8 @@ namespace server.Controllers
             {
                 return BadRequest("No files uploaded.");
             }
+
+
 
             string fileName = Path.GetFileName(paintingPostModel.paintingFile.FileName);
             var filePath = Path.Combine(Path.GetTempPath(), fileName);
@@ -129,12 +133,32 @@ namespace server.Controllers
             {
                 return NotFound("Owner not found.");
             }
+            //to here ---- only validate
 
-            var path = await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
             var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
-            paintingDto.Url = path;
-
-            return Ok(new { message = "Files uploaded successfully.", path });
+            var paintingAdded= await _paintingService.AddAsync(paintingDto);
+            if(paintingAdded == null)
+            {
+                return BadRequest();
+            }
+            // succeed to add to db
+            
+            try
+            {
+                var path = await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
+                paintingAdded.Url = path;
+                await _paintingService.UpdateAsync(paintingAdded.Id, paintingAdded);
+            }catch(Exception ex)
+            {
+                await _paintingService.DeleteAsync(paintingAdded.Id);
+                throw;
+            }
+            
+            
+            //var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
+            
+            //return Ok(painting);
+            return Ok(paintingAdded);
         }
 
         //public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)

@@ -16,7 +16,7 @@ namespace Server.Core.Services
         Task<PaintingDTO> UpdateAsync(int id, PaintingDTO entity);
         Task DeleteAsync(int id);
 
-        Task AddLikeAsync(int id);
+        Task<bool> AddLikeAsync(int id,int count);
         Task<IEnumerable<PaintingDTO>> GetAllFromDateToDateAsync(DateTime startDate, DateTime endDate);
     }
 }

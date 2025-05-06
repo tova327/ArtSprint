@@ -37,6 +37,10 @@ namespace Server.Service.Services
 
         public async Task<PaintingDTO> AddAsync(PaintingDTO entity)
         {
+            var allPaintings=await GetAllAsync();
+            var existPainting=allPaintings.FirstOrDefault(p=>p.Name.Equals(entity.Name)&&p.OwnerId==entity.OwnerId);
+            if (existPainting != null)
+                return null;
             var paintingModel = _mapper.Map<PaintingModel>(entity);
             var painting = await _repositoryManager.Paintings.AddAsync(paintingModel);
             await _repositoryManager.SaveAsync();
@@ -57,10 +61,15 @@ namespace Server.Service.Services
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task AddLikeAsync(int id)
+        public async Task<bool> AddLikeAsync(int id,int count)
         {
-            await _repositoryManager.Paintings.AddLikeAsync(id);
+            if (count < 0 || count > 10)
+                return false;
+           var res= await _repositoryManager.Paintings.AddLikeAsync(id,count);
+            if(!res)
+                return false;
             await _repositoryManager.SaveAsync();
+            return true;
         }
 
         public async Task<IEnumerable<PaintingDTO>> GetAllFromDateToDateAsync(DateTime startDate, DateTime endDate)

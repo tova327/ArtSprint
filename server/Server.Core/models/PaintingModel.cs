@@ -28,12 +28,12 @@ namespace Server.Core.models
         public int Likes { get; set; } = 0;
 
         [Required]
-        public string Url { get; set; }
+        public string Url { get; set; } = "";
 
         public bool IsMedal { get; set; } = false;
 
         [Required]
-        public ESubject Subject { get; set; }
+        public ESubject Subject { get; set; } = ESubject.Drawing;
         [Required]
         //public IFormFile paintingFile { get; set; }
         //art-sprint-bucket/folder1/Untitled-135.pdf

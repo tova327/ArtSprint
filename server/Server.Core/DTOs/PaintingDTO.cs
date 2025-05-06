@@ -17,7 +17,7 @@ namespace Server.Core.DTOs
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int Likes { get; set; } = 0;
-        public string Url { get; set; }
+        public string Url { get; set; } = "";
         public bool IsMedal { get; set; } = false;
         //public IFormFile paintingFile { get; set; }
 
