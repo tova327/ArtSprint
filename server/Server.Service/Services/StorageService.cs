@@ -28,15 +28,10 @@ public class StorageService:IStorageService
         }
         try
         {
-            //var path=file.OpenReadStream();
-            //var path1 = File.OpenRead("fghjhk");
-            //using (var memoryStream = new MemoryStream())
+            
             using (var fileStream = File.OpenRead(filePath))
             {
-                //await file.CopyToAsync(memoryStream);
-                //memoryStream.Position = 0;
-                //await _storageClient.UploadObjectAsync(_bucketName, objectName, file.ContentType, memoryStream);
-                //Console.WriteLine($"File {objectName} uploaded to bucket {_bucketName}.");
+                
 
                 var provider = new FileExtensionContentTypeProvider();
 
@@ -50,12 +45,7 @@ public class StorageService:IStorageService
                 }
 
                 Console.WriteLine($"File {objectName} uploaded to bucket {_bucketName}.");
-                //await _storageClient.UploadObjectAsync(
-                //    bucket: _bucketName,
-                //    objectName: objectName,
-                //    contentType: file.ContentType,
-                //    stream: memoryStream
-                //);
+                
 
                 return $"https://storage.cloud.google.com/{_bucketName}/{objectName}";
             }
@@ -78,14 +68,7 @@ public class StorageService:IStorageService
             memoryStream.Position = 0;
             return memoryStream;
         }
-        //catch (Google.GoogleApiException ex)
-        //{
-        //    if (ex.HttpStatusCode == System.Net.HttpStatusCode.NotFound)
-        //    {
-        //        return null;
-        //    }
-        //    throw;
-        //}
+        
         catch (Exception)
         {
             throw;
