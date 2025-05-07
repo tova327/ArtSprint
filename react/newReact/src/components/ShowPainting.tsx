@@ -1,38 +1,33 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addLikeAsync, addLikeR, PaintingType } from "../store/paintingSlice"
-import { AppDispatch, StoreType } from "../store/store";
-import { useEffect, useState } from "react";
+
+import { useNavigate } from 'react-router-dom';
+import { Button, Card } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons';
+import { PaintingType } from '../store/paintingSlice';
 
 
-const ShowPainting=({painting}:{painting:PaintingType})=>{
 
-    const dispatch = useDispatch<AppDispatch>();
-    const userToken=useSelector((store:StoreType)=>store.user.token)
-    const[likeAdded,setLikeAdded]=useState(0)
-    const addLikeLocal=()=>{
-        setLikeAdded(likeAdded+1)
-        console.log(likeAdded);
-        
-        dispatch(addLikeR(painting.id));
-    }
+const ShowPainting = ({ painting }:{painting:PaintingType}) => {
+    const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
-    useEffect(()=>{
-        
-        return ()=>{
-            if(userToken)
-                dispatch(addLikeAsync({id:painting.id,count:likeAdded,token:userToken}))
-            
-        }
-    },[])
-    return (<>
-        <div>
+    const handleNavigate = () => {
+        navigate(`/painting/${painting.id}`); // Adjust the route based on your routing setup
+    };
+
+    return (
+        <Card style={{ margin: '20px' }}>
+            <img src={painting.url} alt={painting.name} style={{ width: '100%', height: 'auto' }} />
             <h2>{painting.name}</h2>
-            {/* <a href='https://storage.cloud.google.com/art-sprint-bucket/0-2300.jpg'> see the picture</a> */}
+            <p>Owner ID: {painting.ownerId}</p>
+            <p>Likes: {painting.likes}</p>
+            <Button 
+                type="primary" 
+                icon={<ArrowRightOutlined />} 
+                onClick={handleNavigate}
+            >
+                View Details
+            </Button>
+        </Card>
+    );
+};
 
-            <img src={painting.url} alt={painting.name} style={{width:100, maxHeight:150}}/>
-           <button onClick={()=>addLikeLocal()} disabled={userToken==null}><h3>likes: {painting.likes}</h3></button> 
-
-        </div>
-    </>)
-}
-export default ShowPainting
+export default ShowPainting;

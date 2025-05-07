@@ -70,3 +70,4 @@ export const Register=async(user:UserToAddType)=>{
         throw e;
     }
 }
+

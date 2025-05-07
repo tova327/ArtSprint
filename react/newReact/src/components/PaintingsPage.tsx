@@ -38,7 +38,7 @@ const PaintingsPage: React.FC = () => {
                 {paintings.map((painting: PaintingType) => {
                     if (ESubject[painting.subject] === subject) return (
                         <Col key={painting.id} xs={24} sm={12} md={8} lg={6}>
-                            <ShowPainting painting={painting} />
+                            <ShowPainting  painting={painting}/>
                         </Col>
                     )
                 })}

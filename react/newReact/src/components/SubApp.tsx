@@ -6,6 +6,7 @@ import PaintingsPage from './PaintingsPage';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store/store';
 import { fetchPaintings } from '../store/axioscalls';
+import PaintingComponent from './PaintingComponent';
 
 const { Header, Content } = Layout;
 
@@ -25,6 +26,7 @@ const SubApp: React.FC = () => {
         <Content style={{ padding: '20px' }}>
           <Routes>
             <Route path="/" element={<PaintingsPage />} />
+            <Route path="/painting/:id" element={<PaintingComponent />}/>
           </Routes>
         </Content>
       </Layout>
