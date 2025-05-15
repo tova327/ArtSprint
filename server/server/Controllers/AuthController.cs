@@ -29,15 +29,49 @@ namespace server.Controllers
             _userService = userService; 
             _mapper = mapper;
         }
+        [HttpPost("authuser")]
+        public async Task<IActionResult> GetUserFromToken([FromBody]string token)
+        {
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                if (jwtToken != null)
+                {
+                    
+                    var userName = jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Name).Value;
+                    var user=await _userService.GetUserByUsername(userName);
+                    
+                    return Ok(new
+                    {
+                        User = user,
+                        Token = token
+                    });
+                }
+            
+
+            return Unauthorized();
+        }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-            var token = await _authService.Authenticate(loginModel.UserName, loginModel.Password);
-            if (token == null)
+            var token=await _authService.Authenticate(HttpContext, loginModel.UserName, loginModel.Password);
+            var user = await _userService.GetUserByUsername(loginModel.UserName);
+            if (user == null)
                 return Unauthorized();
-            return Ok(new { Token = token });
+
+            return Ok(new {token=token, User = user }); // No token returned
         }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("authToken"); // Clear the cookie
+            return Ok();
+        }
+
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserPostModel userPostModel)
@@ -60,11 +94,12 @@ namespace server.Controllers
             }
 
             // Step 3: Authenticate the user to generate a JWT token
-            var token = await _authService.Authenticate(userPostModel.Name, userPostModel.Password);
-            if (token == null)
-                return Unauthorized(); // If authentication fails after registration
 
-            return Ok(new { Token = token });
+            var loginModel = new LoginModel();
+            loginModel.Password = userPostModel.Password;
+            loginModel.UserName = userPostModel.Name;
+            return await Login(loginModel);
+            
         }
     }
 

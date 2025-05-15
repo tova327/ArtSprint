@@ -21,9 +21,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("http://localhost:5173")
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials();
     });
 });
 
@@ -79,7 +80,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddDbContext<DataContext>();
-
+builder.Services.AddHttpClient();
 //=================
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 

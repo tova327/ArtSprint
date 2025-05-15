@@ -23,5 +23,6 @@ namespace Server.Core.Services
         Task<UserDTO> UpdateAsync(int id, UserDTO entity);
 
         Task DeleteAsync(int id);
+        public Task<UserDTO> GetUserByUsername(string username);
     }
 }

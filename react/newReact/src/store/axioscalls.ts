@@ -3,6 +3,7 @@
 import axios from "axios"
 import { PaintingToAddType } from "./paintingSlice";
 import { UserLoginType, UserToAddType } from "./userSlice";
+import { CommentPostModel } from "./commentSlice";
 
 
 const globalAPI="https://localhost:7001"
@@ -45,29 +46,94 @@ export const addLike=async (id:number,count:number,token:string)=>{
     }
 }
 
-export const Login=async(user:UserLoginType)=>{
-    try{
-        console.log(authURL);
-        console.log(user);
-        
-        const response=
-        await axios.post(authURL+'/login',user)
-        return response.data
-    }catch(e){
+
+export const Login = async (user: UserLoginType)=> { 
+    try {
+        const response = await axios.post(authURL + '/login', user);
+        return response.data; // Return user data if needed
+    } catch (e) {
         console.log("login error");
-        
         console.log(e);
         throw e;
     }
 }
-export const Register=async(user:UserToAddType)=>{
-    try{
-        const response=
-        await axios.post(authURL+'/register',user)
-        return response.data
-    }catch(e){
+
+export const Register = async (user: UserToAddType) => { 
+    try {
+        const response = await axios.post(authURL + '/register', user);
+        return response.data; // Return user data if needed
+    } catch (e) {
         console.log(e);
         throw e;
     }
 }
+
+
+const commentURL = globalAPI + '/api/comment';
+
+export const fetchComments = async () => {
+    try {
+        const response = await axios.get(commentURL);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const addComment = async (comment:CommentPostModel, token:string) => {
+    try {
+        const response = await axios.post(commentURL, comment, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const updateComment = async (id:number, comment:CommentPostModel, token:string) => {
+    try {
+        const response = await axios.put(`${commentURL}/${id}`, comment, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const deleteComment = async (id:number, token:string) => {
+    try {
+        await axios.delete(`${commentURL}/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const uploadPainting = async (painting: PaintingToAddType, token: string) => {
+    const formData = new FormData();
+    formData.append('OwnerId', painting.ownerId.toString());
+    formData.append('Name', painting.name);
+    formData.append('Subject', painting.subject.toString());
+    formData.append('paintingFile', painting.paintingFile);
+
+    try {
+        const response = await axios.post(`${paintingURL}/upload`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 

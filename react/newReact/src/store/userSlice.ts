@@ -27,35 +27,36 @@ export type UserLoginType={
     password:string
 }
 
-export const LoginAsync=createAsyncThunk(
+
+
+export const LoginAsync = createAsyncThunk<any, { user: UserLoginType }>(
     'user/login',
-    async({user}:{user:UserLoginType},thunkAPI)=>{
-        try{
-            const response=await Login(user)
-            return response
-        }catch(e:any){
+    async ({ user }, thunkAPI) => {
+        try {
+            const response = await Login(user);
+            return response; // Return user data if needed
+        } catch (e: any) {
             console.log("error login async");
-            
-            return thunkAPI.rejectWithValue(e.message)
+            return thunkAPI.rejectWithValue(e.message);
         }
     }
-)
+);
 
-export const RegisterAsync=createAsyncThunk(
+export const RegisterAsync = createAsyncThunk<any, { user: UserToAddType }>(
     'user/register',
-    async({user}:{user:UserToAddType},thunkAPI)=>{
-        try{
-            const response=await Register(user)
-            return response
-        }catch(e:any){
-            return thunkAPI.rejectWithValue(e.message)
+    async ({ user }, thunkAPI) => {
+        try {
+            const response = await Register(user);
+            return response; // Return user data if needed
+        } catch (e: any) {
+            return thunkAPI.rejectWithValue(e.message);
         }
     }
-)
+);
 
-const userSlice=createSlice({
-    name:'user',
-    initialState:{
+const userSlice = createSlice({
+    name: 'user',
+    initialState: {
         user: {
             id: 0,
             name: '',
@@ -66,47 +67,54 @@ const userSlice=createSlice({
             isMedal: false,
             role: "member",
             lastPaint: Date.now(),
+        } as unknown as UserType,
+        token: null as string | null|undefined,  // This may be kept for future use or removed
+        loading: false,
+        error: null as null | undefined | string,
+    },
+    reducers: {
+        setUser(state, action) {
+            console.log("setUser"+action.payload);
             
-        } as unknown   as UserType,
-        token:null as string|null,
-        loading:false,
-        error:null as null|undefined|string
+            state.user = action.payload.user;
+            state.token=action.payload.token
+            console.log("local token"+state.token);
+            if(state.token)localStorage.setItem('authToken',state.token)
+        },
     },
-    reducers:{
-
-    },
-    extraReducers:(builder)=>{
+    extraReducers: (builder) => {
         builder
-        .addCase(LoginAsync.pending,(state)=>{
-            state.loading=true
-            state.error=null
-        })
-        .addCase(LoginAsync.fulfilled,(state,action)=>{
-            state.loading=false,
-            state.token=action.payload.token
-        })
-        .addCase(LoginAsync.rejected ,(state,action)=>{
-            console.log("login rejected");
-            console.log(state.error);
-            state.error=action.error.message
-            state.loading=false
-        })
-        .addCase(RegisterAsync.pending,(state)=>{
-            state.loading=true
-            state.error=null
-        })
-        .addCase(RegisterAsync.fulfilled,(state,action)=>{
-            state.loading=false
-            state.token=action.payload.token
-        })
-        .addCase(RegisterAsync.rejected,(state,action)=>{
-            console.log("login rejected");
-            state.error=action.error.message
-            console.log(state.error);
-            
-            state.loading=false
-        })
+            .addCase(LoginAsync.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(LoginAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload.user; 
+                state.token=action.payload.token
+                if(state.token)localStorage.setItem('authToken',state.token)
+            })
+            .addCase(LoginAsync.rejected, (state, action) => {
+                console.log("login rejected");
+                state.error = action.error.message;
+                state.loading = false;
+            })
+            .addCase(RegisterAsync.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(RegisterAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload.user; 
+                state.token=action.payload.token
+                if(state.token)localStorage.setItem('authToken',state.token)
+            })
+            .addCase(RegisterAsync.rejected, (state, action) => {
+                console.log("registration rejected");
+                state.error = action.error.message;
+                state.loading = false;
+            });
     }
-})
-
-export default userSlice.reducer
+});
+export const {setUser}=userSlice.actions
+export default userSlice.reducer;

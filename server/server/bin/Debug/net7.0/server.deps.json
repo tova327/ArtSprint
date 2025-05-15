@@ -180,6 +180,15 @@
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         }
       },
+      "Microsoft.AspNetCore.Http/2.3.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.3.0",
+          "Microsoft.AspNetCore.WebUtilities": "2.3.0",
+          "Microsoft.Extensions.ObjectPool": "8.0.11",
+          "Microsoft.Extensions.Options": "8.0.2",
+          "Microsoft.Net.Http.Headers": "2.3.0"
+        }
+      },
       "Microsoft.AspNetCore.Http.Abstractions/2.3.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "6.0.0-preview.4.21253.5",
@@ -218,6 +227,12 @@
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Microsoft.Extensions.WebEncoders": "8.0.11"
+        }
+      },
+      "Microsoft.AspNetCore.WebUtilities/2.3.0": {
+        "dependencies": {
+          "Microsoft.Net.Http.Headers": "2.3.0",
+          "System.Text.Encodings.Web": "8.0.0"
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
@@ -390,6 +405,14 @@
           "lib/net7.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.1024.46610"
+          }
+        }
+      },
+      "Microsoft.Extensions.ObjectPool/8.0.11": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.ObjectPool.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1124.52116"
           }
         }
       },
@@ -663,6 +686,7 @@
       "Server.Core/1.0.0": {
         "dependencies": {
           "AutoMapper": "13.0.1",
+          "Microsoft.AspNetCore.Http": "2.3.0",
           "Microsoft.AspNetCore.Http.Features": "6.0.0-preview.4.21253.5",
           "Microsoft.EntityFrameworkCore": "7.0.20",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0"
@@ -810,6 +834,13 @@
       "path": "microsoft.aspnetcore.hosting.server.abstractions/2.3.0",
       "hashPath": "microsoft.aspnetcore.hosting.server.abstractions.2.3.0.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Http/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I9azEG2tZ4DDHAFgv+N38e6Yhttvf+QjE2j2UYyCACE7Swm5/0uoihCMWZ87oOZYeqiEFSxbsfpT71OYHe2tpw==",
+      "path": "microsoft.aspnetcore.http/2.3.0",
+      "hashPath": "microsoft.aspnetcore.http.2.3.0.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Http.Abstractions/2.3.0": {
       "type": "package",
       "serviceable": true,
@@ -844,6 +875,13 @@
       "sha512": "sha512-7D6Eoj1/198M0UoZkJYUbEpmszSeYh0tVcYfOUWEyWerfZKUvVDkGISXeu1XmZzm3mwuOcxIjjUUGSisqhacxQ==",
       "path": "microsoft.aspnetcore.staticfiles/2.3.0",
       "hashPath": "microsoft.aspnetcore.staticfiles.2.3.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.WebUtilities/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-trbXdWzoAEUVd0PE2yTopkz4kjZaAIA7xUWekd5uBw+7xE8Do/YOVTeb9d9koPTlbtZT539aESJjSLSqD8eYrQ==",
+      "path": "microsoft.aspnetcore.webutilities/2.3.0",
+      "hashPath": "microsoft.aspnetcore.webutilities.2.3.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
       "type": "package",
@@ -977,6 +1015,13 @@
       "sha512": "sha512-nroMDjS7hNBPtkZqVBbSiQaQjWRDxITI8Y7XnDs97rqG3EbzVTNLZQf7bIeUJcaHOV8bca47s1Uxq94+2oGdxA==",
       "path": "microsoft.extensions.logging.abstractions/8.0.2",
       "hashPath": "microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512"
+    },
+    "Microsoft.Extensions.ObjectPool/8.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6ApKcHNJigXBfZa6XlDQ8feJpq7SG1ogZXg6M4FiNzgd6irs3LUAzo0Pfn4F2ZI9liGnH1XIBR/OtSbZmJAV5w==",
+      "path": "microsoft.extensions.objectpool/8.0.11",
+      "hashPath": "microsoft.extensions.objectpool.8.0.11.nupkg.sha512"
     },
     "Microsoft.Extensions.Options/8.0.2": {
       "type": "package",

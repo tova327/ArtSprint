@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Button, Modal, Form, Input, DatePicker } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { LoginAsync, RegisterAsync, UserLoginType, UserToAddType } from '../store/userSlice'; // Adjust the import path as necessary
-import { AppDispatch, StoreType } from '../store/store';
+import { AppDispatch } from '../store/store';
 
 const StartPage = ({ toClose }: { toClose: Function }) => {
     const [isLoginModalVisible, setIsLoginModalVisible] = useState<boolean>(false);
     const [isRegisterModalVisible, setIsRegisterModalVisible] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>();
-    const error = useSelector((store: StoreType) => store.user.error)
+    //const error = useSelector((store: StoreType) => store.user.error)
     const showLoginModal = () => {
         setIsLoginModalVisible(true);
     };
@@ -17,34 +17,27 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
         setIsRegisterModalVisible(true);
     };
 
-    const handleLoginOk = (values: { username: string; password: string }) => {
+    const handleLoginOk = async (values: { username: string; password: string }) => {
         const user: UserLoginType = { username: values.username, password: values.password };
-
-        dispatch(LoginAsync({ user }));
-        alert(error)
-        if (error) {
-            alert("fail to login")
-        }
-        else {
+        
+        try {
+            await dispatch(LoginAsync({ user }));
             setIsLoginModalVisible(false);
-            toClose()
+            toClose();
+        } catch (error) {
+            alert("Failed to login");
         }
-
-
     };
+    
 
-    const handleRegisterOk = (values: UserToAddType) => {
-
-        dispatch(RegisterAsync({ user: values }));
-        alert(error)
-        if (error) {
-            alert('fail to register')
-        }
-        else {
+    const handleRegisterOk = async (values: UserToAddType) => {
+        try {
+            await dispatch(RegisterAsync({ user: values }));
             setIsRegisterModalVisible(false);
-            toClose()
+            toClose();
+        } catch (error) {
+            alert("Failed to register");
         }
-
     };
 
     const handleCancel = () => {

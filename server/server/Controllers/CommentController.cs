@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Post_Models;
@@ -38,7 +39,7 @@ namespace server.Controllers
             }
             return Ok(comment);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<CommentDTO>> Add(CommentPostModel comment)
         {
@@ -50,7 +51,7 @@ namespace server.Controllers
             var commentAdded = await _commentService.AddAsync(commentDto);
             return CreatedAtAction(nameof(GetById), new { id = commentAdded.Id }, comment);
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<CommentDTO>> Update(int id, CommentPostModel comment)
         {
@@ -66,7 +67,7 @@ namespace server.Controllers
             }
             return Ok(commentPut);
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

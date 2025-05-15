@@ -7,6 +7,7 @@ using server.Post_Models;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
+using System.Net.Http;
 
 namespace server.Controllers
 {
@@ -18,13 +19,14 @@ namespace server.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IStorageService _storageService;
-
-        public PaintingController(IPaintingService paintingService, IMapper mapper,IUserService userService, IStorageService storageService)
+        private readonly HttpClient _httpClient;
+        public PaintingController(IPaintingService paintingService, IMapper mapper,IUserService userService, IStorageService storageService, HttpClient httpClient)
         {
             _paintingService = paintingService;
             _mapper = mapper;
             _userService = userService;
             _storageService = storageService;
+            _httpClient = httpClient;
         }
 
         [HttpGet]
@@ -159,45 +161,10 @@ namespace server.Controllers
                 await _paintingService.DeleteAsync(paintingAdded.Id);
                 throw;
             }
-            
-            
-            //var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
-            
-            //return Ok(painting);
             return Ok(paintingAdded);
         }
 
-        //public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
-        //{
-        //    if (paintingPostModel.paintingFile == null)
-        //    {
-        //        return BadRequest("No files uploaded.");
-        //    }
-        //    //////////////////////////////////////////////////////////////////
-        //    ///////////////////////////////////////
-        //    string fileName = Path.GetFileName(paintingPostModel.paintingFile.FileName);
-        //    var filePath = Path.Combine(Path.GetTempPath(), fileName);
-        //    using (var stream = new FileStream(filePath, FileMode.Create))
-        //    {
-        //        paintingPostModel.paintingFile.CopyTo(stream);
-        //    }
-        //    /////////////////////////////////////////////////////////////////////////
-
-        //    var owner = await _userService.GetByIdAsync(paintingPostModel.OwnerId);
-        //    if (owner == null)
-        //    {
-        //        return NotFound("owner not found.");
-        //    }
-        //    var path =await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
-        //    var paintingDto=_mapper.Map<PaintingDTO>(paintingPostModel);
-        //    paintingDto.Url = path;
-
-        //    return Ok(new { message = "Files uploaded successfully.", path });
-        //}
-
-        //**************************************************************************************
-
-
+        
         [HttpGet("download")]
         public async Task<IActionResult> Download(string fileNamePrefix)
         {
@@ -227,5 +194,45 @@ namespace server.Controllers
                 return StatusCode(500, $"Error downloading file: {ex.Message}");
             }
         }
+
+        [HttpGet("text-from-url")]
+        public async Task<ActionResult<string>> GetTextFromUrl([FromQuery] string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return BadRequest("URL cannot be null or empty.");
+            }
+
+            try
+            {
+                // Fetch the content from the URL
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound($"File not found at the specified URL. Status code: {response.StatusCode}");
+                }
+
+                // Ensure the content type is text-based (or handle other content types as needed)
+                if (!response.Content.Headers.ContentType.MediaType.StartsWith("text/"))
+                {
+                    return BadRequest("The content at the URL is not a text file.");
+                }
+
+                // Read the content as a string
+                var content =await  response.Content.ReadAsStringAsync();
+                return Ok(new {Content=content});   
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle HTTP request specific exceptions (e.g., DNS errors, connection refused)
+                return StatusCode(500, $"Error fetching file (HTTP request exception): {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching file: {ex.Message}");
+            }
+        }
+
+
     }
 }

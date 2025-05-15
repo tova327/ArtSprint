@@ -12,11 +12,13 @@ public class StorageService:IStorageService
 {
     private readonly string _bucketName;
     private readonly StorageClient _storageClient;
+    
 
     public StorageService()
     {
         _bucketName = "art-sprint-bucket";
         _storageClient = StorageClient.Create();
+        
     }
 
     public async Task<string> UploadFileAsync(string filePath, string objectName)
@@ -37,7 +39,15 @@ public class StorageService:IStorageService
 
                 if (provider.TryGetContentType(filePath, out string contentType))
                 {
-                    await _storageClient.UploadObjectAsync(_bucketName, objectName, contentType, fileStream);
+                    if (contentType.Contains("text/plain"))
+                    {
+                        await _storageClient.UploadObjectAsync(_bucketName, objectName, "text/plain; charset=utf-8", fileStream);
+                    }
+                    else
+                    {
+                        await _storageClient.UploadObjectAsync(_bucketName, objectName, contentType, fileStream);
+
+                    }
                 }
                 else
                 {

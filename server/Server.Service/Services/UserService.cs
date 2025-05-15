@@ -92,5 +92,11 @@ namespace Server.Service.Services
             await _repositoryManager.Users.UpdateUserNameAsync(id, name);
             await _repositoryManager.SaveAsync();
         }
+        public async Task<UserDTO> GetUserByUsername(string username)
+        {
+            var user = await _repositoryManager.Users.GetUserByUsername(username);
+            var userDto=_mapper.Map<UserDTO>(user);
+            return userDto;
+        }
     }
 }
