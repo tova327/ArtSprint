@@ -68,7 +68,7 @@ const commentSlice = createSlice({
     initialState: {
         comments: [] as CommentType[],
         loading: false,
-        error: null as null | string,
+        error: null as null | string|undefined,
     },
     reducers: {},
     extraReducers: (builder) => {
