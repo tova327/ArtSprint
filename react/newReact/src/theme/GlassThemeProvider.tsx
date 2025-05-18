@@ -2,12 +2,23 @@ import { ReactNode } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  html, body, #root {
+    height: 100%;
+    min-height: 100vh;
+    min-width:100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   body {
     background: #f8fafc;
     font-family: 'Poppins', 'Montserrat', sans-serif;
     color: #222;
     margin: 0;
     min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
   }
 `;
 

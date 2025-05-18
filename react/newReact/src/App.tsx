@@ -12,21 +12,7 @@ function App() {
     const [showStart, setShowStart] = useState(true);
     const dispatch = useDispatch<AppDispatch>();
 
-    // useEffect(() => {
-    //     const checkAuth = async () => {
-    //         try {
-    //             const response = await axios.get('https://localhost:7001/api/auth/check', { withCredentials: true }); // Create this endpoint
-    //             if (response.status === 200) {
-    //                 dispatch(setUser(response.data)); // Update user state
-    //                 setShowStart(false); // Hide StartPage if authenticated
-    //             }
-    //         } catch (error) {
-    //             console.error("User is not authenticated");
-    //         }
-    //     };
-
-    //     checkAuth();
-    // }, [dispatch]);
+    
 
     useEffect(() => {
         const isAuth = async () => {

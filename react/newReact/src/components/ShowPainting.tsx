@@ -122,7 +122,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
             <p style={{ margin: 0, color: "#888" }}>Owner: <b>{painting.ownerId}</b></p>
             <p style={{ margin: 0, color: "#888" }}>Likes: <b>{painting.likes}</b></p>
             <div style={{ margin: '18px 0' }}>{renderContent()}</div>
-            <div style={{ display: 'flex', gap: 12 }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: 8 ,width: '48%'}}>
                 <Tooltip title="Like this painting">
                     <Button
                         type="primary"
@@ -132,7 +132,8 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
                             background: 'linear-gradient(90deg, #ff4081 0%, #ff9800 100%)',
                             border: 'none',
                             fontWeight: 700,
-                            boxShadow: '0 2px 12px #ffd6f0'
+                            boxShadow: '0 2px 12px #ffd6f0',
+                            flex:1
                         }}
                     >
                         Like
@@ -147,7 +148,8 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
                             background: 'rgba(255,255,255,0.13)',
                             color: '#ff4081',
                             fontWeight: 700,
-                            border: '2px solid #ff4081'
+                            border: '2px solid #ff4081',
+                            flex:1
                         }}
                     >
                         View Details
