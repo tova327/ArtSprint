@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Button, Modal, Form, Input, Upload, Select, message } from 'antd';
+import { Row, Col, Button, Modal, Form, Input, Upload, Select, message, Spin } from 'antd';
 import { AppDispatch, StoreType } from '../store/store';
 import { ESubject, fetchPaintingsAsync, PaintingType, uploadPaintingAsync } from '../store/paintingSlice';
 import ShowPainting from './ShowPainting';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
+const PageContainer = styled.div`
+  padding: 32px 10vw;
+  background: #f8fafc;
+  min-height: 100vh;
+`;
+
+const UploadButton = styled(Button)`
+  border-radius: ${({ theme }:{theme:any}) => theme.borderRadius};
+  border: 2px solid ${({ theme }:{theme:any}) => theme.primary};
+  background: #fff;
+  color: ${({ theme }:{theme:any}) => theme.primary};
+  font-weight: 600;
+  margin-bottom: 24px;
+  &:hover {
+    background: ${({ theme }:{theme:any}) => theme.primary};
+    color: #fff;
+    border-color: ${({ theme }:{theme:any}) => theme.primary};
+  }
+`;
 
 const PaintingsPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -17,8 +38,6 @@ const PaintingsPage: React.FC = () => {
     const [acceptedFileTypes, setAcceptedFileTypes] = useState<string[]>([]);
     
     const location = useLocation();
-    
-    // Parse query parameters
     const query = new URLSearchParams(location.search);
     const subjectFilter = query.get('subject');
 
@@ -37,8 +56,6 @@ const PaintingsPage: React.FC = () => {
             subject: values.subject,
             paintingFile: values.paintingFile[0].originFileObj
         };
-        console.log("submit upload file " + token);
-        
         const resultAction = await dispatch(uploadPaintingAsync({ painting: paintingData, token: token || "" }));
         if (uploadPaintingAsync.fulfilled.match(resultAction)) {
             message.success('Painting uploaded successfully!');
@@ -49,17 +66,11 @@ const PaintingsPage: React.FC = () => {
         }
     };
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
+    const showModal = () => setIsModalVisible(true);
+    const handleCancel = () => setIsModalVisible(false);
 
     const handleSubjectChange = (value: number) => {
-        // Update accepted file types based on the selected subject
-        const valueSwitch=ESubject[value]
+        const valueSwitch = ESubject[value];
         switch (valueSwitch) {
             case 'Music':
                 setAcceptedFileTypes(['.mp3']);
@@ -82,45 +93,74 @@ const PaintingsPage: React.FC = () => {
     ));
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Spin size="large" style={{ display: 'block', margin: '80px auto' }} />;
     }
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Paintings</h1>
-            <Button type="primary" onClick={showModal} style={{ marginBottom: '20px' }}>Upload New Painting</Button>
-            <Row gutter={[16, 16]}>
-                {paintings.map((painting: PaintingType) => {
-                    const isSubjectMatched = ESubject[painting.subject] === subjectFilter || !subjectFilter;
-                    return isSubjectMatched && (
-                        <Col key={painting.id} xs={24} sm={12} md={8} lg={6}>
-                            <ShowPainting painting={painting} />
-                        </Col>
-                    );
-                })}
-            </Row>
-
-            <Modal title="Upload Painting" open={isModalVisible} onCancel={handleCancel} footer={null}>
-                <Form form={form} onFinish={handleUpload}>
-                    <Form.Item name="name" label="Painting Name" rules={[{ required: true, message: 'Please input the painting name!' }]}>
+        <PageContainer>
+            <h1 style={{
+                textAlign: 'center',
+                marginBottom: '32px',
+                fontWeight: 800,
+                fontSize: '2.4rem',
+                letterSpacing: '2px',
+                color: '#222',
+                textShadow: '0 2px 6px #eee'
+            }}>Paintings</h1>
+            <UploadButton type="default" onClick={showModal}>Upload New Painting</UploadButton>
+            <Modal
+                title="Upload New Painting"
+                open={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+            >
+                <Form form={form} onFinish={handleUpload} layout="vertical">
+                    <Form.Item
+                        name="name"
+                        label="Painting Name"
+                        rules={[{ required: true, message: 'Please input the painting name!' }]}
+                    >
                         <Input />
                     </Form.Item>
-                    <Form.Item name="subject" label="Subject" rules={[{ required: true, message: 'Please select a subject!' }]}>
+                    <Form.Item
+                        name="subject"
+                        label="Subject"
+                        rules={[{ required: true, message: 'Please select a subject!' }]}
+                    >
                         <Select onChange={handleSubjectChange}>
                             {subjectOptions}
                         </Select>
                     </Form.Item>
-                    <Form.Item name="paintingFile" label="Upload Painting" valuePropName="fileList" getValueFromEvent={(e) => Array.isArray(e) ? e : e && e.fileList}>
-                        <Upload beforeUpload={() => false} accept={acceptedFileTypes.join(', ')}>
+                    <Form.Item
+                        name="paintingFile"
+                        label="Painting File"
+                        valuePropName="fileList"
+                        getValueFromEvent={e => (Array.isArray(e) ? e : e && e.fileList)}
+                        rules={[{ required: true, message: 'Please upload a file!' }]}
+                    >
+                        <Upload
+                            beforeUpload={() => false}
+                            accept={acceptedFileTypes.join(',')}
+                            maxCount={1}
+                        >
                             <Button>Click to Upload</Button>
                         </Upload>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">Submit</Button>
+                        <Button type="primary" htmlType="submit">Upload</Button>
                     </Form.Item>
                 </Form>
             </Modal>
-        </div>
+            <Row gutter={[28, 28]} style={{ marginTop: 8 }}>
+                {paintings
+                    .filter((p: PaintingType) => !subjectFilter || ESubject[p.subject] === subjectFilter)
+                    .map((painting: PaintingType) => (
+                        <Col xs={24} sm={12} md={8} lg={6} key={painting.id}>
+                            <ShowPainting painting={painting} />
+                        </Col>
+                    ))}
+            </Row>
+        </PageContainer>
     );
 };
 

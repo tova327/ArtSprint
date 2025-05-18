@@ -20,9 +20,9 @@ const SubApp: React.FC = () => {
   return (
     <Router>
       <Layout style={{ minHeight: '100vh',minWidth:'100vw' }}>
-        <Header>
+        {/* <Header style={{backgroundColor:"Highlight"}}> */}
           <Navbar />
-        </Header>
+        {/* </Header> */}
         <Content style={{ padding: '20px' }}>
           <Routes>
             <Route path="/" element={<PaintingsPage />} />

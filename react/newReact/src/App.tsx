@@ -33,7 +33,7 @@ function App() {
             const authToken = localStorage.getItem('authToken')
             if (authToken) {
                 try {
-                    const response = await axios.post('https://localhost:7001/api/auth/authuser', authToken, {
+                    const response = await axios.post('http://localhost:5208/api/auth/authuser', authToken, {
                         headers: {
                             'Content-Type': 'application/json',
                         }

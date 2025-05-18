@@ -6,8 +6,27 @@ import { CommentPostModel } from '../store/commentSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommentsAsync, addCommentAsync } from '../store/commentSlice';
 import { AppDispatch, StoreType } from '../store/store';
-import { ESubject } from '../store/paintingSlice'; // Import ESubject
+import { ESubject } from '../store/paintingSlice';
 import TextFileDisplay from './TextFileDisplay';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+
+const GlassCard = styled(motion.div)`
+  background: rgba(255,255,255,0.89);
+  border: 2px solid ${({ theme }:{theme:any}) => theme.primary};
+  border-radius: 24px;
+  box-shadow: 0 8px 40px 0 rgba(60,60,170,0.09);
+  margin: 30px 0;
+  padding: 28px;
+`;
+
+const PaintingImg = styled(motion.img)`
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 16px;
+`;
 
 const PaintingComponent: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -26,10 +45,8 @@ const PaintingComponent: React.FC = () => {
     useEffect(() => {
         const fetchPainting = async () => {
             try {
-                const response = await fetch(`https://localhost:7001/api/Painting/${id}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                const response = await fetch(`http://localhost:5208/api/Painting/${id}`);
+                if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setPainting(data);
                 dispatch(fetchCommentsAsync());
@@ -39,7 +56,6 @@ const PaintingComponent: React.FC = () => {
                 setLoading(false);
             }
         };
-
         fetchPainting();
     }, [id, dispatch]);
 
@@ -68,13 +84,11 @@ const PaintingComponent: React.FC = () => {
 
     const renderContent = () => {
         if (!painting) return null;
-
         const subject = ESubject[painting.subject];
-
         switch (subject) {
             case 'Music':
                 return (
-                    <audio controls>
+                    <audio controls style={{ width: '100%' }}>
                         <source src={painting.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
                     </audio>
@@ -82,7 +96,15 @@ const PaintingComponent: React.FC = () => {
             case 'Drawing':
             case 'Photography':
             case 'Graphic':
-                return <img src={painting.url} alt={painting.name} style={{ width: '100%', height: 'auto' }} />;
+                return (
+                    <PaintingImg
+                        src={painting.url}
+                        alt={painting.name}
+                        initial={{ opacity: 0, scale: 0.97 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6 }}
+                    />
+                );
             case 'Writing':
                 return <pre><TextFileDisplay fileUrl={painting.url}/></pre>;
             default:
@@ -93,52 +115,46 @@ const PaintingComponent: React.FC = () => {
     if (loading) {
         return <Spin size="large" />;
     }
-
     if (error) {
         return <div>Error: {error}</div>;
     }
-
     if (!painting) {
-        return <div>No painting found.</div>;
+        return <div>Painting not found.</div>;
     }
 
     return (
-        <Card style={{ margin: '20px' }}>
-            {renderContent()} {/* Render the correct content based on subject */}
-            <h2>{painting.name}</h2>
-            <p>Owner ID: {painting.ownerId}</p>
-            <p>Likes: {painting.likes}</p>
-            <Button onClick={handleBack}>Go Back</Button>
-
+        <GlassCard
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, type: 'spring' }}
+        >
+            <Button onClick={handleBack} style={{ marginBottom: 18, borderRadius: 12 }}>← Back</Button>
+            <h2 style={{ color: "#ff4081", fontWeight: 700 }}>{painting.name}</h2>
+            <p style={{ color: "#888" }}>Owner: <b>{painting.ownerId}</b></p>
+            <div style={{ margin: '20px 0' }}>{renderContent()}</div>
             <h3>Comments</h3>
             <List
-                itemLayout="horizontal"
-                dataSource={comments.filter(comment => comment.paintId === Number(id))}
-                renderItem={item => (
-                    <List.Item>
-                        <List.Item.Meta
-                            title={`User ID: ${item.userId}`}
-                            description={item.content}
-                        />
-                        <div>{new Date(item.createdAt).toLocaleString()}</div>
-                    </List.Item>
-                )}
+                dataSource={comments.filter(c => c.paintId === painting.id)}
+                renderItem={item => (<List.Item>{item.content}</List.Item>)}
+                style={{ background: "rgba(255,255,255,0.4)", borderRadius: 12, marginBottom: 16 }}
             />
-
-            <Form style={{ marginTop: '20px' }} onFinish={handleAddComment}>
-                <Form.Item>
-                    <Input.TextArea
-                        rows={4}
-                        value={commentContent}
-                        onChange={(e) => setCommentContent(e.target.value)}
-                        placeholder="Add a comment..."
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">Submit Comment</Button>
-                </Form.Item>
+            <Form
+                onFinish={handleAddComment}
+                style={{ display: "flex", gap: 8, marginTop: 16 }}
+            >
+                <Input
+                    value={commentContent}
+                    onChange={e => setCommentContent(e.target.value)}
+                    placeholder="Add a comment..."
+                    style={{ borderRadius: 12 }}
+                />
+                <Button type="primary" htmlType="submit" style={{
+                    background: "linear-gradient(90deg, #ff4081 0%, #ff9800 100%)",
+                    border: 'none',
+                    fontWeight: 700
+                }}>Send</Button>
             </Form>
-        </Card>
+        </GlassCard>
     );
 };
 

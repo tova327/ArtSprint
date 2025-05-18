@@ -6,7 +6,7 @@ import { UserLoginType, UserToAddType } from "./userSlice";
 import { CommentPostModel } from "./commentSlice";
 
 
-const globalAPI="https://localhost:7001"
+const globalAPI="http://localhost:5208"
 const paintingURL=globalAPI+'/api/painting'
 //const userURL=globalAPI+'/api/user'
 const authURL=globalAPI+'/api/Auth'

@@ -39,16 +39,16 @@ public class AuthService : IAuthService
 
         // If valid, proceed to generate the JWT token
         var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, username),
-            new Claim(ClaimTypes.Role, user.Role) // Assuming user role is stored in the database
-        };
+    {
+        new Claim(ClaimTypes.Name, username),
+        new Claim(ClaimTypes.Role, user.Role) // Assuming user role is stored in the database
+    };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"])); // Changed to environment variable access
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
-            issuer: _configuration["JWT:Issuer"],
-            audience: _configuration["JWT:Audience"],
+            issuer: _configuration["JwtSettings:Issuer"], // Changed to environment variable access
+            audience: _configuration["JwtSettings:Audience"], // Changed to environment variable access
             claims: claims,
             expires: DateTime.Now.AddMinutes(30),
             signingCredentials: creds);
@@ -66,6 +66,7 @@ public class AuthService : IAuthService
 
         return jwtToken; // Return the token as before
     }
-    
+
+
 
 }
