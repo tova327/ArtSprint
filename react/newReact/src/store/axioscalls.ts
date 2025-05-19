@@ -8,6 +8,7 @@ import { CommentPostModel } from "./commentSlice";
 
 const globalAPI="http://localhost:5208"
 const paintingURL=globalAPI+'/api/painting'
+
 //const userURL=globalAPI+'/api/user'
 const authURL=globalAPI+'/api/Auth'
 export const fetchPaintings=async()=>{

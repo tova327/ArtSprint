@@ -30,6 +30,7 @@ function App() {
                     }
                 } catch (error) {
                     console.error("User is not authenticated");
+                    localStorage.removeItem('authToken')
                 }
             }
         }
