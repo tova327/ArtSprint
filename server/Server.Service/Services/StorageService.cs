@@ -8,6 +8,9 @@ using System.Net.Mime;
 using Server.Core.Services;
 using HeyRed.ImageSharp.Heif;
 using Microsoft.AspNetCore.StaticFiles;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+
 public class StorageService:IStorageService
 {
     private readonly string _bucketName;
@@ -17,8 +20,29 @@ public class StorageService:IStorageService
     public StorageService()
     {
         _bucketName = "art-sprint-bucket";
+        var credentialsJsonRaw = Environment.GetEnvironmentVariable("GOOGLE_CREDENTIALS_JSON");
+
+        if (string.IsNullOrWhiteSpace(credentialsJsonRaw))
+            throw new InvalidOperationException("GOOGLE_CREDENTIALS_JSON is missing");
+
+        // שלב 1 – להמיר את המחרוזת החיצונית
+        var unescapedJson = JsonConvert.DeserializeObject<string>(credentialsJsonRaw);
+
+        // שלב 2 – עכשיו באמת לפרסר את ה־JSON עצמו
+        var json = JsonConvert.DeserializeObject<JObject>(unescapedJson);
+
+        // כתיבה לקובץ
+        var tempPath = Path.Combine(Path.GetTempPath(), "google-credentials.json");
+        File.WriteAllText(tempPath, json.ToString(Formatting.Indented));
+
+        // קביעת משתנה סביבה
+        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", tempPath);
+
+        // יצירת לקוח Google Storage
         _storageClient = StorageClient.Create();
+
         
+
     }
 
     public async Task<string> UploadFileAsync(string filePath, string objectName)
