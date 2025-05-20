@@ -56,13 +56,13 @@ public class AuthService : IAuthService
         var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
 
         // Set the JWT token as a cookie
-        httpContext.Response.Cookies.Append("authToken", jwtToken, new CookieOptions
-        {
-            //HttpOnly = true,
-            //Secure = true, // Set to true if using HTTPS
-            SameSite = SameSiteMode.Lax,
-            Expires = DateTimeOffset.UtcNow.AddMinutes(30)
-        });
+        //httpContext.Response.Cookies.Append("authToken", jwtToken, new CookieOptions
+        //{
+        //    HttpOnly = true,
+        //    Secure = true, // Set to true if using HTTPS
+        //    SameSite = SameSiteMode.Lax,
+        //    Expires = DateTimeOffset.UtcNow.AddMinutes(30)
+        //});
 
         return jwtToken; // Return the token as before
     }
