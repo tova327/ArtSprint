@@ -26,7 +26,12 @@ namespace Server.Service.Services
         {
             var paintings = await _repositoryManager.Paintings.GetAllAsync();
             var paintingsList= paintings.ToList();
-            return _mapper.Map<List<PaintingDTO>>(paintingsList);
+            var res=new List<PaintingDTO>();
+            foreach (var painting in paintingsList)
+            {
+                res.Add(_mapper.Map<PaintingDTO>(painting));
+            }
+            return res;
         }
 
         public async Task<PaintingDTO?> GetByIdAsync(int id)
