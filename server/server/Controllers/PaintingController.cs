@@ -32,39 +32,54 @@ namespace server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PaintingDTO>>> GetAll()
         {
-            var paintings = await _paintingService.GetAllAsync();
-            return Ok(paintings);
+            try
+            {
+                var paintings = await _paintingService.GetAllAsync();
+                return Ok(paintings);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<PaintingDTO>> GetById(int id)
         {
-            var painting = await _paintingService.GetByIdAsync(id);
-            if (painting == null)
+            try
             {
-                return NotFound();
+                var painting = await _paintingService.GetByIdAsync(id);
+                if (painting == null)
+                {
+                    return NotFound();
+                }
+                return Ok(painting);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
-            return Ok(painting);
+            
         }
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<PaintingDTO>>> GetPaintingsForUser(int userId)
         {
-            var paintings = await _paintingService.GetAllAsync();
-            if (paintings == null)
+            try
             {
-                return NotFound();
+                var paintings = await _paintingService.GetAllAsync();
+                if (paintings == null)
+                {
+                    return NotFound();
+                }
+                var specificPaintings = paintings.Where(p => p.OwnerId == userId);
+                return Ok(specificPaintings);
             }
-            var specificPaintings = paintings.Where(p => p.OwnerId == userId);
-            return Ok(specificPaintings);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<ActionResult<PaintingDTO>> Add([FromBody] PaintingPostModel paintingPostModel)
-        //{
-        //    var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
-        //    var painting = await _paintingService.AddAsync(paintingDto);
-        //    return Ok( painting);
-        //}
+        
         [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<PaintingDTO>> Update(int id, [FromBody] PaintingPostModel paintingPostModel)
@@ -109,8 +124,7 @@ namespace server.Controllers
         }
 
 
-        //*****************************************************************************************************
-        //[Authorize]
+        
         [HttpPost("upload")]
         public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
         {
@@ -141,7 +155,7 @@ namespace server.Controllers
             {
                 return NotFound("Owner not found.");
             }
-            //to here ---- only validate
+            
 
             var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
             var paintingAdded= await _paintingService.AddAsync(paintingDto);
