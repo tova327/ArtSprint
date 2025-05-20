@@ -9,7 +9,7 @@ import { fetchPaintings } from '../store/axioscalls';
 import PaintingComponent from './PaintingComponent';
 import { styled } from 'styled-components';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 const PageContainer = styled.div`
   min-height: 100vh;
   width: 100vw;

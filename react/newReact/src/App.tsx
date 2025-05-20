@@ -17,9 +17,11 @@ function App() {
     useEffect(() => {
         const isAuth = async () => {
             const authToken = localStorage.getItem('authToken')
+            console.log("in isAuth "+authToken);
+            
             if (authToken) {
                 try {
-                    const response = await axios.post('http://localhost:5208/api/auth/authuser', authToken, {
+                    const response = await axios.post(`${import.meta.env.VITE_MY_API_URL}auth/authuser`, authToken, {
                         headers: {
                             'Content-Type': 'application/json',
                         }

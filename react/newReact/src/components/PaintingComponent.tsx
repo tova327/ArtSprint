@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Spin, Button, List, Input, Form, message } from 'antd';
+import {  Spin, Button, List, Input, Form, message } from 'antd';
 import { PaintingType } from '../store/paintingSlice';
 import { CommentPostModel } from '../store/commentSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +31,7 @@ const PaintingImg = styled(motion.img)`
 const PaintingComponent: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
+    //const location = useLocation();
     const dispatch = useDispatch<AppDispatch>();
     
     const [painting, setPainting] = useState<PaintingType | null>(null);
@@ -45,7 +46,7 @@ const PaintingComponent: React.FC = () => {
     useEffect(() => {
         const fetchPainting = async () => {
             try {
-                const response = await fetch(`http://localhost:5208/api/Painting/${id}`);
+                const response = await fetch(`${import.meta.env.VITE_MY_API_URL}Painting/${id}`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setPainting(data);
@@ -60,7 +61,11 @@ const PaintingComponent: React.FC = () => {
     }, [id, dispatch]);
 
     const handleBack = () => {
-        navigate(-1);
+        
+        
+        const backUrl = sessionStorage.getItem('lastPaintingCaller') || '/';
+        sessionStorage.removeItem('lastPaintingCaller')
+        navigate(backUrl);
     };
 
     const handleAddComment = async () => {

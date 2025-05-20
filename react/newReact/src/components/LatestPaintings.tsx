@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { StoreType } from '../store/store';
-import { PaintingType, ESubject } from '../store/paintingSlice';
+import { ESubject } from '../store/paintingSlice';
 import { motion } from 'framer-motion';
 
 const GlassLatest = styled.div`

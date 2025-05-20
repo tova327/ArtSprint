@@ -34,7 +34,7 @@ export const LoginAsync = createAsyncThunk<any, { user: UserLoginType }>(
     async ({ user }, thunkAPI) => {
         try {
             const response = await Login(user);
-            return response; // Return user data if needed
+            return response;
         } catch (e: any) {
             console.log("error login async");
             return thunkAPI.rejectWithValue(e.message);

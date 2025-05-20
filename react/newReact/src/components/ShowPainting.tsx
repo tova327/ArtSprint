@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Card, message, Tooltip } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button, message, Tooltip } from 'antd';
 import { ArrowRightOutlined, LikeOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addLikeAsync, addLikeR } from '../store/paintingSlice';
@@ -8,17 +8,18 @@ import { AppDispatch, StoreType } from '../store/store';
 import { PaintingType, ESubject } from '../store/paintingSlice';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { notification, Button as AntButton } from 'antd';
 
 const GlassCard = styled(motion.div)`
   background: rgba(255,255,255,0.77);
-  border: 2px solid ${({ theme }:{theme:any}) => theme.primary};
+  border: 2px solid ${({ theme }: { theme: any }) => theme.primary};
   border-radius: 24px;
   box-shadow: 0 8px 40px 0 rgba(60,60,170,0.10);
   margin: 20px 0;
   padding: 24px;
   transition: border 0.2s;
   &:hover {
-    border: 2.5px solid ${({ theme }:{theme:any}) => theme.secondary};
+    border: 2.5px solid ${({ theme }: { theme: any }) => theme.secondary};
     box-shadow: 0 16px 56px 0 rgba(255, 64, 129, 0.13);
   }
 `;
@@ -34,11 +35,13 @@ const PaintingImg = styled(motion.img)`
 
 const ShowPainting = ({ painting }: { painting: PaintingType }) => {
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch<AppDispatch>();
     const [sessionLikes, setSessionLikes] = useState(0);
     const token = useSelector((store: StoreType) => store.user.token);
 
     const handleNavigate = () => {
+        sessionStorage.setItem('lastPaintingCaller', location.pathname + location.search);
         navigate(`/painting/${painting.id}`);
     };
 
@@ -51,16 +54,35 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
             message.warning('You cannot add more than 10 likes to this painting in this session.');
             return;
         }
-        dispatch(addLikeR(painting.id));
-        setSessionLikes(prevLikes => prevLikes + 1);
-        try {
-            await dispatch(addLikeAsync({ id: painting.id, count: 1, token })).unwrap();
-            message.success('You liked this painting!');
-        } catch (error) {
+        ////////
+        let addLike = true;
+        notification.success({
+            message: "Liked!",
+            btn: (
+                <AntButton
+                    size="small"
+                    onClick={() => addLike = false}
+                >
+                    Undo
+                </AntButton>
+            ),
+            duration: 3,
+        });
+        ////////
+        if (addLike) {
             dispatch(addLikeR(painting.id));
-            setSessionLikes(prevLikes => prevLikes - 1);
-            message.error('Failed to like the painting. Please try again.');
+            setSessionLikes(prevLikes => prevLikes + 1);
+            try {
+                await dispatch(addLikeAsync({ id: painting.id, count: 1, token })).unwrap();
+                message.success('You liked this painting!');
+
+            } catch (error) {
+                dispatch(addLikeR(painting.id));
+                setSessionLikes(prevLikes => prevLikes - 1);
+                message.error('Failed to like the painting. Please try again.');
+            }
         }
+
     };
 
     const renderContent = () => {
@@ -122,7 +144,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
             <p style={{ margin: 0, color: "#888" }}>Owner: <b>{painting.ownerId}</b></p>
             <p style={{ margin: 0, color: "#888" }}>Likes: <b>{painting.likes}</b></p>
             <div style={{ margin: '18px 0' }}>{renderContent()}</div>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: 8 ,width: '48%'}}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: 8, width: '48%' }}>
                 <Tooltip title="Like this painting">
                     <Button
                         type="primary"
@@ -133,7 +155,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
                             border: 'none',
                             fontWeight: 700,
                             boxShadow: '0 2px 12px #ffd6f0',
-                            flex:1
+                            flex: 1
                         }}
                     >
                         Like
@@ -149,7 +171,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
                             color: '#ff4081',
                             fontWeight: 700,
                             border: '2px solid #ff4081',
-                            flex:1
+                            flex: 1
                         }}
                     >
                         View Details
