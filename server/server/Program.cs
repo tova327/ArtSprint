@@ -102,6 +102,7 @@ internal class Program
         builder.Services.AddScoped<IStorageService, StorageService>();
         builder.Services.AddScoped<IDataContext, DataContext>();
         builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<IAIService,AIService>();
         //==================
         builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(MappingPostProfile));
         builder.Services.AddDbContext<IDataContext, DataContext>();
