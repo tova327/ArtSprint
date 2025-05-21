@@ -38,8 +38,14 @@ namespace Server.Service.Services
             };
             var json = JsonConvert.SerializeObject(requestBody);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
+            try
+            {
+                var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
 
-            var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Failed to call OpenAI: " + response.ReasonPhrase);
