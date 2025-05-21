@@ -22,6 +22,10 @@ namespace server.Controllers
         public async Task<IActionResult> GenerateQuestions([FromQuery] string subject)
         {
             var questions = await _aiService.GenerateAbilityQuestionsAsync(subject);
+            if(questions == null)
+            {
+                return StatusCode(500, "something went wrong");
+            }
             return Ok(questions);
         }
 
