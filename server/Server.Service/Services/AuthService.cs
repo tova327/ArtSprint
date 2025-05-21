@@ -44,7 +44,7 @@ public class AuthService : IAuthService
         new Claim(ClaimTypes.Role, user.Role) // Assuming user role is stored in the database
     };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"])); // Changed to environment variable access
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"])); 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
             issuer: _configuration["JwtSettings:Issuer"], // Changed to environment variable access

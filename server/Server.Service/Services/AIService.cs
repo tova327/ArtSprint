@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Server.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Server.Service.Services
 {
-    public class AIService
+    public class AIService:IAIService
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
