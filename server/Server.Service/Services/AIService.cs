@@ -29,7 +29,7 @@ namespace Server.Service.Services
             var prompt = $"Generate three simple, beginner-friendly questions to test someone's basic ability in the field of {subject}. Respond only with a numbered list, no explanations.";
             var requestBody = new
             {
-                model = "gpt-3.5-turbo",
+                model = "gpt-4o-mini",
                 messages = new[]
                 {
                 new { role = "system", content = "You are a helpful assistant." },
