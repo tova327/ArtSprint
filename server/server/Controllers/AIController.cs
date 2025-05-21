@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Server.Service.Services;
+using Server.Core.Services;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,11 +10,13 @@ namespace server.Controllers
     [ApiController]
     public class AIController : ControllerBase
     {
-        private readonly AIService _aiService;
-        public TestAbilityController()
+        private readonly IAIService _aiService; 
+        public AIController(IAIService iAIService)
         {
-            _aiService = new AIService("YOUR_OPENAI_API_KEY");
+            _aiService = iAIService;    
         }
+
+
         // GET: api/<TestAbilityController>
         [HttpGet]
         public async Task<IActionResult> GenerateQuestions([FromQuery] string subject)
