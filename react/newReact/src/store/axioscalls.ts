@@ -142,7 +142,7 @@ export const uploadPainting = async (painting: PaintingToAddType, token: string)
 
 export const getTest = async (subject: string) => {
     try {
-        const response = await axios.get(`${globalAPI}TestAbility?subject=${subject}`)
+        const response = await axios.get(`${globalAPI}AI?subject=${subject}`)
         return response.data
     } catch (error) {
         console.log(error);
@@ -152,7 +152,7 @@ export const getTest = async (subject: string) => {
 
 export const checkAnswers = async ({ subject, questions, answers }: { subject: string, questions: string[], answers: string[] }) => {
     try {
-        const response = await axios.post(`${globalAPI}TestAbility/check`, { subject, questions, answers })
+        const response = await axios.post(`${globalAPI}AI/check`, { subject, questions, answers })
         return response.data
     }catch(error){
         console.log(error);

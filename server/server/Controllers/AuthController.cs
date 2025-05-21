@@ -67,7 +67,7 @@ namespace server.Controllers
         [HttpPost("logout")]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("authToken"); // Clear the cookie
+            //Response.Cookies.Delete("authToken"); // Clear the cookie
             return Ok();
         }
 
