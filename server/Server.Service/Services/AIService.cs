@@ -109,8 +109,8 @@ namespace Server.Service.Services
 
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic result = JsonConvert.DeserializeObject(responseBody);
-            string aiText = result.choices[0].message.content.Trim().ToLower();
-
+            string aiText = result.choices[0].message.content.ToString().Trim().ToLower();
+            
             if (aiText.StartsWith("yes"))
                 return "yes";
             if (aiText.StartsWith("no"))
