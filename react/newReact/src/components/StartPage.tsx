@@ -6,7 +6,7 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import PaintingUploadModal from './PaintingUploadModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { LoginAsync, RegisterAsync } from '../store/userSlice';
+import { LoginAsync, RegisterAsync, UserToAddType } from '../store/userSlice';
 import { PaintingToAddType, uploadPaintingAsync } from '../store/paintingSlice';
 import { AppDispatch, StoreType } from '../store/store';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -72,7 +72,9 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
   };
 
   // Register
-  const handleRegister = async (userDetails: any) => {
+  const handleRegister = async (userDetails: UserToAddType) => {
+    console.log('in handleRegister: '+userDetails);
+    
     setRegisterLoading(true);
     try {
       const registerResult = await dispatch(RegisterAsync({ user: userDetails })).unwrap();

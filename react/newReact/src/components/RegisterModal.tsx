@@ -141,7 +141,7 @@ const RegisterModal = ({
       open={open}
       onCancel={onCancel}
       footer={null}
-      destroyOnClose
+      destroyOnHidden
       centered
     >
       <Spin spinning={loading}>{content}</Spin>
