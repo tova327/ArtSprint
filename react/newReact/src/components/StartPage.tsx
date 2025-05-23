@@ -62,7 +62,7 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
     try {
       const result = await dispatch(LoginAsync({ user: values })).unwrap();
       setIsLoginModalVisible(false);
-      await checkUserPainting(result.id);
+      await checkUserPainting(user.id);
       openNotification('success', "Welcome Back!", `Glad to see you again, ${result.name || values.username}!`);
     } catch (error: any) {
       openNotification('error', "Login Failed", error?.message || "Invalid username or password.");
@@ -77,7 +77,7 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
     
     setRegisterLoading(true);
     try {
-      const registerResult = await dispatch(RegisterAsync({ user: userDetails })).unwrap();
+       await dispatch(RegisterAsync({ user: userDetails })).unwrap();
       setIsRegisterModalVisible(false);
       openNotification('success', "Registration Successful", "You can now upload your painting!");
       await checkUserPainting(user.id);
