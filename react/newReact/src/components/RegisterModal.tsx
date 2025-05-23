@@ -47,9 +47,11 @@ const RegisterModal = ({
     setCheckingAnswers(true);
     try {
       const result = await checkAnswers({ subject, questions, answers: userAnswers });
-      if (result === "yes") {
+      if (result.result === "yes") {
         await onRegister({ ...registerDetails, subject, answers: userAnswers });
       } else {
+        console.log("error not accepted");
+        
         Modal.error({ title: "Not Accepted", content: "Sorry, your answers did not meet our requirements." });
         onCancel();
       }
