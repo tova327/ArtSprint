@@ -80,7 +80,7 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
       const registerResult = await dispatch(RegisterAsync({ user: userDetails })).unwrap();
       setIsRegisterModalVisible(false);
       openNotification('success', "Registration Successful", "You can now upload your painting!");
-      await checkUserPainting(registerResult.id);
+      await checkUserPainting(user.id);
     } catch (err: any) {
       openNotification('error', "Register Failed", err?.message || "Please try again.");
     } finally {
