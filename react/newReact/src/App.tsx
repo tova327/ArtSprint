@@ -6,7 +6,7 @@ import SubApp from './components/SubApp';
 import { useDispatch } from 'react-redux';
 //import { setUser } from './store/userSlice'; // Import the setUser action
 import axios from 'axios';
-import { getAllUsersAsync, setUser } from './store/userSlice';
+import {  setUser } from './store/userSlice';
 
 function App() {
     const [showStart, setShowStart] = useState(true);
