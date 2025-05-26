@@ -1,25 +1,27 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../store/store';
-import {  ESubject } from '../store/paintingSlice';
-import { motion } from 'framer-motion';
+"use client"
+
+import type React from "react"
+import styled, { keyframes } from "styled-components"
+import { useSelector } from "react-redux"
+import type { StoreType } from "../store/store"
+import { ESubject } from "../store/paintingSlice"
+import { motion } from "framer-motion"
 
 const ticker = keyframes`
-  0% { transform: translateX(100vw);}
-  100% { transform: translateX(-100vw);}
-`;
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100vw); }
+`
 
-const TickerContainer = styled.div`
+const TickerContainer = styled(motion.div)`
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(90deg, #ffecd2 0%, #fcb69f 100%);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
   border-radius: 24px;
-  box-shadow: 0 4px 32px 0 rgba(255,175,189,0.12);
+  box-shadow: 0 8px 40px rgba(255, 175, 189, 0.3);
   margin-bottom: 32px;
-  padding: 18px 0;
+  padding: 24px 0;
   position: relative;
-`;
+`
 
 const PaintingsRow = styled.div`
   display: flex;
@@ -27,78 +29,176 @@ const PaintingsRow = styled.div`
   gap: 32px;
   min-width: 100vw;
   animation: ${ticker} 30s linear infinite;
-`;
+`
 
 const PopularCard = styled(motion.div)`
-  background: rgba(255,255,255,0.85);
-  border-radius: 18px;
-  box-shadow: 0 2px 18px 0 rgba(255,64,129,0.09);
-  border: 2.5px solid #ff9800;
-  min-width: 250px;
-  max-width: 300px;
-  min-height: 150px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 4px 25px rgba(255, 64, 129, 0.15);
+  border: 3px solid #ff9800;
+  min-width: 280px;
+  max-width: 320px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
+  padding: 20px;
   cursor: pointer;
-  transition: box-shadow 0.3s;
-  &:hover {
-    box-shadow: 0 8px 38px 0 rgba(255,64,129,0.23);
-    border-color: #ff4081;
-    transform: scale(1.06);
-  }
-`;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 
-const Medal = styled.div`
-  font-size: 1.6rem;
-  margin-bottom: 6px;
-`;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
+  &:hover {
+    transform: scale(1.08) rotate(1deg);
+    box-shadow: 0 12px 40px rgba(255, 64, 129, 0.3);
+    border-color: #ff4081;
+  }
+`
+
+const Medal = styled(motion.div)`
+  font-size: 2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+`
+
+const CardTitle = styled(motion.div)`
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: linear-gradient(45deg, #ff4081, #ff9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  text-align: center;
+  line-height: 1.3;
+`
+
+const CardSubtitle = styled(motion.div)`
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+  font-weight: 600;
+`
 
 const PopularPaintings: React.FC = () => {
-  const paintings = useSelector((store: StoreType) => store.painting.paintings);
+  const paintings = useSelector((store: StoreType) => store.painting.paintings)
 
-  // Define "popular": top 5 by likes or isMedal
   const topPaintings = [...paintings]
-    .filter(p => p.isMedal || p.likes >= 2) // tune threshold as you wish
-    .sort((a, b) => (b.likes - a.likes) || (b.isMedal ? 1 : -1))
-    .slice(0, 8);
+    .filter((p) => p.isMedal || p.likes >= 2)
+    .sort((a, b) => b.likes - a.likes || (b.isMedal ? 1 : -1))
+    .slice(0, 8)
 
-  if (!topPaintings.length) return null;
+  if (!topPaintings.length) return null
 
   return (
-    <TickerContainer>
-      <PaintingsRow style={{width: '100vw'}}>
+    <TickerContainer initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+      <motion.h3
+        style={{
+          textAlign: "center",
+          marginBottom: 20,
+          fontSize: "1.8rem",
+          fontWeight: 800,
+          background: "linear-gradient(45deg, #ff4081, #ff9800)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+      >
+        🌟 Popular Masterpieces 🌟
+      </motion.h3>
+
+      <PaintingsRow>
         {topPaintings.map((painting, i) => (
           <PopularCard
             key={painting.id}
-            whileHover={{ scale: 1.08, boxShadow: "0 12px 38px 0 rgba(255,64,129,0.25)" }}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.12, type: 'spring' }}
-            onClick={() => window.location.href = `/painting/${painting.id}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.1, duration: 0.6 }}
+            onClick={() => (window.location.href = `/painting/${painting.id}`)}
           >
-            {painting.isMedal && <Medal>🏅</Medal>}
-            <div style={{
-              fontWeight: 700, fontSize: '1.14rem', color: "#ff4081", marginBottom: 8, textAlign: 'center'
-            }}>
-              {painting.name}
-            </div>
-            <div style={{ color: '#888', fontSize: 13, marginBottom: 5 }}>
-              {ESubject[painting.subject]} | Likes: {painting.likes}
-            </div>
-            {['Drawing', 'Photography', 'Graphic'].includes(ESubject[painting.subject]) && (
-              <img src={painting.url} alt={painting.name} style={{
-                width: '100%', height: 70, objectFit: 'cover', borderRadius: 8
-              }} />
+            {painting.isMedal && (
+              <Medal
+                initial={{ scale: 0 }}
+                animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                🏅
+              </Medal>
             )}
-            {ESubject[painting.subject] === 'Music' && <span>🎵 Music</span>}
-            {ESubject[painting.subject] === 'Writing' && <span>📝 Writing</span>}
+
+            <CardTitle
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              {painting.name}
+            </CardTitle>
+
+            <CardSubtitle initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.6 }}>
+              {ESubject[painting.subject]} • ❤️ {painting.likes}
+            </CardSubtitle>
+
+            {["Drawing", "Photography", "Graphic"].includes(ESubject[painting.subject]) && (
+              <motion.img
+                src={painting.url}
+                alt={painting.name}
+                style={{
+                  width: "100%",
+                  height: 80,
+                  objectFit: "cover",
+                  borderRadius: 12,
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+              />
+            )}
+
+            {ESubject[painting.subject] === "Music" && (
+              <motion.span
+                style={{ fontSize: "2rem" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+              >
+                🎵
+              </motion.span>
+            )}
+
+            {ESubject[painting.subject] === "Writing" && (
+              <motion.span
+                style={{ fontSize: "2rem" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+              >
+                📝
+              </motion.span>
+            )}
           </PopularCard>
         ))}
       </PaintingsRow>
     </TickerContainer>
-  );
-};
+  )
+}
 
-export default PopularPaintings;
+export default PopularPaintings
