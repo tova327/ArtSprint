@@ -7,20 +7,20 @@ import { useEffect, useState } from 'react';
 const UserDetails = ({ id, short }: { id: number, short: boolean }) => {
 
     const allUsers = useSelector((store: StoreType) => store.user.allusers)
-    const [user, setUser] = useState({} as UserType)
+    const [user, setUser] = useState({} as UserType|undefined)
     useEffect(() => {
         const u = allUsers?.find(u => u.id === id)
-        setUser(u || {} as UserType)
+        setUser(u)
     }, [])
     if (short)
         return (
-            <Statistic title="Owner" value={user.name} />
+            <Statistic title="Owner" value={user?.name} />
         )
     return (
         <Descriptions title="Owner">
-            <Descriptions.Item label="Name: ">{user.name}</Descriptions.Item>
-            <Descriptions.Item label="Email: ">{user.email}</Descriptions.Item>
-            <Descriptions.Item label="Joined As: ">{user.cameOn.toDateString()}</Descriptions.Item>
+            <Descriptions.Item label="Name: ">{user?.name}</Descriptions.Item>
+            <Descriptions.Item label="Email: ">{user?.email}</Descriptions.Item>
+            <Descriptions.Item label="Joined As: ">{user?.cameOn?.toDateString()}</Descriptions.Item>
         </Descriptions>
     )
 };
