@@ -19,7 +19,7 @@ const PageContainer = styled(motion.div)`
   min-height: 100vh;
   width: 100vw;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
   position: relative;
   overflow-x: hidden;
 `
@@ -38,15 +38,15 @@ const SubApp: React.FC = () => {
   }, [dispatch])
 
   return (
-    <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+    <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
       <Router>
         <Layout style={{ minHeight: "100vh", minWidth: "100vw", background: "transparent" }}>
           <Navbar />
           <Content style={{ padding: "20px", background: "transparent" }}>
             <ContentWrapper
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
             >
               <Routes>
                 <Route path="/" element={<PaintingsPage />} />

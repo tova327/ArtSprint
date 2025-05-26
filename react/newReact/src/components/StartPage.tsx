@@ -12,29 +12,29 @@ import { useDispatch, useSelector } from "react-redux"
 import { LoginAsync, RegisterAsync, type UserToAddType } from "../store/userSlice"
 import { type PaintingToAddType, uploadPaintingAsync } from "../store/paintingSlice"
 import type { AppDispatch, StoreType } from "../store/store"
-import { InfoCircleOutlined, HeartOutlined, StarOutlined } from "@ant-design/icons"
+import { InfoCircleOutlined, HeartOutlined, StarOutlined, ShakeOutlined } from "@ant-design/icons"
 import axios from "axios"
 
 const Welcome = styled(motion.h1)`
-  font-weight: 800;
-  font-size: 3.5rem;
-  background: linear-gradient(45deg, #ff4081, #ff9800, #56c6ff);
+  font-weight: 900;
+  font-size: 4rem;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 16px;
-  letter-spacing: 3px;
+  margin-bottom: 20px;
+  letter-spacing: 4px;
   text-align: center;
-  text-shadow: 0 4px 20px rgba(255, 64, 129, 0.3);
+  text-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
   
   @media (max-width: 768px) {
-    font-size: 2.8rem;
+    font-size: 3rem;
   }
 `
 
 const ButtonGroup = styled(motion.div)`
   display: flex;
-  gap: 20px;
+  gap: 24px;
   justify-content: center;
   margin-bottom: 40px;
   flex-wrap: wrap;
@@ -42,57 +42,77 @@ const ButtonGroup = styled(motion.div)`
 
 const Blurb = styled(motion.p)`
   text-align: center;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 24px 0;
-  font-size: 1.3rem;
-  font-weight: 500;
-  max-width: 600px;
-  line-height: 1.6;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.95);
+  margin: 32px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  max-width: 700px;
+  line-height: 1.7;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 `
 
 const GlassContainer = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 48px 32px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 90%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 60px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 95%;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.8s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
 `
 
 const FloatingIcon = styled(motion.div)`
   position: absolute;
-  font-size: 2rem;
-  opacity: 0.6;
+  font-size: 2.5rem;
+  opacity: 0.7;
   color: #fff;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 `
 
 const StyledButton = styled(Button)`
-  height: 56px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 28px;
-  padding: 0 32px;
+  height: 60px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border-radius: 30px;
+  padding: 0 40px;
   border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
   }
 
   &.primary {
-    background: linear-gradient(135deg, #ff4081, #ff9800);
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
     color: white;
   }
 
   &.secondary {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.4);
   }
 `
 
@@ -119,9 +139,9 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
       const result = await dispatch(LoginAsync({ user: values })).unwrap()
       setIsLoginModalVisible(false)
       await checkUserPainting(user.id)
-      openNotification("success", "Welcome Back!", `Glad to see you again, ${result.name || values.username}!`)
+      openNotification("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`)
     } catch (error: any) {
-      openNotification("error", "Login Failed", error?.message || "Invalid username or password.")
+      openNotification("error", "❌ Login Failed", error?.message || "Invalid credentials.")
     } finally {
       setLoginLoading(false)
     }
@@ -132,10 +152,10 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
     try {
       await dispatch(RegisterAsync({ user: userDetails })).unwrap()
       setIsRegisterModalVisible(false)
-      openNotification("success", "Registration Successful", "You can now upload your painting!")
+      openNotification("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!")
       await checkUserPainting(user.id)
     } catch (err: any) {
-      openNotification("error", "Register Failed", err?.message || "Please try again.")
+      openNotification("error", "❌ Registration Failed", err?.message || "Please try again.")
     } finally {
       setRegisterLoading(false)
     }
@@ -159,7 +179,7 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
     setPaintingUploadLoading(true)
     try {
       await dispatch(uploadPaintingAsync({ painting: paintingData, token: token || "" })).unwrap()
-      openNotification("success", "Painting Uploaded", "Thank you for sharing your art!")
+      openNotification("success", "🎨 Masterpiece Uploaded!", "Your art is now part of our gallery!")
       setShowPaintingModal(false)
       setMustUploadPainting(false)
       toClose()
@@ -171,10 +191,12 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
   }
 
   const floatingIcons = [
-    { icon: <HeartOutlined />, delay: 0, x: "10%", y: "20%" },
-    { icon: <StarOutlined />, delay: 1, x: "85%", y: "30%" },
-    { icon: <HeartOutlined />, delay: 2, x: "15%", y: "70%" },
-    { icon: <StarOutlined />, delay: 0.5, x: "90%", y: "80%" },
+    { icon: <HeartOutlined />, delay: 0, x: "8%", y: "15%" },
+    { icon: <StarOutlined />, delay: 1, x: "88%", y: "25%" },
+    { icon: <ShakeOutlined />, delay: 2, x: "12%", y: "75%" },
+    { icon: <HeartOutlined />, delay: 0.5, x: "92%", y: "85%" },
+    { icon: <StarOutlined />, delay: 1.5, x: "5%", y: "50%" },
+    { icon: <ShakeOutlined />, delay: 2.5, x: "95%", y: "60%" },
   ]
 
   return (
@@ -187,12 +209,12 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
           style={{ left: item.x, top: item.y }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{
-            opacity: [0, 0.6, 0],
-            scale: [0, 1, 0],
-            rotate: [0, 360],
+            opacity: [0, 0.8, 0],
+            scale: [0, 1.2, 0],
+            rotate: [0, 360, 720],
           }}
           transition={{
-            duration: 4,
+            duration: 6,
             delay: item.delay,
             repeat: Number.POSITIVE_INFINITY,
             repeatType: "loop",
@@ -214,69 +236,91 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
           padding: "32px 16px",
         }}
       >
-        <GlassContainer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        <GlassContainer
+          initial={{ opacity: 0, y: 80, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, type: "spring" }}
+        >
           <Welcome
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            transition={{ delay: 0.3, duration: 1, type: "spring" }}
           >
             ArtSprint
-            <Tooltip title="This is your creative community – join us!">
-              <InfoCircleOutlined style={{ marginLeft: 12, color: "#56c6ff", fontSize: 28 }} />
+            <Tooltip title="Join our magical art community! ✨">
+              <InfoCircleOutlined style={{ marginLeft: 16, color: "#4ecdc4", fontSize: 32 }} />
             </Tooltip>
           </Welcome>
 
-          <Blurb initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}>
-            Share, discover, and celebrate art in all its forms. Join our vibrant community of artists!
+          <Blurb
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            🎨 Share your art, discover masterpieces, and connect with creative souls from around the world! 🌟
           </Blurb>
 
           <ButtonGroup
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
+            transition={{ delay: 0.9, duration: 0.8 }}
           >
-            <StyledButton
-              className="primary"
-              size="large"
-              onClick={() => setIsLoginModalVisible(true)}
-              loading={loginLoading}
-            >
-              Sign In
-            </StyledButton>
-            <StyledButton
-              className="secondary"
-              size="large"
-              onClick={() => setIsRegisterModalVisible(true)}
-              loading={registerLoading}
-            >
-              Sign Up
-            </StyledButton>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <StyledButton
+                className="primary"
+                size="large"
+                onClick={() => setIsLoginModalVisible(true)}
+                loading={loginLoading}
+              >
+                🚀 Sign In
+              </StyledButton>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <StyledButton
+                className="secondary"
+                size="large"
+                onClick={() => setIsRegisterModalVisible(true)}
+                loading={registerLoading}
+              >
+                ✨ Join Us
+              </StyledButton>
+            </motion.div>
           </ButtonGroup>
 
           {mustUploadPainting && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.2, duration: 0.6 }}
               style={{
-                marginTop: 32,
-                background: "rgba(255, 255, 255, 0.15)",
-                border: "2px solid rgba(255, 64, 129, 0.5)",
-                borderRadius: 16,
-                padding: 24,
+                marginTop: 40,
+                background: "rgba(255, 107, 107, 0.2)",
+                border: "3px solid rgba(255, 107, 107, 0.6)",
+                borderRadius: 20,
+                padding: 30,
                 color: "#fff",
-                fontWeight: 600,
+                fontWeight: 700,
                 textAlign: "center",
-                backdropFilter: "blur(10px)",
+                backdropFilter: "blur(15px)",
               }}
             >
-              <div style={{ marginBottom: 16 }}>You must upload at least one painting to complete your profile.</div>
-              <StyledButton
-                className="primary"
-                onClick={() => setShowPaintingModal(true)}
-                loading={paintingUploadLoading}
+              <motion.div
+                style={{ marginBottom: 20, fontSize: "1.1rem" }}
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               >
-                Upload Painting
-              </StyledButton>
+                🎨 Share your first masterpiece to complete your artistic journey!
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <StyledButton
+                  className="primary"
+                  onClick={() => setShowPaintingModal(true)}
+                  loading={paintingUploadLoading}
+                >
+                  🖼️ Upload Art
+                </StyledButton>
+              </motion.div>
             </motion.div>
           )}
         </GlassContainer>

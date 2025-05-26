@@ -3,7 +3,16 @@
 import type React from "react"
 import { useState } from "react"
 import { Modal, Form, Input, DatePicker, Button, Select, Spin, Tooltip } from "antd"
-import { EyeInvisibleOutlined, EyeTwoTone, InfoCircleOutlined } from "@ant-design/icons"
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  InfoCircleOutlined,
+  UserOutlined,
+  MailOutlined,
+  LockOutlined,
+  CalendarOutlined,
+  BookOutlined,
+} from "@ant-design/icons"
 import { ESubject } from "../store/paintingSlice"
 import { getTest, checkAnswers } from "../store/axioscalls"
 import { motion } from "framer-motion"
@@ -11,55 +20,237 @@ import styled from "styled-components"
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
-    border-radius: 20px;
+    border-radius: 30px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
+    border: 3px solid rgba(76, 201, 196, 0.3);
+    box-shadow: 0 20px 60px rgba(76, 201, 196, 0.3);
   }
   
   .ant-modal-header {
-    background: linear-gradient(135deg, #29d98c, #56c6ff);
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
     border: none;
+    border-radius: 30px 30px 0 0;
+    padding: 25px 30px;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 3s infinite;
+    }
     
     .ant-modal-title {
       color: white;
-      font-weight: 700;
-      font-size: 1.5rem;
+      font-weight: 900;
+      font-size: 2rem;
+      text-align: center;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
+  }
+  
+  .ant-modal-body {
+    padding: 40px 35px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
   }
 `
 
 const StyledButton = styled(Button)`
-  height: 48px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 16px;
+  height: 55px;
+  border-radius: 20px;
+  font-weight: 900;
+  font-size: 18px;
+  border: none;
+  position: relative;
+  overflow: hidden;
   
   &.ant-btn-primary {
-    background: linear-gradient(135deg, #29d98c, #56c6ff);
-    border: none;
-    box-shadow: 0 4px 15px rgba(41, 217, 140, 0.3);
+    background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+    background-size: 200% 200%;
+    color: white;
+    box-shadow: 0 8px 25px rgba(76, 201, 196, 0.4);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s;
+    }
+    
+    &:hover::before {
+      left: 100%;
+    }
     
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(41, 217, 140, 0.4);
+      background: linear-gradient(135deg, #45b7d1, #4ecdc4);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(76, 201, 196, 0.6);
+      color: white;
     }
+  }
+`
+
+const StyledInput = styled(Input)`
+  border-radius: 15px;
+  height: 50px;
+  font-size: 16px;
+  border: 3px solid rgba(76, 201, 196, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  
+  &:focus, &:hover {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2);
+    transform: translateY(-2px);
+  }
+`
+
+const StyledPasswordInput = styled(Input.Password)`
+  border-radius: 15px;
+  height: 50px;
+  font-size: 16px;
+  border: 3px solid rgba(76, 201, 196, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  
+  &:focus, &:hover {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .ant-input {
+    background: transparent;
+    border: none;
+  }
+`
+
+const StyledDatePicker = styled(DatePicker)`
+  border-radius: 15px;
+  height: 50px;
+  font-size: 16px;
+  border: 3px solid rgba(76, 201, 196, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  
+  &:focus, &:hover {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2);
+    transform: translateY(-2px);
+  }
+`
+
+const StyledSelect = styled(Select)`
+  .ant-select-selector {
+    border-radius: 15px !important;
+    height: 50px !important;
+    border: 3px solid rgba(76, 201, 196, 0.3) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  &:hover .ant-select-selector,
+  .ant-select-focused .ant-select-selector {
+    border-color: #4ecdc4 !important;
+    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2) !important;
+    transform: translateY(-2px);
+  }
+`
+
+const StyledTextArea = styled(Input.TextArea)`
+  border-radius: 15px;
+  font-size: 16px;
+  border: 3px solid rgba(76, 201, 196, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  
+  &:focus, &:hover {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2);
+    transform: translateY(-2px);
   }
 `
 
 const StepIndicator = styled(motion.div)`
   display: flex;
   justify-content: center;
-  margin-bottom: 24px;
-  gap: 12px;
+  margin-bottom: 30px;
+  gap: 15px;
 `
 
-const StepDot = styled(motion.div)<{ active: boolean }>`
-  width: 12px;
-  height: 12px;
+const StepDot = styled(motion.div)<{ active: boolean; completed: boolean }>`
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: ${(props) => (props.active ? "linear-gradient(135deg, #29d98c, #56c6ff)" : "#ddd")};
+  background: ${(props) =>
+    props.completed
+      ? "linear-gradient(135deg, #96ceb4, #4ecdc4)"
+      : props.active
+        ? "linear-gradient(135deg, #4ecdc4, #45b7d1)"
+        : "#ddd"};
   transition: all 0.3s ease;
+  position: relative;
+  
+  ${(props) =>
+    props.completed &&
+    `
+    &::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  `}
+`
+
+const StepTitle = styled(motion.h3)`
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 900;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+`
+
+const FloatingIcon = styled(motion.div)`
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  color: #4ecdc4;
 `
 
 const RegisterModal = ({
@@ -109,8 +300,8 @@ const RegisterModal = ({
         await onRegister({ ...registerDetails, subject, answers: userAnswers })
       } else {
         Modal.error({
-          title: "Not Accepted",
-          content: "Sorry, your answers did not meet our requirements.",
+          title: "🎭 Not Quite There Yet",
+          content: "Your artistic knowledge needs a bit more development. Keep creating and try again!",
           centered: true,
         })
         onCancel()
@@ -120,128 +311,220 @@ const RegisterModal = ({
     }
   }
 
+  const getStepTitle = () => {
+    switch (step) {
+      case 1:
+        return "🎨 Tell Us About Yourself"
+      case 2:
+        return "🎭 Choose Your Art Form"
+      case 3:
+        return "📝 Show Your Expertise"
+      default:
+        return "✨ Join Our Community"
+    }
+  }
+
   let content: React.ReactNode
   if (step === 1) {
     content = (
-      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-        <Form form={detailsForm} layout="vertical" onFinish={handleStep1} initialValues={{}}>
+      <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+        <Form form={detailsForm} layout="vertical" onFinish={handleStep1}>
           <Form.Item
             name="name"
-            label="Full Name"
+            label={
+              <span>
+                <UserOutlined style={{ color: "#4ecdc4" }} /> Full Name
+              </span>
+            }
             rules={[{ required: true, message: "Please input your name!" }]}
             hasFeedback
           >
-            <Input placeholder="Your full name" style={{ borderRadius: 12, height: 40 }} />
+            <StyledInput placeholder="Your beautiful name..." />
           </Form.Item>
+
           <Form.Item
             name="email"
-            label="Email"
+            label={
+              <span>
+                <MailOutlined style={{ color: "#45b7d1" }} /> Email
+              </span>
+            }
             rules={[
               { required: true, message: "Please input your email!" },
               { type: "email", message: "Please enter a valid email!" },
             ]}
             hasFeedback
           >
-            <Input placeholder="Email" style={{ borderRadius: 12, height: 40 }} />
+            <StyledInput placeholder="your.email@creativity.com" />
           </Form.Item>
+
           <Form.Item
             name="password"
-            label="Password"
+            label={
+              <span>
+                <LockOutlined style={{ color: "#96ceb4" }} /> Password
+              </span>
+            }
             rules={[{ required: true, message: "Please input your password!" }]}
             hasFeedback
           >
-            <Input.Password
-              placeholder="Password"
-              style={{ borderRadius: 12, height: 40 }}
+            <StyledPasswordInput
+              placeholder="Create a strong password..."
               iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
             />
           </Form.Item>
+
           <Form.Item
             name="birthDate"
             label={
               <span>
-                Birth Date&nbsp;
-                <Tooltip title="You must be at least 13 years old to join.">
-                  <InfoCircleOutlined />
+                <CalendarOutlined style={{ color: "#ffeaa7" }} /> Birth Date{" "}
+                <Tooltip title="You must be at least 13 years old to join our creative community.">
+                  <InfoCircleOutlined style={{ color: "#ff6b6b" }} />
                 </Tooltip>
               </span>
             }
             rules={[{ required: true, message: "Please select your birth date!" }]}
             hasFeedback
           >
-            <DatePicker placeholder="Birth Date" style={{ width: "100%", borderRadius: 12, height: 40 }} />
+            <StyledDatePicker placeholder="When were you born?" style={{ width: "100%" }} />
           </Form.Item>
+
           <Form.Item
             name="subject"
-            label="Area of Expertise"
+            label={
+              <span>
+                <BookOutlined style={{ color: "#ff6b6b" }} /> Area of Expertise
+              </span>
+            }
             rules={[{ required: true, message: "Please choose your subject!" }]}
           >
-            <Select placeholder="Choose your expert subject" style={{ borderRadius: 12 }}>
+            <StyledSelect placeholder="What's your creative superpower?">
               {ESubject.map((subj, idx) => (
                 <Select.Option key={idx} value={subj}>
                   {subj}
                 </Select.Option>
               ))}
-            </Select>
+            </StyledSelect>
           </Form.Item>
-          <Form.Item>
-            <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }}>
-              Next Step
-            </StyledButton>
-          </Form.Item>
+
+          <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }}>
+            🚀 Next Step
+          </StyledButton>
         </Form>
       </motion.div>
     )
   } else if (step === 2) {
     content = (
-      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+      <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+        <motion.div
+          style={{
+            textAlign: "center",
+            marginBottom: 30,
+            padding: 25,
+            background: "linear-gradient(135deg, rgba(76, 201, 196, 0.1), rgba(69, 183, 209, 0.1))",
+            borderRadius: 20,
+            border: "2px solid rgba(76, 201, 196, 0.3)",
+          }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <h4 style={{ color: "#4ecdc4", fontWeight: 800, fontSize: "1.3rem", marginBottom: 10 }}>
+            🎯 Confirm Your Expertise
+          </h4>
+          <p style={{ color: "#666", fontWeight: 600 }}>
+            We'll test your knowledge to ensure you're ready to share amazing art!
+          </p>
+        </motion.div>
+
         <Form layout="vertical" onFinish={handleStep2}>
           <Form.Item
             name="subject"
-            label="Confirm Area of Expertise"
+            label={
+              <span>
+                <BookOutlined style={{ color: "#4ecdc4" }} /> Confirm Your Art Form
+              </span>
+            }
             rules={[{ required: true, message: "Please choose your subject!" }]}
             initialValue={registerDetails?.subject}
           >
-            <Select placeholder="Choose your expert subject" style={{ borderRadius: 12 }}>
+            <StyledSelect placeholder="Choose your expert subject...">
               {ESubject.map((subj, idx) => (
                 <Select.Option key={idx} value={subj}>
                   {subj}
                 </Select.Option>
               ))}
-            </Select>
+            </StyledSelect>
           </Form.Item>
-          <Form.Item>
-            <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }} loading={questionLoading}>
-              {questionLoading ? "Getting Questions..." : "Get Test Questions"}
-            </StyledButton>
-          </Form.Item>
+
+          <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }} loading={questionLoading}>
+            {questionLoading ? "🎨 Preparing Questions..." : "📝 Get My Test"}
+          </StyledButton>
         </Form>
       </motion.div>
     )
   } else if (step === 3) {
     content = (
-      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+      <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+        <motion.div
+          style={{
+            textAlign: "center",
+            marginBottom: 25,
+            padding: 20,
+            background: "linear-gradient(135deg, rgba(255, 234, 167, 0.3), rgba(150, 206, 180, 0.3))",
+            borderRadius: 15,
+            border: "2px solid rgba(255, 234, 167, 0.5)",
+          }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <p style={{ color: "#666", fontWeight: 700, margin: 0 }}>
+            🌟 Show us your expertise! Answer these questions to join our community.
+          </p>
+        </motion.div>
+
         <Form layout="vertical" onFinish={handleStep3}>
           {questions.map((q, i) => (
             <Form.Item
               key={i}
               name={`answer_${i}`}
-              label={`Q${i + 1}: ${q}`}
+              label={
+                <span style={{ fontWeight: 700, fontSize: 16 }}>
+                  <span
+                    style={{
+                      background: "linear-gradient(45deg, #4ecdc4, #45b7d1)",
+                      color: "white",
+                      padding: "4px 8px",
+                      borderRadius: "8px",
+                      marginRight: "8px",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Q{i + 1}
+                  </span>
+                  {q}
+                </span>
+              }
               rules={[{ required: true, message: "Please provide an answer!" }]}
             >
-              <Input.TextArea autoSize={{ minRows: 2, maxRows: 4 }} style={{ borderRadius: 12 }} />
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 + 0.3, duration: 0.6 }}
+              >
+                <StyledTextArea
+                  autoSize={{ minRows: 3, maxRows: 5 }}
+                  placeholder="Share your knowledge and creativity..."
+                />
+              </motion.div>
             </Form.Item>
           ))}
-          <Form.Item>
-            <StyledButton
-              type="primary"
-              htmlType="submit"
-              style={{ width: "100%" }}
-              loading={checkingAnswers || loading}
-            >
-              {checkingAnswers || loading ? "Checking..." : "Submit & Register"}
-            </StyledButton>
-          </Form.Item>
+
+          <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }} loading={checkingAnswers || loading}>
+            {checkingAnswers || loading ? "🎨 Reviewing Your Answers..." : "✨ Join the Community!"}
+          </StyledButton>
         </Form>
       </motion.div>
     )
@@ -249,26 +532,81 @@ const RegisterModal = ({
 
   return (
     <StyledModal
-      title="Join Our Community!"
+      title={
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          🌟 Join Our Creative Family!
+        </motion.div>
+      }
       open={open}
       onCancel={onCancel}
       footer={null}
-      destroyOnHidden
+      destroyOnClose
       centered
-      width={600}
+      width={650}
     >
-      <StepIndicator>
-        {[1, 2, 3].map((stepNum) => (
-          <StepDot
-            key={stepNum}
-            active={step >= stepNum}
-            animate={{ scale: step === stepNum ? 1.2 : 1 }}
-            transition={{ duration: 0.3 }}
-          />
-        ))}
-      </StepIndicator>
+      <div style={{ position: "relative" }}>
+        {/* Floating decorative elements */}
+        <FloatingIcon
+          style={{ top: "10px", right: "20px" }}
+          animate={{
+            rotate: [0, 360],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+          }}
+        >
+          🎨
+        </FloatingIcon>
 
-      <Spin spinning={loading}>{content}</Spin>
+        <FloatingIcon
+          style={{ bottom: "20px", left: "15px" }}
+          animate={{
+            y: [0, -15, 0],
+            rotate: [0, -15, 15, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Number.POSITIVE_INFINITY,
+          }}
+        >
+          🌟
+        </FloatingIcon>
+
+        <StepIndicator>
+          {[1, 2, 3].map((stepNum) => (
+            <StepDot
+              key={stepNum}
+              active={step === stepNum}
+              completed={step > stepNum}
+              animate={{
+                scale: step === stepNum ? 1.3 : 1,
+                rotate: step > stepNum ? 360 : 0,
+              }}
+              transition={{ duration: 0.4 }}
+            />
+          ))}
+        </StepIndicator>
+
+        <StepTitle
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          key={step}
+        >
+          {getStepTitle()}
+        </StepTitle>
+
+        <Spin spinning={loading} tip="Creating your artistic profile...">
+          {content}
+        </Spin>
+      </div>
     </StyledModal>
   )
 }
