@@ -143,6 +143,37 @@ const StyledSelect = styled(Select)`
     box-shadow: 0 0 0 3px rgba(122, 66, 244, 0.2) !important;
     transform: translateY(-2px);
   }
+  
+  .ant-select-selection-item {
+    display: flex !important;
+    align-items: center !important;
+    line-height: 44px !important;
+  }
+`
+
+const StyledSelectDropdown = styled.div`
+  .ant-select-dropdown {
+    border-radius: 15px !important;
+    box-shadow: 0 10px 30px rgba(122, 66, 244, 0.3) !important;
+    border: 2px solid rgba(122, 66, 244, 0.2) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+  
+  .ant-select-item {
+    border-radius: 8px !important;
+    margin: 4px 8px !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .ant-select-item-option-selected {
+    background: linear-gradient(135deg, #7a42f4, #ff6b6b) !important;
+    color: white !important;
+  }
+  
+  .ant-select-item-option-active {
+    background: rgba(122, 66, 244, 0.1) !important;
+  }
 `
 
 const UploadArea = styled(motion.div)`
@@ -301,7 +332,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       open={visible}
       onCancel={onCancel}
       footer={null}
-      destroyOnHidden
+      destroyOnClose
       centered
       width={600}
     >
@@ -366,25 +397,38 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             <Form.Item
               name="subject"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
-              rules={[{ required: true, message: "Please select a subject!" }]}>
+              rules={[{ required: true, message: "Please select a subject!" }]}
+            >
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}>
-                <StyledSelect
-                  placeholder="What type of art is this?"
-                  onChange={handleSubjectChange}
-                  value={selectedSubject}
-                  options={ESubject.map((subject) => ({
-                    value: subject,
-                    label: (
-                      <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                        {getSubjectIcon(subject)}
-                        {subject}
-                      </span>
-                    ),
-                  }))}
-                />
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
+                <StyledSelectDropdown>
+                  <StyledSelect
+                    placeholder="What type of art is this?"
+                    onChange={handleSubjectChange}
+                    dropdownStyle={{
+                      borderRadius: "15px",
+                      boxShadow: "0 10px 30px rgba(122, 66, 244, 0.3)",
+                      border: "2px solid rgba(122, 66, 244, 0.2)",
+                      background: "rgba(255, 255, 255, 0.95)",
+                      backdropFilter: "blur(10px)",
+                    }}
+                    size="large"
+                    showSearch={false}
+                    getPopupContainer={(trigger) => trigger.parentElement || document.body}
+                  >
+                    {ESubject.map((subject, idx) => (
+                      <Select.Option key={idx} value={subject}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "4px 0" }}>
+                          {getSubjectIcon(subject)}
+                          <span style={{ fontWeight: 600 }}>{subject}</span>
+                        </div>
+                      </Select.Option>
+                    ))}
+                  </StyledSelect>
+                </StyledSelectDropdown>
               </motion.div>
             </Form.Item>
 
