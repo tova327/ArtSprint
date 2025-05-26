@@ -10,6 +10,7 @@ import { ESubject } from '../store/paintingSlice';
 import TextFileDisplay from './TextFileDisplay';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import UserDetails from './UserDetails';
 
 const GlassCard = styled(motion.div)`
   background: rgba(255,255,255,0.89);
@@ -135,7 +136,8 @@ const PaintingComponent: React.FC = () => {
         >
             <Button onClick={handleBack} style={{ marginBottom: 18, borderRadius: 12 }}>← Back</Button>
             <h2 style={{ color: "#ff4081", fontWeight: 700 }}>{painting.name}</h2>
-            <p style={{ color: "#888" }}>Owner: <b>{painting.ownerId}</b></p>
+            {/* <p style={{ color: "#888" }}>Owner: <b>{painting.ownerId}</b></p> */}
+            <UserDetails id={painting.ownerId} short={false}/>
             <div style={{ margin: '20px 0' }}>{renderContent()}</div>
             <h3>Comments</h3>
             <List

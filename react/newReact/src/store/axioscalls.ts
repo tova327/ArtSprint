@@ -159,3 +159,15 @@ export const checkAnswers = async ({ subject, questions, answers }: { subject: s
         throw error
     }
 }
+
+export const getAllUsers=async(token:string)=>{
+    try{
+        const response=await axios.get(`${globalAPI}user`,{headers:{
+            Authorization: `Bearer ${token}`
+        }})
+        return response.data
+    }catch(error){
+        console.log(error);
+        throw error
+    }
+}

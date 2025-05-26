@@ -9,6 +9,7 @@ import { PaintingType, ESubject } from '../store/paintingSlice';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { notification, Button as AntButton } from 'antd';
+import UserDetails from './UserDetails';
 
 const GlassCard = styled(motion.div)`
   background: rgba(255,255,255,0.77);
@@ -141,7 +142,8 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
                 fontSize: '1.35rem',
                 marginBottom: 6,
             }}>{painting.name}</h2>
-            <p style={{ margin: 0, color: "#888" }}>Owner: <b>{painting.ownerId}</b></p>
+            {/* <p style={{ margin: 0, color: "#888" }}>Owner: <b>{painting.ownerId}</b></p> */}
+            <UserDetails id={painting.id} short={true}/>
             <p style={{ margin: 0, color: "#888" }}>Likes: <b>{painting.likes}</b></p>
             <div style={{ margin: '18px 0' }}>{renderContent()}</div>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: 8, width: '48%' }}>

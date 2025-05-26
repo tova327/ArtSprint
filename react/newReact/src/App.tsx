@@ -6,7 +6,7 @@ import SubApp from './components/SubApp';
 import { useDispatch } from 'react-redux';
 //import { setUser } from './store/userSlice'; // Import the setUser action
 import axios from 'axios';
-import { setUser } from './store/userSlice';
+import { getAllUsersAsync, setUser } from './store/userSlice';
 
 function App() {
     const [showStart, setShowStart] = useState(true);
@@ -29,7 +29,9 @@ function App() {
                     if (response.status === 200) {
                         dispatch(setUser(response.data)); // Update user state
                         setShowStart(false); // Hide StartPage if authenticated
+                        dispatch(getAllUsersAsync({token:authToken}))
                     }
+                    
                 } catch (error) {
                     console.error("User is not authenticated");
                     localStorage.removeItem('authToken')

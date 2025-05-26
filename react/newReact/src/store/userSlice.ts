@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { Login, Register } from "./axioscalls"
+import { getAllUsers, Login, Register } from "./axioscalls"
 
 
 export type UserType={
@@ -54,6 +54,18 @@ export const RegisterAsync = createAsyncThunk<any, { user: UserToAddType }>(
     }
 );
 
+export const getAllUsersAsync=createAsyncThunk(
+    'user/getall',
+    async({token}:{token:string},thunkAPI)=>{
+        try {
+            const response = await getAllUsers(token)
+            return response; 
+        } catch (e: any) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -71,6 +83,7 @@ const userSlice = createSlice({
         token: null as string | null|undefined,  // This may be kept for future use or removed
         loading: false,
         error: null as null | undefined | string,
+        allusers:[]as UserType[]|null
     },
     reducers: {
         setUser(state, action) {
@@ -113,7 +126,14 @@ const userSlice = createSlice({
                 console.log("registration rejected");
                 state.error = action.error.message;
                 state.loading = false;
-            });
+            })
+            .addCase(getAllUsersAsync.fulfilled,(state,action)=>{
+                state.allusers=action.payload
+            })
+            .addCase(getAllUsersAsync.rejected,(state,action)=>{
+                state.allusers=null
+                console.log(action.error.message);
+            })
     }
 });
 export const {setUser}=userSlice.actions
