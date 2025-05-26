@@ -29,7 +29,7 @@ function App() {
                     if (response.status === 200) {
                         dispatch(setUser(response.data)); // Update user state
                         setShowStart(false); // Hide StartPage if authenticated
-                        dispatch(getAllUsersAsync({token:authToken}))
+                        
                     }
                     
                 } catch (error) {

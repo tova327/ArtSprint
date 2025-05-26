@@ -1,17 +1,22 @@
 import { Descriptions, Statistic } from 'antd';
-import { UserType } from '../store/userSlice';
-import { useSelector } from 'react-redux';
-import { StoreType } from '../store/store';
+import { getAllUsersAsync, UserType } from '../store/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, StoreType } from '../store/store';
 import { useEffect, useState } from 'react';
 
 const UserDetails = ({ id, short }: { id: number, short: boolean }) => {
-
+    const dispatch = useDispatch<AppDispatch>();
     const allUsers = useSelector((store: StoreType) => store.user.allusers)
+        const token = useSelector((store: StoreType) => store.user.token)
+
     const [user, setUser] = useState({} as UserType|undefined)
     useEffect(() => {
-        const u = allUsers?.find(u => u.id === id)
-        setUser(u)
+        dispatch(getAllUsersAsync({token:token||''}))
     }, [])
+    useEffect(()=>{
+        const u=allUsers?.find(u=>u.id===id)
+        setUser(u)
+    },[allUsers])
     if (short)
         return (
             <Statistic title="Owner" value={user?.name} />
