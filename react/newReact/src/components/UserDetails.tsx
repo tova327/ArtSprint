@@ -25,7 +25,7 @@ const UserDetails = ({ id, short }: { id: number, short: boolean }) => {
         <Descriptions title="Owner">
             <Descriptions.Item label="Name: ">{user?.name}</Descriptions.Item>
             <Descriptions.Item label="Email: ">{user?.email}</Descriptions.Item>
-            <Descriptions.Item label="Joined As: ">{user?.cameOn&&user?.cameOn.toDateString()}</Descriptions.Item>
+            <Descriptions.Item label="Joined As: ">{user?.cameOn&&user?.cameOn.toLocaleDateString()}</Descriptions.Item>
         </Descriptions>
     )
 };
