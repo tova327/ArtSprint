@@ -188,7 +188,7 @@ const PaintingComponent: React.FC = () => {
   const [commentContent, setCommentContent] = useState<string>("")
 
   const comments = useSelector((store: StoreType) => store.comments.comments)
-  const token = useSelector((state: any) => state.user.token)
+  const token = useSelector((store:StoreType) => store.user.token)
   const userId = useSelector((store: StoreType) => store.user.user.id)
 
   useEffect(() => {
@@ -227,7 +227,7 @@ const PaintingComponent: React.FC = () => {
       userId: userId,
       paintId: Number(id),
     }
-    const resultAction = await dispatch(addCommentAsync({ comment: newComment, token }))
+    const resultAction = await dispatch(addCommentAsync({ comment: newComment,token: token||'' }))
     if (addCommentAsync.fulfilled.match(resultAction)) {
       message.success({
         content: "🎉 Your thoughts have been shared!",
