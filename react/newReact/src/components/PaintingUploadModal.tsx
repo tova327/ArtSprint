@@ -385,6 +385,8 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                     border: "2px solid rgba(122, 66, 244, 0.2)",
                     background: "rgba(255, 255, 255, 0.95)",
                     backdropFilter: "blur(10px)",
+                    position:"absolute",
+                    zIndex:9999999999999999
                   }}
                   getPopupContainer={(trigger) => trigger.parentElement || document.body}
                 >
