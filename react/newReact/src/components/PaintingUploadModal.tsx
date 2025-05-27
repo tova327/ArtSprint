@@ -127,24 +127,6 @@ const StyledInput = styled(Input)`
   }
 `
 
-const StyledSelect = styled(Select)`
-  .ant-select-selector {
-    border-radius: 15px !important;
-    height: 50px !important;
-    border: 3px solid rgba(122, 66, 244, 0.3) !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-  }
-  
-  &:hover .ant-select-selector {
-    border-color: #7a42f4 !important;
-  }
-  
-  .ant-select-focused .ant-select-selector {
-    border-color: #7a42f4 !important;
-    box-shadow: 0 0 0 2px rgba(122, 66, 244, 0.2) !important;
-  }
-`
-
 const UploadArea = styled(motion.div)`
   border: 3px dashed rgba(122, 66, 244, 0.4);
   border-radius: 20px;
@@ -274,7 +256,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
     await onUpload({
       ownerId: userId,
       name: values.name,
-      subject: values.subject,
+      subject: values.subject, // This will now be the index
       paintingFile,
     } as PaintingToAddType)
     setPaintingFile(null)
@@ -282,9 +264,10 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
     form.resetFields()
   }
 
-  const handleSubjectChange = (value: any) => {
-    setSelectedSubject(value)
-    setPaintingFile(null) // Reset file when subject changes
+  const handleSubjectChange = (value: number) => {
+    const subject = ESubject[value]
+    setSelectedSubject(subject)
+    setPaintingFile(null)
   }
 
   return (
@@ -374,31 +357,29 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                <StyledSelect
+                <Select
                   placeholder="What type of art is this?"
                   onChange={handleSubjectChange}
                   size="large"
-                  style={{ width: "100%" }}
+                  style={{
+                    width: "100%",
+                    borderRadius: "15px",
+                  }}
                   dropdownStyle={{
                     borderRadius: "15px",
                     boxShadow: "0 10px 30px rgba(122, 66, 244, 0.3)",
-                    border: "2px solid rgba(122, 66, 244, 0.2)",
-                    background: "rgba(255, 255, 255, 0.95)",
-                    backdropFilter: "blur(10px)",
-                    position:"absolute",
-                    zIndex:9999999999999999
                   }}
-                  getPopupContainer={(trigger) => trigger.parentElement || document.body}
+                  getPopupContainer={() => document.body}
                 >
                   {ESubject.map((subject, index) => (
-                    <Select.Option key={index} value={subject}>
+                    <Select.Option key={index} value={index}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         {getSubjectIcon(subject)}
                         <span>{subject}</span>
                       </div>
                     </Select.Option>
                   ))}
-                </StyledSelect>
+                </Select>
               </motion.div>
             </Form.Item>
 
