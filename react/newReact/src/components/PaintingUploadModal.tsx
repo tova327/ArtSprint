@@ -317,40 +317,15 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 <StyledInput placeholder="What should we call this masterpiece?" />
               </motion.div>
             </Form.Item>
-            <Form.Item
-              name="subject"
-              label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
-              rules={[{ required: true, message: "Please select a subject!" }]}
-            >
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-              >
-                <Select
-                  placeholder="What type of art is this?"
-                  size="large"
-                  style={{
-                    width: "100%",
-                    borderRadius: "15px",
-                  }}
-                  dropdownStyle={{
-                    borderRadius: "15px",
-                    boxShadow: "0 10px 30px rgba(122, 66, 244, 0.3)",
-                  }}
-                  getPopupContainer={() => document.body}
-                >
-                  {ESubject.map((subject, index) => (
-                    <Select.Option key={index} value={index}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                        {getSubjectIcon(subject)}
-                        <span>{subject}</span>
-                      </div>
-                    </Select.Option>
-                  ))}
-                </Select>
-              </motion.div>
-            </Form.Item>
+            <Form.Item name="subject" label="Subject" rules={[{ required: true, message: "Please select a subject!" }]}>
+            <Select style={{ borderRadius: 12 }}>
+              {ESubject.map((subject, idx) => (
+                <Select.Option key={idx} value={subject}>
+                  {subject}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
             {selectedSubject && (
               <FileTypeHint
                 initial={{ opacity: 0, y: 20 }}
