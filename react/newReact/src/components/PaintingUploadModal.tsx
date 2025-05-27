@@ -16,7 +16,6 @@ const StyledModal = styled(Modal)`
     border: 3px solid rgba(122, 66, 244, 0.3);
     box-shadow: 0 20px 60px rgba(122, 66, 244, 0.3);
   }
-  
   .ant-modal-header {
     background: linear-gradient(135deg, #7a42f4, #ff6b6b, #4ecdc4);
     background-size: 200% 200%;
@@ -26,7 +25,6 @@ const StyledModal = styled(Modal)`
     padding: 25px 30px;
     position: relative;
     overflow: hidden;
-    
     &::before {
       content: '';
       position: absolute;
@@ -37,7 +35,6 @@ const StyledModal = styled(Modal)`
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
       animation: shimmer 3s infinite;
     }
-    
     .ant-modal-title {
       color: white;
       font-weight: 900;
@@ -50,24 +47,20 @@ const StyledModal = styled(Modal)`
       gap: 10px;
     }
   }
-  
   .ant-modal-body {
     padding: 40px 35px;
     background: rgba(255, 255, 255, 0.9);
   }
-  
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  
   @keyframes shimmer {
     0% { left: -100%; }
     100% { left: 100%; }
   }
 `
-
 const StyledButton = styled(Button)`
   height: 55px;
   border-radius: 20px;
@@ -76,13 +69,11 @@ const StyledButton = styled(Button)`
   border: none;
   position: relative;
   overflow: hidden;
-  
   &.ant-btn-primary {
     background: linear-gradient(135deg, #7a42f4, #ff6b6b);
     background-size: 200% 200%;
     color: white;
     box-shadow: 0 8px 25px rgba(122, 66, 244, 0.4);
-    
     &::before {
       content: '';
       position: absolute;
@@ -93,11 +84,9 @@ const StyledButton = styled(Button)`
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
       transition: left 0.6s;
     }
-    
     &:hover::before {
       left: 100%;
     }
-    
     &:hover {
       background: linear-gradient(135deg, #ff6b6b, #7a42f4);
       transform: translateY(-3px) scale(1.02);
@@ -106,7 +95,6 @@ const StyledButton = styled(Button)`
     }
   }
 `
-
 const StyledInput = styled(Input)`
   border-radius: 15px;
   height: 50px;
@@ -114,19 +102,16 @@ const StyledInput = styled(Input)`
   border: 3px solid rgba(122, 66, 244, 0.3);
   background: rgba(255, 255, 255, 0.9);
   transition: all 0.3s ease;
-  
   &:focus, &:hover {
     border-color: #7a42f4;
     box-shadow: 0 0 0 3px rgba(122, 66, 244, 0.2);
     transform: translateY(-2px);
   }
-  
   &::placeholder {
     color: rgba(102, 102, 102, 0.6);
     font-weight: 500;
   }
 `
-
 const UploadArea = styled(motion.div)`
   border: 3px dashed rgba(122, 66, 244, 0.4);
   border-radius: 20px;
@@ -136,13 +121,11 @@ const UploadArea = styled(motion.div)`
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  
   &:hover {
     border-color: #7a42f4;
     background: linear-gradient(135deg, rgba(122, 66, 244, 0.1), rgba(255, 107, 107, 0.1));
     transform: translateY(-2px);
   }
-  
   &::before {
     content: '';
     position: absolute;
@@ -153,22 +136,18 @@ const UploadArea = styled(motion.div)`
     background: linear-gradient(90deg, transparent, rgba(122, 66, 244, 0.2), transparent);
     transition: left 0.8s;
   }
-  
   &:hover::before {
     left: 100%;
   }
 `
-
 const UploadIcon = styled(motion.div)`
   font-size: 3rem;
   margin-bottom: 15px;
   color: #7a42f4;
 `
-
 const WelcomeText = styled(motion.div)`
   text-align: center;
   margin-bottom: 30px;
-  
   h3 {
     background: linear-gradient(45deg, #7a42f4, #ff6b6b);
     -webkit-background-clip: text;
@@ -178,28 +157,24 @@ const WelcomeText = styled(motion.div)`
     font-size: 1.5rem;
     margin-bottom: 10px;
   }
-  
   p {
     color: #666;
     font-size: 16px;
     font-weight: 600;
   }
 `
-
 const FloatingIcon = styled(motion.div)`
   position: absolute;
   font-size: 1.5rem;
   opacity: 0.6;
   color: #7a42f4;
 `
-
 const FileTypeHint = styled(motion.div)`
   margin-top: 15px;
   padding: 15px;
   background: rgba(122, 66, 244, 0.1);
   border-radius: 12px;
   border: 2px solid rgba(122, 66, 244, 0.2);
-  
   h4 {
     color: #7a42f4;
     font-weight: 800;
@@ -208,7 +183,6 @@ const FileTypeHint = styled(motion.div)`
     align-items: center;
     gap: 8px;
   }
-  
   p {
     color: #666;
     margin: 0;
@@ -249,25 +223,20 @@ const getAcceptedFiles = (subject: string) => {
 const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: any) => {
   const [form] = Form.useForm()
   const [paintingFile, setPaintingFile] = useState<File | null>(null)
-  const [selectedSubject, setSelectedSubject] = useState<string>("")
+  // Get the currently selected subject index from the form
+  const selectedSubjectIdx = Form.useWatch("subject", form)
+  const selectedSubject = typeof selectedSubjectIdx === "number" ? ESubject[selectedSubjectIdx] : undefined
 
   const handleUpload = async (values: any) => {
     if (!paintingFile) return
     await onUpload({
       ownerId: userId,
       name: values.name,
-      subject: values.subject, // This will now be the index
+      subject: values.subject, // index of ESubject
       paintingFile,
     } as PaintingToAddType)
     setPaintingFile(null)
-    setSelectedSubject("")
     form.resetFields()
-  }
-
-  const handleSubjectChange = (value: number) => {
-    const subject = ESubject[value]
-    setSelectedSubject(subject)
-    setPaintingFile(null)
   }
 
   return (
@@ -305,7 +274,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
         >
           🎭
         </FloatingIcon>
-
         <FloatingIcon
           style={{ bottom: "20px", left: "15px" }}
           animate={{
@@ -319,7 +287,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
         >
           ✨
         </FloatingIcon>
-
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <WelcomeText
             initial={{ opacity: 0, scale: 0.9 }}
@@ -329,13 +296,17 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             <h3>Ready to Inspire the World? 🌟</h3>
             <p>Upload your creative masterpiece and let it shine!</p>
           </WelcomeText>
-
-          <Form form={form} layout="vertical" onFinish={handleUpload}>
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={handleUpload}
+            onValuesChange={(changed, _) => {
+              if ("subject" in changed) setPaintingFile(null)
+            }}
+          >
             <Form.Item
               name="name"
-              label={
-                <span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🖼️ Give Your Art a Beautiful Name</span>
-              }
+              label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🖼️ Give Your Art a Beautiful Name</span>}
               rules={[{ required: true, message: "Please input the painting name!" }]}
             >
               <motion.div
@@ -346,7 +317,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 <StyledInput placeholder="What should we call this masterpiece?" />
               </motion.div>
             </Form.Item>
-
             <Form.Item
               name="subject"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
@@ -359,7 +329,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               >
                 <Select
                   placeholder="What type of art is this?"
-                  onChange={handleSubjectChange}
                   size="large"
                   style={{
                     width: "100%",
@@ -382,7 +351,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 </Select>
               </motion.div>
             </Form.Item>
-
             {selectedSubject && (
               <FileTypeHint
                 initial={{ opacity: 0, y: 20 }}
@@ -396,7 +364,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 <p>{getAcceptedFiles(selectedSubject)}</p>
               </FileTypeHint>
             )}
-
             <Form.Item
               name="paintingFile"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>📁 Upload Your Creation</span>}
@@ -413,7 +380,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                   accept={
                     selectedSubject === "Music"
                       ? ".mp3"
-                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject)
+                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject||'')
                         ? ".png,.jpg,.jpeg,.gif"
                         : selectedSubject === "Writing"
                           ? ".pdf"
@@ -448,7 +415,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 </Upload>
               </motion.div>
             </Form.Item>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
