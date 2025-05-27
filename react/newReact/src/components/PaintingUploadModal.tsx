@@ -392,7 +392,8 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             <Form.Item
               name="subject"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
-              rules={[{ required: true, message: "Please select a subject!" }]}>
+              rules={[{ required: true, message: "Please select a subject!" }]}
+            >
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -400,17 +401,16 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 <StyledSelect
                   placeholder="What type of art is this?"
                   onChange={handleSubjectChange}
-                  value={selectedSubject}
-                  options={ESubject.map((subject) => ({
-                    value: subject,
-                    label: (
+                >
+                  {ESubject.map((subject) => (
+                    <Select.Option key={subject} value={subject}>
                       <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         {getSubjectIcon(subject)}
                         {subject}
                       </span>
-                    ),
-                  }))}
-                />
+                    </Select.Option>
+                  ))}
+                </StyledSelect>
               </motion.div>
             </Form.Item>
 
