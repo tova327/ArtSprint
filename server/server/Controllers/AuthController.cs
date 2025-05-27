@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using Server.Core.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,6 +30,8 @@ namespace server.Controllers
             _userService = userService; 
             _mapper = mapper;
         }
+        [Authorize]
+
         [HttpPost("authuser")]
         public async Task<IActionResult> GetUserFromToken([FromBody]string token)
         {

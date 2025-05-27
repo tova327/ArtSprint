@@ -47,6 +47,7 @@ function App() {
           const response = await axios.post(`${import.meta.env.VITE_MY_API_URL}auth/authuser`, authToken, {
             headers: {
               "Content-Type": "application/json",
+               Authorization: `Bearer ${authToken}`
             },
           })
           if (response.status === 200) {
