@@ -59,9 +59,9 @@ namespace server.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-            var token=await _authService.Authenticate(HttpContext, loginModel.UserName, loginModel.Password);
+            var token=await _authService.Authenticate(base.HttpContext, loginModel.UserName, loginModel.Password);
             var user = await _userService.GetUserByUsername(loginModel.UserName);
-            if (user == null)
+            if (user == null||token==null)
                 return Unauthorized();
 
             return Ok(new {token=token, User = user }); // No token returned
