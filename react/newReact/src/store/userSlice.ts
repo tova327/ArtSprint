@@ -104,6 +104,7 @@ const userSlice = createSlice({
             .addCase(LoginAsync.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload.user; 
+                console.log("login async "+state.user.id);
                 state.token=action.payload.token
                 if(state.token)localStorage.setItem('authToken',state.token)
             })

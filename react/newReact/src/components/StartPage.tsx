@@ -138,6 +138,8 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
     try {
       const result = await dispatch(LoginAsync({ user: values })).unwrap()
       setIsLoginModalVisible(false)
+      console.log("before send to check painting "+user.id);
+
       await checkUserPainting(user.id)
       openNotification("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`)
     } catch (error: any) {
@@ -162,6 +164,8 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
   }
 
   const checkUserPainting = async (userid: string | number) => {
+     console.log("in check painting "+user.id);
+
     try {
       const res = await axios.get(`https://artsprintserver.onrender.com/api/Painting/user/${userid}`)
       if (!res.data || res.data.length === 0) {
