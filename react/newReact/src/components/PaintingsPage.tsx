@@ -3,16 +3,17 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Row, Col, Button, Modal, Form, Input, Upload, Select, message, Spin, notification } from "antd"
+import { Row, Col, Button, message, Spin, notification } from "antd"
 import type { AppDispatch, StoreType } from "../store/store"
 import { ESubject, fetchPaintingsAsync, type PaintingType, uploadPaintingAsync } from "../store/paintingSlice"
 import ShowPainting from "./ShowPainting"
+import PaintingUploadModal from "./PaintingUploadModal"
 import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import PopularPaintings from "./PopularPaintings"
 import LatestPaintings from "./LatestPaintings"
-import { PlusOutlined, CloudUploadOutlined } from "@ant-design/icons"
+import { CloudUploadOutlined } from "@ant-design/icons"
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
@@ -21,7 +22,7 @@ const PageContainer = styled(motion.div)`
   padding: 40px 6vw;
   position: relative;
   overflow-x: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -32,7 +33,7 @@ const PageContainer = styled(motion.div)`
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
     pointer-events: none;
   }
-  
+
   @media (max-width: 768px) {
     padding: 24px 4vw;
   }
@@ -50,7 +51,7 @@ const PageTitle = styled(motion.h1)`
   background-clip: text;
   text-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
   position: relative;
-  
+
   &::after {
     content: '✨';
     position: absolute;
@@ -59,12 +60,12 @@ const PageTitle = styled(motion.h1)`
     font-size: 2rem;
     animation: sparkle 2s ease-in-out infinite;
   }
-  
+
   @keyframes sparkle {
     0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
     50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
   }
-  
+
   @media (max-width: 768px) {
     font-size: 2.8rem;
   }
@@ -84,7 +85,7 @@ const UploadButton = styled(motion(Button))`
   box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -95,11 +96,11 @@ const UploadButton = styled(motion(Button))`
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
     transition: left 0.8s;
   }
-  
+
   &:hover::before {
     left: 100%;
   }
-  
+
   &:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
@@ -107,7 +108,7 @@ const UploadButton = styled(motion(Button))`
     border: none;
     color: white;
   }
-  
+
   &:active {
     transform: translateY(-2px) scale(1.02);
   }
@@ -133,52 +134,6 @@ const LoadingContent = styled(motion.div)`
   color: white;
 `
 
-const StyledModal = styled(Modal)`
-  .ant-modal-content {
-    border-radius: 25px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 107, 107, 0.3);
-  }
-  
-  .ant-modal-header {
-    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-    border: none;
-    border-radius: 25px 25px 0 0;
-    
-    .ant-modal-title {
-      color: white;
-      font-weight: 800;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-  }
-  
-  .ant-modal-body {
-    padding: 30px;
-  }
-`
-
-const FormButton = styled(Button)`
-  width: 100%;
-  height: 50px;
-  border-radius: 15px;
-  font-weight: 700;
-  font-size: 16px;
-  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-  border: none;
-  color: white;
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-  
-  &:hover {
-    background: linear-gradient(135deg, #4ecdc4, #ff6b6b);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-  }
-`
-
 const PaintingsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const paintings = useSelector((store: StoreType) => store.painting.paintings)
@@ -188,8 +143,7 @@ const PaintingsPage: React.FC = () => {
   const error = useSelector((store: StoreType) => store.painting.error)
 
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [form] = Form.useForm()
-  const [acceptedFileTypes, setAcceptedFileTypes] = useState<string[]>([])
+  const [paintingUploadLoading, setPaintingUploadLoading] = useState(false)
 
   const location = useLocation()
   const query = new URLSearchParams(location.search)
@@ -214,56 +168,34 @@ const PaintingsPage: React.FC = () => {
     }
   }, [error])
 
-  const handleUpload = async (values: any) => {
-    const paintingData = {
-      ownerId: userId,
-      name: values.name,
-      subject: values.subject,
-      paintingFile: values.paintingFile[0].originFileObj,
-    }
-    const resultAction = await dispatch(uploadPaintingAsync({ painting: paintingData, token: token || "" }))
-    if (uploadPaintingAsync.fulfilled.match(resultAction)) {
-      message.success({
-        content: "🎨 Masterpiece uploaded successfully!",
-        style: { borderRadius: 15 },
-      })
-      setIsModalVisible(false)
-      form.resetFields()
-    } else {
+  const handleUpload = async (paintingData: any) => {
+    setPaintingUploadLoading(true)
+    try {
+      const resultAction = await dispatch(uploadPaintingAsync({ painting: paintingData, token: token || "" }))
+      if (uploadPaintingAsync.fulfilled.match(resultAction)) {
+        message.success({
+          content: "🎨 Masterpiece uploaded successfully!",
+          style: { borderRadius: 15 },
+        })
+        setIsModalVisible(false)
+      } else {
+        message.error({
+          content: "❌ Failed to upload painting",
+          style: { borderRadius: 15 },
+        })
+      }
+    } catch (error) {
       message.error({
         content: "❌ Failed to upload painting",
         style: { borderRadius: 15 },
       })
+    } finally {
+      setPaintingUploadLoading(false)
     }
   }
 
   const showModal = () => setIsModalVisible(true)
   const handleCancel = () => setIsModalVisible(false)
-
-  const handleSubjectChange = (value: number) => {
-    const valueSwitch = ESubject[value]
-    switch (valueSwitch) {
-      case "Music":
-        setAcceptedFileTypes([".mp3"])
-        break
-      case "Photography":
-      case "Drawing":
-      case "Graphic":
-        setAcceptedFileTypes([".png", ".jpg", ".jpeg", ".gif"])
-        break
-      case "Writing":
-        setAcceptedFileTypes([".pdf"])
-        break
-      default:
-        setAcceptedFileTypes([])
-    }
-  }
-
-  const subjectOptions = ESubject.map((subject, index) => (
-    <Select.Option key={index} value={index}>
-      {subject}
-    </Select.Option>
-  ))
 
   return (
     <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
@@ -332,68 +264,14 @@ const PaintingsPage: React.FC = () => {
         </UploadButton>
       </motion.div>
 
-      <StyledModal
-        title="🎨 Share Your Masterpiece"
-        open={isModalVisible}
+      <PaintingUploadModal
+        visible={isModalVisible}
         onCancel={handleCancel}
-        footer={null}
-        centered
-        width={600}
-      >
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <Form form={form} onFinish={handleUpload} layout="vertical">
-            <Form.Item
-              name="name"
-              label={<span style={{ fontWeight: 700, fontSize: 16 }}>🖼️ Painting Name</span>}
-              rules={[{ required: true, message: "Please input the painting name!" }]}
-            >
-              <Input
-                style={{ borderRadius: 12, height: 45, fontSize: 16 }}
-                placeholder="Give your masterpiece a beautiful name..."
-              />
-            </Form.Item>
-
-            <Form.Item
-              name="subject"
-              label={<span style={{ fontWeight: 700, fontSize: 16 }}>🎭 Art Category</span>}
-              rules={[{ required: true, message: "Please select a subject!" }]}
-            >
-              <Select
-                onChange={handleSubjectChange}
-                style={{ borderRadius: 12 }}
-                placeholder="Choose your art category..."
-              >
-                {subjectOptions}
-              </Select>
-            </Form.Item>
-
-            <Form.Item
-              name="paintingFile"
-              label={<span style={{ fontWeight: 700, fontSize: 16 }}>📁 Upload File</span>}
-              valuePropName="fileList"
-              getValueFromEvent={(e) => (Array.isArray(e) ? e : e && e.fileList)}
-              rules={[{ required: true, message: "Please upload a file!" }]}
-            >
-              <Upload
-                beforeUpload={() => false}
-                accept={acceptedFileTypes.join(",")}
-                maxCount={1}
-                style={{ borderRadius: 12 }}
-              >
-                <Button style={{ borderRadius: 12, height: 45, width: "100%" }} icon={<PlusOutlined />}>
-                  Click to Upload Your Art
-                </Button>
-              </Upload>
-            </Form.Item>
-
-            <Form.Item>
-              <FormButton type="primary" htmlType="submit">
-                🌟 Share with the World
-              </FormButton>
-            </Form.Item>
-          </Form>
-        </motion.div>
-      </StyledModal>
+        onUpload={handleUpload}
+        loading={paintingUploadLoading}
+        userId={userId}
+        token={token}
+      />
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 1 }}>
         <Row gutter={[32, 32]} style={{ marginTop: 20 }}>
