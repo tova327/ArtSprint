@@ -11,7 +11,6 @@ import styled from "styled-components"
 const StyledModal = styled(Modal)`
   .ant-modal-content {
     border-radius: 30px;
-    overflow: hidden;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(25px);
     border: 3px solid rgba(122, 66, 244, 0.3);
@@ -145,31 +144,6 @@ const StyledSelect = styled(Select)`
     box-shadow: 0 0 0 2px rgba(122, 66, 244, 0.2) !important;
   }
 `
-
-// const StyledSelectDropdown = styled.div`
-//   .ant-select-dropdown {
-//     border-radius: 15px !important;
-//     box-shadow: 0 10px 30px rgba(122, 66, 244, 0.3) !important;
-//     border: 2px solid rgba(122, 66, 244, 0.2) !important;
-//     background: rgba(255, 255, 255, 0.95) !important;
-//     backdrop-filter: blur(10px) !important;
-//   }
-
-//   .ant-select-item {
-//     border-radius: 8px !important;
-//     margin: 4px 8px !important;
-//     transition: all 0.3s ease !important;
-//   }
-
-//   .ant-select-item-option-selected {
-//     background: linear-gradient(135deg, #7a42f4, #ff6b6b) !important;
-//     color: white !important;
-//   }
-
-//   .ant-select-item-option-active {
-//     background: rgba(122, 66, 244, 0.1) !important;
-//   }
-// `
 
 const UploadArea = styled(motion.div)`
   border: 3px dashed rgba(122, 66, 244, 0.4);
@@ -327,9 +301,10 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       open={visible}
       onCancel={onCancel}
       footer={null}
-      destroyOnHidden
+      destroyOnClose
       centered
-      width={500}
+      width={600}
+      style={{ overflow: "visible" }}
     >
       <div style={{ position: "relative" }}>
         {/* Floating decorative elements */}
@@ -397,17 +372,28 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}>
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
                 <StyledSelect
                   placeholder="What type of art is this?"
                   onChange={handleSubjectChange}
+                  size="large"
+                  style={{ width: "100%" }}
+                  dropdownStyle={{
+                    borderRadius: "15px",
+                    boxShadow: "0 10px 30px rgba(122, 66, 244, 0.3)",
+                    border: "2px solid rgba(122, 66, 244, 0.2)",
+                    background: "rgba(255, 255, 255, 0.95)",
+                    backdropFilter: "blur(10px)",
+                  }}
+                  getPopupContainer={(trigger) => trigger.parentElement || document.body}
                 >
-                  {ESubject.map((subject) => (
-                    <Select.Option key={subject} value={subject}>
-                      <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  {ESubject.map((subject, index) => (
+                    <Select.Option key={index} value={subject}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         {getSubjectIcon(subject)}
-                        {subject}
-                      </span>
+                        <span>{subject}</span>
+                      </div>
                     </Select.Option>
                   ))}
                 </StyledSelect>
