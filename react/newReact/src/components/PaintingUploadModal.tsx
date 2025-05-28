@@ -1,6 +1,6 @@
 "use client"
 
-import { Modal, Form, Input, Select, Upload, Button } from "antd"
+import { Modal, Form, Input, Radio, Upload, Button } from "antd"
 import { CloudUploadOutlined, FileImageOutlined, SoundOutlined, FileTextOutlined } from "@ant-design/icons"
 import { ESubject } from "../store/paintingSlice"
 import { useState } from "react"
@@ -223,16 +223,14 @@ const getAcceptedFiles = (subject: string) => {
 const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: any) => {
   const [form] = Form.useForm()
   const [paintingFile, setPaintingFile] = useState<File | null>(null)
-  // Get the currently selected subject index from the form
-  const selectedSubjectIdx = Form.useWatch("subject", form)
-  const selectedSubject = typeof selectedSubjectIdx === "number" ? ESubject[selectedSubjectIdx] : undefined
+  const selectedSubject = Form.useWatch("subject", form)
 
   const handleUpload = async (values: any) => {
     if (!paintingFile) return
     await onUpload({
       ownerId: userId,
       name: values.name,
-      subject: values.subject, // index of ESubject
+      subject: values.subject, // subject string
       paintingFile,
     } as PaintingToAddType)
     setPaintingFile(null)
@@ -317,15 +315,20 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 <StyledInput placeholder="What should we call this masterpiece?" />
               </motion.div>
             </Form.Item>
-            <Form.Item name="subject" label="Subject" rules={[{ required: true, message: "Please select a subject!" }]}>
-            <Select style={{ borderRadius: 12 }}>
-              {ESubject.map((subject, idx) => (
-                <Select.Option key={idx} value={subject}>
-                  {subject}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+            <Form.Item
+              name="subject"
+              label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
+              rules={[{ required: true, message: "Please select a subject!" }]}
+            >
+              <Radio.Group style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                {ESubject.map((subject) => (
+                  <Radio.Button key={subject} value={subject} style={{ marginRight: 8, display: 'flex', alignItems: 'center', padding: '6px 16px', borderRadius: 8 }}>
+                    <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
+                    <span>{subject}</span>
+                  </Radio.Button>
+                ))}
+              </Radio.Group>
+            </Form.Item>
             {selectedSubject && (
               <FileTypeHint
                 initial={{ opacity: 0, y: 20 }}
