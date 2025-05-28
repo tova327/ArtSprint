@@ -215,7 +215,7 @@ const StyledProgress = styled(Progress)`
   .ant-progress-bg {
     background: linear-gradient(135deg, #7a42f4, #ff6b6b) !important;
   }
-  
+
   .ant-progress-text {
     color: #7a42f4 !important;
     font-weight: 800 !important;
@@ -252,39 +252,70 @@ const getAcceptedFiles = (subject: string) => {
   }
 }
 
+const acceptType = (subject: string) => {
+  switch (subject) {
+    case "Music": return ".mp3"
+    case "Photography":
+    case "Drawing":
+    case "Graphic": return ".png,.jpg,.jpeg,.gif"
+    case "Writing": return ".pdf"
+    default: return "*"
+  }
+}
+
 const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: any) => {
   const [form] = Form.useForm()
-  const [paintingFile, setPaintingFile] = useState<File | null>(null)
   const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [paintingFile, setPaintingFile] = useState<File | null>(null)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
   const selectedSubject = Form.useWatch("subject", form)
 
-  // Reset form when modal closes
+  // Reset form and file state on modal close
   useEffect(() => {
     if (!visible) {
       form.resetFields()
       setPaintingFile(null)
       setFileList([])
+      setUploadProgress(0)
+      setIsUploading(false)
     }
-  }, [visible, form])
+  }, [visible])
 
+  // When subject changes, clear file states
+  useEffect(() => {
+    setPaintingFile(null)
+    setFileList([])
+    form.setFieldValue("paintingFile", [])
+  }, [selectedSubject])
+
+  // File upload handler
+  const handleFileChange = (info: any) => {
+    let newFileList = info.fileList.slice(-1) // Only keep the latest file
+    setFileList(newFileList)
+
+    if (newFileList.length > 0 && newFileList[0].originFileObj) {
+      setPaintingFile(newFileList[0].originFileObj)
+      // For AntD form validation
+      form.setFields([{ name: "paintingFile", errors: [] }])
+    } else {
+      setPaintingFile(null)
+    }
+  }
+
+  // Form submit handler
   const handleUpload = async (values: any) => {
-    if (!paintingFile) return
-
+    if (!paintingFile) {
+      form.setFields([{ name: "paintingFile", errors: ["Please upload a file!"] }])
+      return
+    }
     setIsUploading(true)
     setUploadProgress(0)
+    let interval: number | null = null;
 
     try {
-      // Simulate upload progress
-      const progressInterval = setInterval(() => {
-        setUploadProgress((prev) => {
-          if (prev >= 90) {
-            clearInterval(progressInterval)
-            return 90
-          }
-          return prev + Math.random() * 15
-        })
+      interval = window.setInterval(() => {
+        setUploadProgress(prev => prev >= 90 ? 90 : prev + Math.random() * 15)
       }, 200)
 
       await onUpload({
@@ -294,11 +325,9 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
         paintingFile,
       } as PaintingToAddType)
 
-      // Complete the progress
-      clearInterval(progressInterval)
+      if (interval) clearInterval(interval)
       setUploadProgress(100)
 
-      // Wait a moment to show completion
       setTimeout(() => {
         setPaintingFile(null)
         setFileList([])
@@ -307,49 +336,16 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
         setUploadProgress(0)
       }, 1000)
     } catch (error) {
-      console.error("Upload failed:", error)
+      if (interval) clearInterval(interval)
       setIsUploading(false)
       setUploadProgress(0)
-    }
-  }
-
-  const handleFileChange = (info: any) => {
-    console.log("File change:", info)
-
-    // Update the file list UI
-    let newFileList = [...info.fileList]
-    newFileList = newFileList.slice(-1) // Keep only the latest file
-    setFileList(newFileList)
-
-    // Set the actual file for upload and update form validation
-    if (info.file.status !== "removed" && info.file.originFileObj) {
-      console.log("Setting painting file:", info.file.originFileObj)
-      setPaintingFile(info.file.originFileObj)
-
-      // IMPORTANT: Set the form field value properly for validation
-      form.setFieldValue("paintingFile", newFileList)
-
-      // Clear any validation errors immediately
-      form.setFields([
-        {
-          name: "paintingFile",
-          errors: [],
-        },
-      ])
-    } else {
-      setPaintingFile(null)
-      form.setFieldValue("paintingFile", [])
     }
   }
 
   return (
     <StyledModal
       title={
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-        >
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}>
           🎨 Share Your Masterpiece
         </motion.div>
       }
@@ -363,39 +359,13 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
     >
       <div style={{ position: "relative" }}>
         {/* Floating decorative elements */}
-        <FloatingIcon
-          style={{ top: "10px", right: "20px" }}
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "reverse",
-          }}
-        >
-          🎭
-        </FloatingIcon>
-        <FloatingIcon
-          style={{ bottom: "20px", left: "15px" }}
-          animate={{
-            y: [0, -10, 0],
-            rotate: [0, -10, 10, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Number.POSITIVE_INFINITY,
-          }}
-        >
-          ✨
-        </FloatingIcon>
+        <FloatingIcon style={{ top: "10px", right: "20px" }} animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
+          transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}>🎭</FloatingIcon>
+        <FloatingIcon style={{ bottom: "20px", left: "15px" }} animate={{ y: [0, -10, 0], rotate: [0, -10, 10, 0] }}
+          transition={{ duration: 3, repeat: Infinity }}>✨</FloatingIcon>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <WelcomeText
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
+          <WelcomeText initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}>
             <h3>Ready to Inspire the World? 🌟</h3>
             <p>Upload your creative masterpiece and let it shine!</p>
           </WelcomeText>
@@ -403,25 +373,14 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             form={form}
             layout="vertical"
             onFinish={handleUpload}
-            onValuesChange={(changed, _) => {
-              if ("subject" in changed) {
-                setPaintingFile(null)
-                setFileList([])
-              }
-            }}
+            autoComplete="off"
           >
             <Form.Item
               name="name"
-              label={
-                <span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🖼️ Give Your Art a Beautiful Name</span>
-              }
+              label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🖼️ Give Your Art a Beautiful Name</span>}
               rules={[{ required: true, message: "Please input the painting name!" }]}
             >
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-              >
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
                 <StyledInput placeholder="What should we call this masterpiece?" />
               </motion.div>
             </Form.Item>
@@ -432,17 +391,13 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             >
               <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
                 {ESubject.map((subject) => (
-                  <Radio.Button
-                    key={subject}
-                    value={subject}
-                    style={{
-                      marginBottom: 8,
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "6px 16px",
-                      borderRadius: 8,
-                    }}
-                  >
+                  <Radio.Button key={subject} value={subject} style={{
+                    marginBottom: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "6px 16px",
+                    borderRadius: 8,
+                  }}>
                     <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
                     <span>{subject}</span>
                   </Radio.Button>
@@ -450,15 +405,8 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               </Radio.Group>
             </Form.Item>
             {selectedSubject && (
-              <FileTypeHint
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h4>
-                  {getSubjectIcon(selectedSubject)}
-                  Accepted File Types
-                </h4>
+              <FileTypeHint initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                <h4>{getSubjectIcon(selectedSubject)}Accepted File Types</h4>
                 <p>{getAcceptedFiles(selectedSubject)}</p>
               </FileTypeHint>
             )}
@@ -468,21 +416,15 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               rules={[
                 {
                   validator: (_, value) => {
-                    if (paintingFile || (value && value.length > 0)) {
-                      return Promise.resolve()
-                    }
+                    if (paintingFile || (value && value.length > 0)) return Promise.resolve()
                     return Promise.reject(new Error("Please upload a file!"))
                   },
                 },
               ]}
               valuePropName="fileList"
-              getValueFromEvent={(e) => e && e.fileList}
+              getValueFromEvent={e => e && e.fileList}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-              >
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.6 }}>
                 <Upload
                   name="file"
                   listType="picture"
@@ -490,27 +432,11 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                   maxCount={1}
                   fileList={fileList}
                   onChange={handleFileChange}
-                  accept={
-                    selectedSubject === "Music"
-                      ? ".mp3"
-                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject || "")
-                        ? ".png,.jpg,.jpeg,.gif"
-                        : selectedSubject === "Writing"
-                          ? ".pdf"
-                          : "*"
-                  }
+                  accept={acceptType(selectedSubject)}
                 >
                   <UploadArea whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <UploadIcon
-                      animate={{
-                        y: [0, -10, 0],
-                        rotate: [0, 5, -5, 0],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Number.POSITIVE_INFINITY,
-                      }}
-                    >
+                    <UploadIcon animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}>
                       <CloudUploadOutlined />
                     </UploadIcon>
                     <h3 style={{ color: "#7a42f4", fontWeight: 800, marginBottom: 8 }}>
@@ -524,24 +450,9 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               </motion.div>
             </Form.Item>
             {isUploading && (
-              <ProgressContainer
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <ProgressText
-                  animate={{
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Number.POSITIVE_INFINITY,
-                  }}
-                >
-                  <motion.span
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                  >
+              <ProgressContainer initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+                <ProgressText animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                  <motion.span animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}>
                     🎨
                   </motion.span>
                   Uploading your masterpiece...
@@ -551,36 +462,23 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                   status={uploadProgress === 100 ? "success" : "active"}
                   strokeWidth={8}
                   showInfo={true}
-                  format={(percent) => `${percent}%`}
+                  format={percent => `${percent}%`}
                 />
                 {uploadProgress === 100 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    style={{
-                      marginTop: 10,
-                      color: "#29d98c",
-                      fontWeight: 800,
-                      fontSize: 14,
-                    }}
-                  >
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    style={{ marginTop: 10, color: "#29d98c", fontWeight: 800, fontSize: 14 }}>
                     ✨ Upload complete! Your art is now live! ✨
                   </motion.div>
                 )}
               </ProgressContainer>
             )}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.6 }}>
               <StyledButton
                 type="primary"
                 htmlType="submit"
                 style={{ width: "100%" }}
                 loading={loading || isUploading}
-                disabled={!paintingFile || isUploading}
-              >
+                disabled={!paintingFile || isUploading}>
                 {isUploading
                   ? `🎨 Uploading... ${Math.round(uploadProgress)}%`
                   : loading
