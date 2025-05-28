@@ -232,6 +232,8 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
   const selectedSubject = Form.useWatch("subject", form)
 
   const handleUpload = async (values: any) => {
+    console.log("in handle upload "+JSON.stringify(values));
+    
     const fileObj = values.paintingFile && values.paintingFile[0]?.originFileObj
     if (!fileObj) return
     await onUpload({
@@ -257,7 +259,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       open={visible}
       onCancel={onCancel}
       footer={null}
-      destroyOnClose
+      destroyOnHidden
       centered
       width={600}
       style={{ overflow: "visible" }}
