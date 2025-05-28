@@ -3,7 +3,6 @@
 import { Modal, Form, Input, Radio, Upload, Button } from "antd"
 import { CloudUploadOutlined, FileImageOutlined, SoundOutlined, FileTextOutlined } from "@ant-design/icons"
 import { ESubject } from "../store/paintingSlice"
-import { useState } from "react"
 import type { PaintingToAddType } from "../store/paintingSlice"
 import { motion } from "framer-motion"
 import styled from "styled-components"
@@ -220,20 +219,27 @@ const getAcceptedFiles = (subject: string) => {
   }
 }
 
+// Let Ant Design Form/Upload manage file list
+const normFile = (e: any) => {
+  if (Array.isArray(e)) {
+    return e
+  }
+  return e && e.fileList
+}
+
 const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: any) => {
   const [form] = Form.useForm()
-  const [paintingFile, setPaintingFile] = useState<File | null>(null)
   const selectedSubject = Form.useWatch("subject", form)
 
   const handleUpload = async (values: any) => {
-    if (!paintingFile) return
+    const fileObj = values.paintingFile && values.paintingFile[0]?.originFileObj
+    if (!fileObj) return
     await onUpload({
       ownerId: userId,
       name: values.name,
-      subject: values.subject, // subject string
-      paintingFile,
+      subject: values.subject,
+      paintingFile: fileObj,
     } as PaintingToAddType)
-    setPaintingFile(null)
     form.resetFields()
   }
 
@@ -299,7 +305,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             layout="vertical"
             onFinish={handleUpload}
             onValuesChange={(changed, _) => {
-              if ("subject" in changed) setPaintingFile(null)
+              if ("subject" in changed) form.setFieldsValue({ paintingFile: [] })
             }}
           >
             <Form.Item
@@ -345,6 +351,8 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             <Form.Item
               name="paintingFile"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>📁 Upload Your Creation</span>}
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
               rules={[{ required: true, message: "Please upload a file!" }]}
             >
               <motion.div
@@ -358,17 +366,12 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                   accept={
                     selectedSubject === "Music"
                       ? ".mp3"
-                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject||'')
+                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject || '')
                         ? ".png,.jpg,.jpeg,.gif"
                         : selectedSubject === "Writing"
                           ? ".pdf"
                           : "*"
                   }
-                  onChange={(info) => {
-                    if (info.file.status === "removed") setPaintingFile(null)
-                    else if (info.file.originFileObj) setPaintingFile(info.file.originFileObj)
-                  }}
-                  fileList={paintingFile ? [{ uid: "-1", name: paintingFile.name, status: "done" }] : []}
                 >
                   <UploadArea whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     <UploadIcon
@@ -403,7 +406,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 htmlType="submit"
                 style={{ width: "100%" }}
                 loading={loading}
-                disabled={!paintingFile}
+                disabled={!form.getFieldValue("paintingFile") || form.getFieldValue("paintingFile").length === 0}
               >
                 {loading ? "🎨 Uploading Magic..." : "🚀 Share with the World!"}
               </StyledButton>
