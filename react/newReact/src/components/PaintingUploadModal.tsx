@@ -1,11 +1,13 @@
 "use client"
 
-import { Modal, Form, Input, Radio, Upload, Button } from "antd"
+import { Modal, Form, Input, Radio, Upload, Button, Progress } from "antd"
 import { CloudUploadOutlined, FileImageOutlined, SoundOutlined, FileTextOutlined } from "@ant-design/icons"
 import { ESubject } from "../store/paintingSlice"
+import { useState, useEffect } from "react"
 import type { PaintingToAddType } from "../store/paintingSlice"
 import { motion } from "framer-motion"
 import styled from "styled-components"
+import type { UploadFile } from "antd/es/upload/interface"
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
@@ -189,6 +191,37 @@ const FileTypeHint = styled(motion.div)`
   }
 `
 
+const ProgressContainer = styled(motion.div)`
+  margin: 20px 0;
+  padding: 20px;
+  background: rgba(122, 66, 244, 0.05);
+  border-radius: 15px;
+  border: 2px solid rgba(122, 66, 244, 0.2);
+  text-align: center;
+`
+
+const ProgressText = styled(motion.div)`
+  color: #7a42f4;
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+`
+
+const StyledProgress = styled(Progress)`
+  .ant-progress-bg {
+    background: linear-gradient(135deg, #7a42f4, #ff6b6b) !important;
+  }
+  
+  .ant-progress-text {
+    color: #7a42f4 !important;
+    font-weight: 800 !important;
+  }
+`
+
 const getSubjectIcon = (subject: string) => {
   switch (subject) {
     case "Music":
@@ -219,30 +252,92 @@ const getAcceptedFiles = (subject: string) => {
   }
 }
 
-// Let Ant Design Form/Upload manage file list
-const normFile = (e: any) => {
-  if (Array.isArray(e)) {
-    return e
-  }
-  return e && e.fileList
-}
-
 const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: any) => {
   const [form] = Form.useForm()
+  const [paintingFile, setPaintingFile] = useState<File | null>(null)
+  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [isUploading, setIsUploading] = useState(false)
   const selectedSubject = Form.useWatch("subject", form)
 
+  // Reset form when modal closes
+  useEffect(() => {
+    if (!visible) {
+      form.resetFields()
+      setPaintingFile(null)
+      setFileList([])
+    }
+  }, [visible, form])
+
   const handleUpload = async (values: any) => {
-    console.log("in handle upload "+JSON.stringify(values));
-    
-    const fileObj = values.paintingFile && values.paintingFile[0]?.originFileObj
-    if (!fileObj) return
-    await onUpload({
-      ownerId: userId,
-      name: values.name,
-      subject: values.subject,
-      paintingFile: fileObj,
-    } as PaintingToAddType)
-    form.resetFields()
+    if (!paintingFile) return
+
+    setIsUploading(true)
+    setUploadProgress(0)
+
+    try {
+      // Simulate upload progress
+      const progressInterval = setInterval(() => {
+        setUploadProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(progressInterval)
+            return 90
+          }
+          return prev + Math.random() * 15
+        })
+      }, 200)
+
+      await onUpload({
+        ownerId: userId,
+        name: values.name,
+        subject: values.subject,
+        paintingFile,
+      } as PaintingToAddType)
+
+      // Complete the progress
+      clearInterval(progressInterval)
+      setUploadProgress(100)
+
+      // Wait a moment to show completion
+      setTimeout(() => {
+        setPaintingFile(null)
+        setFileList([])
+        form.resetFields()
+        setIsUploading(false)
+        setUploadProgress(0)
+      }, 1000)
+    } catch (error) {
+      console.error("Upload failed:", error)
+      setIsUploading(false)
+      setUploadProgress(0)
+    }
+  }
+
+  const handleFileChange = (info: any) => {
+    console.log("File change:", info)
+
+    // Update the file list UI
+    let newFileList = [...info.fileList]
+    newFileList = newFileList.slice(-1) // Keep only the latest file
+    setFileList(newFileList)
+
+    // Set the actual file for upload and update form validation
+    if (info.file.status !== "removed" && info.file.originFileObj) {
+      console.log("Setting painting file:", info.file.originFileObj)
+      setPaintingFile(info.file.originFileObj)
+
+      // IMPORTANT: Set the form field value properly for validation
+      form.setFieldValue("paintingFile", newFileList)
+
+      // Trigger validation to clear the error
+      form.validateFields(["paintingFile"])
+    } else {
+      setPaintingFile(null)
+      form.setFieldValue("paintingFile", [])
+
+      // Trigger validation to show error if needed
+      form.validateFields(["paintingFile"])
+    }
   }
 
   return (
@@ -259,10 +354,10 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       open={visible}
       onCancel={onCancel}
       footer={null}
-      destroyOnHidden
+      destroyOnClose
       centered
       width={600}
-      style={{ overflow: "visible" }}
+      style={{ zIndex: 1001 }}
     >
       <div style={{ position: "relative" }}>
         {/* Floating decorative elements */}
@@ -307,12 +402,17 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             layout="vertical"
             onFinish={handleUpload}
             onValuesChange={(changed, _) => {
-              if ("subject" in changed) form.setFieldsValue({ paintingFile: [] })
+              if ("subject" in changed) {
+                setPaintingFile(null)
+                setFileList([])
+              }
             }}
           >
             <Form.Item
               name="name"
-              label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🖼️ Give Your Art a Beautiful Name</span>}
+              label={
+                <span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🖼️ Give Your Art a Beautiful Name</span>
+              }
               rules={[{ required: true, message: "Please input the painting name!" }]}
             >
               <motion.div
@@ -328,9 +428,19 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
               rules={[{ required: true, message: "Please select a subject!" }]}
             >
-              <Radio.Group style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+              <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
                 {ESubject.map((subject) => (
-                  <Radio.Button key={subject} value={subject} style={{ marginRight: 8, display: 'flex', alignItems: 'center', padding: '6px 16px', borderRadius: 8 }}>
+                  <Radio.Button
+                    key={subject}
+                    value={subject}
+                    style={{
+                      marginBottom: 8,
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "6px 16px",
+                      borderRadius: 8,
+                    }}
+                  >
                     <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
                     <span>{subject}</span>
                   </Radio.Button>
@@ -353,9 +463,22 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
             <Form.Item
               name="paintingFile"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>📁 Upload Your Creation</span>}
+              rules={[
+                {
+                  required: true,
+                  message: "Please upload a file!",
+                },
+                {
+                  validator: (_, value) => {
+                    if (paintingFile || (value && value.length > 0)) {
+                      return Promise.resolve()
+                    }
+                    return Promise.reject(new Error("Please upload a file!"))
+                  },
+                },
+              ]}
               valuePropName="fileList"
-              getValueFromEvent={normFile}
-              rules={[{ required: true, message: "Please upload a file!" }]}
+              getValueFromEvent={(e) => e && e.fileList}
             >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -363,12 +486,16 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
                 <Upload
+                  name="file"
+                  listType="picture"
                   beforeUpload={() => false}
                   maxCount={1}
+                  fileList={fileList}
+                  onChange={handleFileChange}
                   accept={
                     selectedSubject === "Music"
                       ? ".mp3"
-                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject || '')
+                      : ["Photography", "Drawing", "Graphic"].includes(selectedSubject || "")
                         ? ".png,.jpg,.jpeg,.gif"
                         : selectedSubject === "Writing"
                           ? ".pdf"
@@ -398,6 +525,52 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 </Upload>
               </motion.div>
             </Form.Item>
+            {isUploading && (
+              <ProgressContainer
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <ProgressText
+                  animate={{
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Number.POSITIVE_INFINITY,
+                  }}
+                >
+                  <motion.span
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                  >
+                    🎨
+                  </motion.span>
+                  Uploading your masterpiece...
+                </ProgressText>
+                <StyledProgress
+                  percent={Math.round(uploadProgress)}
+                  status={uploadProgress === 100 ? "success" : "active"}
+                  strokeWidth={8}
+                  showInfo={true}
+                  format={(percent) => `${percent}%`}
+                />
+                {uploadProgress === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                      marginTop: 10,
+                      color: "#29d98c",
+                      fontWeight: 800,
+                      fontSize: 14,
+                    }}
+                  >
+                    ✨ Upload complete! Your art is now live! ✨
+                  </motion.div>
+                )}
+              </ProgressContainer>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -407,10 +580,14 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 type="primary"
                 htmlType="submit"
                 style={{ width: "100%" }}
-                loading={loading}
-                // disabled={!form.getFieldValue("paintingFile") || form.getFieldValue("paintingFile").length === 0}
+                loading={loading || isUploading}
+                disabled={!paintingFile || isUploading}
               >
-                {loading ? "🎨 Uploading Magic..." : "🚀 Share with the World!"}
+                {isUploading
+                  ? `🎨 Uploading... ${Math.round(uploadProgress)}%`
+                  : loading
+                    ? "🎨 Uploading Magic..."
+                    : "🚀 Share with the World!"}
               </StyledButton>
             </motion.div>
           </Form>
