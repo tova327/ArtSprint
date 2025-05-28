@@ -329,14 +329,16 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       // IMPORTANT: Set the form field value properly for validation
       form.setFieldValue("paintingFile", newFileList)
 
-      // Trigger validation to clear the error
-      form.validateFields(["paintingFile"])
+      // Clear any validation errors immediately
+      form.setFields([
+        {
+          name: "paintingFile",
+          errors: [],
+        },
+      ])
     } else {
       setPaintingFile(null)
       form.setFieldValue("paintingFile", [])
-
-      // Trigger validation to show error if needed
-      form.validateFields(["paintingFile"])
     }
   }
 
@@ -464,10 +466,6 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               name="paintingFile"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>📁 Upload Your Creation</span>}
               rules={[
-                {
-                  required: true,
-                  message: "Please upload a file!",
-                },
                 {
                   validator: (_, value) => {
                     if (paintingFile || (value && value.length > 0)) {
