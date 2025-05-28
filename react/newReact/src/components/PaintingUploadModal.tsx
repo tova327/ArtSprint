@@ -476,7 +476,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               <StyledButton
                 type="primary"
                 htmlType="submit"
-                style={{ width: "100%" }}
+                 style={{ width: "100%" }}
                 loading={loading || isUploading}
                 disabled={!paintingFile || isUploading}>
                 {isUploading
@@ -492,5 +492,5 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
     </StyledModal>
   )
 }
-
+ 
 export default PaintingUploadModal

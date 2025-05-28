@@ -28,6 +28,12 @@ const ContentWrapper = styled(motion.div)`
   position: relative;
   z-index: 2;
   min-height: 100vh;
+  margin-left: 80px; /* Space for sidebar */
+  transition: margin-left 0.3s ease;
+
+  @media (max-width: 768px) {
+    margin-left: 60px;
+  }
 `
 
 const SubApp: React.FC = () => {
