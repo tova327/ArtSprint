@@ -406,7 +406,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
                 htmlType="submit"
                 style={{ width: "100%" }}
                 loading={loading}
-                disabled={!form.getFieldValue("paintingFile") || form.getFieldValue("paintingFile").length === 0}
+                // disabled={!form.getFieldValue("paintingFile") || form.getFieldValue("paintingFile").length === 0}
               >
                 {loading ? "🎨 Uploading Magic..." : "🚀 Share with the World!"}
               </StyledButton>
