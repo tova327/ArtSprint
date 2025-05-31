@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Row, Col, Button, message, Spin, notification } from "antd"
+import { Row, Col, Button, message, Spin, notification, Input } from "antd"
 import type { AppDispatch, StoreType } from "../store/store"
 import { ESubject, fetchPaintingsAsync, type PaintingType, uploadPaintingAsync } from "../store/paintingSlice"
 import ShowPainting from "./ShowPainting"
@@ -13,7 +13,8 @@ import styled from "styled-components"
 import { motion } from "framer-motion"
 import PopularPaintings from "./PopularPaintings"
 import LatestPaintings from "./LatestPaintings"
-import { CloudUploadOutlined } from "@ant-design/icons"
+import MagicWandOutlined,{ CloudUploadOutlined, SearchOutlined } from "@ant-design/icons"
+
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
@@ -134,6 +135,103 @@ const LoadingContent = styled(motion.div)`
   color: white;
 `
 
+const SearchContainer = styled(motion.div)`
+  max-width: 800px;
+  margin: 0 auto 40px;
+  position: relative;
+`
+
+const SearchInput = styled(Input)`
+  height: 60px;
+  border-radius: 30px;
+  padding: 0 30px 0 60px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 107, 107, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:focus, &:hover {
+    border-color: #ff6b6b;
+    box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
+    transform: translateY(-3px);
+  }
+  
+  &::placeholder {
+    color: rgba(102, 102, 102, 0.6);
+    font-weight: 500;
+  }
+`
+
+const SearchIconWrapper = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #ff6b6b;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const MagicButton = styled(motion(Button))`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+  border: none;
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+  z-index: 2;
+  
+  &:hover {
+    background: linear-gradient(135deg, #4ecdc4, #ff6b6b);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+  }
+  
+  .anticon {
+    color: white;
+    font-size: 18px;
+  }
+`
+
+const NoResultsMessage = styled(motion.div)`
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 40px auto;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  p {
+    color: #666;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+`
+
 const PaintingsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const paintings = useSelector((store: StoreType) => store.painting.paintings)
@@ -144,6 +242,7 @@ const PaintingsPage: React.FC = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [paintingUploadLoading, setPaintingUploadLoading] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   const location = useLocation()
   const query = new URLSearchParams(location.search)
@@ -197,6 +296,33 @@ const PaintingsPage: React.FC = () => {
   const showModal = () => setIsModalVisible(true)
   const handleCancel = () => setIsModalVisible(false)
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+  }
+
+  const handleMagicSearch = () => {
+    // Generate a random search term from existing painting names
+    if (paintings.length > 0) {
+      const randomPainting = paintings[Math.floor(Math.random() * paintings.length)]
+      const words = randomPainting.name.split(" ")
+      const randomWord = words[Math.floor(Math.random() * words.length)]
+      setSearchQuery(randomWord)
+
+      message.success({
+        content: `✨ Magic search: "${randomWord}"`,
+        style: { borderRadius: 15 },
+      })
+    }
+  }
+
+  // Filter paintings by both subject and search query
+  const filteredPaintings = paintings.filter((p: PaintingType) => {
+    const matchesSubject = !subjectFilter || ESubject[p.subject] === subjectFilter
+    const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())
+
+    return matchesSubject && matchesSearch
+  })
+
   return (
     <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
       {loading && (
@@ -247,6 +373,28 @@ const PaintingsPage: React.FC = () => {
         <PopularPaintings />
       </motion.div>
 
+      <SearchContainer
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
+      >
+        <SearchIconWrapper>
+          <SearchOutlined />
+        </SearchIconWrapper>
+        <SearchInput
+          placeholder="Search for masterpieces by name..."
+          value={searchQuery}
+          onChange={handleSearch}
+          allowClear
+        />
+        <MagicButton
+          icon={<MagicWandOutlined />}
+          onClick={handleMagicSearch}
+          whileHover={{ scale: 1.1, rotate: [0, 10, -10, 0] }}
+          whileTap={{ scale: 0.9 }}
+        />
+      </SearchContainer>
+
       <motion.div
         style={{ display: "flex", justifyContent: "center", marginBottom: 40 }}
         initial={{ opacity: 0, scale: 0.8 }}
@@ -274,10 +422,9 @@ const PaintingsPage: React.FC = () => {
       />
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 1 }}>
-        <Row gutter={[32, 32]} style={{ marginTop: 20 }}>
-          {paintings
-            .filter((p: PaintingType) => !subjectFilter || ESubject[p.subject] === subjectFilter)
-            .map((painting: PaintingType, index) => (
+        {filteredPaintings.length > 0 ? (
+          <Row gutter={[32, 32]} style={{ marginTop: 20 }}>
+            {filteredPaintings.map((painting: PaintingType, index) => (
               <Col xs={24} sm={12} md={8} lg={6} key={painting.id}>
                 <motion.div
                   initial={{ opacity: 0, y: 50, scale: 0.9 }}
@@ -293,7 +440,24 @@ const PaintingsPage: React.FC = () => {
                 </motion.div>
               </Col>
             ))}
-        </Row>
+          </Row>
+        ) : (
+          <NoResultsMessage
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+              style={{ fontSize: "4rem", marginBottom: 20 }}
+            >
+              🔍
+            </motion.div>
+            <h3>No Masterpieces Found</h3>
+            <p>Try adjusting your search or filters to discover more art!</p>
+          </NoResultsMessage>
+        )}
       </motion.div>
 
       <motion.div
