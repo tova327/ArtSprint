@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Modal, Form, Input, DatePicker, Button, Select, Spin, Tooltip } from "antd"
+import { Modal, Form, Input, DatePicker, Button,  Spin, Tooltip, Radio } from "antd"
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
@@ -11,7 +11,10 @@ import {
   MailOutlined,
   LockOutlined,
   CalendarOutlined,
-  BookOutlined,
+  CloudUploadOutlined,
+  FileImageOutlined,
+  FileTextOutlined,
+  SoundOutlined,
 } from "@ant-design/icons"
 import { ESubject } from "../store/paintingSlice"
 import { getTest, checkAnswers } from "../store/axioscalls"
@@ -168,22 +171,7 @@ const StyledDatePicker = styled(DatePicker)`
   }
 `
 
-const StyledSelect = styled(Select)`
-  .ant-select-selector {
-    border-radius: 15px !important;
-    height: 50px !important;
-    border: 3px solid rgba(76, 201, 196, 0.3) !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    transition: all 0.3s ease !important;
-  }
-  
-  &:hover .ant-select-selector,
-  .ant-select-focused .ant-select-selector {
-    border-color: #4ecdc4 !important;
-    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2) !important;
-    transform: translateY(-2px);
-  }
-`
+
 
 const StyledTextArea = styled(Input.TextArea)`
   border-radius: 15px;
@@ -206,7 +194,7 @@ const StepIndicator = styled(motion.div)`
   gap: 15px;
 `
 
-const StepDot = styled(motion.div)<{ active: boolean; completed: boolean }>`
+const StepDot = styled(motion.div) <{ active: boolean; completed: boolean }>`
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -323,7 +311,20 @@ const RegisterModal = ({
         return "✨ Join Our Community"
     }
   }
-
+  const getSubjectIcon = (subject: string) => {
+    switch (subject) {
+      case "Music":
+        return <SoundOutlined />
+      case "Photography":
+      case "Drawing":
+      case "Graphic":
+        return <FileImageOutlined />
+      case "Writing":
+        return <FileTextOutlined />
+      default:
+        return <CloudUploadOutlined />
+    }
+  }
   let content: React.ReactNode
   if (step === 1) {
     content = (
@@ -392,20 +393,23 @@ const RegisterModal = ({
 
           <Form.Item
             name="subject"
-            label={
-              <span>
-                <BookOutlined style={{ color: "#ff6b6b" }} /> Area of Expertise
-              </span>
-            }
-            rules={[{ required: true, message: "Please choose your subject!" }]}
+            label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
+            rules={[{ required: true, message: "Please select a subject!" }]}
           >
-            <StyledSelect placeholder="What's your creative superpower?">
-              {ESubject.map((subj, idx) => (
-                <Select.Option key={idx} value={subj}>
-                  {subj}
-                </Select.Option>
+            <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              {ESubject.map((subject) => (
+                <Radio.Button key={subject} value={subject} style={{
+                  marginBottom: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "6px 16px",
+                  borderRadius: 8,
+                }}>
+                  <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
+                  <span>{subject}</span>
+                </Radio.Button>
               ))}
-            </StyledSelect>
+            </Radio.Group>
           </Form.Item>
 
           <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }}>
@@ -441,21 +445,23 @@ const RegisterModal = ({
         <Form layout="vertical" onFinish={handleStep2}>
           <Form.Item
             name="subject"
-            label={
-              <span>
-                <BookOutlined style={{ color: "#4ecdc4" }} /> Confirm Your Art Form
-              </span>
-            }
-            rules={[{ required: true, message: "Please choose your subject!" }]}
-            initialValue={registerDetails?.subject}
+            label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
+            rules={[{ required: true, message: "Please select a subject!" }]}
           >
-            <StyledSelect placeholder="Choose your expert subject...">
-              {ESubject.map((subj, idx) => (
-                <Select.Option key={idx} value={subj}>
-                  {subj}
-                </Select.Option>
+            <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              {ESubject.map((subject) => (
+                <Radio.Button key={subject} value={subject} style={{
+                  marginBottom: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "6px 16px",
+                  borderRadius: 8,
+                }}>
+                  <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
+                  <span>{subject}</span>
+                </Radio.Button>
               ))}
-            </StyledSelect>
+            </Radio.Group>
           </Form.Item>
 
           <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }} loading={questionLoading}>

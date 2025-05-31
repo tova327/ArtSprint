@@ -352,7 +352,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       open={visible}
       onCancel={onCancel}
       footer={null}
-      destroyOnClose
+      destroyOnHidden
       centered
       width={600}
       style={{ zIndex: 1001 }}
