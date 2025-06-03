@@ -15,6 +15,7 @@ import styled from "styled-components"
 import { motion } from "framer-motion"
 import UserDetails from "./UserDetails"
 import { ArrowLeftOutlined, SendOutlined, MessageOutlined } from "@ant-design/icons"
+import DownloadButton from "./DownloadButton"
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
@@ -382,7 +383,7 @@ const PaintingComponent: React.FC = () => {
         >
           {renderContent()}
         </motion.div>
-
+        <DownloadButton url={painting.url} label={"download "+painting.name}/>
         <CommentSection
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
