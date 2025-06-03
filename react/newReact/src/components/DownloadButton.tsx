@@ -3,7 +3,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 
 const DownloadButton: React.FC<{ url: string; label?: string }> = ({ url, label = "Download" }) => (
   <a
-    href={url}
+    href={url+"?response-content-disposition=attachment"}
     download
     style={{
       display: "inline-flex",
