@@ -18,7 +18,7 @@ import { ArrowLeftOutlined, SendOutlined, MessageOutlined } from "@ant-design/ic
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   padding: 40px 6vw;
   position: relative;
