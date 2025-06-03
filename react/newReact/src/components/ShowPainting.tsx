@@ -12,6 +12,7 @@ import styled from "styled-components"
 import { motion } from "framer-motion"
 import { notification, Button as AntButton } from "antd"
 import UserDetails from "./UserDetails"
+import DownloadButton from "./DownloadButton"
 
 const GlassCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.95);
@@ -288,7 +289,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
       <PaintingTitle initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.6 }}>
         {painting.name}
       </PaintingTitle>
-
+      <DownloadButton url={painting.url}/>
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
