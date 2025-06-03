@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchCommentsAsync, addCommentAsync } from "../store/commentSlice"
 import type { AppDispatch, StoreType } from "../store/store"
 import { ESubject } from "../store/paintingSlice"
-import TextFileDisplay from "./TextFileDisplay"
+//import TextFileDisplay from "./TextFileDisplay"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import UserDetails from "./UserDetails"
@@ -190,7 +190,7 @@ const PaintingComponent: React.FC = () => {
   const comments = useSelector((store: StoreType) => store.comments.comments)
   const token = useSelector((store:StoreType) => store.user.token)
   const userId = useSelector((store: StoreType) => store.user.user.id)
-
+  const allUsers = useSelector((store: StoreType) => store.user.allusers)
   useEffect(() => {
     const fetchPainting = async () => {
       try {
@@ -273,7 +273,8 @@ const PaintingComponent: React.FC = () => {
       case "Writing":
         return (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <TextFileDisplay fileUrl={painting.url} />
+            {/* <TextFileDisplay fileUrl={painting.url} /> */}
+            <object data={painting.url} width="100%" height="500" ></object>
           </motion.div>
         )
       default:
@@ -415,6 +416,7 @@ const PaintingComponent: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 + 1.4, duration: 0.6 }}
               >
+                <p style={{fontSize:16}}>{allUsers?.find(u=>u.id===item.userId)?.name||"???"}</p>
                 <CommentItem>{item.content}</CommentItem>
               </motion.div>
             )}
