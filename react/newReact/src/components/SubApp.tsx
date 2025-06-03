@@ -17,7 +17,7 @@ const { Content } = Layout
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
   position: relative;
