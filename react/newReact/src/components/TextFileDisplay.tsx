@@ -2,7 +2,7 @@
 
 import styled from "styled-components"
 import { motion } from "framer-motion"
-import { FileTextOutlined, DownloadOutlined, EyeOutlined } from "@ant-design/icons"
+import { FileTextOutlined } from "@ant-design/icons"
 
 const GlassText = styled(motion.div)`
   background: rgba(255, 255, 255, 0.95);
@@ -81,56 +81,56 @@ const FileDescription = styled(motion.p)`
   font-weight: 600;
 `
 
-const FallbackContainer = styled(motion.div)`
-  padding: 50px;
-  text-align: center;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border-radius: 15px;
-  border: 3px dashed rgba(102, 126, 234, 0.4);
-  position: relative;
-  overflow: hidden;
+// const FallbackContainer = styled(motion.div)`
+//   padding: 50px;
+//   text-align: center;
+//   background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+//   border-radius: 15px;
+//   border: 3px dashed rgba(102, 126, 234, 0.4);
+//   position: relative;
+//   overflow: hidden;
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shimmer 2s infinite;
-  }
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: -100%;
+//     width: 100%;
+//     height: 100%;
+//     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+//     animation: shimmer 2s infinite;
+//   }
   
-  @keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-  }
-`
+//   @keyframes shimmer {
+//     0% { left: -100%; }
+//     100% { left: 100%; }
+//   }
+// `
 
-const DocumentIcon = styled(motion.div)`
-  font-size: 4rem;
-  margin-bottom: 20px;
-  color: #667eea;
-`
+// const DocumentIcon = styled(motion.div)`
+//   font-size: 4rem;
+//   margin-bottom: 20px;
+//   color: #667eea;
+// `
 
-const ActionButton = styled(motion.a)`
-  display: inline-block;
-  padding: 15px 30px;
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  color: white;
-  text-decoration: none;
-  border-radius: 15px;
-  font-weight: 800;
-  font-size: 16px;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-  margin: 10px;
+// const ActionButton = styled(motion.a)`
+//   display: inline-block;
+//   padding: 15px 30px;
+//   background: linear-gradient(45deg, #667eea, #764ba2);
+//   color: white;
+//   text-decoration: none;
+//   border-radius: 15px;
+//   font-weight: 800;
+//   font-size: 16px;
+//   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+//   margin: 10px;
   
-  &:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-    background: linear-gradient(45deg, #764ba2, #667eea);
-  }
-`
+//   &:hover {
+//     transform: translateY(-3px) scale(1.05);
+//     box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+//     background: linear-gradient(45deg, #764ba2, #667eea);
+//   }
+// `
 
 function TextFileDisplay({ fileUrl }: { fileUrl: string }) {
   return (
@@ -165,7 +165,7 @@ function TextFileDisplay({ fileUrl }: { fileUrl: string }) {
         whileHover={{ scale: 1.01 }}
       >
         <object data={fileUrl} width="100%" height="500" type="application/pdf">
-          <FallbackContainer
+          {/* <FallbackContainer
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -235,7 +235,7 @@ function TextFileDisplay({ fileUrl }: { fileUrl: string }) {
                 Download
               </ActionButton>
             </motion.div>
-          </FallbackContainer>
+          </FallbackContainer> */}
         </object>
       </FileViewer>
     </GlassText>
