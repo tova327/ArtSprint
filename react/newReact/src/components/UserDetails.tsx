@@ -152,47 +152,57 @@ const UserDetails = ({ id, short }: { id: number; short: boolean }) => {
 
   if (short) {
     return (
-      <UserCard
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        whileHover={{ scale: 1.02 }}
+      <span
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 7,
+          background: "rgba(76,201,196,0.10)",
+          borderRadius: "14px",
+          padding: "2px 10px 2px 6px",
+          fontSize: "0.98rem",
+          fontWeight: 500,
+          color: "#3b444b",
+          border: "1px solid rgba(76,201,196,0.12)",
+          boxShadow: "0 1px 4px rgba(76,201,196,0.06)",
+          maxWidth: 170,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        }}
       >
-        <UserInfo>
-          <UserAvatar
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, type: "spring" }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
-          >
-            {user?.name ? getInitials(user.name) : "🎨"}
-          </UserAvatar>
-          <div>
-            <UserName
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              {user?.name || "Mystery Artist"}
-            </UserName>
-            <UserRole initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }}>
-              🎨 <span>Creative Soul</span>
-            </UserRole>
-            {user?.isMedal && (
-              <MedalBadge
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <span>🏅</span>
-                <span>Medal Winner</span>
-              </MedalBadge>
-            )}
-          </div>
-        </UserInfo>
-      </UserCard>
-    )
+        <span
+          style={{
+            width: 23,
+            height: 23,
+            borderRadius: "50%",
+            background: "linear-gradient(120deg, #f6d365, #fda085)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            fontWeight: 700,
+            fontSize: 13,
+            letterSpacing: 0.5,
+            marginRight: 1,
+          }}
+        >
+          {user?.name ? getInitials(user.name) : "?"}
+        </span>
+        <span
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxWidth: 110,
+            display: "inline-block",
+            verticalAlign: "middle",
+          }}
+          title={user?.name || "Unknown"}
+        >
+          {user?.name || "Unknown"}
+        </span>
+      </span>
+    );
   }
 
   return (
