@@ -227,7 +227,7 @@ const PaintingsPage: React.FC = () => {
 
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 1 }}>
       {filteredPaintings.length > 0 ? (
-        <Row gutter={[32, 32]} style={{ marginTop: 20 }}>
+        <Row gutter={[32, 32]} style={{ marginTop: 20 ,maxWidth:"95%"}}>
           {filteredPaintings.map((painting: PaintingType, index) => (
             <Col xs={24} sm={12} md={8} lg={6} key={painting.id}>
               <motion.div
