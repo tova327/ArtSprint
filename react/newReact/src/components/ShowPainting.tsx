@@ -13,6 +13,7 @@ import { motion } from "framer-motion"
 import { notification, Button as AntButton } from "antd"
 import UserDetails from "./UserDetails"
 import DownloadButton from "./DownloadButton"
+import DeletePaintingButton from "./DeletePaintingButton"
 
 const GlassCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.95);
@@ -183,6 +184,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
   const dispatch = useDispatch<AppDispatch>()
   const [sessionLikes, setSessionLikes] = useState(0)
   const token = useSelector((store: StoreType) => store.user.token)
+  
 
   const handleNavigate = () => {
     sessionStorage.setItem("lastPaintingCaller", location.pathname + location.search)
@@ -290,6 +292,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
         {painting.name}
       </PaintingTitle>
       <DownloadButton url={painting.url}/>
+      {/* {painting.ownerId===userId&&<DeletePaintingButton painting={painting}/>} */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}

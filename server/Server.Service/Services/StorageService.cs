@@ -108,4 +108,36 @@ public class StorageService:IStorageService
             throw;
         }
     }
+    public async Task<bool> DeleteFileAsync(string objectName)
+    {
+        try
+        {
+            await _storageClient.DeleteObjectAsync(_bucketName, objectName);
+            return true; // Deletion successful
+        }
+        catch (Google.GoogleApiException ex)
+        {
+            // Handle specific Google API exceptions, e.g., file not found, permissions issue.
+            Console.WriteLine($"Error deleting file: {ex.Message}");
+
+            // Example: Check for "Not Found" error
+            if (ex.Error.Code == 404)
+            {
+                Console.WriteLine($"File '{objectName}' not found in bucket '{_bucketName}'.");
+            }
+            else if (ex.Error.Code == 403)
+            {
+                Console.WriteLine($"Insufficient permissions to delete file '{objectName}' in bucket '{_bucketName}'.");
+            }
+
+            return false; // Deletion failed
+        }
+        catch (System.Exception ex)
+        {
+            // Handle any other exceptions (e.g., network issues)
+            Console.WriteLine($"Unexpected error deleting file: {ex.Message}");
+            return false; // Deletion failed
+        }
+    }
+
 }

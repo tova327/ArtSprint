@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addLike, addPainting, fetchPaintings, uploadPainting } from "./axioscalls";
+import { addLike, addPainting, deletePainting, fetchPaintings, uploadPainting } from "./axioscalls";
 
 export const ESubject = [
     'Music',
@@ -79,6 +79,18 @@ export const addLikeAsync = createAsyncThunk(
     }
 );
 
+export const deleteAsync=createAsyncThunk(
+    'paintings/delete',
+    async({token,painting,userId}:{token:string,painting:PaintingType,userId:number},thunkAPI)=>{
+        try{
+            const response=await deletePainting(token,painting,userId)
+            return response
+        }catch (e: any) {
+            thunkAPI.rejectWithValue(e.message);
+        }
+    }
+)
+
 const paintingSlice = createSlice({
     name: 'painting',
     initialState: {
@@ -131,7 +143,19 @@ const paintingSlice = createSlice({
             .addCase(uploadPaintingAsync.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
+            })
+            .addCase(deleteAsync.pending,(state)=>{
+                state.loading=true
+                state.error=null
+            })
+            .addCase(deleteAsync.fulfilled,(state,action)=>{
+                state.loading=false
+                state.paintings=[...action.payload]
+            })
+            .addCase(deleteAsync.rejected,(state,action)=>{
+                state.error=action.error.message
+                state.loading=false
+            })
     }
 });
 

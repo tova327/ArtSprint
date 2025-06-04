@@ -1,7 +1,7 @@
 
 
 import axios from "axios"
-import { PaintingToAddType } from "./paintingSlice";
+import { PaintingToAddType, PaintingType } from "./paintingSlice";
 import { UserLoginType, UserToAddType } from "./userSlice";
 import { CommentPostModel } from "./commentSlice";
 
@@ -165,6 +165,22 @@ export const getAllUsers=async(token:string)=>{
         const response=await axios.get(`${globalAPI}user`,{headers:{
             Authorization: `Bearer ${token}`
         }})
+        return response.data
+    }catch(error){
+        console.log(error);
+        throw error
+    }
+}
+
+export const deletePainting=async(token:string,painting:PaintingType,userId:number)=>{
+    if(userId!==painting.ownerId)
+        throw Error("Unathorized")
+    try{
+        const response=await axios.delete(`${paintingURL}/${painting.id}`,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
         return response.data
     }catch(error){
         console.log(error);

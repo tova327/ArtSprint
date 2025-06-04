@@ -23,13 +23,13 @@ const DownloadButton: React.FC<{ url: string; label?: string }> = ({ url, label 
     title="Download file"
     target="_blank"
     rel="noopener noreferrer"
-    onClick={e => {
+    // onClick={e => {
       // For cross-origin files, force browser behavior
-      if (!url.startsWith(window.location.origin)) {
-        e.preventDefault();
-        window.open(url, "_blank", "noopener");
-      }
-    }}
+      // if (!url.startsWith(window.location.origin)) {
+      //   e.preventDefault();
+      //   window.open(url, "_blank", "noopener");
+      // }
+    //}}
   >
     <DownloadOutlined style={{ fontSize: 16 }} />
     <span>{label}</span>

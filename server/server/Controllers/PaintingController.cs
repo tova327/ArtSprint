@@ -93,12 +93,7 @@ namespace server.Controllers
             return Ok(painting);
         }
         [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            await _paintingService.DeleteAsync(id);
-            return NoContent();
-        }
+        
 
         // Additional methods to use other service functions
         [HttpPost("{id}/like")]
@@ -246,7 +241,22 @@ namespace server.Controllers
                 return StatusCode(500, $"Error fetching file: {ex.Message}");
             }
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var paintingToDelete=await _paintingService.GetByIdAsync(id);
+            if (paintingToDelete == null)
+                return BadRequest();
+            var paintingNameWithExtention = paintingToDelete.Url.Substring(paintingToDelete.Url.IndexOf(paintingToDelete.Name));
+            var deletedFromCloud =await _storageService.DeleteFileAsync(paintingNameWithExtention);
+            if (!deletedFromCloud)
+                return StatusCode(500, "can't delete from cloud");
+            var deletedFromDB = await _paintingService.DeleteAsync(id);
+            if(!deletedFromDB) return BadRequest();
+            var allPainting=await _paintingService.GetAllAsync();
+            return Ok(allPainting);
 
+        }
 
     }
 }

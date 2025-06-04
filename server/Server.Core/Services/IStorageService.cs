@@ -11,5 +11,6 @@ namespace Server.Core.Services
     {
         public  Task<Stream> DownloadFileAsync(string fileName);
         public  Task<string> UploadFileAsync(string filePath, string objectName);
+        public Task<bool> DeleteFileAsync(string objectName);
     }
 }

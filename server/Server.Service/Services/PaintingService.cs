@@ -60,10 +60,15 @@ namespace Server.Service.Services
             return _mapper.Map<PaintingDTO>(painting);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
+            var paintingToDelete=await GetByIdAsync(id);
+            if (paintingToDelete == null)
+                return false;
+            
             await _repositoryManager.Paintings.DeleteAsync(id);
             await _repositoryManager.SaveAsync();
+            return true;
         }
 
         public async Task<bool> AddLikeAsync(int id,int count)
