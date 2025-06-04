@@ -93,8 +93,6 @@ namespace server.Controllers
             return Ok(painting);
         }
         [Authorize]
-        
-
         // Additional methods to use other service functions
         [HttpPost("{id}/like")]
         public async Task<IActionResult> AddLike(int id, [FromQuery]string count)
@@ -119,7 +117,7 @@ namespace server.Controllers
         }
 
 
-        
+        [Authorize]
         [HttpPost("upload")]
         public async Task<ActionResult> UploadPainting([FromForm] PaintingPostModel paintingPostModel)
         {
@@ -204,43 +202,7 @@ namespace server.Controllers
             }
         }
 
-        [HttpGet("text-from-url")]
-        public async Task<ActionResult<string>> GetTextFromUrl([FromQuery] string url)
-        {
-            if (string.IsNullOrEmpty(url))
-            {
-                return BadRequest("URL cannot be null or empty.");
-            }
-
-            try
-            {
-                // Fetch the content from the URL
-                HttpResponseMessage response = await _httpClient.GetAsync(url);
-                if (!response.IsSuccessStatusCode)
-                {
-                    return NotFound($"File not found at the specified URL. Status code: {response.StatusCode}");
-                }
-
-                // Ensure the content type is text-based (or handle other content types as needed)
-                if (!response.Content.Headers.ContentType.MediaType.StartsWith("text/"))
-                {
-                    return BadRequest("The content at the URL is not a text file.");
-                }
-
-                // Read the content as a string
-                var content =await  response.Content.ReadAsStringAsync();
-                return Ok(new {Content=content});   
-            }
-            catch (HttpRequestException ex)
-            {
-                // Handle HTTP request specific exceptions (e.g., DNS errors, connection refused)
-                return StatusCode(500, $"Error fetching file (HTTP request exception): {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error fetching file: {ex.Message}");
-            }
-        }
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

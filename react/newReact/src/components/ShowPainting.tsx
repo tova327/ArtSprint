@@ -13,7 +13,7 @@ import { motion } from "framer-motion"
 import { notification, Button as AntButton } from "antd"
 import UserDetails from "./UserDetails"
 import DownloadButton from "./DownloadButton"
-import DeletePaintingButton from "./DeletePaintingButton"
+//import DeletePaintingButton from "./DeletePaintingButton"
 
 const GlassCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.95);
