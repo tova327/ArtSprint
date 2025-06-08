@@ -167,7 +167,7 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
      console.log("in check painting "+userid);
 
     try {
-      const res = await axios.get(`https://artsprintserver.onrender.com/api/Painting/user/${userid}`)
+      const res = await axios.get(`${import.meta.env.VITE_MY_API_URL}Painting/user/${userid}`)
       if (!res.data || res.data.length === 0) {
         setMustUploadPainting(true)
         setShowPaintingModal(true)

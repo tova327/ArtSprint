@@ -17,7 +17,7 @@ namespace server.Controllers
         }
 
 
-        // GET: api/<TestAbilityController>
+        
         [HttpGet]
         public async Task<IActionResult> GenerateQuestions([FromQuery] string subject)
         {
