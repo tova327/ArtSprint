@@ -1,0 +1,16 @@
+.my-custom-datepicker,
+.my-custom-datepicker .ant-picker-input > input {
+  border-radius: 15px;
+  height: 50px;
+  font-size: 16px;
+  border: 3px solid rgba(76,201,196,0.3);
+  background: rgba(255,255,255,0.9);
+  transition: all 0.3s ease;
+}
+.my-custom-datepicker:hover,
+.my-custom-datepicker:focus,
+.my-custom-datepicker .ant-picker-input > input:focus {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 0 3px rgba(76,201,196,0.2);
+  transform: translateY(-2px);
+}

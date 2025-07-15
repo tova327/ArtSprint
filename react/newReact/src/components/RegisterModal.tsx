@@ -1,8 +1,9 @@
 "use client"
 
 import type React from "react"
+import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react"
-import { Modal, Form, Input, DatePicker, Button,  Spin, Tooltip, Radio } from "antd"
+import { Modal, Form, Input, DatePicker, Button, Spin, Tooltip, Radio } from "antd"
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
@@ -20,6 +21,7 @@ import { ESubject } from "../store/paintingSlice"
 import { getTest, checkAnswers } from "../store/axioscalls"
 import { motion } from "framer-motion"
 import styled from "styled-components"
+import './CSSPages/RegisterModal.css'
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
@@ -156,20 +158,21 @@ const StyledPasswordInput = styled(Input.Password)`
   }
 `
 
-const StyledDatePicker = styled(DatePicker)`
-  border-radius: 15px;
-  height: 50px;
-  font-size: 16px;
-  border: 3px solid rgba(76, 201, 196, 0.3);
-  background: rgba(255, 255, 255, 0.9);
-  transition: all 0.3s ease;
+// const StyledDatePicker = styled(DatePicker)`
+//   border-radius: 15px;
+//   height: 50px;
+//   font-size: 16px;
+//   border: 3px solid rgba(76, 201, 196, 0.3);
+//   background: rgba(255, 255, 255, 0.9);
+//   transition: all 0.3s ease;
+
   
-  &:focus, &:hover {
-    border-color: #4ecdc4;
-    box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2);
-    transform: translateY(-2px);
-  }
-`
+//   &:focus, &:hover {
+//     border-color: #4ecdc4;
+//     box-shadow: 0 0 0 3px rgba(76, 201, 196, 0.2);
+//     transform: translateY(-2px);
+//   }
+// `
 
 
 
@@ -388,7 +391,11 @@ const RegisterModal = ({
             rules={[{ required: true, message: "Please select your birth date!" }]}
             hasFeedback
           >
-            <StyledDatePicker placeholder="When were you born?" style={{ width: "100%" }} />
+            <DatePicker
+              className="my-custom-datepicker"
+              placeholder="When were you born?"
+              style={{ width: "100%" }}
+            />
           </Form.Item>
 
           <Form.Item
