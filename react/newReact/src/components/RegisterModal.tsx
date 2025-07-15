@@ -366,7 +366,7 @@ const RegisterModal = ({
                 <LockOutlined style={{ color: "#96ceb4" }} /> Password
               </span>
             }
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[{ required: false, message: "Please input your password!" }]}
             hasFeedback
           >
             <StyledPasswordInput
