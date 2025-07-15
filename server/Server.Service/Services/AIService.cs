@@ -14,7 +14,7 @@ namespace Server.Service.Services
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
-        private readonly string _geminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+        private readonly string _geminiApiUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent";
 
         public AIService(IConfiguration configuration)
         {
