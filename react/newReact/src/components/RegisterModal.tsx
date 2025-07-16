@@ -392,7 +392,6 @@ const RegisterModal = ({
             hasFeedback
           >
             <DatePicker
-              className="my-custom-datepicker"
               placeholder="When were you born?"
               style={{ width: "100%" }}
             />
