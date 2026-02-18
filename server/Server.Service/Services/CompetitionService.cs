@@ -57,9 +57,9 @@ namespace Server.Service.Services
             await _repositoryManager.SaveAsync();
         }
 
-        public async Task<CompetitionDTO> GetCompetitionDetailsBySubjectAsync(ESubject subject)
+        public async Task<CompetitionDTO> GetCompetitionDetailsBySubjectAsync(int categoryId)
         {
-            var competition = await _repositoryManager.Competitions.GetCompetitionDetailsBySubjectAsync(subject);
+            var competition = await _repositoryManager.Competitions.GetCompetitionDetailsBySubjectAsync(categoryId);
             return _mapper.Map<CompetitionDTO>(competition);
         }
 

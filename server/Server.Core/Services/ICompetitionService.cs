@@ -16,7 +16,7 @@ namespace Server.Core.Services
         Task<CompetitionDTO> UpdateAsync(int id, CompetitionDTO entity);
         Task DeleteAsync(int id);
 
-        Task<CompetitionDTO> GetCompetitionDetailsBySubjectAsync(ESubject subject);
+        Task<CompetitionDTO> GetCompetitionDetailsBySubjectAsync(int categoryId);  
         Task<CompetitionDTO> GetLastCompetitionAsync();
     }
 }

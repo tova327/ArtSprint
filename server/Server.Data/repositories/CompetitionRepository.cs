@@ -16,11 +16,11 @@ public class CompetitionRepository:GenericRepository<CompetitionModel>,ICompetit
         _context = context;
         
     }
-    public async Task<CompetitionModel> GetCompetitionDetailsBySubjectAsync(ESubject subject)
+    public async Task<CompetitionModel> GetCompetitionDetailsBySubjectAsync(int CategoryId)
     {
         return await _context.Competitions
             .OrderByDescending(c => c.CreatedAt)
-            .Where(c => c.Subject == subject)
+            .Where(c => c.CategoryId == CategoryId)
             .FirstOrDefaultAsync();
     }
     public async Task<CompetitionModel> GetLastCompetitionAsync()

@@ -10,8 +10,8 @@ namespace Server.Core.models
 {
     
 
-    public class UserModel
-    {
+    public class UserModel : IHasTimestamps
+	{
         [Key]
         public int Id { get; set; }
 
@@ -20,7 +20,9 @@ namespace Server.Core.models
         public string Name { get; set; }// V
 
         public DateTime CameOn { get; set; } = DateTime.Now;// V
-        public string Email { get; set; }// X
+		public DateTime CreatedAt { get; set; }
+		public DateTime UpdatedAt { get; set; }
+		public string Email { get; set; }// X
         public string HashedPassword { get; set; }    
         [Required]
         [DataType(DataType.Date)]

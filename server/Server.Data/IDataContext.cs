@@ -18,9 +18,11 @@ namespace Server.Data
         public DbSet<CommentModel> Comments { get; set; }
         public DbSet<CompetitionModel> Competitions { get; set; }
         public DbSet<CompetitionPaintingModel> CompetitionPaintings { get; set; }
-        public DbSet<PaintingModel> Paintings { get; set; } 
+        public DbSet<PaintingModel> Paintings { get; set; }
+		public DbSet<CategoryModel> Categories { get; set; }
 
-        public Task<int> SaveChangesAsync(); 
+
+		public Task<int> SaveChangesAsync(); 
         EntityEntry Entry(object entity);
 
     }

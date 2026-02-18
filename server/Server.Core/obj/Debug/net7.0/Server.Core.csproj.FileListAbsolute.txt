@@ -27,3 +27,18 @@ Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Ser
 Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.pdb
 Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.genruntimeconfig.cache
 Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Core\obj\Debug\net7.0\ref\Server.Core.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.deps.json
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.runtimeconfig.json
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\bin\Debug\net7.0\Server.Core.pdb
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.AssemblyInfo.cs
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.sourcelink.json
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\refint\Server.Core.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.pdb
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\Server.Core.genruntimeconfig.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Core\obj\Debug\net7.0\ref\Server.Core.dll

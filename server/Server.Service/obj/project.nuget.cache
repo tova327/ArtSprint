@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "WPpoTBgEp2pzQRLWTBkWEZtN3IbhHSzwSHqunO2JHWSycxL4rWFEYpWy4NY1Plb9IYtNpFYFn2VhfbVlafVxog==",
+  "dgSpecHash": "OMXS+HEsWsU=",
   "success": true,
-  "projectFilePath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Service\\Server.Service.csproj",
+  "projectFilePath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Server.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\bcrypt.net\\0.1.0\\bcrypt.net.0.1.0.nupkg.sha512",
@@ -75,8 +75,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "Package 'BCrypt.Net 0.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Server.Service.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Server.Service.csproj",
       "libraryId": "BCrypt.Net",
       "targetGraphs": [
         "net7.0"

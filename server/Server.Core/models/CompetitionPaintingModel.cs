@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Server.Core.models
 {
-    public class CompetitionPaintingModel
+    public class CompetitionPaintingModel:IHasTimestamps
     {
         [Key]
         public int Id { get; set; } 
@@ -25,5 +25,7 @@ namespace Server.Core.models
 
         public PaintingModel Painting { get; set; } 
         public CompetitionModel Competition { get; set; }
+        public DateTime CreatedAt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime UpdatedAt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

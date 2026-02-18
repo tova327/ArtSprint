@@ -18,6 +18,39 @@ namespace Server.Data.Migrations
                 .HasAnnotation("ProductVersion", "7.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Server.Core.models.CategoryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int?>("ParentCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Server.Core.models.CommentModel", b =>
                 {
                     b.Property<int>("Id")
@@ -33,6 +66,9 @@ namespace Server.Data.Migrations
 
                     b.Property<int>("PaintId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -50,6 +86,9 @@ namespace Server.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -70,8 +109,8 @@ namespace Server.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("Subject")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("WinnerId")
                         .HasColumnType("int");
@@ -94,6 +133,9 @@ namespace Server.Data.Migrations
                     b.Property<int>("CountPositive")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
@@ -102,6 +144,9 @@ namespace Server.Data.Migrations
 
                     b.Property<int>("Place")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("IdPaint", "IdCompetition");
 
@@ -117,6 +162,10 @@ namespace Server.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -136,14 +185,16 @@ namespace Server.Data.Migrations
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Subject")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("OwnerId");
 
@@ -160,6 +211,9 @@ namespace Server.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("CameOn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
@@ -185,9 +239,22 @@ namespace Server.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Server.Core.models.CategoryModel", b =>
+                {
+                    b.HasOne("Server.Core.models.CategoryModel", "ParentCategory")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("Server.Core.models.CommentModel", b =>
@@ -239,6 +306,12 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Server.Core.models.PaintingModel", b =>
                 {
+                    b.HasOne("Server.Core.models.CategoryModel", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Server.Core.models.UserModel", "Owner")
                         .WithMany("Paintings")
                         .HasForeignKey("OwnerId")
@@ -246,6 +319,11 @@ namespace Server.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Server.Core.models.CategoryModel", b =>
+                {
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("Server.Core.models.CompetitionModel", b =>

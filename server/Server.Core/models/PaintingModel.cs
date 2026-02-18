@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace Server.Core.models
 {
-    public class PaintingModel
-    {
+    public class PaintingModel : IHasTimestamps
+	{
         [Key]
         public int Id { get; set; }
 
@@ -23,9 +23,9 @@ namespace Server.Core.models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        public int Likes { get; set; } = 0;
+		public DateTime CreatedAt { get; set; }
+		public DateTime UpdatedAt { get; set; }
+		public int Likes { get; set; } = 0;
 
         [Required]
         public string Url { get; set; } = "";
@@ -33,7 +33,8 @@ namespace Server.Core.models
         public bool IsMedal { get; set; } = false;
 
         [Required]
-        public ESubject Subject { get; set; } = ESubject.Drawing;
+        
+        public int? CategoryId { get; set; }
         [Required]
         //public IFormFile paintingFile { get; set; }
         //art-sprint-bucket/folder1/Untitled-135.pdf

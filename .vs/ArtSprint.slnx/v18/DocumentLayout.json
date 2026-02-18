@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\.vs\\tasks.vs.json||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.vs\\tasks.vs.json||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cache||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cache||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\server.csproj||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\server\\server.csproj||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server\\server\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "tasks.vs.json",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\.vs\\tasks.vs.json",
+              "RelativeDocumentMoniker": ".vs\\tasks.vs.json",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\.vs\\tasks.vs.json",
+              "RelativeToolTip": ".vs\\tasks.vs.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-04T22:22:44.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "server.MvcApplicationPartsAssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cs",
+              "RelativeDocumentMoniker": "server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cs",
+              "RelativeToolTip": "server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T22:12:31.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "server.MvcApplicationPartsAssemblyInfo.cache",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cache",
+              "RelativeDocumentMoniker": "server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cache",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cache",
+              "RelativeToolTip": "server\\server\\obj\\Debug\\net7.0\\server.MvcApplicationPartsAssemblyInfo.cache",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002368|",
+              "WhenOpened": "2026-02-04T22:12:28.067Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "server.csproj",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\server.csproj",
+              "RelativeDocumentMoniker": "server\\server\\server.csproj",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\server.csproj",
+              "RelativeToolTip": "server\\server\\server.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-02-04T21:49:26.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs",
+              "RelativeDocumentMoniker": "server\\server\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs",
+              "RelativeToolTip": "server\\server\\Program.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T21:49:08.349Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

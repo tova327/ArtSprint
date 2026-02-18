@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Server.Core.models
 {
-    public class CommentModel
+    public class CommentModel:IHasTimestamps
     {
         [Key]
         public int Id { get; set; }
@@ -24,9 +24,11 @@ namespace Server.Core.models
         [ForeignKey("Painting")]
         public int PaintId { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+		public DateTime CreatedAt { get; set; }
+		public DateTime UpdatedAt { get; set; }
 
-        public UserModel User { get; set; }
+
+		public UserModel User { get; set; }
         public PaintingModel Paint { get; set; }
     }
 }

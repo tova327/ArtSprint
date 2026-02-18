@@ -13,6 +13,7 @@ namespace Server.Core
             CreateMap<CompetitionPaintingDTO,CompetitionPaintingModel>().ReverseMap();
             CreateMap<CommentDTO,CommentModel>().ReverseMap();
             CreateMap<PaintingDTO,PaintingModel>().ReverseMap();
-        }
+            CreateMap<CategoryDTO,CategoryModel>().ReverseMap();
+		}
     }
 }

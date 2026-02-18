@@ -3397,11 +3397,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\server\\server.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\server\\server.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\server.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\server\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3416,20 +3416,21 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Core\\Server.Core.csproj": {
-              "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Core\\Server.Core.csproj"
+            "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Server.Core.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Server.Core.csproj"
             },
-            "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Data\\Server.Data.csproj": {
-              "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Data\\Server.Data.csproj"
+            "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\Server.Data.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\Server.Data.csproj"
             },
-            "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Service\\Server.Service.csproj": {
-              "projectPath": "D:\\Users\\User\\Desktop\\טובי\\2025\\פרויקט פולסטק סופי\\artSprint\\server\\Server.Service\\Server.Service.csproj"
+            "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Server.Service.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Server.Service.csproj"
             }
           }
         }
@@ -3438,7 +3439,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net7.0": {
@@ -3504,7 +3511,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   },

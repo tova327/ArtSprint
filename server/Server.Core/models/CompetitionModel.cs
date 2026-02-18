@@ -16,10 +16,10 @@ namespace Server.Core.models
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
-        public string Instructions { get; set; }    
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-        [Required]
+        public string Instructions { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public DateTime UpdatedAt { get; set; }
+		[Required]
         [DataType(DataType.Date)]
         public DateTime GoalDate { get; set; }
 
@@ -31,7 +31,7 @@ namespace Server.Core.models
         public int? WinnerId { get; set; }
 
         [Required]
-        public ESubject Subject { get; set; }
+        public int CategoryId { get; set; }    
 
         public UserModel Winner { get; set; }
         public ICollection<CompetitionPaintingModel> CompetitionPaintings { get; set; }

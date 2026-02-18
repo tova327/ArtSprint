@@ -16,6 +16,7 @@ namespace Server.Data.repositories
         public ICompetitionPaintingRepository CompetitionPaintings { get; }
         public ICommentRepository Comments { get; }
         public IPaintingRepository Paintings { get; }
+        public ICategoryRepository Categories { get; }
 
         public RepositoryManager(
             IDataContext context,
@@ -24,7 +25,8 @@ namespace Server.Data.repositories
         ICompetitionRepository competitionsRepository,
         ICompetitionPaintingRepository competitionPaintingRepository,
         ICommentRepository commentsRepository,
-        IPaintingRepository paintingsRepository)    
+        IPaintingRepository paintingsRepository,
+        ICategoryRepository categoryRepository)    
         {
             _context = context;
             Users = userRepository;
@@ -32,6 +34,7 @@ namespace Server.Data.repositories
             Paintings = paintingsRepository;
             Comments = commentsRepository;
             CompetitionPaintings= competitionPaintingRepository;
+            Categories = categoryRepository;
         }
 
         public async Task SaveAsync()

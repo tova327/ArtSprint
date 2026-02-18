@@ -12,7 +12,8 @@ namespace Server.Core.Repositories
         ICompetitionRepository Competitions { get; }
         ICompetitionPaintingRepository CompetitionPaintings { get; }
         ICommentRepository Comments { get; }
-        IPaintingRepository Paintings { get; }  
+        IPaintingRepository Paintings { get; } 
+        ICategoryRepository Categories { get; }
 
         Task SaveAsync();
     }

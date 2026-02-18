@@ -9,7 +9,7 @@ namespace Server.Core.Repositories
 {
     public interface ICompetitionRepository:IRepository<CompetitionModel>
     {
-         Task<CompetitionModel> GetCompetitionDetailsBySubjectAsync(ESubject subject);
+         Task<CompetitionModel> GetCompetitionDetailsBySubjectAsync(int CategoryId);   
         Task<CompetitionModel> GetLastCompetitionAsync();
     }
 }

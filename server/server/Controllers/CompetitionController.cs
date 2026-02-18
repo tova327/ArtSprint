@@ -68,9 +68,9 @@ namespace server.Controllers
 
         // Additional methods to use other service functions
         [HttpGet("subject/{subject}")]
-        public async Task<ActionResult<CompetitionDTO>> GetCompetitionDetailsBySubject(ESubject subject)
+        public async Task<ActionResult<CompetitionDTO>> GetCompetitionDetailsBySubject(int categoryId)
         {
-            var competition = await _competitionService.GetCompetitionDetailsBySubjectAsync(subject);
+            var competition = await _competitionService.GetCompetitionDetailsBySubjectAsync(categoryId);
             if (competition == null)
             {
                 return NotFound();

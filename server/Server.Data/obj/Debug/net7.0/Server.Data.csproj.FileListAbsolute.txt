@@ -33,3 +33,21 @@ Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Ser
 Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.pdb
 Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.genruntimeconfig.cache
 Y:\Groups\Group_5\יעקבסון טובה\fullstack project\ArtSprint\server\Server.Data\obj\Debug\net7.0\ref\Server.Data.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.deps.json
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.runtimeconfig.json
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\bin\Debug\net7.0\Server.Data.pdb
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\bin\Debug\net7.0\Server.Core.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\bin\Debug\net7.0\Server.Core.pdb
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.AssemblyInfo.cs
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.sourcelink.json
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.D.41DF33C7.Up2Date
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\refint\Server.Data.dll
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.pdb
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\Server.Data.genruntimeconfig.cache
+C:\Users\User\source\repos\tova327\ArtSprint\server\Server.Data\obj\Debug\net7.0\ref\Server.Data.dll

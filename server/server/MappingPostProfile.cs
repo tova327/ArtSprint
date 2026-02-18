@@ -13,6 +13,7 @@ namespace server
             CreateMap<CompetitionPaintingPostModel, CompetitionPaintingDTO>();
             CreateMap<CompetitionPostModel, CompetitionDTO>();
             CreateMap<PaintingPostModel, PaintingDTO>();
-        }
+            CreateMap<CategoryPostModel, CategoryDTO>();
+		}
     }
 }
