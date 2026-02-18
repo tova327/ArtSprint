@@ -93,7 +93,7 @@ internal class Program
         builder.Services.AddScoped<ICompetitionPaintingRepository, CompetitionPaintingRepository>();
         builder.Services.AddScoped<ICommentRepository, CommentRepository>();
         builder.Services.AddScoped<IPaintingRepository, PaintingRepository>();
-
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<ICompetitionPaintingService, CompetitionPaintingService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ICommentService, CommentService>();
@@ -103,6 +103,7 @@ internal class Program
         builder.Services.AddScoped<IDataContext, DataContext>();
         builder.Services.AddScoped<IAuthService, AuthService>();
         builder.Services.AddScoped<IAIService,AIService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
         //==================
         builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(MappingPostProfile));
         builder.Services.AddDbContext<IDataContext, DataContext>();

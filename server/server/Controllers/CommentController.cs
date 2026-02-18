@@ -35,7 +35,7 @@ namespace server.Controllers
             var comment = await _commentService.GetByIdAsync(id);
             if (comment == null)
             {
-                return NotFound();
+                return NotFound(id);
             }
             return Ok(comment);
         }
