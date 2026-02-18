@@ -35,7 +35,7 @@ const SidebarContainer = styled(motion.div)`
     }
   }
 `
-
+// have to be taken from server side to avoid hydration mismatch
 const subjects = [
   { name: "Music", color: "#ff6b6b", emoji: "🎵", gradient: "linear-gradient(135deg, #ff6b6b, #ee5a52)" },
   { name: "Drawing", color: "#4ecdc4", emoji: "🎨", gradient: "linear-gradient(135deg, #4ecdc4, #44a08d)" },
