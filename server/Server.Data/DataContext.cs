@@ -22,7 +22,7 @@ public class DataContext : DbContext,IDataContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySql(_configuration["DbConnectionString"],
+		optionsBuilder.UseMySql(_configuration["DbConnectionString"],
             new MySqlServerVersion(new Version(8, 0, 21)),
             mysqlOptions => mysqlOptions.EnableRetryOnFailure());
         

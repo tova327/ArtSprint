@@ -46,7 +46,12 @@ namespace Server.Service.Services
             var existPainting=allPaintings.FirstOrDefault(p=>p.Name.Equals(entity.Name)&&p.OwnerId==entity.OwnerId);
             if (existPainting != null)
                 return null;
-            var paintingModel = _mapper.Map<PaintingModel>(entity);
+            if(entity.CreatedAt == default)
+                entity.CreatedAt = DateTime.UtcNow; 
+            var category = await _repositoryManager.Categories.GetByIdAsync(entity.CategoryId);
+            if(category==null)
+                return null;
+			var paintingModel = _mapper.Map<PaintingModel>(entity);
             var painting = await _repositoryManager.Paintings.AddAsync(paintingModel);
             await _repositoryManager.SaveAsync();
             return _mapper.Map<PaintingDTO>(painting);

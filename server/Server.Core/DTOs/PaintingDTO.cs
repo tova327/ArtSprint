@@ -21,7 +21,7 @@ namespace Server.Core.DTOs
         public bool IsMedal { get; set; } = false;
         //public IFormFile paintingFile { get; set; }
 
-        public ESubject Subject { get; set; }
+        public int CategoryId { get; set; }
        // public UserModel Owner { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }
         public CompetitionPaintingDTO? CompetitionPainting { get; set; }
