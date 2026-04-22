@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\server",
     "\\server\\server",
+    "\\server\\Server.Service",
+    "\\server\\Server.Service\\Services",
     "\\server\\server\\Properties"
   ],
-  "SelectedNode": "\\server",
   "PreviewInSolutionExplorer": false
 }
