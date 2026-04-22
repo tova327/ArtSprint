@@ -25,7 +25,9 @@ internal class Program
         {
             options.AddPolicy("AllowAll", builder =>
             {
+
                 builder.WithOrigins("https://artsprint.onrender.com", "http://localhost:5173/")
+
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowCredentials();
@@ -125,4 +127,6 @@ internal class Program
         app.MapGet("/", () => "ArtSprint server is running");
         app.Run();
     }
+
 }
+
