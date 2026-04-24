@@ -7,7 +7,7 @@ type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
   const openNotification = (type: NotificationType, title: string, description: string) => {
     api[type]({
-      title,
+      message: title,
       description,
     });
   };
