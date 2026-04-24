@@ -10,7 +10,7 @@ import RegisterModal from "./RegisterModal";
 import { LoginAsync, RegisterAsync, type UserToAddType } from "../../store/userSlice";
 import PaintingUploadModal from "../paintings/PaintingUploadModal";
 
-const StartPage = ({ toClose }: { toClose: Function }) => {
+const StartPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((store: StoreType) => store.user.user);
   const token = useSelector((store: StoreType) => store.user.token);
