@@ -1,8 +1,8 @@
 // theme/token.ts
-import { theme as antdTheme } from 'antd';
+import type { ThemeConfig } from 'antd';
 import { colors } from './colors';
 
-export const themeToken: antdTheme.ThemeConfig = {
+export const themeToken: ThemeConfig = {
   token: {
     // 🎨 Core colors
     colorPrimary: colors.primary,

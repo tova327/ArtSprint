@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import "./App.css"
 import type { AppDispatch } from "./store/store"
-import StartPage from "./components/StartPage"
+import StartPage from "./components/auth/StartPage"
 import SubApp from "./components/SubApp"
 import { useDispatch } from "react-redux"
 import axios from "axios"
