@@ -149,7 +149,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 172,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -165,6 +165,14 @@
               "IsPinned": true
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "PaintingDTO.cs",
@@ -174,8 +182,7 @@
               "RelativeToolTip": "Server.Core\\DTOs\\PaintingDTO.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-23T19:34:12.016Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-23T19:34:12.016Z"
             },
             {
               "$type": "Document",
@@ -185,7 +192,7 @@
               "RelativeDocumentMoniker": "Server.Service\\Services\\PaintingService.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\PaintingService.cs",
               "RelativeToolTip": "Server.Service\\Services\\PaintingService.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAswFUAAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAgwFUAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-23T19:30:59.283Z",
               "EditorCaption": ""
@@ -200,8 +207,7 @@
               "RelativeToolTip": "Server.Data\\Migrations\\20260218202702_general.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T20:27:02.407Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-18T20:27:02.407Z"
             },
             {
               "$type": "Document",
@@ -213,8 +219,7 @@
               "RelativeToolTip": "Server.Data\\DataContext.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAmwDUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-05T20:06:48.723Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-05T20:06:48.723Z"
             },
             {
               "$type": "Document",
@@ -226,8 +231,7 @@
               "RelativeToolTip": "Server.Core\\models\\CategoryModel.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAzwBMAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T22:43:49.171Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-04T22:43:49.171Z"
             },
             {
               "$type": "Document",
@@ -239,8 +243,7 @@
               "RelativeToolTip": "Server.Core\\models\\PaintingModel.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwAwAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-05T19:54:11.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-05T19:54:11.019Z"
             },
             {
               "$type": "Document",
