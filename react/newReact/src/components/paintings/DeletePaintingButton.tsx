@@ -4,7 +4,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { deleteAsync } from "../../store/paintingSlice";
 import { AppDispatch, StoreType } from "../../store/store";
 import { PaintingType } from "../../store/paintingSlice";
-import "./DeletePaintingButton.css";
+// import "./DeletePaintingButton.css";
 
 const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }) => {
   const dispatch = useDispatch<AppDispatch>();
