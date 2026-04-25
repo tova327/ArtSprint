@@ -13,7 +13,7 @@ import { motion } from "framer-motion"
 import PopularPaintings from "./PopularPaintings"
 import LatestPaintings from "./LatestPaintings"
 import MagicWandOutlined,{ CloudUploadOutlined, SearchOutlined } from "@ant-design/icons"
-import './CSSPages/PaintingsPage.css'
+// import './CSSPages/PaintingsPage.css'
 
 
 
