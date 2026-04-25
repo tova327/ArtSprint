@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import openNotification from "../common/Notification";
 import Title from "../common/Title";
 import Button from "../common/Button";
 import { AppDispatch, StoreType } from "../../store/store";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
-
+import { notification } from "antd";
 import { LoginAsync, RegisterAsync, type UserToAddType } from "../../store/userSlice";
 import PaintingUploadModal from "../paintings/PaintingUploadModal";
 
@@ -14,27 +13,34 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((store: StoreType) => store.user.user);
   const token = useSelector((store: StoreType) => store.user.token);
-
+  const [api, _] = notification.useNotification();
+  const handleMassage = (type:'success' | 'error' | 'warning',message: string,description: string) => {
+    api[type]({
+      message: message,
+      description: description,
+    });
+  }
+  
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
   const [isRegisterModalVisible, setIsRegisterModalVisible] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [showPaintingModal, setShowPaintingModal] = useState(false);
 
-  
+
 
   const handleLoginOk = async (values: { username: string; password: string }) => {
     setLoginLoading(true)
     try {
       const result = await dispatch(LoginAsync({ user: values })).unwrap()
       setIsLoginModalVisible(false)
-      console.log("before send to check painting "+result.user.id);
+      console.log("before send to check painting " + result.user.id);
 
       //await checkUserPainting(result.user.id)
-      openNotification("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`)
+      handleMassage("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`);
 
     } catch (error: any) {
-      openNotification("error", "❌ Login Failed", error?.message || "Invalid credentials.");
+      handleMassage("error", "❌ Login Failed", error?.message || "Invalid credentials.");
     } finally {
       setLoginLoading(false);
       toClose();
@@ -46,9 +52,9 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
     try {
       await dispatch(RegisterAsync({ user: userDetails })).unwrap();
       setIsRegisterModalVisible(false);
-      openNotification("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!");
+      handleMassage("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!");
     } catch (err: any) {
-      openNotification("error", "❌ Registration Failed", err?.message || "Please try again.");
+      handleMassage("error", "❌ Registration Failed", err?.message || "Please try again.");
     } finally {
       setRegisterLoading(false);
     }

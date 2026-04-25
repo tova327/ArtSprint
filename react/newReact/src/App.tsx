@@ -67,9 +67,10 @@ function App() {
     <ConfigProvider theme={antdTheme}>
       <ThemeProvider theme={theme}>
         {showStart ? <StartPage toClose={() => setShowStart(false)} /> : <SubApp />}
+       
       </ThemeProvider>
 
-      
+
     </ConfigProvider>
   )
 }

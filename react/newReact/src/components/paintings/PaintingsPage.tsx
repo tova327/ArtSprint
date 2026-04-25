@@ -101,7 +101,7 @@ const PaintingsPage: React.FC = () => {
   }
 
   // Filter paintings by both subject and search query
-  const filteredPaintings = paintings.filter((p: PaintingType) => {
+  const filteredPaintings = paintings?.filter((p: PaintingType) => {
     const matchesSubject = !subjectFilter || ESubject[p.subject] === subjectFilter
     const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())
 
