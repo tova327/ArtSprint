@@ -10,7 +10,7 @@ import RegisterModal from "./RegisterModal";
 import { LoginAsync, RegisterAsync, type UserToAddType } from "../../store/userSlice";
 import PaintingUploadModal from "../paintings/PaintingUploadModal";
 
-const StartPage = () => {
+const StartPage = ({ toClose }: { toClose: Function }) => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((store: StoreType) => store.user.user);
   const token = useSelector((store: StoreType) => store.user.token);
@@ -32,10 +32,12 @@ const StartPage = () => {
 
       //await checkUserPainting(result.user.id)
       openNotification("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`)
+
     } catch (error: any) {
       openNotification("error", "❌ Login Failed", error?.message || "Invalid credentials.");
     } finally {
       setLoginLoading(false);
+      toClose();
     }
   };
 
