@@ -1,18 +1,20 @@
 // theme/AntProvider.tsx
 import React from 'react';
-import { ConfigProvider } from 'antd';
+import { App, ConfigProvider } from 'antd';
 import { themeToken } from './token';
 
 type Props = {
   children: React.ReactNode;
 };
 
-export const AntProvider: React.FC<Props> = ({ children }) => {
+
+
+export const AntProvider = ({ children }:Props) => {
   return (
-    <ConfigProvider
-      theme={themeToken}
-    >
-      {children}
+    <ConfigProvider theme={themeToken}>
+      <App>
+        {children}
+      </App>
     </ConfigProvider>
   );
 };
