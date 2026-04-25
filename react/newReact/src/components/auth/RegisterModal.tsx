@@ -21,7 +21,7 @@ import { ESubject } from "../../store/paintingSlice"
 import { getTest, checkAnswers } from "../../store/axioscalls"
 import { motion } from "framer-motion"
 import styled from "styled-components"
-import './CSSPages/RegisterModal.css'
+// import './CSSPages/RegisterModal.css'
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
