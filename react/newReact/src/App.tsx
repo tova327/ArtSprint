@@ -68,6 +68,8 @@ function App() {
       <ThemeProvider theme={theme}>
         {showStart ? <StartPage toClose={() => setShowStart(false)} /> : <SubApp />}
       </ThemeProvider>
+
+      
     </ConfigProvider>
   )
 }

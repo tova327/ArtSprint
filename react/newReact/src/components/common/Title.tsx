@@ -2,6 +2,7 @@
 import React from 'react';
 import { Typography } from 'antd';
 import { themeToken } from '../../theme/token';
+import { spacing } from '../../theme/constant';
 
 const { Title: AntTitle } = Typography;
 
@@ -17,7 +18,7 @@ const Title: React.FC<TitleProps> = ({ level = 1, children, style }) => {
       level={level}
       style={{
         textAlign: 'center',
-       // marginBottom: themeToken.token?.spacing,
+       marginBottom: spacing.xl,
         color: themeToken.token?.colorPrimary,
         ...style,
       }}

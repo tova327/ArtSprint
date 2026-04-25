@@ -8,10 +8,10 @@ import { AntProvider } from './theme/AntProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
-      <AntProvider>
+    <AntProvider>
+      <Provider store={store}>
         <App />
-      </AntProvider>
-    </Provider>
+      </Provider>
+    </AntProvider>
   </StrictMode>,
 )
