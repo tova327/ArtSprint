@@ -9,15 +9,18 @@ import type { CommentPostModel } from "../../store/commentSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCommentsAsync, addCommentAsync } from "../../store/commentSlice"
 import type { AppDispatch, StoreType } from "../../store/store"
-import { ESubject } from "../../store/paintingSlice"
-//import TextFileDisplay from "./TextFileDisplay"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import UserDetails from "../user/UserDetails"
-import { ArrowLeftOutlined, SendOutlined, MessageOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined, SendOutlined } from "@ant-design/icons"
 import DownloadButton from "../common/DownloadButton"
 import DeletePaintingButton from "./DeletePaintingButton"
 import { AppSpinner } from "../common/AppSpinner"
+import AppButton from "../common/AppButton"
+import AppTitle from "../common/AppTitle"
+
+import { AppEmpty } from "../common/AppEmpty"
+import AppTag from "../common/AppTag"
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
@@ -95,24 +98,6 @@ const PaintingImg = styled(motion.img)`
   }
 `
 
-const BackButton = styled(motion(Button))`
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border: none;
-  color: white;
-  font-weight: 800;
-  height: 55px;
-  border-radius: 27px;
-  padding: 0 30px;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-  font-size: 16px;
-  
-  &:hover {
-    background: linear-gradient(135deg, #764ba2, #667eea);
-    color: white;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
-  }
-`
 
 const CommentSection = styled(motion.div)`
   background: rgba(255, 255, 255, 0.8);
@@ -184,9 +169,10 @@ const PaintingComponent: React.FC = () => {
   const [commentContent, setCommentContent] = useState<string>("")
 
   const comments = useSelector((store: StoreType) => store.comments.comments)
-  const token = useSelector((store:StoreType) => store.user.token)
   const userId = useSelector((store: StoreType) => store.user.user.id)
   const allUsers = useSelector((store: StoreType) => store.user.allusers)
+  const categories = useSelector((state: StoreType) => state.categories.categories)
+
   useEffect(() => {
     const fetchPainting = async () => {
       try {
@@ -223,7 +209,7 @@ const PaintingComponent: React.FC = () => {
       userId: userId,
       paintId: Number(id),
     }
-    const resultAction = await dispatch(addCommentAsync({ comment: newComment,token: token||'' }))
+    const resultAction = await dispatch(addCommentAsync({ comment: newComment }))
     if (addCommentAsync.fulfilled.match(resultAction)) {
       message.success({
         content: "🎉 Your thoughts have been shared!",
@@ -240,8 +226,9 @@ const PaintingComponent: React.FC = () => {
 
   const renderContent = () => {
     if (!painting) return null
-    const subject = ESubject[painting.subject]
-    switch (subject) {
+    const category = categories.find((c) => c.id === painting.category)
+
+    switch (category?.name) {
       case "Music":
         return (
           <AudioPlayer
@@ -343,17 +330,13 @@ const PaintingComponent: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, type: "spring" }}
       >
-        <BackButton
+        <AppButton
           onClick={handleBack}
           icon={<ArrowLeftOutlined />}
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          type="link"
         >
-          🏠 Back to Gallery
-        </BackButton>
+           Back to Gallery
+        </AppButton>
 
         <PaintingTitle
           initial={{ opacity: 0, y: -30 }}
@@ -381,30 +364,12 @@ const PaintingComponent: React.FC = () => {
         <DownloadButton url={painting.url} label={"download "+painting.name}/>
         {painting.ownerId===userId&&<DeletePaintingButton painting={painting}/>}
         <CommentSection
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 1 }}
+          
         >
-          <motion.h3
-            style={{
-              background: "linear-gradient(45deg, #667eea, #764ba2)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              fontSize: "1.8rem",
-              fontWeight: 900,
-              marginBottom: 20,
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-          >
-            <MessageOutlined /> 💬 Share Your Thoughts
-          </motion.h3>
-
+          
+            
+          <AppTitle>Share Your Thoughts</AppTitle>
+          {comments.filter((c) => c.paintId === painting.id).length === 0 ? <AppEmpty description="No comments yet! Be the first to share your thoughts on this masterpiece." /> :
           <List
             dataSource={comments.filter((c) => c.paintId === painting.id)}
             renderItem={(item, index) => (
@@ -413,12 +378,13 @@ const PaintingComponent: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 + 1.4, duration: 0.6 }}
               >
-                <p style={{fontSize:16}}>{allUsers?.find(u=>u.id===item.userId)?.name||"???"}</p>
+                <AppTag>{allUsers?.find(u=>u.id===item.userId)?.name||"???"}</AppTag>
                 <CommentItem>{item.content}</CommentItem>
               </motion.div>
             )}
             style={{ marginBottom: 25 }}
-          />
+          />}
+          
 
           <CommentForm
             initial={{ opacity: 0, y: 30 }}

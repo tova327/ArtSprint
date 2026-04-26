@@ -1,13 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addLike, addPainting, deletePainting, fetchPaintings, uploadPainting } from "./axioscalls";
 
-export const ESubject = [
-    'Music',
-    'Drawing',
-    'Photography',
-    'Graphic',
-    'Writing'
-];
+
 
 export type PaintingType = {
     id: number,
@@ -17,13 +11,13 @@ export type PaintingType = {
     likes: number,
     url: string,
     isMedal: boolean,
-    subject: number,
+    category: number,
 };
 
 export type PaintingToAddType = {
     ownerId: number,
     name: string,
-    subject: number,
+    category: number,
     paintingFile: File
 };
 
@@ -56,9 +50,9 @@ export const addPaintingAsync = createAsyncThunk(
 // Upload painting
 export const uploadPaintingAsync = createAsyncThunk(
     'paintings/upload',
-    async ({ painting, token }: { painting: PaintingToAddType, token: string }, thunkAPI) => {
+    async ({ painting }: { painting: PaintingToAddType }, thunkAPI) => {
         try {
-            const response = await uploadPainting(painting, token);
+            const response = await uploadPainting(painting);
             return response;
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);
@@ -69,9 +63,9 @@ export const uploadPaintingAsync = createAsyncThunk(
 // Add like
 export const addLikeAsync = createAsyncThunk(
     'paintings/like',
-    async ({ id, count, token }: { id: number, count: number, token: string }, thunkAPI) => {
+    async ({ id, count }: { id: number, count: number }, thunkAPI) => {
         try {
-            const response = await addLike(id, count, token);
+            const response = await addLike(id, count);
             return response;
         } catch (e: any) {
             thunkAPI.rejectWithValue(e.message);
@@ -81,9 +75,9 @@ export const addLikeAsync = createAsyncThunk(
 
 export const deleteAsync=createAsyncThunk(
     'paintings/delete',
-    async({token,painting,userId}:{token:string,painting:PaintingType,userId:number},thunkAPI)=>{
+    async({painting,userId}:{painting:PaintingType,userId:number},thunkAPI)=>{
         try{
-            const response=await deletePainting(token,painting,userId)
+            const response=await deletePainting(painting,userId)
             return response
         }catch (e: any) {
             thunkAPI.rejectWithValue(e.message);

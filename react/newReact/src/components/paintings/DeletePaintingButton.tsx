@@ -4,28 +4,30 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { deleteAsync } from "../../store/paintingSlice";
 import { AppDispatch, StoreType } from "../../store/store";
 import { PaintingType } from "../../store/paintingSlice";
+import { App } from "antd";
+import AppButton from "../common/AppButton";
 // import "./DeletePaintingButton.css";
 
 const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const token = useSelector((store: StoreType) => store.user.token);
+  
   const userId = useSelector((store: StoreType) => store.user.user.id);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this painting?")) {
-      dispatch(deleteAsync({ token:token||'', painting, userId }));
+      dispatch(deleteAsync({ painting, userId }));
     }
   };
 
   return (
-    <button
+    <AppButton
       onClick={handleDelete}
-      className="delete-painting-button"
-      title="Delete painting"
+      type="dashed"
+      icon={<DeleteOutlined />}
     >
-      <DeleteOutlined style={{ fontSize: 15 }} />
-      <span>Delete</span>
-    </button>
+      
+      Delete
+    </AppButton>
   );
 };
 

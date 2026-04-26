@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Row, Col,  message, notification, Input } from "antd"
 import type { AppDispatch, StoreType } from "../../store/store"
-import { ESubject, fetchPaintingsAsync, type PaintingType, uploadPaintingAsync } from "../../store/paintingSlice"
+import {  fetchPaintingsAsync, type PaintingType, uploadPaintingAsync } from "../../store/paintingSlice"
 import ShowPainting from "./ShowPainting"
 import PaintingUploadModal from "./PaintingUploadModal"
 import { useLocation } from "react-router-dom"
@@ -22,11 +22,10 @@ import { AppEmpty } from "../common/AppEmpty"
 const PaintingsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const paintings = useSelector((store: StoreType) => store.painting.paintings)
-  const token = useSelector((store: StoreType) => store.user.token)
   const userId = useSelector((store: StoreType) => store.user.user.id)
   const loading = useSelector((store: StoreType) => store.painting.loading)
   const error = useSelector((store: StoreType) => store.painting.error)
-
+  const categories = useSelector((store: StoreType) => store.categories.categories)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [paintingUploadLoading, setPaintingUploadLoading] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -57,7 +56,7 @@ const PaintingsPage: React.FC = () => {
   const handleUpload = async (paintingData: any) => {
     setPaintingUploadLoading(true)
     try {
-      const resultAction = await dispatch(uploadPaintingAsync({ painting: paintingData, token: token || "" }))
+      const resultAction = await dispatch(uploadPaintingAsync({ painting: paintingData}))
       if (uploadPaintingAsync.fulfilled.match(resultAction)) {
         message.success({
           content: "🎨 Masterpiece uploaded successfully!",
@@ -104,7 +103,7 @@ const PaintingsPage: React.FC = () => {
 
   // Filter paintings by both subject and search query
   const filteredPaintings = paintings?.filter((p: PaintingType) => {
-    const matchesSubject = !subjectFilter || ESubject[p.subject] === subjectFilter
+    const matchesSubject = !subjectFilter || p.category === categories.find((c) => c.name === subjectFilter)?.id
     const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase())
 
     return matchesSubject && matchesSearch
@@ -188,7 +187,6 @@ const PaintingsPage: React.FC = () => {
       onUpload={handleUpload}
       loading={paintingUploadLoading}
       userId={userId}
-      token={token}
     />
 
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 1 }}>

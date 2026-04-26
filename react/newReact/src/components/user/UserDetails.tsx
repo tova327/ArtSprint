@@ -123,13 +123,13 @@ const MedalBadge = styled(motion.div)`
 const UserDetails = ({ id, short }: { id: number; short: boolean }) => {
   const dispatch = useDispatch<AppDispatch>()
   const allUsers = useSelector((store: StoreType) => store.user.allusers)
-  const token = useSelector((store: StoreType) => store.user.token)
+  
 
   const [user, setUser] = useState<UserType | undefined>(undefined)
 
   useEffect(() => {
-    dispatch(getAllUsersAsync({ token: token || "" }))
-  }, [dispatch, token])
+    dispatch(getAllUsersAsync())
+  }, [dispatch])
 
   useEffect(() => {
     const u = allUsers?.find((u) => u.id === id)

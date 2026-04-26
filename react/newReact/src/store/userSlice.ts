@@ -2,29 +2,29 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { getAllUsers, Login, Register } from "./axioscalls"
 
 
-export type UserType={
-    id:number,
-    name:string,
-    cameOn:Date,
-    email:string,
-    hashedPassword:string,
-    birthDate:Date,
-    isMedal:boolean,
-    role:"member"|"admin",
-    lastPaint:Date,
-    
+export type UserType = {
+    id: number,
+    name: string,
+    cameOn: string,
+    email: string,
+    hashedPassword: string,
+    birthDate: string,
+    isMedal: boolean,
+    role: "member" | "admin",
+    lastPaint: string
+
 }
 
-export type UserToAddType={
-    name:string,
-    email:string,
-    password:string,
-    birthDate:Date
+export type UserToAddType = {
+    name: string,
+    email: string,
+    password: string,
+    birthDate: string
 }
 
-export type UserLoginType={
-    username:string,
-    password:string
+export type UserLoginType = {
+    username: string,
+    password: string
 }
 
 
@@ -34,6 +34,8 @@ export const LoginAsync = createAsyncThunk<any, { user: UserLoginType }>(
     async ({ user }, thunkAPI) => {
         try {
             const response = await Login(user);
+            sessionStorage.setItem('token', JSON.stringify(response.token));
+
             return response;
         } catch (e: any) {
             console.log("error login async");
@@ -47,6 +49,8 @@ export const RegisterAsync = createAsyncThunk<any, { user: UserToAddType }>(
     async ({ user }, thunkAPI) => {
         try {
             const response = await Register(user);
+            sessionStorage.setItem('token', JSON.stringify(response.token));
+
             return response; // Return user data if needed
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);
@@ -54,12 +58,12 @@ export const RegisterAsync = createAsyncThunk<any, { user: UserToAddType }>(
     }
 );
 
-export const getAllUsersAsync=createAsyncThunk(
+export const getAllUsersAsync = createAsyncThunk(
     'user/getall',
-    async({token}:{token:string},thunkAPI)=>{
+    async (_, thunkAPI) => {
         try {
-            const response = await getAllUsers(token)
-            return response; 
+            const response = await getAllUsers()
+            return response;
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);
         }
@@ -72,28 +76,26 @@ const userSlice = createSlice({
         user: {
             id: 0,
             name: '',
-            cameOn: Date.now(),
+            cameOn: '',
             email: '',
             hashedPassword: '',
-            birthDate: Date.now(),
+            birthDate: '',
             isMedal: false,
             role: "member",
-            lastPaint: Date.now(),
+            lastPaint: '',
         } as unknown as UserType,
-        token: null as string | null|undefined,  // This may be kept for future use or removed
         loading: false,
         error: null as null | undefined | string,
-        allusers:[]as UserType[]|null
+        allusers: [] as UserType[] | null
     },
     reducers: {
         setUser(state, action) {
-            console.log("setUser"+action.payload);
-            
+            console.log("setUser" + action.payload);
             state.user = action.payload.user;
-            state.token=action.payload.token
-            console.log("local token"+state.token);
-            if(state.token)localStorage.setItem('authToken',state.token)
         },
+        logout(state) {
+            state.user = null as unknown as UserType;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -103,10 +105,9 @@ const userSlice = createSlice({
             })
             .addCase(LoginAsync.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload.user; 
-                console.log("login async "+state.user.id);
-                state.token=action.payload.token
-                if(state.token)localStorage.setItem('authToken',state.token)
+                state.user = action.payload.user;
+                console.log("login async " + state.user.id);
+
             })
             .addCase(LoginAsync.rejected, (state, action) => {
                 console.log("login rejected");
@@ -119,23 +120,22 @@ const userSlice = createSlice({
             })
             .addCase(RegisterAsync.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload.user; 
-                state.token=action.payload.token
-                if(state.token)localStorage.setItem('authToken',state.token)
+                state.user = action.payload.user;
+                console.log("registration async " + state.user.id);
             })
             .addCase(RegisterAsync.rejected, (state, action) => {
                 console.log("registration rejected");
                 state.error = action.error.message;
                 state.loading = false;
             })
-            .addCase(getAllUsersAsync.fulfilled,(state,action)=>{
-                state.allusers=action.payload
+            .addCase(getAllUsersAsync.fulfilled, (state, action) => {
+                state.allusers = action.payload
             })
-            .addCase(getAllUsersAsync.rejected,(state,action)=>{
-                state.allusers=null
+            .addCase(getAllUsersAsync.rejected, (state, action) => {
+                state.allusers = null
                 console.log(action.error.message);
             })
     }
 });
-export const {setUser}=userSlice.actions
+export const { setUser,logout } = userSlice.actions
 export default userSlice.reducer;

@@ -11,9 +11,10 @@ type ButtonProps = {
   style?: React.CSSProperties;
   htmlType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  icon?: React.ReactNode|null;
 };
 
-const Button: React.FC<ButtonProps> = ({ type = 'primary', onClick, children, loading, style ,htmlType, disabled}) => {
+const AppButton: React.FC<ButtonProps> = ({ type = 'primary', onClick, children, loading, style ,htmlType, disabled,icon}) => {
   return (
     <AntButton
       type={type}
@@ -27,10 +28,11 @@ const Button: React.FC<ButtonProps> = ({ type = 'primary', onClick, children, lo
       }}
       htmlType={htmlType}
       disabled={disabled}
+      icon={icon}
     >
       {children}
     </AntButton>
   );
 };
 
-export default Button;
+export default AppButton;

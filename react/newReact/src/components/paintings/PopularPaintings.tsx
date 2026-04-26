@@ -4,10 +4,10 @@ import type React from "react"
 import styled, { keyframes } from "styled-components"
 import { useSelector } from "react-redux"
 import type { StoreType } from "../../store/store"
-import { ESubject } from "../../store/paintingSlice"
 import { motion } from "framer-motion"
 
 import { AppEmpty } from "../common/AppEmpty"
+import { getCategoryNameById } from "../../store/categorySlice"
 
 const shimmer = keyframes`
   0% { transform: translateX(-100%); }
@@ -123,7 +123,7 @@ const CardSubtitle = styled(motion.div)`
 
 const PopularPaintings: React.FC = () => {
   const paintings = useSelector((store: StoreType) => store.painting.paintings)
-
+  const categories = useSelector((state: StoreType) => state.categories.categories)
   const topPaintings = [...paintings]
     .filter((p) => p.isMedal || p.likes >= 2)
     .sort((a, b) => b.likes - a.likes || (b.isMedal ? 1 : -1))
@@ -176,7 +176,7 @@ const PopularPaintings: React.FC = () => {
               {painting.name}
             </CardTitle>
             <CardSubtitle initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.1 + 0.9, duration: 0.6 }}>
-              <span>{ESubject[painting.subject]}</span>
+              <span>{getCategoryNameById(categories, painting.category)}</span>
               <motion.span
                 animate={{ scale: [1, 1.18, 1] }}
                 transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
@@ -186,7 +186,7 @@ const PopularPaintings: React.FC = () => {
               </motion.span>
               <span>{painting.likes}</span>
             </CardSubtitle>
-            {["Drawing", "Photography", "Graphic"].includes(ESubject[painting.subject]) && (
+            {["Drawing", "Photography", "Graphic"].includes(getCategoryNameById(categories, painting.category)) && (
               <motion.img
                 src={painting.url}
                 alt={painting.name}
@@ -205,7 +205,7 @@ const PopularPaintings: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
               />
             )}
-            {ESubject[painting.subject] === "Music" && (
+            {getCategoryNameById(categories, painting.category) === "Music" && (
               <motion.div
                 style={{ fontSize: "2.3rem" }}
                 initial={{ opacity: 0 }}
@@ -219,7 +219,7 @@ const PopularPaintings: React.FC = () => {
                 🎵
               </motion.div>
             )}
-            {ESubject[painting.subject] === "Writing" && (
+            {getCategoryNameById(categories, painting.category) === "Writing" && (
               <motion.div
                 style={{ fontSize: "2.3rem" }}
                 initial={{ opacity: 0 }}

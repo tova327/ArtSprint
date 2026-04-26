@@ -29,11 +29,11 @@ export const fetchCommentsAsync = createAsyncThunk(
 
 export const addCommentAsync = createAsyncThunk(
     'comments/add',
-    async ({ comment, token }: { comment: CommentPostModel; token: string }, thunkAPI) => {
-        console.log("in add comment async"+token);
+    async ({ comment }: { comment: CommentPostModel }, thunkAPI) => {
+        console.log("in add comment async");
         
         try {
-            const response = await addComment(comment, token);
+            const response = await addComment(comment);
             return response;
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);

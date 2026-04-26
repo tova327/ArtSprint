@@ -3,7 +3,6 @@
 import styled, { keyframes } from "styled-components"
 import { useSelector } from "react-redux"
 import type { StoreType } from "../../store/store"
-import { ESubject } from "../../store/paintingSlice"
 import { motion } from "framer-motion"
 import { AppEmpty } from "../common/AppEmpty"
 
@@ -122,6 +121,7 @@ const CardSubtitle = styled(motion.div)`
 
 const LatestPaintings = () => {
   const paintings = useSelector((store: StoreType) => store.painting.paintings)
+  const categories = useSelector((state: StoreType) => state.categories.categories)
 
   const latest = [...paintings]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -172,9 +172,9 @@ const LatestPaintings = () => {
               {painting.name}
             </CardTitle>
             <CardSubtitle initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.1 + 0.9, duration: 0.6 }}>
-              <span>{ESubject[painting.subject]}</span>
+              <span>{categories.find((c) => c.id === painting.category)?.name}</span>
             </CardSubtitle>
-            {["Drawing", "Photography", "Graphic"].includes(ESubject[painting.subject]) && (
+            {(painting.url) && (
               <motion.img
                 src={painting.url}
                 alt={painting.name}
@@ -193,7 +193,7 @@ const LatestPaintings = () => {
                 whileHover={{ scale: 1.05 }}
               />
             )}
-            {ESubject[painting.subject] === "Music" && (
+            {categories.find((c) => c.id === painting.category)?.name === "Music" && (
               <motion.div
                 style={{ fontSize: "2.3rem" }}
                 initial={{ opacity: 0 }}
@@ -207,7 +207,7 @@ const LatestPaintings = () => {
                 🎵
               </motion.div>
             )}
-            {ESubject[painting.subject] === "Writing" && (
+            {categories.find((c) => c.id === painting.category)?.name === "Writing" && (
               <motion.div
                 style={{ fontSize: "2.3rem" }}
                 initial={{ opacity: 0 }}

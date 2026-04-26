@@ -7,12 +7,13 @@ import { LikeOutlined, EyeOutlined } from "@ant-design/icons"
 import { useDispatch, useSelector } from "react-redux"
 import { addLikeAsync, addLikeR } from "../../store/paintingSlice"
 import type { AppDispatch, StoreType } from "../../store/store"
-import { type PaintingType, ESubject } from "../../store/paintingSlice"
+import { type PaintingType } from "../../store/paintingSlice"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import { notification, Button as AntButton } from "antd"
 import UserDetails from "../user/UserDetails"
 import DownloadButton from "../common/DownloadButton"
+import { getCategoryNameById } from "../../store/categorySlice"
 //import DeletePaintingButton from "./DeletePaintingButton"
 
 const GlassCard = styled(motion.div)`
@@ -183,8 +184,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
   const location = useLocation()
   const dispatch = useDispatch<AppDispatch>()
   const [sessionLikes, setSessionLikes] = useState(0)
-  const token = useSelector((store: StoreType) => store.user.token)
-  
+  const categories = useSelector((state: StoreType) => state.categories.categories)
 
   const handleNavigate = () => {
     sessionStorage.setItem("lastPaintingCaller", location.pathname + location.search)
@@ -192,13 +192,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
   }
 
   const handleLike = async () => {
-    if (!token) {
-      message.warning({
-        content: "🔐 Please log in to like paintings!",
-        style: { borderRadius: 15 },
-      })
-      return
-    }
+    
     if (sessionLikes >= 10) {
       message.warning({
         content: "💝 You've shown enough love for now!",
@@ -224,7 +218,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
       dispatch(addLikeR(painting.id))
       setSessionLikes((prevLikes) => prevLikes + 1)
       try {
-        await dispatch(addLikeAsync({ id: painting.id, count: 1, token })).unwrap()
+        await dispatch(addLikeAsync({ id: painting.id, count: 1})).unwrap()
         message.success({
           content: "🎉 Love sent successfully!",
           style: { borderRadius: 15 },
@@ -241,7 +235,7 @@ const ShowPainting = ({ painting }: { painting: PaintingType }) => {
   }
 
   const renderContent = () => {
-    const subject = ESubject[painting.subject]
+    const subject = getCategoryNameById(categories, painting.category)
     switch (subject) {
       case "Music":
         return (

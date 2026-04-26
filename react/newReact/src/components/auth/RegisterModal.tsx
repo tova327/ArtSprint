@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Modal, Form, Input, DatePicker, Button,  Tooltip, Radio } from "antd"
 import {
@@ -12,17 +11,14 @@ import {
   MailOutlined,
   LockOutlined,
   CalendarOutlined,
-  CloudUploadOutlined,
-  FileImageOutlined,
-  FileTextOutlined,
-  SoundOutlined,
 } from "@ant-design/icons"
-import { ESubject } from "../../store/paintingSlice"
+import { useSelector } from "react-redux"
+import type { StoreType } from "../../store/store"
 import { getTest, checkAnswers } from "../../store/axioscalls"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { AppSpinner } from "../common/AppSpinner"
-import Title from "../common/Title"
+import Title from "../common/AppTitle"
 // import './CSSPages/RegisterModal.css'
 
 const StyledModal = styled(Modal)`
@@ -256,7 +252,7 @@ const RegisterModal = ({
   const [, setAnswers] = useState<string[]>([])
   const [questionLoading, setQuestionLoading] = useState(false)
   const [checkingAnswers, setCheckingAnswers] = useState(false)
-
+  const categories = useSelector((state: StoreType) => state.categories.categories)
   const handleStep1 = (values: any) => {
     setRegisterDetails(values)
     setStep(2)
@@ -307,20 +303,7 @@ const RegisterModal = ({
         return "✨ Join Our Community"
     }
   }
-  const getSubjectIcon = (subject: string) => {
-    switch (subject) {
-      case "Music":
-        return <SoundOutlined />
-      case "Photography":
-      case "Drawing":
-      case "Graphic":
-        return <FileImageOutlined />
-      case "Writing":
-        return <FileTextOutlined />
-      default:
-        return <CloudUploadOutlined />
-    }
-  }
+
   let content: React.ReactNode
   if (step === 1) {
     content = (
@@ -396,16 +379,9 @@ const RegisterModal = ({
             rules={[{ required: true, message: "Please select a subject!" }]}
           >
             <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              {ESubject.map((subject) => (
-                <Radio.Button key={subject} value={subject} style={{
-                  marginBottom: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "6px 16px",
-                  borderRadius: 8,
-                }}>
-                  <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
-                  <span>{subject}</span>
+              {categories.map((category) => (
+                <Radio.Button key={category.id} value={category.id}>
+                  {category.name}
                 </Radio.Button>
               ))}
             </Radio.Group>
@@ -448,16 +424,9 @@ const RegisterModal = ({
             rules={[{ required: true, message: "Please select a subject!" }]}
           >
             <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              {ESubject.map((subject) => (
-                <Radio.Button key={subject} value={subject} style={{
-                  marginBottom: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "6px 16px",
-                  borderRadius: 8,
-                }}>
-                  <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
-                  <span>{subject}</span>
+              {categories.map((category) => (
+                <Radio.Button key={category.id} value={category.id}>
+                  {category.name}
                 </Radio.Button>
               ))}
             </Radio.Group>
@@ -606,7 +575,7 @@ const RegisterModal = ({
           {getStepTitle()}
         </Title>
 
-        <AppSpinner/>
+       
         {content} 
         
       </div>

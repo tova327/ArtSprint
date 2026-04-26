@@ -1,9 +1,8 @@
-
-
 import axios from "axios"
 import { PaintingToAddType, PaintingType } from "./paintingSlice";
 import { UserLoginType, UserToAddType } from "./userSlice";
 import { CommentPostModel } from "./commentSlice";
+import api from "../api/axios";
 
 
 const globalAPI = import.meta.env.VITE_MY_API_URL
@@ -35,11 +34,11 @@ export const addPainting = async (painting: PaintingToAddType, token: string) =>
     }
 }
 
-export const addLike = async (id: number, count: number, token: string) => {
+export const addLike = async (id: number, count: number) => {
     console.log(count + '  add like');
     try {
         const response =
-            await axios.post(`${paintingURL}/${id}/like?count=${count}`, {}, { headers: { Authorization: `Bearer ${token}` } })
+            await api.post(`${paintingURL}/${id}/like?count=${count}`, {})
         return response.data
     } catch (error) {
         console.log(error);
@@ -84,11 +83,9 @@ export const fetchComments = async () => {
     }
 };
 
-export const addComment = async (comment: CommentPostModel, token: string) => {
+export const addComment = async (comment: CommentPostModel) => {
     try {
-        const response = await axios.post(commentURL, comment, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.post(commentURL, comment);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -119,7 +116,7 @@ export const deleteComment = async (id: number, token: string) => {
     }
 };
 
-export const uploadPainting = async (painting: PaintingToAddType, token: string) => {
+export const uploadPainting = async (painting: PaintingToAddType) => {
     const formData = new FormData();
     formData.append('OwnerId', painting.ownerId.toString());
     formData.append('Name', painting.name);
@@ -129,8 +126,7 @@ export const uploadPainting = async (painting: PaintingToAddType, token: string)
     try {
         const response = await axios.post(`${paintingURL}/upload`, formData, {
             headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`
+                'Content-Type': 'multipart/form-data'
             }
         });
         return response.data;
@@ -152,7 +148,7 @@ export const getTest = async (subject: string) => {
 
 export const checkAnswers = async ({ subject, questions, answers }: { subject: string, questions: string[], answers: string[] }) => {
     try {
-        const response = await axios.post(`${globalAPI}AI/check`, { subject, questions, answers })
+        const response = await api.post(`${globalAPI}AI/check`, { subject, questions, answers })
         return response.data
     }catch(error){
         console.log(error);
@@ -160,11 +156,9 @@ export const checkAnswers = async ({ subject, questions, answers }: { subject: s
     }
 }
 
-export const getAllUsers=async(token:string)=>{
+export const getAllUsers=async()=>{
     try{
-        const response=await axios.get(`${globalAPI}user`,{headers:{
-            Authorization: `Bearer ${token}`
-        }})
+            const response=await api.get(`${globalAPI}user`)
         return response.data
     }catch(error){
         console.log(error);
@@ -172,18 +166,36 @@ export const getAllUsers=async(token:string)=>{
     }
 }
 
-export const deletePainting=async(token:string,painting:PaintingType,userId:number)=>{
+export const deletePainting=async(painting:PaintingType,userId:number)=>{
     if(userId!==painting.ownerId)
         throw Error("Unathorized")
     try{
-        const response=await axios.delete(`${paintingURL}/${painting.id}`,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        })
+        const response=await api.delete(`${paintingURL}/${painting.id}`)
         return response.data
     }catch(error){
         console.log(error);
         throw error
     }
 }
+
+const categoryURL = globalAPI + 'category';
+
+export const fetchCategories = async () => {
+    try {
+        const response = await axios.get(categoryURL);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const fetchCategoryById = async (id: number) => {
+    try {
+        const response = await axios.get(`${categoryURL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};

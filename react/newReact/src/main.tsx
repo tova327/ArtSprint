@@ -5,12 +5,16 @@ import App from './App.tsx'
 import { Provider } from 'react-redux'
 import store from './store/store.ts'
 import { AntProvider } from './theme/AntProvider.tsx'
+import { AuthProvider } from './components/auth/AuthProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    
     <AntProvider>
       <Provider store={store}>
+        <AuthProvider>
         <App />
+        </AuthProvider>
       </Provider>
     </AntProvider>
   </StrictMode>,

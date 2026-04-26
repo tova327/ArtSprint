@@ -2,7 +2,8 @@
 
 import { Modal, Form, Input, Radio, Upload, Button, Progress } from "antd"
 import { CloudUploadOutlined, FileImageOutlined, SoundOutlined, FileTextOutlined } from "@ant-design/icons"
-import { ESubject } from "../../store/paintingSlice"
+import { useSelector } from "react-redux"
+import type { StoreType } from "../../store/store"
 import { useState, useEffect } from "react"
 import type { PaintingToAddType } from "../../store/paintingSlice"
 import { motion } from "framer-motion"
@@ -270,7 +271,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isUploading, setIsUploading] = useState(false)
   const selectedSubject = Form.useWatch("subject", form)
-
+const categories = useSelector((state: StoreType) => state.categories.categories)
   // Reset form and file state on modal close
   useEffect(() => {
     if (!visible) {
@@ -321,7 +322,7 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
       await onUpload({
         ownerId: userId,
         name: values.name,
-        subject: values.subject,
+        category: values.category,
         paintingFile,
       } as PaintingToAddType)
 
@@ -385,21 +386,14 @@ const PaintingUploadModal = ({ visible, onCancel, onUpload, loading, userId }: a
               </motion.div>
             </Form.Item>
             <Form.Item
-              name="subject"
+              name="category"
               label={<span style={{ fontWeight: 800, fontSize: 16, color: "#333" }}>🎭 Choose Your Art Category</span>}
-              rules={[{ required: true, message: "Please select a subject!" }]}
+              rules={[{ required: true, message: "Please select a category!" }]}
             >
               <Radio.Group style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-                {ESubject.map((subject) => (
-                  <Radio.Button key={subject} value={subject} style={{
-                    marginBottom: 8,
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "6px 16px",
-                    borderRadius: 8,
-                  }}>
-                    <span style={{ marginRight: 6 }}>{getSubjectIcon(subject)}</span>
-                    <span>{subject}</span>
+                {categories.map((category) => (
+                  <Radio.Button key={category.id} value={category.id}>
+                    {category.name}
                   </Radio.Button>
                 ))}
               </Radio.Group>

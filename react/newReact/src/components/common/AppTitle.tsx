@@ -12,7 +12,7 @@ type TitleProps = {
   style?: React.CSSProperties;
 };
 
-const Title: React.FC<TitleProps> = ({ level = 1, children, style }) => {
+const AppTitle: React.FC<TitleProps> = ({ level = 1, children, style }) => {
   return (
     <AntTitle
       level={level}
@@ -28,4 +28,4 @@ const Title: React.FC<TitleProps> = ({ level = 1, children, style }) => {
   );
 };
 
-export default Title;
+export default AppTitle;

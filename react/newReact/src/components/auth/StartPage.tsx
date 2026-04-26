@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, StoreType } from "../../store/store";
+import { useSelector } from "react-redux";
+import { StoreType } from "../../store/store";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
 import { notification } from "antd";
-import { LoginAsync, RegisterAsync, type UserToAddType } from "../../store/userSlice";
+import { type UserToAddType } from "../../store/userSlice";
 import PaintingUploadModal from "../paintings/PaintingUploadModal";
 import ModalWrapper from "../common/Modal";
 import { AppAlert } from "../common/AppAlert";
+import { useAuth } from "./AuthProvider";
 
-const StartPage = ({ toClose }: { toClose: Function }) => {
-  const dispatch = useDispatch<AppDispatch>();
+const StartPage = ({ toClose }: { toClose?: Function|null }) => {
   const user = useSelector((store: StoreType) => store.user.user);
-  const token = useSelector((store: StoreType) => store.user.token);
   const [api, _] = notification.useNotification();
   const handleMassage = (type:'success' | 'error' | 'warning',message: string,description: string) => {
     api[type]({
@@ -27,7 +26,7 @@ const StartPage = ({ toClose }: { toClose: Function }) => {
   const [loginLoading, setLoginLoading] = useState(false);
   const [showPaintingModal, setShowPaintingModal] = useState(false);
 const[alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible: boolean }>({ type: 'success', message: '', isVisible: false });
-
+const { login, register } = useAuth();
   // const handleCloseAlert = () => {
   //   setAlert(prev => ({ ...prev, isVisible: false }));
   // };
@@ -36,7 +35,7 @@ const[alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; messa
   const handleLoginOk = async (values: { username: string; password: string }) => {
     setLoginLoading(true)
     try {
-      const result = await dispatch(LoginAsync({ user: values })).unwrap()
+      const result = await login({ user: values })
       setIsLoginModalVisible(false)
       console.log("before send to check painting " + result.user.id);
 
@@ -48,14 +47,14 @@ const[alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; messa
       setAlert({ type: 'error', message: error?.message || "Invalid credentials.", isVisible: true });
     } finally {
       setLoginLoading(false);
-      toClose();
+      toClose && toClose();
     }
   };
 
   const handleRegister = async (userDetails: UserToAddType) => {
     setRegisterLoading(true);
     try {
-      await dispatch(RegisterAsync({ user: userDetails })).unwrap();
+      await register({ user: userDetails });
       setIsRegisterModalVisible(false);
       //handleMassage("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!");
       setAlert({ type: 'success', message: "🌟 Welcome to ArtSprint!", isVisible: true });
@@ -95,7 +94,7 @@ const[alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; messa
         visible={showPaintingModal}
         onCancel={() => setShowPaintingModal(false)}
         userId={user?.id}
-        token={token}
+        
       />
     </div>
   );

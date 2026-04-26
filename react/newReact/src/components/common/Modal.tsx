@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Space } from 'antd';
-import Title from './Title';
+import Title from './AppTitle';
 import Button from './AppButton';
 import { themeToken } from '../../theme/token';
 import { spacing } from '../../theme/constant';

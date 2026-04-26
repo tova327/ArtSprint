@@ -9,7 +9,7 @@ type TagProps = {
   style?: React.CSSProperties;
 };
 
-const Tag: React.FC<TagProps> = ({ color, children, style }) => {
+const AppTag: React.FC<TagProps> = ({ color, children, style }) => {
   return (
     <AntTag
       color={color || themeToken.token?.colorPrimary}
@@ -24,4 +24,4 @@ const Tag: React.FC<TagProps> = ({ color, children, style }) => {
   );
 };
 
-export default Tag;
+export default AppTag;
