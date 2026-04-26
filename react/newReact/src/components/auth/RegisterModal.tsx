@@ -22,6 +22,7 @@ import { getTest, checkAnswers } from "../../store/axioscalls"
 import { motion } from "framer-motion"
 import styled from "styled-components"
 import { AppSpinner } from "../common/AppSpinner"
+import Title from "../common/Title"
 // import './CSSPages/RegisterModal.css'
 
 const StyledModal = styled(Modal)`
@@ -227,16 +228,7 @@ const StepDot = styled(motion.div) <{ active: boolean; completed: boolean }>`
   `}
 `
 
-const StepTitle = styled(motion.h3)`
-  text-align: center;
-  margin-bottom: 25px;
-  font-weight: 900;
-  font-size: 1.5rem;
-  background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`
+
 
 const FloatingIcon = styled(motion.div)`
   position: absolute;
@@ -608,17 +600,14 @@ const RegisterModal = ({
           ))}
         </StepIndicator>
 
-        <StepTitle
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <Title
           key={step}
         >
           {getStepTitle()}
-        </StepTitle>
+        </Title>
 
         <AppSpinner/>
-         
+        {content} 
         
       </div>
     </StyledModal>
