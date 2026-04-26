@@ -9,9 +9,11 @@ type ButtonProps = {
   children: React.ReactNode;
   loading?: boolean;
   style?: React.CSSProperties;
+  htmlType?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({ type = 'primary', onClick, children, loading, style }) => {
+const Button: React.FC<ButtonProps> = ({ type = 'primary', onClick, children, loading, style ,htmlType, disabled}) => {
   return (
     <AntButton
       type={type}
@@ -23,6 +25,8 @@ const Button: React.FC<ButtonProps> = ({ type = 'primary', onClick, children, lo
         fontWeight: 500,
         ...style,
       }}
+      htmlType={htmlType}
+      disabled={disabled}
     >
       {children}
     </AntButton>

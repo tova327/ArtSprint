@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 import type { StoreType } from "../../store/store"
 import { ESubject } from "../../store/paintingSlice"
 import { motion } from "framer-motion"
+import { AppEmpty } from "../common/AppEmpty"
 
 const walkingAnimation = keyframes`
   0% { transform: translateY(0px) rotate(0deg); }
@@ -126,7 +127,7 @@ const LatestPaintings = () => {
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 8)
 
-  if (!latest.length) return null
+  if (!latest.length) return <AppEmpty description="No masterpieces yet! Be the first to create and share your art." />
 
   return (
     <Container initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>

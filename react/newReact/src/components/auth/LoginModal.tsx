@@ -4,6 +4,7 @@ import { Modal, Form, Input, Button } from "antd"
 import { EyeInvisibleOutlined, EyeTwoTone, UserOutlined, LockOutlined } from "@ant-design/icons"
 import { motion } from "framer-motion"
 import styled from "styled-components"
+import AppButton from "../common/AppButton"
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
@@ -338,7 +339,7 @@ const LoginModal = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <StyledButton
+            <AppButton
               type="primary"
               htmlType="submit"
               loading={loading}
@@ -346,7 +347,7 @@ const LoginModal = ({
               style={{ width: "100%", marginBottom: 20 }}
             >
               {loading ? "🎨 Signing In..." : "🚀 Let's Create!"}
-            </StyledButton>
+            </AppButton>
           </motion.div>
 
           <motion.div

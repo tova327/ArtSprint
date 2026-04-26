@@ -1,9 +1,9 @@
 // theme/colors.ts
 
 export const colors = {
-  primary: '#6C8CFF',
-  primaryHover: '#5A78E6',
-  primaryActive: '#4C66CC',
+  primary: '#e9bf15',
+  primaryHover: '#d3dab6',
+  primaryActive: '#51ff0c',
 
   secondary: '#8ED1B2',
   accent: '#F6C177',

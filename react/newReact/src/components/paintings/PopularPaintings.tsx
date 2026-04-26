@@ -7,6 +7,8 @@ import type { StoreType } from "../../store/store"
 import { ESubject } from "../../store/paintingSlice"
 import { motion } from "framer-motion"
 
+import { AppEmpty } from "../common/AppEmpty"
+
 const shimmer = keyframes`
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100vw); }
@@ -127,7 +129,7 @@ const PopularPaintings: React.FC = () => {
     .sort((a, b) => b.likes - a.likes || (b.isMedal ? 1 : -1))
     .slice(0, 10)
 
-  if (!topPaintings.length) return null
+  if (!topPaintings.length) return <AppEmpty description="No popular masterpieces yet! Create and share your art to see it here." />
 
   return (
     <Container initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>

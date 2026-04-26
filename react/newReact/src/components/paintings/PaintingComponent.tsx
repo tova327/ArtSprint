@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Spin, Button, List, Input, message } from "antd"
+import { Button, List, Input, message } from "antd"
 import type { PaintingType } from "../../store/paintingSlice"
 import type { CommentPostModel } from "../../store/commentSlice"
 import { useDispatch, useSelector } from "react-redux"
@@ -17,6 +17,7 @@ import UserDetails from "../user/UserDetails"
 import { ArrowLeftOutlined, SendOutlined, MessageOutlined } from "@ant-design/icons"
 import DownloadButton from "../common/DownloadButton"
 import DeletePaintingButton from "./DeletePaintingButton"
+import { AppSpinner } from "../common/AppSpinner"
 
 const PageContainer = styled(motion.div)`
   min-height: 100vh;
@@ -145,13 +146,6 @@ const SendButton = styled(motion(Button))`
   }
 `
 
-const LoadingContainer = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-  flex-direction: column;
-`
 
 const AudioPlayer = styled(motion.audio)`
   width: 100%;
@@ -287,7 +281,7 @@ const PaintingComponent: React.FC = () => {
   if (loading) {
     return (
       <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <LoadingContainer
+        {/* <LoadingContainer
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
@@ -296,9 +290,9 @@ const PaintingComponent: React.FC = () => {
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             style={{ marginBottom: 20 }}
-          >
-            <Spin size="large" />
-          </motion.div>
+          > */}
+           <AppSpinner/>
+          {/* </motion.div>
           <motion.h2
             style={{ color: "white", fontSize: "2.5rem", fontWeight: 900, marginBottom: 10 }}
             animate={{ opacity: [0.5, 1, 0.5] }}
@@ -313,7 +307,7 @@ const PaintingComponent: React.FC = () => {
           >
             Preparing something beautiful ✨
           </motion.p>
-        </LoadingContainer>
+        </LoadingContainer> */}
       </PageContainer>
     )
   }

@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Modal, Form, Input, DatePicker, Button, Spin, Tooltip, Radio } from "antd"
+import { Modal, Form, Input, DatePicker, Button,  Tooltip, Radio } from "antd"
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
@@ -21,6 +21,7 @@ import { ESubject } from "../../store/paintingSlice"
 import { getTest, checkAnswers } from "../../store/axioscalls"
 import { motion } from "framer-motion"
 import styled from "styled-components"
+import { AppSpinner } from "../common/AppSpinner"
 // import './CSSPages/RegisterModal.css'
 
 const StyledModal = styled(Modal)`
@@ -471,6 +472,7 @@ const RegisterModal = ({
           </Form.Item>
 
           <StyledButton type="primary" htmlType="submit" style={{ width: "100%" }} loading={questionLoading}>
+            {questionLoading&&<AppSpinner/>}
             {questionLoading ? "🎨 Preparing Questions..." : "📝 Get My Test"}
           </StyledButton>
         </Form>
@@ -615,9 +617,9 @@ const RegisterModal = ({
           {getStepTitle()}
         </StepTitle>
 
-        <Spin spinning={loading} tip="Creating your artistic profile...">
-          {content}
-        </Spin>
+        <AppSpinner/>
+         
+        
       </div>
     </StyledModal>
   )

@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Row, Col,  message, Spin, notification, Input } from "antd"
+import { Row, Col,  message, notification, Input } from "antd"
 import type { AppDispatch, StoreType } from "../../store/store"
 import { ESubject, fetchPaintingsAsync, type PaintingType, uploadPaintingAsync } from "../../store/paintingSlice"
 import ShowPainting from "./ShowPainting"
@@ -13,6 +13,8 @@ import { motion } from "framer-motion"
 import PopularPaintings from "./PopularPaintings"
 import LatestPaintings from "./LatestPaintings"
 import MagicWandOutlined,{ CloudUploadOutlined, SearchOutlined } from "@ant-design/icons"
+import { AppSpinner } from "../common/AppSpinner"
+import { AppEmpty } from "../common/AppEmpty"
 // import './CSSPages/PaintingsPage.css'
 
 
@@ -115,43 +117,7 @@ const PaintingsPage: React.FC = () => {
     animate={{ opacity: 1 }}
     transition={{ duration: 1 }}
   >
-    {loading && (
-      <motion.div
-        className="loading-overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <motion.div
-          className="loading-content"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            style={{ marginBottom: 20 }}
-          >
-            <Spin size="large" />
-          </motion.div>
-          <motion.h2
-            style={{ color: "white", fontSize: "2rem", fontWeight: 800, marginBottom: 10 }}
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-          >
-            🎨 Loading Art Magic...
-          </motion.h2>
-          <motion.p
-            style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.2rem" }}
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-          >
-            Preparing your gallery experience ✨
-          </motion.p>
-        </motion.div>
-      </motion.div>
-    )}
+    {loading &&<AppSpinner/>}
 
     <motion.h1
       className="page-title"
@@ -246,22 +212,7 @@ const PaintingsPage: React.FC = () => {
           ))}
         </Row>
       ) : (
-        <motion.div
-          className="no-results-message"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            style={{ fontSize: "4rem", marginBottom: 20 }}
-          >
-            🔍
-          </motion.div>
-          <h3>No Masterpieces Found</h3>
-          <p>Try adjusting your search or filters to discover more art!</p>
-        </motion.div>
+        <AppEmpty description="No masterpieces found! Try adjusting your search or explore other subjects." />
       )}
     </motion.div>
 
