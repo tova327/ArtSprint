@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: any) => {
             }
 
             try {
-                const res = await api.get("/auth/authuser");
+                const res = await api.post("/auth/authuser", token );
                 dispatch(setUser(res.data));
             } catch {
                 sessionStorage.removeItem("authToken");
