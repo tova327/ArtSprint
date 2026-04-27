@@ -13,6 +13,7 @@ import PaintingComponent from "./paintings/PaintingComponent"
 import { styled } from "styled-components"
 import { motion } from "framer-motion"
 import ProtectedRoute from "./auth/ProtectedRoute"
+import StartPage from "./auth/StartPage"
 
 const { Content } = Layout
 
@@ -59,7 +60,7 @@ const SubApp: React.FC = () => {
                 
                 <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
                 <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
-                
+                <Route path="/login" element={<StartPage />} />
               </Routes>
             </ContentWrapper>
           </Content>
