@@ -27,9 +27,9 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [showPaintingModal, setShowPaintingModal] = useState(false);
-  const { isAuthorized } = useAuth();
+  
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
-  const { login, register } = useAuth();
+  const { login, register,isAuthenticated } = useAuth();
   const handleOpenAlert = (type: 'success' | 'error' | 'warning', message: string) => {
     setAlert(prev => ({ ...prev, type, message, isVisible: true }));
     setTimeout(() => {
@@ -77,7 +77,7 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
     <div style={{ position: "relative", minHeight: "100vh", zIndex: 1 }}>
       <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} />
 
-     {isAuthorized?<Navigate to="/" />: <ModalWrapper title={"Welcome to ArtSprint"}
+     {isAuthenticated?<Navigate to="/" />: <ModalWrapper title={"Welcome to ArtSprint"}
         actions={[{ label: "Login", onClick: () => setIsLoginModalVisible(true) },
         { label: "Register", onClick: () => setIsRegisterModalVisible(true) }]}
         visible={true}
