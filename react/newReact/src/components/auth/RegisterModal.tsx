@@ -7,10 +7,7 @@ import AppInput from "../common/AppInput";
 import AppFormItem from "../common/AppFormItem";
 import AppButton from "../common/AppButton";
 import { checkAnswers, getTest } from "../../store/axioscalls";
-import notification from "antd/es/notification";
 import { AppCheckbox } from "../common/AppCheckbox";
-import { message } from "antd";
-import { enqueueSnackbar } from "notistack";
 import { AppAlert } from "../common/AppAlert";
 
 
@@ -44,10 +41,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
       setAlert(prev => ({ ...prev, isVisible: false }));
     }, 2000);
   };
-    const [api, _] = notification.useNotification();
-    const handleMassage = (type: 'success' | 'error' | 'warning', message: string) => {
-        enqueueSnackbar(message, { variant: type });
-    };
+    
     const validateAge = (_: any, value: string) => {
         if (!value) return Promise.reject("Required");
 
@@ -73,14 +67,14 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 try {
                     const q = await getTest();
                     if (!q || q.length === 0) {
-                        handleMassage("error", "Sorry,something went wrong");
+                        handleOpenAlert('error', "Sorry,something went wrong");
                         return;
                     }
                     setQuestions(q);
                 } catch (e) {
                     console.log("Error fetching questions", e);
                     setQuestions([]);
-                    handleMassage("error", "Sorry, failed to fetch questions");
+                    handleOpenAlert('error', "Sorry, failed to fetch questions");
                 }
 
             }
@@ -90,10 +84,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 try {
                     const isValid = await checkAnswers(values.answers || {});
                     if (!isValid) return;
-                    handleMassage("success",  "You passed the test, let's move on!");
+                    handleOpenAlert('success', "You passed the test, let's move on!");
                 } catch (e) {
                     console.log("Error checking answers", e);
-                    handleMassage("error", "Sorry, failed to check answers");
+                    handleOpenAlert('error', "Sorry, failed to check answers");
                     return;
                 }
                 
