@@ -3,11 +3,12 @@ import AppModal from "../common/AppModal";
 
 import AppForm from "../common/AppForm";
 import AppInput from "../common/AppInput";
-import { AppCheckbox } from "../common/AppCheckBox";
+
 import AppFormItem from "../common/AppFormItem";
 import AppButton from "../common/AppButton";
 import { checkAnswers, getTest } from "../../store/axioscalls";
 import notification from "antd/es/notification";
+import { AppCheckbox } from "../common/AppCheckbox";
 
 
 

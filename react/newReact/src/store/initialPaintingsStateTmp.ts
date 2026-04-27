@@ -9,7 +9,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 153,
     url: 'https://example.com/images/painting1.jpg',
     isMedal: true,
-    subject: 1
+    category: 1
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 96,
     url: 'https://example.com/images/painting2.jpg',
     isMedal: false,
-    subject: 2,
+    category: 2,
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 87,
     url: 'https://example.com/images/painting3.jpg',
     isMedal: false,
-    subject: 3,
+    category: 3,
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 112,
     url: 'https://example.com/images/painting4.jpg',
     isMedal: true,
-    subject: 4,
+    category: 4,
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 200,
     url: 'https://example.com/images/painting5.jpg',
     isMedal: true,
-    subject:0,
+    category: 0,
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 80,
     url: 'https://example.com/images/painting6.jpg',
     isMedal: false,
-    subject: 0,
+    category: 0,
   },
   {
     id: 7,
@@ -69,7 +69,7 @@ import { PaintingType } from "./paintingSlice";
     likes: 134,
     url: 'https://example.com/images/painting7.jpg',
     isMedal: true,
-    subject: 4,
+    category: 4,
   },
 ];
 

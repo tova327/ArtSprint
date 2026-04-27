@@ -4,7 +4,6 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { deleteAsync } from "../../store/paintingSlice";
 import { AppDispatch, StoreType } from "../../store/store";
 import { PaintingType } from "../../store/paintingSlice";
-import { App } from "antd";
 import AppButton from "../common/AppButton";
 // import "./DeletePaintingButton.css";
 

@@ -23,3 +23,4 @@ node_modules
 server/.vs/
 bin/
 obj/
+react\newReact\src\store\initialPaintingsStateTmp.ts
