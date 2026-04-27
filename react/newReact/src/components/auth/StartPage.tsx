@@ -17,6 +17,7 @@ const StartPage = ({ toClose }: { toClose?: Function|null }) => {
     api[type]({
       message: message,
       description: description,
+      duration: 4,
     });
   }
   
@@ -25,11 +26,14 @@ const StartPage = ({ toClose }: { toClose?: Function|null }) => {
   const [registerLoading, setRegisterLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [showPaintingModal, setShowPaintingModal] = useState(false);
-const[alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible: boolean }>({ type: 'success', message: '', isVisible: false });
+const[alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
 const { login, register } = useAuth();
-  // const handleCloseAlert = () => {
-  //   setAlert(prev => ({ ...prev, isVisible: false }));
-  // };
+  const handleOpenAlert = (type: 'success' | 'error' | 'warning', message: string) => {
+    setAlert(prev => ({ ...prev, type, message, isVisible: true }));
+    setTimeout(() => {
+      setAlert(prev => ({ ...prev, isVisible: false }));
+    }, 2000);
+  };
 
 
   const handleLoginOk = async (values: { username: string; password: string }) => {
@@ -41,10 +45,11 @@ const { login, register } = useAuth();
 
       //await checkUserPainting(result.user.id)
       //handleMassage("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`);
-      setAlert({ type: 'success', message: `🎨 Welcome Back, ${result.name || values.username}! Ready to create magic?`, isVisible: true });
+      handleOpenAlert( 'success', `🎨 Welcome Back, ${result.name || values.username}! Ready to create magic?`);
+      
     } catch (error: any) {
       //handleMassage("error", "❌ Login Failed", error?.message || "Invalid credentials.");
-      setAlert({ type: 'error', message: error?.message || "Invalid credentials.", isVisible: true });
+      handleOpenAlert('error', error?.message || "Invalid credentials.");
     } finally {
       setLoginLoading(false);
       toClose && toClose();
@@ -57,10 +62,10 @@ const { login, register } = useAuth();
       await register(userDetails);
       setIsRegisterModalVisible(false);
       //handleMassage("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!");
-      setAlert({ type: 'success', message: "🌟 Welcome to ArtSprint!", isVisible: true });
+      handleOpenAlert('success',"🌟 Welcome to ArtSprint!");
     } catch (err: any) {
       //handleMassage("error", "❌ Registration Failed", err?.message || "Please try again.");
-      setAlert({ type: 'error', message: err?.message || "Please try again.", isVisible: true });
+      handleOpenAlert( 'error', err?.message || "Please try again.");
     } finally {
       setRegisterLoading(false);
     }

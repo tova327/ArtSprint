@@ -9,6 +9,9 @@ import AppButton from "../common/AppButton";
 import { checkAnswers, getTest } from "../../store/axioscalls";
 import notification from "antd/es/notification";
 import { AppCheckbox } from "../common/AppCheckbox";
+import { message } from "antd";
+import { enqueueSnackbar } from "notistack";
+import { AppAlert } from "../common/AppAlert";
 
 
 
@@ -34,14 +37,17 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
     const [step, setStep] = useState(1);
     const [form] = AppForm.useForm();
     const [questions, setQuestions] = useState<Question[]>([]);
-
+    const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
+  const handleOpenAlert = (type: 'success' | 'error' | 'warning', message: string) => {
+    setAlert(prev => ({ ...prev, type, message, isVisible: true }));
+    setTimeout(() => {
+      setAlert(prev => ({ ...prev, isVisible: false }));
+    }, 2000);
+  };
     const [api, _] = notification.useNotification();
-    const handleMassage = (type: 'success' | 'error' | 'warning', message: string, description: string) => {
-        api[type]({
-            message: message,
-            description: description,
-        });
-    }
+    const handleMassage = (type: 'success' | 'error' | 'warning', message: string) => {
+        enqueueSnackbar(message, { variant: type });
+    };
     const validateAge = (_: any, value: string) => {
         if (!value) return Promise.reject("Required");
 
@@ -67,14 +73,14 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 try {
                     const q = await getTest();
                     if (!q || q.length === 0) {
-                        handleMassage("error", "Error", "Sorry,something went wrong");
+                        handleMassage("error", "Sorry,something went wrong");
                         return;
                     }
                     setQuestions(q);
                 } catch (e) {
                     console.log("Error fetching questions", e);
                     setQuestions([]);
-                    handleMassage("error", "Error", "Sorry, failed to fetch questions");
+                    handleMassage("error", "Sorry, failed to fetch questions");
                 }
 
             }
@@ -84,10 +90,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 try {
                     const isValid = await checkAnswers(values.answers || {});
                     if (!isValid) return;
-                    handleMassage("success", "Great!", "You passed the test, let's move on!");
+                    handleMassage("success",  "You passed the test, let's move on!");
                 } catch (e) {
                     console.log("Error checking answers", e);
-                    handleMassage("error", "Error", "Sorry, failed to check answers");
+                    handleMassage("error", "Sorry, failed to check answers");
                     return;
                 }
                 
@@ -103,9 +109,9 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
         onClose();
     };
 
-    return (<>
+    return (<> <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} />
         <AppModal
-            title="Register"
+            title="Let's get you started!"
             description={<AppForm form={form} onFinish={(values) => onSubmit(values)}>
                 {step === 1 && (
                     <>
@@ -192,3 +198,5 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
     </>
     );
 };
+
+
