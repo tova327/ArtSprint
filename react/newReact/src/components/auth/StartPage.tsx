@@ -35,7 +35,7 @@ const { login, register } = useAuth();
   const handleLoginOk = async (values: { username: string; password: string }) => {
     setLoginLoading(true)
     try {
-      const result = await login({ user: values })
+      const result = await login(values);
       setIsLoginModalVisible(false)
       console.log("before send to check painting " + result.user.id);
 
@@ -54,7 +54,7 @@ const { login, register } = useAuth();
   const handleRegister = async (userDetails: UserToAddType) => {
     setRegisterLoading(true);
     try {
-      await register({ user: userDetails });
+      await register(userDetails);
       setIsRegisterModalVisible(false);
       //handleMassage("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!");
       setAlert({ type: 'success', message: "🌟 Welcome to ArtSprint!", isVisible: true });
