@@ -49,7 +49,7 @@ const { login, register } = useAuth();
       
     } catch (error: any) {
       //handleMassage("error", "❌ Login Failed", error?.message || "Invalid credentials.");
-      handleOpenAlert('error', error?.message || "Invalid credentials.");
+      handleOpenAlert('error',  "Oops, we didn't recognize you. Please check your username and password and try again.");
     } finally {
       setLoginLoading(false);
       toClose && toClose();

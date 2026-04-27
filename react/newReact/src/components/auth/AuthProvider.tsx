@@ -7,61 +7,67 @@ import { StoreType } from "../../store/store";
 export const AuthContext = createContext<any>(null);
 
 export const AuthProvider = ({ children }: any) => {
-  const dispatch = useDispatch();
-  const user = useSelector((store: StoreType) => store.user.user);
+    const dispatch = useDispatch();
+    const user = useSelector((store: StoreType) => store.user.user);
 
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const initAuth = async () => {
-      const token = sessionStorage.getItem("authToken");
+    useEffect(() => {
+        const initAuth = async () => {
+            const token = sessionStorage.getItem("authToken");
 
-      if (!token) {
-        setLoading(false);
-        return;
-      }
+            if (!token) {
+                setLoading(false);
+                return;
+            }
 
-      try {
-        const res = await api.get("/auth/authuser");
-        dispatch(setUser(res.data));
-      } catch {
-        sessionStorage.removeItem("authToken");
-      }
+            try {
+                const res = await api.get("/auth/authuser");
+                dispatch(setUser(res.data));
+            } catch {
+                sessionStorage.removeItem("authToken");
+            }
 
-      setLoading(false);
+            setLoading(false);
+        };
+
+        initAuth();
+    }, [dispatch]);
+
+    const login = async (user: { username: string, password: string }) => {
+        const data = {
+            userName: user.username,
+            password: user.password
+        }
+        const res = await api.post("/auth/login", data, {
+            withCredentials: true
+        });
+
+        const token = res.data.token;
+        sessionStorage.setItem("authToken", token);
+
+        dispatch(setUser(res.data.user));
     };
 
-    initAuth();
-  }, [dispatch]);
+    const logout = () => {
+        sessionStorage.removeItem("authToken");
+        dispatch(reduxLogout());
+    };
 
-  const login = async (user:{username: string, password: string}) => {
-    const res = await api.post("/auth/login", user);
+    if (loading) return null;
 
-    const token = res.data.token;
-    sessionStorage.setItem("authToken", token);
-
-    dispatch(setUser(res.data.user));
-  };
-
-  const logout = () => {
-    sessionStorage.removeItem("authToken");
-    dispatch(reduxLogout());
-  };
-
-  if (loading) return null;
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        logout,
-        isAuthenticated: !!user,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    return (
+        <AuthContext.Provider
+            value={{
+                user,
+                login,
+                logout,
+                isAuthenticated: !!user,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 export const useAuth = () => useContext(AuthContext);
