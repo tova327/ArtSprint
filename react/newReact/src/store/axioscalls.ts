@@ -120,7 +120,7 @@ export const uploadPainting = async (painting: PaintingToAddType) => {
     const formData = new FormData();
     formData.append('OwnerId', painting.ownerId.toString());
     formData.append('Name', painting.name);
-    formData.append('Subject', painting.subject.toString());
+    formData.append('Subject', painting.category.toString());
     formData.append('paintingFile', painting.paintingFile);
 
     try {
@@ -136,9 +136,9 @@ export const uploadPainting = async (painting: PaintingToAddType) => {
     }
 };
 
-export const getTest = async (subject: string) => {
+export const getTest = async () => {
     try {
-        const response = await axios.get(`${globalAPI}AI?subject=${subject}`)
+        const response = await axios.get(`${globalAPI}AI?subject=logic`)
         return response.data
     } catch (error) {
         console.log(error);

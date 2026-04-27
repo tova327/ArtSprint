@@ -12,6 +12,7 @@ import { fetchPaintings } from "../store/axioscalls"
 import PaintingComponent from "./paintings/PaintingComponent"
 import { styled } from "styled-components"
 import { motion } from "framer-motion"
+import ProtectedRoute from "./auth/ProtectedRoute"
 
 const { Content } = Layout
 
@@ -55,8 +56,10 @@ const SubApp: React.FC = () => {
               transition={{ delay: 0.3, duration: 0.8 }}
             >
               <Routes>
-                <Route path="/" element={<PaintingsPage />} />
-                <Route path="/painting/:id" element={<PaintingComponent />} />
+                
+                <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
+                <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
+                
               </Routes>
             </ContentWrapper>
           </Content>

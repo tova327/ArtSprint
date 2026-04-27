@@ -13,13 +13,13 @@ export interface Action {
 
 interface ModalWrapperProps {
     title: string;
-    description?: string | null;
+    description?: string | null | React.ReactNode;
     actions: Action[];
     visible: boolean;
     onClose: () => void;
 }
 
-const ModalWrapper: React.FC<ModalWrapperProps> = ({ title, description, actions, visible, onClose }) => {
+const AppModal: React.FC<ModalWrapperProps> = ({ title, description, actions, visible, onClose }) => {
     return (
 
         <Modal
@@ -32,11 +32,13 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({ title, description, actions
                 fontFamily: themeToken?.token?.fontFamily,
             }}
         >
-            {description && (
+            {typeof description === 'string' ? (
                 <AppParagraph>
                     {description}
                 </AppParagraph>
-            )}
+            ) : typeof description === 'object' ? (
+                description
+            ) : null}
             <Space style={{ display: 'flex', justifyContent: 'flex-end', marginTop: spacing.md }}>
                 {actions.map((action, index) => (
                     <Button
@@ -57,4 +59,4 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({ title, description, actions
     );
 };
 
-export default ModalWrapper;
+export default AppModal;

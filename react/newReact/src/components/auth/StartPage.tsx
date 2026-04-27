@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../store/store";
 import LoginModal from "./LoginModal";
-import RegisterModal from "./RegisterModal";
 import { notification } from "antd";
 import { type UserToAddType } from "../../store/userSlice";
 import PaintingUploadModal from "../paintings/PaintingUploadModal";
-import ModalWrapper from "../common/Modal";
+import ModalWrapper from "../common/AppModal";
 import { AppAlert } from "../common/AppAlert";
 import { useAuth } from "./AuthProvider";
+import { RegisterModal } from "./RegisterModal";
 
 const StartPage = ({ toClose }: { toClose?: Function|null }) => {
   const user = useSelector((store: StoreType) => store.user.user);
@@ -83,11 +83,12 @@ const { login, register } = useAuth();
         }}
       />
 
+      
       <RegisterModal
-        open={isRegisterModalVisible}
-        onCancel={() => setIsRegisterModalVisible(false)}
-        onRegister={handleRegister}
+        visible={isRegisterModalVisible}
+        onClose={() => setIsRegisterModalVisible(false)}
         loading={registerLoading}
+        onRegister={handleRegister}
       />
 
       <PaintingUploadModal
