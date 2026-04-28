@@ -5,6 +5,7 @@ import { deleteAsync } from "../../store/paintingSlice";
 import { AppDispatch, StoreType } from "../../store/store";
 import { PaintingType } from "../../store/paintingSlice";
 import AppButton from "../common/AppButton";
+import { themeToken } from "../../theme/token";
 // import "./DeletePaintingButton.css";
 
 const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }) => {
@@ -23,6 +24,7 @@ const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }
       onClick={handleDelete}
       type="dashed"
       icon={<DeleteOutlined />}
+      style={{color: themeToken.token?.colorError}}
     >
       
       Delete

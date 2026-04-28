@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Layout } from "antd"
 import Navbar from "./layout/NavBar"
-import PaintingsPage from "./paintings/PaintingsPage"
+
 import { useDispatch } from "react-redux"
 import type { AppDispatch } from "../store/store"
 import { fetchPaintings } from "../store/axioscalls"
@@ -14,6 +14,7 @@ import { styled } from "styled-components"
 import { motion } from "framer-motion"
 import ProtectedRoute from "./auth/ProtectedRoute"
 import StartPage from "./auth/StartPage"
+import PaintingsPage from "./paintings/PaintingsPage"
 
 const { Content } = Layout
 
