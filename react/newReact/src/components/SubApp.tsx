@@ -5,7 +5,6 @@ import { Layout } from "antd"
 
 import { useDispatch } from "react-redux"
 import type { AppDispatch } from "../store/store"
-import { fetchPaintings } from "../store/axioscalls"
 import PaintingComponent from "./paintings/PaintingComponent"
 import { styled } from "styled-components"
 import { motion } from "framer-motion"
@@ -13,6 +12,7 @@ import ProtectedRoute from "./auth/ProtectedRoute"
 import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
+import { fetchPaintingsAsync } from "../store/paintingSlice"
 
 const { Content } = Layout
 
@@ -41,10 +41,7 @@ const SubApp: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    const loadPaintings = async () => {
-      await dispatch(await fetchPaintings())
-    }
-    loadPaintings()
+    dispatch(fetchPaintingsAsync())
   }, [dispatch])
 
   return (

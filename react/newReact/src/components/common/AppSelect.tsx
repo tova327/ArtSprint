@@ -27,7 +27,7 @@ const AppSelect: React.FC<Props> = ({
       onChange={onChange}
       options={options}
       placeholder={placeholder}
-      style={{ width: "100%" }}
+      style={{ width: "100%", position: "relative" ,zIndex: 999, top: 0}}
     />
   )
 }
