@@ -2,7 +2,6 @@ import type React from "react"
 import { useEffect } from "react"
 import {  Routes, Route } from "react-router-dom"
 import { Layout } from "antd"
-import Navbar from "./layout/NavBar"
 
 import { useDispatch } from "react-redux"
 import type { AppDispatch } from "../store/store"
@@ -13,6 +12,7 @@ import { motion } from "framer-motion"
 import ProtectedRoute from "./auth/ProtectedRoute"
 import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
+import NavBarDraft from "./layout/NavBarDraft"
 
 const { Content } = Layout
 
@@ -51,7 +51,7 @@ const SubApp: React.FC = () => {
     <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
      
         <Layout style={{ minHeight: "100vh", minWidth: "100vw", background: "transparent" }}>
-          <Navbar />
+          <NavBarDraft />
           <Content style={{ padding: "20px", background: "transparent" }}>
             <ContentWrapper
               initial={{ y: 30, opacity: 0 }}
