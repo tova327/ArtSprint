@@ -104,16 +104,21 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
         onRegister={handleRegister}
       />
 
-      <PaintingUploadModal
+      {/* <PaintingUploadModal
         visible={showPaintingModal}
         onCancel={() => setShowPaintingModal(false)}
         userId={user?.id}
 
-      />
+      /> */}
+      <AppAlert type="warning" message={"Notice! You have no paintings yet."} isVisible={showPaintingModal} />
     </div>
   );
 };
 
 export default StartPage;
 
-
+// visible,
+//   onCancel,
+//   onUpload,
+//   loading,
+//   userId,

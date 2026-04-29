@@ -1,11 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import { FC, useRef } from "react";
 import { Flex } from "antd";
-import { useSelector } from "react-redux";
-import type { StoreType } from "../../store/store";
 import { LeftOutlined,  RightOutlined } from "@ant-design/icons";
-import { getCategoryNameById } from "../../store/categorySlice";
 import { spacing } from "../../theme/constant";
 import AppCard from "../common/AppCard";
 import { AppEmpty } from "../common/AppEmpty";
@@ -13,25 +10,17 @@ import { AppImagePreview } from "../common/AppImage";
 import AppTag from "../common/AppTag";
 import AppTitle from "../common/AppTitle";
 import { themeToken } from "../../theme/token";
+import { PaintingType } from "../../store/paintingSlice";
 
-const LatestPaintings: React.FC = () => {
+type SelectedPaintingsProps = {
+    paintings: PaintingType[];
+    categories: string[];
+    title: string;
+    tagContent: string;
+};
+
+const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, title,  tagContent}: SelectedPaintingsProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const paintings = useSelector(
-    (store: StoreType) => store.painting.paintings
-  );
-
-  const categories = useSelector(
-    (state: StoreType) => state.categories.categories
-  );
-
-  const latest = [...paintings]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() -
-        new Date(a.createdAt).getTime()
-    )
-    .slice(0, 8);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -44,7 +33,7 @@ const LatestPaintings: React.FC = () => {
     });
   };
 
-  if (!latest.length) {
+  if (!paintings.length) {
     return (
       <AppEmpty description="No masterpieces yet! Be the first to create and share your art." />
     );
@@ -56,7 +45,7 @@ const LatestPaintings: React.FC = () => {
 
         <Flex justify="center">
           <AppTitle level={3}>
-            ✨ Fresh Creations ✨
+            {title}
           </AppTitle>
         </Flex>
 
@@ -74,12 +63,9 @@ const LatestPaintings: React.FC = () => {
             }}
           >
             <Flex gap={spacing.lg} wrap={false}>
-              {latest.map((painting) => {
+              {paintings.map((painting,index) => {
                 const categoryName =
-                  getCategoryNameById(
-                    categories,
-                    painting.category
-                  );
+                  categories[index] || "Unknown";
 
                 return (
                   <AppCard
@@ -88,9 +74,11 @@ const LatestPaintings: React.FC = () => {
                   >
                     <Flex vertical gap={spacing.sm}>
 
+                    
                       <AppTag>
-                        NEW
+                       {tagContent}
                       </AppTag>
+                    
 
                       <AppTitle level={5}>
                         {painting.name}
@@ -122,4 +110,4 @@ const LatestPaintings: React.FC = () => {
   );
 };
 
-export default LatestPaintings;
+export default SelectedPaintings;

@@ -13,8 +13,6 @@ import {
 import ShowPainting from "./ShowPainting";
 import PaintingUploadModal from "./PaintingUploadModal";
 import { useLocation } from "react-router-dom";
-import PopularPaintings from "./PopularPaintings";
-import LatestPaintings from "./LatestPaintings";
 import {
     CloudUploadOutlined,
     SearchOutlined,
@@ -31,6 +29,7 @@ import AppInput from "../common/AppInput";
 import AppTitle from "../common/AppTitle";
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
+import SelectedPaintings from "./SelectedPaintings";
 
 
 const PaintingsPage: React.FC = () => {
@@ -69,6 +68,23 @@ const PaintingsPage: React.FC = () => {
     const subjectFilter = query.get("subject");
 
     const {alert,handleOpenAlert} = useAlert({type: 'success', message: '', isVisible: false})
+
+    const latest = [...paintings]
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() -
+        new Date(a.createdAt).getTime()
+    )
+    .slice(0, 8);
+    const latestCategories = latest.map((p) =>
+        getCategoryNameById(categories, p.category)
+    );
+    const popular = [...paintings]
+    .sort((a, b) => b.likes - a.likes)
+    .slice(0, 8);
+    const popularCategories = popular.map((p) =>
+        getCategoryNameById(categories, p.category)
+    );
     useEffect(() => {
         dispatch(fetchPaintingsAsync());
     }, [dispatch]);
@@ -157,7 +173,7 @@ const PaintingsPage: React.FC = () => {
                 </AppTitle>
             </Flex>
 
-            <PopularPaintings />
+            <SelectedPaintings paintings={latest} categories={latestCategories} title="✨ Fresh Creations ✨" tagContent="NEW" />
 
             <Flex
                 justify="center"
@@ -223,7 +239,8 @@ const PaintingsPage: React.FC = () => {
                 />
             )}
 
-            <LatestPaintings />
+            <SelectedPaintings paintings={popular} categories={popularCategories} title="✨ Popular Masterpieces ✨" tagContent="POPULAR" />
+            
         </Flex>
     );
 };

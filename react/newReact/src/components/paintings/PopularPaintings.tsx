@@ -8,6 +8,12 @@ import { motion } from "framer-motion"
 
 import { AppEmpty } from "../common/AppEmpty"
 import { getCategoryNameById } from "../../store/categorySlice"
+import { useRef } from "react"
+import AppCard from "../common/AppCard"
+import { Flex } from "antd"
+import { spacing } from "../../theme/constant"
+import AppTitle from "../common/AppTitle"
+import AppTitle from "../common/AppTitle"
 
 const shimmer = keyframes`
   0% { transform: translateX(-100%); }
@@ -122,6 +128,7 @@ const CardSubtitle = styled(motion.div)`
 `
 
 const PopularPaintings: React.FC = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const paintings = useSelector((store: StoreType) => store.painting.paintings)
   const categories = useSelector((state: StoreType) => state.categories.categories)
   const topPaintings = [...paintings]
@@ -131,15 +138,33 @@ const PopularPaintings: React.FC = () => {
 
   if (!topPaintings.length) return <AppEmpty description="No popular masterpieces yet! Create and share your art to see it here." />
 
+const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) return;
+
+    const amount = direction === "left" ? -320 : 320;
+
+    scrollRef.current.scrollBy({
+      left: amount,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <Container initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-      <Title
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
-        🌟 Trending Masterpieces 🌟
-      </Title>
+    <AppCard >
+      <Flex vertical gap={spacing.lg}>
+
+        <Flex justify="center">
+          <AppTitle
+           level={3}
+          >
+            🌟 Trending Masterpieces 🌟
+          </AppTitle>
+        </Flex>
+        <Flex align="center" gap={spacing.sm}>
+
+          <button onClick={() => scroll("left")}>
+            <LeftOutlined />
+          </button>
       <PaintingsRow>
         {topPaintings.map((painting, i) => (
           <Card
@@ -236,7 +261,7 @@ const PopularPaintings: React.FC = () => {
           </Card>
         ))}
       </PaintingsRow>
-    </Container>
+    </AppCard>
   )
 }
 

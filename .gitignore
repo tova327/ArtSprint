@@ -24,3 +24,6 @@ server/.vs/
 bin/
 obj/
 react\newReact\src\store\initialPaintingsStateTmp.ts
+react\newReact\src\components\paintings\PopularPaintings.tsx
+react\newReact\src\components\paintings\PaintingsPageDraft.tsx
+
