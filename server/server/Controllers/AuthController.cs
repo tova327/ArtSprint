@@ -33,10 +33,10 @@ namespace server.Controllers
         [Authorize]
 
         [HttpPost("authuser")]
-        public async Task<IActionResult> GetUserFromToken([FromBody]string token)
+        public async Task<IActionResult> GetUserFromToken([FromBody]TokenPostModel token)
         {
                 var handler = new JwtSecurityTokenHandler();
-                var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
+                var jwtToken = handler.ReadToken(token.Token) as JwtSecurityToken;
 
                 if (jwtToken != null)
                 {

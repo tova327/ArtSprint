@@ -23,7 +23,11 @@ export const AuthProvider = ({ children }: any) => {
             }
 
             try {
-                const res = await api.post("/auth/authuser", token );
+                const res = await api.post("/auth/authuser",{ token}, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
                 dispatch(setUser(res.data));
             } catch {
                 sessionStorage.removeItem("authToken");
@@ -78,7 +82,7 @@ export const AuthProvider = ({ children }: any) => {
                 login,
                 register,
                 logout,
-                isAuthenticated: !!user&& user?.id !== 0
+                isAuthenticated: !!user && user?.id !== 0
             }}
         >
             {children}
@@ -86,10 +90,10 @@ export const AuthProvider = ({ children }: any) => {
     );
 };
 type AuthContextType = {
-   user: UserType | null
-   login: (user: { username: string, password: string }) => Promise<void>
-   register: (userDetails: { name: string, email: string, password: string, birthDate: string }) => Promise<void>
-   logout: () => void
-   isAuthenticated: boolean
+    user: UserType | null
+    login: (user: { username: string, password: string }) => Promise<void>
+    register: (userDetails: { name: string, email: string, password: string, birthDate: string }) => Promise<void>
+    logout: () => void
+    isAuthenticated: boolean
 }
 export const useAuth = () => useContext<AuthContextType>(AuthContext);
