@@ -1,18 +1,17 @@
 import {  useState } from "react";
-import { useSelector } from "react-redux";
-import { StoreType } from "../../store/store";
 import LoginModal from "./LoginModal";
 import { notification } from "antd";
 import { type UserToAddType } from "../../store/userSlice";
-import PaintingUploadModal from "../paintings/PaintingUploadModal";
 import ModalWrapper from "../common/AppModal";
 import { AppAlert } from "../common/AppAlert";
 import { useAuth } from "./AuthProvider";
 import { RegisterModal } from "./RegisterModal";
 import { Navigate } from "react-router";
+import useAlert from "../../Hooks/useAlert";
+import AppSection from "../common/AppSection";
 
 const StartPage = ({ toClose }: { toClose?: Function | null }) => {
-  const user = useSelector((store: StoreType) => store.user.user);
+ 
   const [api, _] = notification.useNotification();
   const handleMassage = (type: 'success' | 'error' | 'warning', message: string, description: string) => {
     api[type]({
@@ -26,18 +25,18 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
   const [isRegisterModalVisible, setIsRegisterModalVisible] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
-  const [showPaintingModal, setShowPaintingModal] = useState(false);
+  // const [showPaintingModal, setShowPaintingModal] = useState(false);
   
-  const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
+  // const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
   const { login, register,isAuthenticated } = useAuth();
-  const handleOpenAlert = (type: 'success' | 'error' | 'warning', message: string) => {
-    setAlert(prev => ({ ...prev, type, message, isVisible: true }));
-    setTimeout(() => {
-      setAlert(prev => ({ ...prev, isVisible: false }));
-    }, 2000);
-  };
+  // const handleOpenAlert = (type: 'success' | 'error' | 'warning', message: string) => {
+  //   setAlert(prev => ({ ...prev, type, message, isVisible: true }));
+  //   setTimeout(() => {
+  //     setAlert(prev => ({ ...prev, isVisible: false }));
+  //   }, 2000);
+  // };
 
-
+const {alert, handleOpenAlert} = useAlert({type: 'success', message: '', isVisible: false})
   const handleLoginOk = async (values: { username: string; password: string }) => {
     setLoginLoading(true)
     try {
@@ -45,12 +44,9 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
       setIsLoginModalVisible(false)
       console.log("before send to check painting " + result.user.id);
 
-      //await checkUserPainting(result.user.id)
-      //handleMassage("success", "🎨 Welcome Back!", `Ready to create magic, ${result.name || values.username}?`);
       handleOpenAlert('success', `🎨 Welcome Back, ${result.name || values.username}! Ready to create magic?`);
 
     } catch (error: any) {
-      //handleMassage("error", "❌ Login Failed", error?.message || "Invalid credentials.");
       handleOpenAlert('error', "Oops, we didn't recognize you. Please check your username and password and try again.");
     } finally {
       setLoginLoading(false);
@@ -63,10 +59,8 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
     try {
       await register(userDetails);
       setIsRegisterModalVisible(false);
-      //handleMassage("success", "🌟 Welcome to ArtSprint!", "Time to share your first masterpiece!");
       handleOpenAlert('success', "🌟 Welcome to ArtSprint!");
     } catch (err: any) {
-      //handleMassage("error", "❌ Registration Failed", err?.message || "Please try again.");
       handleOpenAlert('error', err?.message || "Please try again.");
     } finally {
       setRegisterLoading(false);
@@ -74,7 +68,7 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
   };
 
   return (
-    <div style={{ position: "relative", minHeight: "100vh", zIndex: 1 }}>
+    <AppSection style={{ position: "relative", minHeight: "100vh", zIndex: 1 }}>
       <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} />
 
      {isAuthenticated?<Navigate to="/" />: <ModalWrapper title={"Welcome to ArtSprint"}
@@ -110,12 +104,13 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
         userId={user?.id}
 
       /> */}
-      <AppAlert type="warning" message={"Notice! You have no paintings yet."} isVisible={showPaintingModal} />
-    </div>
+    </AppSection>
   );
 };
 
 export default StartPage;
+
+
 
 // visible,
 //   onCancel,

@@ -4,10 +4,11 @@ import { spacing } from "../../theme/constant"
 
 type Props = {
    children: ReactNode
+   style?: React.CSSProperties
 }
 
-const AppSection = ({ children }: Props) => (
-   <Flex vertical gap={spacing.md}>
+const AppSection = ({ children, style }: Props) => (
+   <Flex vertical gap={spacing.md} style={style}>
       {children}
    </Flex>
 )
