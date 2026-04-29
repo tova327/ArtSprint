@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {   useState } from "react";
 import LoginModal from "./LoginModal";
 import { notification } from "antd";
 import { type UserToAddType } from "../../store/userSlice";
@@ -9,6 +9,8 @@ import { RegisterModal } from "./RegisterModal";
 import { Navigate } from "react-router";
 import useAlert from "../../Hooks/useAlert";
 import AppSection from "../common/AppSection";
+import { useSelector } from "react-redux";
+import { StoreType } from "../../store/store";
 
 const StartPage = ({ toClose }: { toClose?: Function | null }) => {
  
@@ -25,6 +27,7 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
   const [isRegisterModalVisible, setIsRegisterModalVisible] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+  const user=useSelector((state: StoreType) => state.user.user)
   // const [showPaintingModal, setShowPaintingModal] = useState(false);
   
   // const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
@@ -40,11 +43,11 @@ const {alert, handleOpenAlert} = useAlert({type: 'success', message: '', isVisib
   const handleLoginOk = async (values: { username: string; password: string }) => {
     setLoginLoading(true)
     try {
-      const result = await login(values);
+      await login(values);
       setIsLoginModalVisible(false)
-      console.log("before send to check painting " + result.user.id);
+      console.log("user login " + user?.id);
 
-      handleOpenAlert('success', `🎨 Welcome Back, ${result.name || values.username}! Ready to create magic?`);
+      handleOpenAlert('success', `🎨 Welcome Back, ${user?.name || values.username}! Ready to create magic?`);
 
     } catch (error: any) {
       handleOpenAlert('error', "Oops, we didn't recognize you. Please check your username and password and try again.");

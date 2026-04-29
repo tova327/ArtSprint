@@ -11,7 +11,7 @@ import { themeToken } from "../../theme/token";
 const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }) => {
   const dispatch = useDispatch<AppDispatch>();
   
-  const userId = useSelector((store: StoreType) => store.user.user.id);
+  const userId = useSelector((store: StoreType) => store?.user?.user?.id);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this painting?")) {

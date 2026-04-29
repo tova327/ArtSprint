@@ -95,6 +95,7 @@ const userSlice = createSlice({
         },
         logout(state) {
             state.user = null as unknown as UserType;
+            sessionStorage.removeItem('token');
         }
     },
     extraReducers: (builder) => {
