@@ -6,12 +6,11 @@ import ModalWrapper from "../common/AppModal";
 import { AppAlert } from "../common/AppAlert";
 import { useAuth } from "./AuthProvider";
 import { RegisterModal } from "./RegisterModal";
-import { Navigate, useLocation } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import useAlert from "../../Hooks/useAlert";
 import AppSection from "../common/AppSection";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../store/store";
-import { navigate } from "@wix/dashboard-sdk/dist/types/sdk";
 
 const StartPage = ({ toClose }: { toClose?: Function | null }) => {
 
@@ -31,6 +30,7 @@ const StartPage = ({ toClose }: { toClose?: Function | null }) => {
   const user = useSelector((state: StoreType) => state.user.user)
   // const [showPaintingModal, setShowPaintingModal] = useState(false);
   const location = useLocation()
+  const navigate = useNavigate()
   // const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'warning'; message: string; isVisible?: boolean }>({ type: 'success', message: '', isVisible: false });
   const { login, register, isAuthenticated } = useAuth();
   // const handleOpenAlert = (type: 'success' | 'error' | 'warning', message: string) => {
