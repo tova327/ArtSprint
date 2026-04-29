@@ -226,4 +226,4 @@ const PaintingsPageDraft: React.FC = () => {
 );
 }
 
-export default PaintingsPageDraft
+export default PaintingsPageDraft   yjgibuy
