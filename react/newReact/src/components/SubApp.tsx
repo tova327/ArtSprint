@@ -1,8 +1,6 @@
-"use client"
-
 import type React from "react"
 import { useEffect } from "react"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import {  Routes, Route } from "react-router-dom"
 import { Layout } from "antd"
 import Navbar from "./layout/NavBar"
 
@@ -43,12 +41,15 @@ const SubApp: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(fetchPaintings)
+    const loadPaintings = async () => {
+      await dispatch(await fetchPaintings())
+    }
+    loadPaintings()
   }, [dispatch])
 
   return (
     <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-      <Router>
+     
         <Layout style={{ minHeight: "100vh", minWidth: "100vw", background: "transparent" }}>
           <Navbar />
           <Content style={{ padding: "20px", background: "transparent" }}>
@@ -66,7 +67,7 @@ const SubApp: React.FC = () => {
             </ContentWrapper>
           </Content>
         </Layout>
-      </Router>
+      
     </PageContainer>
   )
 }
