@@ -63,7 +63,7 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
 
 
   return (
-  <AppCard>
+  <AppCard style={{ height: "100%" }}>
     <Flex vertical gap={spacing.md}>
       
       <Flex justify="space-between" align="flex-start" gap={spacing.sm}>
@@ -94,7 +94,7 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
         </AppTag>
       </Flex>
 
-      <AppImagePreview src={painting.url} />
+      <AppImagePreview src={painting.url} className="max-h-[220px]" />
 
       <Flex justify="space-between" align="center">
         <AppButton

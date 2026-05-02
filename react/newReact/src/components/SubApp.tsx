@@ -29,13 +29,9 @@ const PageContainer = styled(motion.div)`
 const ContentWrapper = styled(motion.div)`
   position: relative;
   z-index: 2;
-  min-height: 100vh;
-  margin-left: 80px; /* Space for sidebar */
-  transition: margin-left 0.3s ease;
-
-  @media (max-width: 768px) {
-    margin-left: 60px;
-  }
+  min-height: calc(100vh - 40px);
+  width: min(1400px, 100%);
+  margin: 0 auto;
 `
 
 const SubApp: React.FC = () => {
@@ -52,7 +48,7 @@ const SubApp: React.FC = () => {
           <Sider width="80px" style={{minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)" }}>
           <NavBarDraft />
           </Sider>
-          <Content style={{ padding: "20px", background: "transparent" }}>
+          <Content style={{ padding: "16px 20px 20px", background: "transparent" }}>
             <ContentWrapper
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
