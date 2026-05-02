@@ -94,7 +94,7 @@ const NavBarDraft: React.FC = () => {
     };
 
     return (
-        <div style={{ width: collapsed ? 80 : 256 }}>
+        <div style={{ width: collapsed ? 80 : 256, minHeight: "100vh", background: "transparent" }}>
 
             <AppButton
                 type="primary"

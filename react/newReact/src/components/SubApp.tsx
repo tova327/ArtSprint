@@ -13,6 +13,7 @@ import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
+import Sider from "antd/es/layout/Sider"
 
 const { Content } = Layout
 
@@ -47,8 +48,10 @@ const SubApp: React.FC = () => {
   return (
     <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
      
-        <Layout style={{ minHeight: "100vh", minWidth: "100vw", background: "transparent" }}>
+        <Layout style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
+          <Sider width="80px" style={{minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)" }}>
           <NavBarDraft />
+          </Sider>
           <Content style={{ padding: "20px", background: "transparent" }}>
             <ContentWrapper
               initial={{ y: 30, opacity: 0 }}
@@ -70,3 +73,15 @@ const SubApp: React.FC = () => {
 }
 
 export default SubApp
+
+
+//  <Layout style={layoutStyle}>
+//       <Header style={headerStyle}>Header</Header>
+//       <Layout>
+//         <Sider width="25%" style={siderStyle}>
+//           Sider
+//         </Sider>
+//         <Content style={contentStyle}>Content</Content>
+//       </Layout>
+//       <Footer style={footerStyle}>Footer</Footer>
+//     </Layout>
