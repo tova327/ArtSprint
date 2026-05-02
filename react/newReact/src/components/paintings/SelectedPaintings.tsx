@@ -25,7 +25,7 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
 
-    const amount = direction === "left" ? -320 : 320;
+    const amount = direction === "left" ? -280 : 280;
 
     scrollRef.current.scrollBy({
       left: amount,
@@ -49,7 +49,7 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
           </AppTitle>
         </Flex>
 
-        <Flex align="center" gap={spacing.sm}>
+        <Flex align="center" gap={spacing.xs}>
 
           <button onClick={() => scroll("left")}>
             <LeftOutlined twoToneColor={themeToken.token?.colorTextSecondary} />
@@ -62,7 +62,7 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
               width: "100%",
             }}
           >
-            <Flex gap={spacing.lg} wrap={false}>
+            <Flex gap={spacing.md} wrap={false}>
               {paintings.map((painting,index) => {
                 const categoryName =
                   categories[index] || "Unknown";
@@ -70,7 +70,7 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
                 return (
                   <AppCard
                     key={painting.id}
-                    style={{ minWidth: 260 }}
+                    style={{ minWidth: "clamp(180px, 22vw, 240px)", maxWidth: 240 }}
                   >
                     <Flex vertical gap={spacing.sm}>
 
