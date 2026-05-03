@@ -26,11 +26,11 @@ import { getCategoryNameById } from "../../store/categorySlice";
 import { spacing } from "../../theme/constant";
 import AppButton from "../common/AppButton";
 import AppInput from "../common/AppInput";
-import AppTitle from "../common/AppTitle";
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
 import SelectedPaintings from "./SelectedPaintings";
 import { Content, Footer, Header } from "antd/es/layout/layout";
+import { themeToken } from "../../theme/token";
 
 
 const PaintingsPage: React.FC = () => {
@@ -179,35 +179,36 @@ const PaintingsPage: React.FC = () => {
 
     {loading && <AppSpinner />}
 
-    <Flex justify="center">
-      <AppTitle>🎨 Art Gallery</AppTitle>
-    </Flex>
+    
 
-    <Layout style={{ background: "transparent", gap: spacing.md }}>
+    <Layout style={{ background: "transparent", gap: spacing.md ,minHeight: "100vh", width: "100%" }}>
 
       {/* HEADER - רק עיצוב */}
-      <Header style={{ padding: 0, background: "transparent" }}>
-        {latest.length > 0 && (
+     { latest.length > 0 &&  <Header style={{ padding: 0}}>
+      
           <SelectedPaintings
             paintings={latest}
             categories={latestCategories}
             title="✨ Fresh Creations ✨"
             tagContent="NEW"
           />
-        )}
-      </Header>
+        
+      </Header>}
 
       {/* CONTENT */}
       <Content
         style={{
-          padding: spacing.lg,
-          background: "rgba(255,255,255,0.75)",
-          borderRadius: 20,
-          border: "1px solid rgba(98, 120, 197, 0.15)",
+          padding: spacing.md,
+          background: themeToken.token?.colorBgContainer,
+          borderRadius: themeToken.token?.borderRadius,
+          border: themeToken.token?.colorBorder,
+          flex: "1 1 auto",
+          width: "100%",
         }}
       >
+        <Flex justify="center" gap={spacing.sm} wrap vertical align="center">
         {/* SEARCH */}
-        <Flex justify="center" gap={spacing.sm} wrap>
+        <Flex justify="center" gap={spacing.sm} wrap vertical={false} align="center">
           <SearchOutlined />
 
           <AppInput
@@ -226,6 +227,7 @@ const PaintingsPage: React.FC = () => {
         {/* UPLOAD */}
         <Flex
           justify="center"
+          align="center"
           style={{ marginTop: spacing.sm, marginBottom: spacing.lg }}
         >
           <AppButton onClick={showModal}>
@@ -254,6 +256,7 @@ const PaintingsPage: React.FC = () => {
                 md={8}
                 lg={6}
                 xl={6}
+                span={4}
               >
                 <ShowPainting
                   painting={painting}
@@ -271,19 +274,21 @@ const PaintingsPage: React.FC = () => {
             description="No masterpieces found! Try adjusting your search or explore other subjects."
           />
         )}
+        </Flex>
       </Content>
 
       {/* FOOTER - רק עיצוב */}
-      <Footer style={{ padding: 0, background: "transparent" }}>
-        {popular.length > 0 && (
-          <SelectedPaintings
-            paintings={popular}
-            categories={popularCategories}
-            title="✨ Popular Masterpieces ✨"
+      {popular.length > 0 && (
+        <Footer style={{ padding: 0}}>
+         
+            <SelectedPaintings
+              paintings={popular}
+              categories={popularCategories}
+              title="✨ Popular Masterpieces ✨"
             tagContent="POPULAR"
           />
-        )}
-      </Footer>
+       
+      </Footer>)}
 
     </Layout>
   </Flex>

@@ -62,14 +62,15 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
   return (alert.isVisible ? <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} /> : (
   <AppCard
   style={{
-    height: 360,
+    height:200,
+    width: 240,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   }}
   bodyStyle={{ padding: 12 }}
 >
-  <Flex vertical gap={8} style={{ height: "100%" }}>
+  <Flex vertical gap={8} style={{ height: "100%",width: "100%" }}>
 
     {/* Title + actions */}
     <Flex justify="space-between" align="center">
@@ -77,8 +78,8 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
         {painting.name}
       </AppTitle>
 
-      <Flex gap={4}>
-        <DownloadButton url={painting.url}  />
+      <Flex gap={4} justify="space-between" align="center" vertical={false}>
+        <DownloadButton url={painting.url} />
         {painting.ownerId === userId && (
           <DeletePaintingButton painting={painting}  />
         )}
@@ -89,14 +90,15 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
     <AppImagePreview
       src={painting.url}
       style={{
-        height: 160,
+        height: 70,
         objectFit: "cover",
         borderRadius: 12,
+        width:"80%"
       }}
     />
 
     {/* Tags */}
-    <Flex justify="space-between">
+    <Flex justify="space-between" vertical={false} align="center">
       <AppTag color={themeToken.token?.colorTextSecondary}>
         {category}
       </AppTag>
@@ -106,7 +108,7 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
     </Flex>
 
     {/* Actions */}
-    <Flex justify="space-between">
+    <Flex justify="space-between" vertical={false} align="center">
       <AppButton  onClick={handleLike}>
         <LikeOutlined /> Love
       </AppButton>
