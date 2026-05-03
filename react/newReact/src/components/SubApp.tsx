@@ -6,33 +6,17 @@ import { Layout } from "antd"
 import { useDispatch } from "react-redux"
 import type { AppDispatch } from "../store/store"
 import PaintingComponent from "./paintings/PaintingComponent"
-import { styled } from "styled-components"
-import { motion } from "framer-motion"
 import ProtectedRoute from "./auth/ProtectedRoute"
 import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
 import Sider from "antd/es/layout/Sider"
+import AppSection from "./common/AppSection"
 
 const { Content } = Layout
 
-const PageContainer = styled(motion.div)`
-  min-height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-  position: relative;
-  overflow-x: hidden;
-`
 
-const ContentWrapper = styled(motion.div)`
-  position: relative;
-  z-index: 2;
-  min-height: calc(100vh - 40px);
-  width: min(1400px, 100%);
-  margin: 0 auto;
-`
 
 const SubApp: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -42,29 +26,25 @@ const SubApp: React.FC = () => {
   }, [dispatch])
 
   return (
-    <PageContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+    <AppSection>
      
         <Layout style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider width="80px" style={{minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)" }}>
+          <Sider  style={{minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)" }}>
           <NavBarDraft />
           </Sider>
           <Content style={{ padding: "16px 20px 20px", background: "transparent" }}>
-            <ContentWrapper
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
+           
               <Routes>
                 
                 <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
                 <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
                 <Route path="/login" element={<StartPage />} />
               </Routes>
-            </ContentWrapper>
+           
           </Content>
         </Layout>
       
-    </PageContainer>
+    </AppSection>
   )
 }
 
