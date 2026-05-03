@@ -18,7 +18,10 @@ const AppTitle: React.FC<TitleProps> = ({ level = 1, children, style }) => {
       level={level}
       style={{
         textAlign: 'center',
-       marginBottom: spacing.xl,
+       marginBottom: spacing.md,
+       marginTop: 0,
+       lineHeight: 1.2,
+       wordBreak: "normal",
         color: themeToken.token?.colorPrimary,
         ...style,
       }}

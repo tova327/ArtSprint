@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useRef } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { LeftOutlined,  RightOutlined } from "@ant-design/icons";
 import { spacing } from "../../theme/constant";
 import AppCard from "../common/AppCard";
@@ -40,7 +40,7 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
   }
 
   return (
-    <AppCard>
+    <AppCard style={{ background: "rgba(255,255,255,0.84)", border: "1px solid rgba(98,120,197,0.2)" }}>
       <Flex vertical gap={spacing.lg}>
 
         <Flex justify="center">
@@ -51,9 +51,9 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
 
         <Flex align="center" gap={spacing.xs}>
 
-          <button onClick={() => scroll("left")}>
+          <Button type="text" onClick={() => scroll("left")} aria-label="Scroll left">
             <LeftOutlined twoToneColor={themeToken.token?.colorTextSecondary} />
-          </button>
+          </Button>
 
           <div
             ref={scrollRef}
@@ -68,9 +68,9 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
                   categories[index] || "Unknown";
 
                 return (
-                  <AppCard
+                    <AppCard
                     key={painting.id}
-                    style={{ minWidth: "clamp(180px, 22vw, 240px)", maxWidth: 240 }}
+                    style={{ minWidth: "clamp(180px, 22vw, 240px)", maxWidth: 240, borderRadius: 18 }}
                   >
                     <Flex vertical gap={spacing.sm}>
 
@@ -99,9 +99,9 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
             </Flex>
           </div>
 
-          <button onClick={() => scroll("right")}>
+          <Button type="text" onClick={() => scroll("right")} aria-label="Scroll right">
             <RightOutlined twoToneColor={themeToken.token?.colorTextSecondary}/>
-          </button>
+          </Button>
 
         </Flex>
 
