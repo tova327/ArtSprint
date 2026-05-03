@@ -169,7 +169,7 @@ const PaintingsPage: React.FC = () => {
             </Layout> */}
 
     return (
-        <Flex vertical gap={spacing.lg} style={{ minHeight: "100%" }}>
+        <Flex vertical gap={spacing.lg} style={{ minHeight: "100%", width: "100%" }}>
             <AppAlert isVisible={alert.isVisible} type={alert.type} message={alert.message} />
             {loading && <AppSpinner />}
 
@@ -178,11 +178,11 @@ const PaintingsPage: React.FC = () => {
                     🎨 Art Gallery
                 </AppTitle>
             </Flex>
-            <Layout style={{ background: "transparent" }}>
-                <Header style={{ background: "transparent", padding: 0, height: "auto", lineHeight: "normal", marginBottom: spacing.md }}>
+            <Layout style={{ background: "transparent", gap: spacing.lg }}>
+                <Header style={{ background: "transparent", padding: 0, height: "auto", lineHeight: "normal", marginBottom: 0 }}>
                     <SelectedPaintings paintings={latest} categories={latestCategories} title="✨ Fresh Creations ✨" tagContent="NEW" />
                 </Header>
-                <Content style={{ padding: 0 }}>
+                <Content style={{ padding: spacing.lg, background: "rgba(255,255,255,0.72)", borderRadius: 16, border: "1px solid rgba(98, 120, 197, 0.2)" }}>
                     <Flex
                         justify="center"
                         align="center"
@@ -203,7 +203,7 @@ const PaintingsPage: React.FC = () => {
                         </AppButton>
                     </Flex>
 
-                    <Flex justify="center">
+                    <Flex justify="center" style={{ marginTop: spacing.sm, marginBottom: spacing.lg }}>
                         <AppButton onClick={showModal}>
                             <CloudUploadOutlined />
                             Upload New Masterpiece
@@ -226,7 +226,7 @@ const PaintingsPage: React.FC = () => {
                                         xs={24}
                                         sm={12}
                                         md={12}
-                                        lg={8}
+                                        lg={12}
                                         xl={6}
                                         key={painting.id}
                                     >
@@ -248,7 +248,7 @@ const PaintingsPage: React.FC = () => {
                         />
                     )}
                 </Content>
-                <Footer style={{ background: "transparent", padding: 0, marginTop: spacing.md }}>
+                <Footer style={{ background: "transparent", padding: 0, marginTop: 0 }}>
                     <SelectedPaintings paintings={popular} categories={popularCategories} title="✨ Popular Masterpieces ✨" tagContent="POPULAR" />
                 </Footer>
             </Layout>

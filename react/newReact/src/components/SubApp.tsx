@@ -29,10 +29,10 @@ const SubApp: React.FC = () => {
     <AppSection>
      
         <Layout style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider  style={{minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)" }}>
+          <Sider width={260} style={{ minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)", flex: "0 0 260px", maxWidth: 260, minWidth: 260 }}>
           <NavBarDraft />
           </Sider>
-          <Content style={{ padding: "16px 20px 20px", background: "transparent" }}>
+          <Content style={{ padding: "24px", background: "transparent" }}>
            
               <Routes>
                 
