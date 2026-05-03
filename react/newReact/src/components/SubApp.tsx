@@ -1,5 +1,5 @@
 import type React from "react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import {  Routes, Route } from "react-router-dom"
 import { Layout } from "antd"
 
@@ -13,6 +13,11 @@ import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
 import Sider from "antd/es/layout/Sider"
 import AppSection from "./common/AppSection"
+import AppButton from "./common/AppButton"
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+} from "@ant-design/icons";
 
 const { Content } = Layout
 
@@ -24,12 +29,25 @@ const SubApp: React.FC = () => {
   useEffect(() => {
     dispatch(fetchPaintingsAsync())
   }, [dispatch])
-
+const [collapsed, setCollapsed] = useState(false);
+const toggleCollapsed = () => {
+        setCollapsed((prev) => !prev);
+    };
   return (
     <AppSection>
      
         <Layout style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider width={260} style={{ minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)", flex: "0 0 260px", maxWidth: 260, minWidth: 260 }}>
+          <Sider collapsed={collapsed} collapsible onCollapse={toggleCollapsed} width={260} style={{ minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)", flex: "0 0 260px", maxWidth: 260, minWidth: 260 }}>
+         <AppButton
+                         type="primary"
+                         onClick={toggleCollapsed}
+                         style={{ marginBottom: 16 }}
+                     >
+                         {collapsed
+                             ? <MenuUnfoldOutlined />
+                             : <MenuFoldOutlined />}
+                     </AppButton>
+         
           <NavBarDraft />
           </Sider>
           <Content style={{ padding: "24px", background: "transparent" }}>

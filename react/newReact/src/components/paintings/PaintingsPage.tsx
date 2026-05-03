@@ -168,92 +168,126 @@ const PaintingsPage: React.FC = () => {
             <Footer style={footerStyle}>Footer</Footer>
             </Layout> */}
 
-    return (
-        <Flex vertical gap={spacing.lg} style={{ minHeight: "100%", width: "100%" }}>
-            <AppAlert isVisible={alert.isVisible} type={alert.type} message={alert.message} />
-            {loading && <AppSpinner />}
+   return (
+  <Flex vertical gap={spacing.lg} style={{ minHeight: "100%", width: "100%" }}>
+    
+    <AppAlert
+      isVisible={alert.isVisible}
+      type={alert.type}
+      message={alert.message}
+    />
 
-            <Flex justify="center">
-                <AppTitle>
-                    🎨 Art Gallery
-                </AppTitle>
-            </Flex>
-            <Layout style={{ background: "transparent", gap: spacing.lg }}>
-                <Header style={{ background: "transparent", padding: 0, height: "auto", lineHeight: "normal", marginBottom: 0 }}>
-                    <SelectedPaintings paintings={latest} categories={latestCategories} title="✨ Fresh Creations ✨" tagContent="NEW" />
-                </Header>
-                <Content style={{ padding: spacing.lg, background: "rgba(255,255,255,0.72)", borderRadius: 16, border: "1px solid rgba(98, 120, 197, 0.2)" }}>
-                    <Flex
-                        justify="center"
-                        align="center"
-                        gap={spacing.sm}
-                        wrap
-                    >
-                        <SearchOutlined />
+    {loading && <AppSpinner />}
 
-                        <AppInput
-                            placeholder="Search for masterpieces by name..."
-                            value={searchQuery}
-                            onChange={handleSearch}
-                            allowClear
-                        />
+    <Flex justify="center">
+      <AppTitle>🎨 Art Gallery</AppTitle>
+    </Flex>
 
-                        <AppButton onClick={handleMagicSearch}>
-                            ✨ Magic Search
-                        </AppButton>
-                    </Flex>
+    <Layout style={{ background: "transparent", gap: spacing.md }}>
 
-                    <Flex justify="center" style={{ marginTop: spacing.sm, marginBottom: spacing.lg }}>
-                        <AppButton onClick={showModal}>
-                            <CloudUploadOutlined />
-                            Upload New Masterpiece
-                        </AppButton>
-                    </Flex>
+      {/* HEADER - רק עיצוב */}
+      <Header style={{ padding: 0, background: "transparent" }}>
+        {latest.length > 0 && (
+          <SelectedPaintings
+            paintings={latest}
+            categories={latestCategories}
+            title="✨ Fresh Creations ✨"
+            tagContent="NEW"
+          />
+        )}
+      </Header>
 
-                    <PaintingUploadModal
-                        visible={isModalVisible}
-                        onCancel={handleCancel}
-                        onUpload={handleUpload}
-                        loading={paintingUploadLoading}
-                        userId={userId}
-                    />
+      {/* CONTENT */}
+      <Content
+        style={{
+          padding: spacing.lg,
+          background: "rgba(255,255,255,0.75)",
+          borderRadius: 20,
+          border: "1px solid rgba(98, 120, 197, 0.15)",
+        }}
+      >
+        {/* SEARCH */}
+        <Flex justify="center" gap={spacing.sm} wrap>
+          <SearchOutlined />
 
-                    {filteredPaintings.length > 0 ? (
-                        <Row gutter={[spacing.md, spacing.md]}>
-                            {filteredPaintings.map(
-                                (painting: PaintingType) => (
-                                    <Col
-                                        xs={24}
-                                        sm={12}
-                                        md={12}
-                                        lg={12}
-                                        xl={6}
-                                        key={painting.id}
-                                    >
-                                        <ShowPainting
-                                            painting={painting}
-                                            category={getCategoryNameById(
-                                                categories,
-                                                painting.category
-                                            )}
-                                            userId={userId}
-                                        />
-                                    </Col>
-                                )
-                            )}
-                        </Row>
-                    ) : (
-                        <AppEmpty
-                            description="No masterpieces found! Try adjusting your search or explore other subjects."
-                        />
-                    )}
-                </Content>
-                <Footer style={{ background: "transparent", padding: 0, marginTop: 0 }}>
-                    <SelectedPaintings paintings={popular} categories={popularCategories} title="✨ Popular Masterpieces ✨" tagContent="POPULAR" />
-                </Footer>
-            </Layout>
+          <AppInput
+            placeholder="Search for masterpieces by name..."
+            value={searchQuery}
+            onChange={handleSearch}
+            allowClear
+            style={{ maxWidth: 400 }}
+          />
+
+          <AppButton onClick={handleMagicSearch}>
+            ✨ Magic Search
+          </AppButton>
         </Flex>
-    );
+
+        {/* UPLOAD */}
+        <Flex
+          justify="center"
+          style={{ marginTop: spacing.sm, marginBottom: spacing.lg }}
+        >
+          <AppButton onClick={showModal}>
+            <CloudUploadOutlined />
+            Upload New Masterpiece
+          </AppButton>
+        </Flex>
+
+        {/* MODAL - ללא שינוי */}
+        <PaintingUploadModal
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          onUpload={handleUpload}
+          loading={paintingUploadLoading}
+          userId={userId}
+        />
+
+        {/* GRID */}
+        {filteredPaintings.length > 0 ? (
+          <Row gutter={[16, 16]}>
+            {filteredPaintings.map((painting: PaintingType) => (
+              <Col
+                key={painting.id}
+                xs={24}
+                sm={12}
+                md={8}
+                lg={6}
+                xl={6}
+              >
+                <ShowPainting
+                  painting={painting}
+                  category={getCategoryNameById(
+                    categories,
+                    painting.category
+                  )}
+                  userId={userId}
+                />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <AppEmpty
+            description="No masterpieces found! Try adjusting your search or explore other subjects."
+          />
+        )}
+      </Content>
+
+      {/* FOOTER - רק עיצוב */}
+      <Footer style={{ padding: 0, background: "transparent" }}>
+        {popular.length > 0 && (
+          <SelectedPaintings
+            paintings={popular}
+            categories={popularCategories}
+            title="✨ Popular Masterpieces ✨"
+            tagContent="POPULAR"
+          />
+        )}
+      </Footer>
+
+    </Layout>
+  </Flex>
+);
 };
 
 export default PaintingsPage;

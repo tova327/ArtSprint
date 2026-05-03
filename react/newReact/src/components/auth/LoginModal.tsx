@@ -86,6 +86,7 @@ const LoginModal = ({
       actions={[]}
       visible={open}
       onClose={onCancel}
+      closeAble={false}
     />
   );
 };

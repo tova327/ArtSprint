@@ -1,6 +1,6 @@
 // Tag.tsx
 import React from 'react';
-import { Tag as AntTag } from 'antd';
+import { Tag  } from 'antd';
 import { themeToken } from '../../theme/token';
 
 type TagProps = {
@@ -11,16 +11,19 @@ type TagProps = {
 
 const AppTag: React.FC<TagProps> = ({ color, children, style }) => {
   return (
-    <AntTag
+    <Tag
+    key={1}
       color={color || themeToken.token?.colorPrimary}
+     
       style={{
         borderRadius: themeToken.token?.borderRadius,
         fontWeight: 500,
         ...style,
       }}
+      
     >
       {children}
-    </AntTag>
+    </Tag>
   );
 };
 

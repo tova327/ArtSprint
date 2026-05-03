@@ -7,6 +7,7 @@ type AppImageProps = {
   alt?: string;
   className?: string;
   preview?: boolean;
+  style?: React.CSSProperties;
 };
 
 export const AppImagePreview: React.FC<AppImageProps> = ({
@@ -14,6 +15,7 @@ export const AppImagePreview: React.FC<AppImageProps> = ({
   alt,
   className,
   preview = true,
+  style,
 }) => {
   return (
     <div
@@ -21,14 +23,17 @@ export const AppImagePreview: React.FC<AppImageProps> = ({
         "w-full aspect-square overflow-hidden rounded-xl",
         className
       )}
+      
     >
       <Image
+      
         src={src}
         alt={alt}
         preview={preview}
         width="100%"
         height="100%"
         className="object-cover"
+        style={style}
       />
     </div>
   );

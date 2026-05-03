@@ -1,9 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Menu } from "antd";
 import type { MenuProps } from "antd";
 import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
     PieChartOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,14 +10,13 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import type { StoreType, AppDispatch } from "../../store/store";
 import { CategoryType, fetchCategoriesAsync, getCategoryHierarchy } from "../../store/categorySlice";
 
-import AppButton from "../common/AppButton";
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
 import { AppSpinner } from "../common/AppSpinner";
 
 
 const NavBarDraft: React.FC = () => {
-    const [collapsed, setCollapsed] = useState(false);
+    
 
     const categories = useSelector(
         (store: StoreType) => store.categories.categories
@@ -89,23 +86,12 @@ const NavBarDraft: React.FC = () => {
         }));
     };
 
-    const toggleCollapsed = () => {
-        setCollapsed((prev) => !prev);
-    };
+    
 
     return (
-        <div style={{ width: collapsed ? 80 : 256, minHeight: "100vh", background: "transparent" }}>
+        <div style={{ minHeight: "100vh", background: "transparent" }}>
 
-            <AppButton
-                type="primary"
-                onClick={toggleCollapsed}
-                style={{ marginBottom: 16 }}
-            >
-                {collapsed
-                    ? <MenuUnfoldOutlined />
-                    : <MenuFoldOutlined />}
-            </AppButton>
-
+            
             <AppAlert
                 isVisible={alert.isVisible}
                 type={alert.type}
@@ -117,7 +103,7 @@ const NavBarDraft: React.FC = () => {
             <Menu
                 mode="inline"
                 theme="dark"
-                inlineCollapsed={collapsed}
+                
                 selectedKeys={
                     currentSubject
                         ? [categories.find(

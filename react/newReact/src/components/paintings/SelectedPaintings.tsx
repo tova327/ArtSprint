@@ -3,14 +3,13 @@
 import { FC, useRef } from "react";
 import { Button, Flex } from "antd";
 import { LeftOutlined,  RightOutlined } from "@ant-design/icons";
-import { spacing } from "../../theme/constant";
 import AppCard from "../common/AppCard";
 import { AppEmpty } from "../common/AppEmpty";
 import { AppImagePreview } from "../common/AppImage";
 import AppTag from "../common/AppTag";
 import AppTitle from "../common/AppTitle";
-import { themeToken } from "../../theme/token";
 import { PaintingType } from "../../store/paintingSlice";
+import { themeToken } from "../../theme/token";
 
 type SelectedPaintingsProps = {
     paintings: PaintingType[];
@@ -40,73 +39,76 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
   }
 
   return (
-    <AppCard style={{ background: "rgba(255,255,255,0.84)", border: "1px solid rgba(98,120,197,0.2)" }}>
-      <Flex vertical gap={spacing.lg}>
+  <AppCard
+  size="small"
+  style={{
+    background: "rgba(255,255,255,0.65)",
+    border: "1px solid rgba(98,120,197,0.12)",
+    borderRadius: 16,
+  }}
+  bodyStyle={{ padding: 12 }}
+>
+  <Flex vertical gap={8}>
 
-        <Flex justify="center">
-          <AppTitle level={3}>
-            {title}
-          </AppTitle>
+    <AppTitle level={5} style={{ textAlign: "center", margin: 0 }}>
+      {title}
+    </AppTitle>
+
+    <Flex align="center" gap={4}>
+
+      <Button type="text" onClick={() => scroll("left")}>
+        <LeftOutlined />
+      </Button>
+
+      <div
+        ref={scrollRef}
+        style={{
+          overflowX: "auto",
+          flex: 1,
+        }}
+      >
+        <Flex gap={8} wrap={false}>
+          {paintings.map((painting,index) => (
+            <AppCard
+              key={painting.id}
+              style={{
+                minWidth: 160,
+                maxWidth: 180,
+                borderRadius: 12,
+              }}
+              bodyStyle={{ padding: 8 }}
+              
+            >
+              <Flex vertical gap={4}>
+
+                <AppTag color={themeToken.token?.colorPrimary}>{tagContent}</AppTag>
+
+                <AppTitle level={5} >
+                  {painting.name}
+                </AppTitle>
+
+                <AppImagePreview
+                  src={painting.url}
+                  
+                />
+
+              </Flex>
+              <AppTag color={themeToken.token?.colorTextSecondary}>
+                {categories[index % categories.length]}
+              </AppTag>
+            </AppCard>
+          ))}
         </Flex>
+      </div>
 
-        <Flex align="center" gap={spacing.xs}>
+      <Button type="text" onClick={() => scroll("right")}>
+        <RightOutlined />
+      </Button>
 
-          <Button type="text" onClick={() => scroll("left")} aria-label="Scroll left">
-            <LeftOutlined twoToneColor={themeToken.token?.colorTextSecondary} />
-          </Button>
+    </Flex>
 
-          <div
-            ref={scrollRef}
-            style={{
-              overflowX: "auto",
-              width: "100%",
-            }}
-          >
-            <Flex gap={spacing.md} wrap={false}>
-              {paintings.map((painting,index) => {
-                const categoryName =
-                  categories[index] || "Unknown";
-
-                return (
-                    <AppCard
-                    key={painting.id}
-                    style={{ minWidth: "clamp(180px, 22vw, 240px)", maxWidth: 240, borderRadius: 18 }}
-                  >
-                    <Flex vertical gap={spacing.sm}>
-
-                    
-                      <AppTag>
-                       {tagContent}
-                      </AppTag>
-                    
-
-                      <AppTitle level={5}>
-                        {painting.name}
-                      </AppTitle>
-
-                      <AppTag>
-                        {categoryName}
-                      </AppTag>
-
-                      <AppImagePreview
-                        src={painting.url}
-                      />
-
-                    </Flex>
-                  </AppCard>
-                );
-              })}
-            </Flex>
-          </div>
-
-          <Button type="text" onClick={() => scroll("right")} aria-label="Scroll right">
-            <RightOutlined twoToneColor={themeToken.token?.colorTextSecondary}/>
-          </Button>
-
-        </Flex>
-
-      </Flex>
-    </AppCard>
+  </Flex>
+</AppCard>
   );
 };
 

@@ -2,12 +2,11 @@
 
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { LikeOutlined, ContainerOutlined, RightCircleTwoTone } from "@ant-design/icons"
+import { LikeOutlined,  RightCircleTwoTone, LikeFilled } from "@ant-design/icons"
 import { useDispatch } from "react-redux"
 import { addLikeAsync, addLikeR } from "../../store/paintingSlice"
 import type { AppDispatch } from "../../store/store"
 import { type PaintingType } from "../../store/paintingSlice"
-import UserDetails from "../user/UserDetails"
 import DownloadButton from "../common/DownloadButton"
 import useAlert from "../../Hooks/useAlert"
 import { AppAlert } from "../common/AppAlert"
@@ -18,9 +17,7 @@ import AppTag from "../common/AppTag"
 import { themeToken } from "../../theme/token"
 import { AppImagePreview } from "../common/AppImage"
 import AppButton from "../common/AppButton"
-import { AppCaption } from "../common/AppText"
 import { Flex } from "antd"
-import { spacing } from "../../theme/constant"
 
 
 const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,category: string, userId: number }) => {
@@ -62,62 +59,66 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
   
 
 
-  return (
-  <AppCard style={{ height: "100%" }}>
-    <Flex vertical gap={spacing.md}>
-      
-      <Flex justify="space-between" align="flex-start" gap={spacing.sm}>
-        <AppTitle>
-          {painting.name}
-        </AppTitle>
+  return (alert.isVisible ? <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} /> : (
+  <AppCard
+  style={{
+    height: 360,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  }}
+  bodyStyle={{ padding: 12 }}
+>
+  <Flex vertical gap={8} style={{ height: "100%" }}>
 
-        <Flex gap={spacing.xs}>
-          <DownloadButton url={painting.url} />
+    {/* Title + actions */}
+    <Flex justify="space-between" align="center">
+      <AppTitle level={5} style={{ margin: 0 }}>
+        {painting.name}
+      </AppTitle>
 
-          {painting.ownerId === userId && (
-            <DeletePaintingButton painting={painting} />
-          )}
-        </Flex>
+      <Flex gap={4}>
+        <DownloadButton url={painting.url}  />
+        {painting.ownerId === userId && (
+          <DeletePaintingButton painting={painting}  />
+        )}
       </Flex>
-
-      <UserDetails id={painting.ownerId} short={true} />
-
-      <Flex wrap gap={spacing.sm}>
-        <AppTag color={themeToken.token?.colorTextSecondary}>
-          <ContainerOutlined twoToneColor={themeToken.token?.colorInfo} />
-          {category}
-        </AppTag>
-
-        <AppTag color={themeToken.token?.colorText}>
-          <LikeOutlined twoToneColor={themeToken.token?.colorPrimary} />
-          {painting.likes + sessionLikes}
-        </AppTag>
-      </Flex>
-
-      <AppImagePreview src={painting.url} className="max-h-[220px]" />
-
-      <Flex justify="space-between" align="center">
-        <AppButton
-          type="dashed"
-          onClick={handleLike}
-          icon={<LikeOutlined />}
-        >
-          <AppCaption>Like</AppCaption>
-        </AppButton>
-
-        <AppButton onClick={handleNavigate}>
-          <RightCircleTwoTone />
-        </AppButton>
-      </Flex>
-
-      <AppAlert
-        type={alert.type}
-        message={alert.message}
-        isVisible={alert.isVisible}
-      />
     </Flex>
-  </AppCard>
-);
+
+    {/* Image */}
+    <AppImagePreview
+      src={painting.url}
+      style={{
+        height: 160,
+        objectFit: "cover",
+        borderRadius: 12,
+      }}
+    />
+
+    {/* Tags */}
+    <Flex justify="space-between">
+      <AppTag color={themeToken.token?.colorTextSecondary}>
+        {category}
+      </AppTag>
+      <AppTag>
+        {painting.likes + sessionLikes}<LikeFilled style={{ marginLeft: 4 }} />
+      </AppTag>
+    </Flex>
+
+    {/* Actions */}
+    <Flex justify="space-between">
+      <AppButton  onClick={handleLike}>
+        <LikeOutlined /> Love
+      </AppButton>
+
+      <AppButton  onClick={handleNavigate} icon={<RightCircleTwoTone />}>
+         View
+      </AppButton>
+    </Flex>
+
+  </Flex>
+</AppCard>
+));
 }
 
 export default ShowPainting

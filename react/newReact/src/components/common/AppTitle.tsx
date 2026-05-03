@@ -10,9 +10,10 @@ type TitleProps = {
   level?: 1 | 2 | 3 | 4 | 5;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  props?: React.HTMLAttributes<HTMLHeadingElement>;
 };
 
-const AppTitle: React.FC<TitleProps> = ({ level = 1, children, style }) => {
+const AppTitle: React.FC<TitleProps> = ({ level = 1, children, style, props }) => {
   return (
     <AntTitle
       level={level}
@@ -25,6 +26,7 @@ const AppTitle: React.FC<TitleProps> = ({ level = 1, children, style }) => {
         color: themeToken.token?.colorPrimary,
         ...style,
       }}
+      {...props}
     >
       {children}
     </AntTitle>

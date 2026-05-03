@@ -17,14 +17,16 @@ interface ModalWrapperProps {
     actions: Action[];
     visible: boolean;
     onClose: () => void;
+    closeAble?: boolean;
 }
 
-const AppModal: React.FC<ModalWrapperProps> = ({ title, description, actions, visible, onClose }) => {
+const AppModal: React.FC<ModalWrapperProps> = ({ title, description, actions, visible, onClose , closeAble = true }) => {
     return (
 
         <Modal
             title={<Title level={4} style={{ margin: 0 }}>{title}</Title>}
             open={visible}
+            closable={closeAble}
             onCancel={onClose}
             footer={null}
             bodyStyle={{
