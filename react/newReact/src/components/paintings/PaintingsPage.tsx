@@ -210,7 +210,7 @@ const PaintingsPage: React.FC = () => {
         {/* SEARCH */}
         <Row style={{width: "100%"}}>
           
-            <Col span={24} md={16}>
+            <Col  md={16}>
           <AppInput
           suffix={<SearchOutlined />}
             placeholder="Search for masterpieces by name..."
@@ -219,8 +219,8 @@ const PaintingsPage: React.FC = () => {
             allowClear
             style={{ maxWidth:"70%" }}
           /></Col>
-            <Col span={24} md={8} style={{ display: "flex", justifyContent: "center", marginTop: spacing.sm, marginBottom: spacing.sm }}>
-          <AppButton style={{maxWidth:"30%"}} onClick={handleMagicSearch}>
+            <Col  md={8} style={{ display: "flex", justifyContent: "center", marginTop: spacing.sm, marginBottom: spacing.sm }}>
+          <AppButton onClick={handleMagicSearch}>
             ✨ Magic Search
           </AppButton></Col>
         </Row>
