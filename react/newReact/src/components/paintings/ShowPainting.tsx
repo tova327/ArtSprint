@@ -59,7 +59,7 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
   
 
 
-  return (alert.isVisible ? <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} /> : (
+  return (<>{alert.isVisible && <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} />}  
   <AppCard
   style={{
     height:"100%",
@@ -120,7 +120,7 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
 
   </Flex>
 </AppCard>
-));
+</>);
 }
 
 export default ShowPainting

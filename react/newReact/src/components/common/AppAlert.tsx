@@ -8,7 +8,7 @@ export const AppAlert = ({ type, message, isVisible }: AlertType) => {
 
   return (
     <>
-      {isVisible && <Alert type={type} message={message} showIcon />}
+      {isVisible && <Alert type={type} message={message} showIcon style={{position: 'fixed', zIndex:99999, top: 15}}/>}
     </>
   );
 };

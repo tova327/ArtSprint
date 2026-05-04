@@ -43,10 +43,12 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
   size="small"
   style={{
     background: themeToken.token?.colorBgContainer,
-    border: themeToken.token ? `1px solid ${themeToken.token.colorBorder}` : undefined,
+    border: themeToken.token
+      ? `1px solid ${themeToken.token.colorBorder}`
+      : undefined,
     borderRadius: themeToken.components?.Card?.borderRadiusLG,
   }}
-  bodyStyle={{ padding: 12 }}
+  bodyStyle={{ padding: 8 }}
 >
   <Flex vertical gap={8}>
 
@@ -68,34 +70,74 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
         }}
       >
         <Flex gap={8} wrap={false}>
-          {paintings.map((painting,index) => (
+          {paintings.map((painting, index) => (
             <AppCard
               key={painting.id}
               style={{
-                minWidth: 160,
-                maxWidth: 180,
-                borderRadius: 12,
+                minWidth: 220,
+                maxWidth: 240,
+                borderRadius: 10,
+                height: 90, // 🔥 גובה קטן וקבוע
               }}
-              bodyStyle={{ padding: 8 }}
-              
+              bodyStyle={{ padding: 6 }}
             >
-              <Flex vertical gap={4}>
+              {/* 🔥 Splitter layout */}
+              <Flex style={{ height: "100%" }}>
 
-                <AppTag color={themeToken.token?.colorPrimary}>{tagContent}</AppTag>
+                {/* שמאל - טקסט */}
+                <Flex
+                  vertical
+                  justify="space-between"
+                  style={{
+                    flex: 1,
+                    overflow: "hidden",
+                  }}
+                >
+                  <AppTag color={themeToken.token?.colorPrimary}>
+                    {tagContent}
+                  </AppTag>
 
-                <AppTitle level={5} >
-                  {painting.name}
-                </AppTitle>
+                  <AppTitle
+                    level={5}
+                    style={{
+                      fontSize: 12,
+                      margin: 0,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {painting.name}
+                  </AppTitle>
 
-                <AppImagePreview
-                  src={painting.url}
-                  
-                />
+                  <AppTag
+                    color={themeToken.token?.colorTextSecondary}
+                    style={{ fontSize: 10 }}
+                  >
+                    {categories[index % categories.length]}
+                  </AppTag>
+                </Flex>
+
+                {/* ימין - תמונה */}
+                <div
+                  style={{
+                    width: 70,
+                    marginLeft: 6,
+                    flexShrink: 0,
+                  }}
+                >
+                  <AppImagePreview
+                    src={painting.url}
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                      borderRadius: 8,
+                    }}
+                  />
+                </div>
 
               </Flex>
-              <AppTag color={themeToken.token?.colorTextSecondary}>
-                {categories[index % categories.length]}
-              </AppTag>
             </AppCard>
           ))}
         </Flex>

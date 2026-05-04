@@ -10,7 +10,7 @@ export const colors = {
 
   bgBase: '#F7F9FC',
   bgLayout: '#F2F5FA',
-  surface: '#e6dac3',
+  surface: '#00ff44',
 
   textPrimary: '#1F2937',
   textSecondary: '#6B7280',
