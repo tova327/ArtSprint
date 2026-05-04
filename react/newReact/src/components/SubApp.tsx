@@ -18,6 +18,7 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
 } from "@ant-design/icons";
+import { themeToken } from "../theme/token"
 
 const { Content } = Layout
 
@@ -37,7 +38,7 @@ const toggleCollapsed = () => {
     <AppSection>
      
         <Layout style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider collapsed={collapsed} collapsible onCollapse={toggleCollapsed} width={260} style={{ minHeight: "100%", background: "transparent", borderRight: "1px solid rgba(255, 255, 255, 0.2)", flex: "0 0 260px", maxWidth: 260, minWidth: 260 }}>
+          <Sider collapsed={collapsed} collapsible onCollapse={toggleCollapsed} width={260} style={{ minHeight: "100%", background: "transparent", borderRight: themeToken.token?.colorBorder, flex: "0 0 260px", maxWidth: "20%", minWidth: "20%" }}>
          <AppButton
                          type="primary"
                          onClick={toggleCollapsed}
@@ -50,7 +51,7 @@ const toggleCollapsed = () => {
          
           <NavBarDraft />
           </Sider>
-          <Content style={{ padding: "24px", background: "transparent" }}>
+          <Content style={{ padding: themeToken.token?.padding, minHeight: "100%", width: collapsed ? "100%" : "80%", maxWidth: "100%" }}>
            
               <Routes>
                 

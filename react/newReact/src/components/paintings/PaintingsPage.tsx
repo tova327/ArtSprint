@@ -184,7 +184,7 @@ const PaintingsPage: React.FC = () => {
     <Layout style={{ background: "transparent", gap: spacing.md ,minHeight: "100vh", width: "100%" }}>
 
       {/* HEADER - רק עיצוב */}
-     { latest.length > 0 &&  <Header style={{ padding: 0}}>
+     { latest.length > 0 &&  <Header style={{ padding: 0, width: "100%" }}>
       
           <SelectedPaintings
             paintings={latest}
@@ -199,9 +199,9 @@ const PaintingsPage: React.FC = () => {
       <Content
         style={{
           padding: spacing.md,
-          background: themeToken.token?.colorBgContainer,
+          backgroundColor: themeToken.token?.colorBgContainer,
           borderRadius: themeToken.token?.borderRadius,
-          border: themeToken.token?.colorBorder,
+          borderColor: themeToken.token?.colorBorder,
           flex: "1 1 auto",
           width: "100%",
         }}
@@ -247,7 +247,7 @@ const PaintingsPage: React.FC = () => {
 
         {/* GRID */}
         {filteredPaintings.length > 0 ? (
-          <Row gutter={[16, 16]}>
+          <Row gutter={[window.innerWidth/16, window.innerWidth/16]} justify="space-around">
             {filteredPaintings.map((painting: PaintingType) => (
               <Col
                 key={painting.id}
@@ -279,7 +279,7 @@ const PaintingsPage: React.FC = () => {
 
       {/* FOOTER - רק עיצוב */}
       {popular.length > 0 && (
-        <Footer style={{ padding: 0}}>
+        <Footer style={{ padding: 0, width: "100%" }}>
          
             <SelectedPaintings
               paintings={popular}

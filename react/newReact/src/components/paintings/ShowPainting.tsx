@@ -62,8 +62,8 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
   return (alert.isVisible ? <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} /> : (
   <AppCard
   style={{
-    height:200,
-    width: 240,
+    height:"100%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -73,8 +73,8 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
   <Flex vertical gap={8} style={{ height: "100%",width: "100%" }}>
 
     {/* Title + actions */}
-    <Flex justify="space-between" align="center">
-      <AppTitle level={5} style={{ margin: 0 }}>
+    <Flex justify="space-between" align="center" vertical>
+      <AppTitle level={5} style={{ margin: 0 ,display:"block",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",maxWidth:"70%"}}>
         {painting.name}
       </AppTitle>
 
