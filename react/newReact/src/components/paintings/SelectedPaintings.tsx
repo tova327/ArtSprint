@@ -42,9 +42,9 @@ const SelectedPaintings:FC<SelectedPaintingsProps> = ({paintings, categories, ti
   <AppCard
   size="small"
   style={{
-    background: "rgba(255,255,255,0.65)",
-    border: "1px solid rgba(98,120,197,0.12)",
-    borderRadius: 16,
+    background: themeToken.token?.colorBgContainer,
+    border: themeToken.token ? `1px solid ${themeToken.token.colorBorder}` : undefined,
+    borderRadius: themeToken.components?.Card?.borderRadiusLG,
   }}
   bodyStyle={{ padding: 12 }}
 >

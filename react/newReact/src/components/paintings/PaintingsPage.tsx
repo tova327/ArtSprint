@@ -181,10 +181,10 @@ const PaintingsPage: React.FC = () => {
 
     
 
-    <Layout style={{ background: "transparent", gap: spacing.md ,minHeight: "100vh", width: "100%" }}>
+    <Layout style={{ background: "transparent", gap: spacing.md ,height: "100vh", width: "100%" }}>
 
       {/* HEADER - רק עיצוב */}
-     { latest.length > 0 &&  <Header style={{ padding: 0, width: "100%" }}>
+     { latest.length > 0 &&  <Header style={{ padding: 0, width: "100%" , flex: "0 0 20%"}}>
       
           <SelectedPaintings
             paintings={latest}
@@ -203,7 +203,7 @@ const PaintingsPage: React.FC = () => {
           borderRadius: themeToken.token?.borderRadius,
           borderColor: themeToken.token?.colorBorder,
           flex: "1 1 auto",
-          width: "100%",
+          overflowY: "auto",
         }}
       >
         <Flex justify="center" gap={spacing.sm} wrap vertical align="center">
@@ -277,7 +277,7 @@ const PaintingsPage: React.FC = () => {
 
       {/* FOOTER - רק עיצוב */}
       {popular.length > 0 && (
-        <Footer style={{ padding: 0, width: "100%" }}>
+        <Footer style={{ padding: 0, width: "100%",flex: "0 0 20%" }}>
          
             <SelectedPaintings
               paintings={popular}
