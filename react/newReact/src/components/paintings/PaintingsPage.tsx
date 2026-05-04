@@ -247,7 +247,7 @@ const PaintingsPage: React.FC = () => {
 
         {/* GRID */}
         {filteredPaintings.length > 0 ? (
-          <Row gutter={[window.innerWidth/16, window.innerWidth/16]} justify="space-around">
+          <Row gutter={[24, 24]} justify="space-around">
             {filteredPaintings.map((painting: PaintingType) => (
               <Col
                 key={painting.id}
