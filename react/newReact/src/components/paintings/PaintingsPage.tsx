@@ -206,7 +206,7 @@ const PaintingsPage: React.FC = () => {
           overflowY: "auto",
         }}
       >
-        <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{width: "100%"}}>
+        <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{width: "100%", alignItems: "stretch"}}>
         {/* SEARCH */}
         <Row style={{width: "100%"}}>
           
@@ -248,7 +248,7 @@ const PaintingsPage: React.FC = () => {
 
         {/* GRID */}
         {filteredPaintings.length > 0 ? (
-          <Row gutter={[12, 12]} justify="center">
+          <Row gutter={[12, 12]} justify="space-between">
             {filteredPaintings.map((painting: PaintingType) => (
               <Col
                 key={painting.id}
