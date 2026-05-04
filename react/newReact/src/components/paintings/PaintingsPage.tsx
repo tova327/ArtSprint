@@ -208,9 +208,9 @@ const PaintingsPage: React.FC = () => {
       >
         <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{width: "100%"}}>
         {/* SEARCH */}
-        <Flex justify="space-between" gap={spacing.sm} wrap vertical={false} align="center" style={{width: "100%"}}>
+        <Row style={{width: "100%"}}>
           
-
+            <Col span={24} md={16}>
           <AppInput
           suffix={<SearchOutlined />}
             placeholder="Search for masterpieces by name..."
@@ -218,12 +218,12 @@ const PaintingsPage: React.FC = () => {
             onChange={handleSearch}
             allowClear
             style={{ maxWidth:"70%" }}
-          />
-
+          /></Col>
+            <Col span={24} md={8} style={{ display: "flex", justifyContent: "center", marginTop: spacing.sm, marginBottom: spacing.sm }}>
           <AppButton style={{maxWidth:"30%"}} onClick={handleMagicSearch}>
             ✨ Magic Search
-          </AppButton>
-        </Flex>
+          </AppButton></Col>
+        </Row>
 
         {/* UPLOAD */}
         <Flex
