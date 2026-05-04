@@ -67,7 +67,11 @@ const NavBarDraft: React.FC = () => {
     }, [categories]);
 
     const handleCategoryClick = (category: CategoryType) => {
-        navigate(`/?subject=${encodeURIComponent(category.name)}`);
+        if (category.name === currentSubject) {
+            navigate(`/`)
+        } else {
+            navigate(`/?subject=${encodeURIComponent(category.name)}`);
+        }
     };
 
     const buildMenuItems = (
