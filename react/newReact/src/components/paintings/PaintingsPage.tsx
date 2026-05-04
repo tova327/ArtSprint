@@ -208,7 +208,7 @@ const PaintingsPage: React.FC = () => {
       >
         <Flex justify="center" gap={spacing.sm} wrap vertical align="center">
         {/* SEARCH */}
-        <Flex justify="center" gap={spacing.sm} wrap vertical={false} align="center">
+        <Flex justify="space-between" gap={spacing.sm} wrap vertical={false} align="center">
           
 
           <AppInput

@@ -88,7 +88,7 @@ const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, categories, 
                     </Flex>
                   </Splitter.Panel>
                   <Splitter.Panel>
-                    <AppImagePreview src={painting.url} style={{maxHeight:40}} />
+                    <AppImagePreview src={painting.url} style={{maxHeight:80, maxWidth:120, objectFit:"cover"}} />
                   </Splitter.Panel>
                 </Splitter>
               ))}

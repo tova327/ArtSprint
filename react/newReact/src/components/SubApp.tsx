@@ -13,7 +13,7 @@ import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
 import AppSection from "./common/AppSection"
 import { themeToken } from "../theme/token"
-import AppSider from "./common/AppSider"
+import Sider from "antd/es/layout/Sider"
 
 const { Content } = Layout
 
@@ -29,13 +29,22 @@ const [collapsed, setCollapsed] = useState(false);
 const toggleCollapsed = () => {
         setCollapsed((prev) => !prev);
     };
+    const siderStyle: React.CSSProperties = {
+  overflow: 'auto',
+  height: '100vh',
+  position: 'sticky',
+  insetInlineStart: 0,
+  top: 0,
+  scrollbarWidth: 'thin',
+  scrollbarGutter: 'stable',
+};
   return (
     <AppSection>
      
         <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <AppSider  collapsed={collapsed} toggleCollapsed={toggleCollapsed}>
+          <Sider  width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={{...siderStyle,borderRight: themeToken.token?.colorBorder, flex: "0 0 260px", maxWidth: "20%", minWidth: "20%"}}>
           <NavBarDraft />
-          </AppSider>
+          </Sider>
           <Content style={{ padding: themeToken.token?.padding, minHeight: "100%", width: collapsed ? "100%" : "80%", maxWidth: "100%" }}>
            
               <Routes>
