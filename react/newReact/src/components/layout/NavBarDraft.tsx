@@ -102,8 +102,6 @@ const NavBarDraft: React.FC = () => {
 
             <Menu
                 mode="inline"
-                theme="dark"
-                
                 selectedKeys={
                     currentSubject
                         ? [categories.find(
