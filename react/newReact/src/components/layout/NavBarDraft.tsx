@@ -13,6 +13,7 @@ import { CategoryType, fetchCategoriesAsync, getCategoryHierarchy } from "../../
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
 import { AppSpinner } from "../common/AppSpinner";
+import { themeToken } from "../../theme/token";
 
 
 const NavBarDraft: React.FC = () => {
@@ -89,7 +90,7 @@ const NavBarDraft: React.FC = () => {
     
 
     return (
-        <div style={{ minHeight: "100vh", background: "transparent" }}>
+        <div style={{color: themeToken.token?.colorText,backgroundColor: themeToken.token?.colorPrimary, minHeight: "100vh", background: "transparent" }}>
 
             
             <AppAlert

@@ -11,14 +11,9 @@ import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
-import Sider from "antd/es/layout/Sider"
 import AppSection from "./common/AppSection"
-import AppButton from "./common/AppButton"
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-} from "@ant-design/icons";
 import { themeToken } from "../theme/token"
+import AppSider from "./common/AppSider"
 
 const { Content } = Layout
 
@@ -37,20 +32,10 @@ const toggleCollapsed = () => {
   return (
     <AppSection>
      
-        <Layout style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider collapsed={collapsed} collapsible onCollapse={toggleCollapsed} width={260} style={{ minHeight: "100%", background: "transparent", borderRight: themeToken.token?.colorBorder, flex: "0 0 260px", maxWidth: "20%", minWidth: "20%" }}>
-         <AppButton
-                         type="primary"
-                         onClick={toggleCollapsed}
-                         style={{ marginBottom: 16 }}
-                     >
-                         {collapsed
-                             ? <MenuUnfoldOutlined />
-                             : <MenuFoldOutlined />}
-                     </AppButton>
-         
+        <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
+          <AppSider  collapsed={collapsed} toggleCollapsed={toggleCollapsed}>
           <NavBarDraft />
-          </Sider>
+          </AppSider>
           <Content style={{ padding: themeToken.token?.padding, minHeight: "100%", width: collapsed ? "100%" : "80%", maxWidth: "100%" }}>
            
               <Routes>

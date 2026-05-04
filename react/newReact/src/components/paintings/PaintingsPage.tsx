@@ -209,17 +209,18 @@ const PaintingsPage: React.FC = () => {
         <Flex justify="center" gap={spacing.sm} wrap vertical align="center">
         {/* SEARCH */}
         <Flex justify="center" gap={spacing.sm} wrap vertical={false} align="center">
-          <SearchOutlined />
+          
 
           <AppInput
+          suffix={<SearchOutlined />}
             placeholder="Search for masterpieces by name..."
             value={searchQuery}
             onChange={handleSearch}
             allowClear
-            style={{ maxWidth: 400 }}
+            style={{ maxWidth:"70%" }}
           />
 
-          <AppButton onClick={handleMagicSearch}>
+          <AppButton style={{maxWidth:"30%"}} onClick={handleMagicSearch}>
             ✨ Magic Search
           </AppButton>
         </Flex>

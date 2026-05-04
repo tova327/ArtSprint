@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useRef } from "react";
-import {  Button, Flex, Splitter } from "antd";
+import {  Button, Col, Flex, Row, Splitter } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import AppCard from "../common/AppCard";
 import { AppEmpty } from "../common/AppEmpty";
@@ -70,25 +70,25 @@ const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, categories, 
               flex: 1,
             }}
           >
-            <Flex gap={8} wrap>
+            <Flex gap={8} wrap={false} style={{ width: "max-content", paddingBottom: 4 }}>
               {paintings.map((painting, index) => (
                 <Splitter style={{ padding: 15, boxShadow: themeToken.components?.Card?.boxShadow , flex: "0 0 auto", borderRadius: themeToken.components?.Card?.borderRadiusLG }} key={painting.id}>
-                  <Splitter.Panel defaultSize="40%">
-                    <Flex vertical gap={4} align="center" style={{ height: "100%", padding: 8 }}>
-                      <AppTitle level={5} style={{ margin: 0, textAlign: "center", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                  <Splitter.Panel size="40%">
+                    <Flex vertical gap={4} align="space-between" style={{ height: "100%", padding: 8 }}>
+                      <AppTitle level={5} style={{display:"block"}}>
                         {painting.name}
                       </AppTitle>
-                      <Flex vertical={false} gap={8}> 
-                        <AppCaption >{tagContent}</AppCaption>
-                        <AppTag color={themeToken.token?.colorTextSecondary}>
+                      <Row align="middle" justify="space-between" style={{ width: "100%" }}> 
+                        <Col><AppCaption >{tagContent}</AppCaption></Col>
+                        <Col><AppTag color={themeToken.token?.colorTextSecondary}>
                           {categories[index] || "Uncategorized"}
-                        </AppTag>
+                        </AppTag></Col>
 
-                      </Flex>
+                      </Row>
                     </Flex>
                   </Splitter.Panel>
                   <Splitter.Panel>
-                    <AppImagePreview src={painting.url} />
+                    <AppImagePreview src={painting.url} style={{maxHeight:"100%"}} />
                   </Splitter.Panel>
                 </Splitter>
               ))}
