@@ -206,9 +206,9 @@ const PaintingsPage: React.FC = () => {
           overflowY: "auto",
         }}
       >
-        <Flex justify="center" gap={spacing.sm} wrap vertical align="center">
+        <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{width: "100%"}}>
         {/* SEARCH */}
-        <Flex justify="space-between" gap={spacing.sm} wrap vertical={false} align="center">
+        <Flex justify="space-between" gap={spacing.sm} wrap vertical={false} align="center" style={{width: "100%"}}>
           
 
           <AppInput
