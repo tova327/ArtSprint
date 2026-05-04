@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: any) => {
 
       try {
         const res = await api.post("/auth/authuser", { token });
-        dispatch(setUser(res.data));
+        dispatch(setUser(res.data.user ?? res.data));
       } catch {
         logout();
       }
@@ -67,12 +67,8 @@ export const AuthProvider = ({ children }: any) => {
     });
 
     const token = res.data.token;
-    const refreshToken = res.data.refreshToken;
 
     sessionStorage.setItem("authToken", token);
-    if (refreshToken) {
-      sessionStorage.setItem("refreshToken", refreshToken);
-    }
 
     dispatch(setUser(res.data.user));
 
@@ -91,12 +87,8 @@ export const AuthProvider = ({ children }: any) => {
     const res = await api.post("/auth/register", userDetails);
 
     const token = res.data.token;
-    const refreshToken = res.data.refreshToken;
 
     sessionStorage.setItem("authToken", token);
-    if (refreshToken) {
-      sessionStorage.setItem("refreshToken", refreshToken);
-    }
 
     dispatch(setUser(res.data.user));
 
@@ -108,7 +100,6 @@ export const AuthProvider = ({ children }: any) => {
   // --------------------
   const logout = () => {
     sessionStorage.removeItem("authToken");
-    sessionStorage.removeItem("refreshToken");
 
     dispatch(reduxLogout());
 
