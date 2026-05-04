@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: any) => {
 
       try {
         const res = await api.post("/auth/authuser", { token });
-        dispatch(setUser(res));
+        dispatch(setUser(res.data.user));
       } catch {
         logout();
       }
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }: any) => {
 
     sessionStorage.setItem("authToken", token);
 
-    dispatch(setUser(res));
+    dispatch(setUser(res.data.user));
 
     navigate("/");
   };
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: any) => {
 
     sessionStorage.setItem("authToken", token);
 
-    dispatch(setUser(res));
+    dispatch(setUser(res.data.user));
 
     navigate("/");
   };
