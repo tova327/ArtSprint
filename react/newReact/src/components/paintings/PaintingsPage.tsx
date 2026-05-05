@@ -169,7 +169,7 @@ const PaintingsPage: React.FC = () => {
             </Layout> */}
 
    return (
-  <Flex vertical gap={spacing.lg} style={{ minHeight: "100%", width: "100%" }}>
+  <Flex vertical align="center" gap={spacing.lg} style={{ minHeight: "100vh", width: "100vw" }}>
     
     <AppAlert
       isVisible={alert.isVisible}
@@ -181,13 +181,13 @@ const PaintingsPage: React.FC = () => {
 
     
 
-    <Layout style={{ background: "transparent", gap: spacing.md ,height: "100vh", width: "100%" }}>
+    <Layout style={{ background: "transparent", gap: spacing.md ,minHeight: "100vh", width: "100%" ,flexDirection: "column"}}>
 
       {/* HEADER - רק עיצוב */}
-     { latest.length > 0 && <Header style={{ padding: 0, width: "100%", flex: "0 0 auto" }}>
+     { latest.length > 0 && <Header style={{backgroundColor: themeToken.token?.colorPrimary, padding: 0, width: "100%", flex: "0 0 auto" }}>
   <Tabs
     defaultActiveKey="latest"
-    centered
+    
     size="small"
     items={[
       {
@@ -229,7 +229,6 @@ const PaintingsPage: React.FC = () => {
           borderColor: themeToken.token?.colorBorder,
           flex: "1 1 auto",
           overflowY: "auto",
-          marginTop:spacing.xl
         }}
       >
         <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{width: "100%", alignItems: "stretch"}}>
@@ -281,7 +280,6 @@ const PaintingsPage: React.FC = () => {
                 xs={24}
                 md={12}
                 lg={8}
-                xl={6}
               >
                 <ShowPainting
                   painting={painting}
