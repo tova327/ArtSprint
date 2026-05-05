@@ -66,7 +66,7 @@ const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, categories, 
           >
             <Flex gap={8} wrap={false} style={{ width: "max-content", paddingBottom: 4 }}>
               {paintings.map((painting, index) => (
-                <Splitter style={{width:300, padding: 15, boxShadow: themeToken.components?.Card?.boxShadow , flex: "0 0 auto", borderRadius: themeToken.components?.Card?.borderRadiusLG }} key={painting.id}>
+                <Splitter style={{width:300, padding: 15,border: `3px solid ${themeToken.token?.colorBorder}`, boxShadow: themeToken.components?.Card?.boxShadow , flex: "0 0 auto", borderRadius: themeToken.components?.Card?.borderRadiusLG }} key={painting.id}>
                   <Splitter.Panel size="40%">
                     <Flex vertical gap={4} align="space-between" style={{ height: "100%", padding: 8 }}>
                       <AppTitle level={5} style={{display:"block"}}>

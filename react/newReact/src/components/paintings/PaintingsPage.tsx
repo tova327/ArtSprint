@@ -190,7 +190,7 @@ const PaintingsPage: React.FC = () => {
     <Layout style={{ background: "transparent", gap: spacing.md ,minHeight: "100vh", width: "100%" ,flexDirection: "column"}}>
 
       {/* HEADER - רק עיצוב */}
-     { latest.length > 0 && <Header style={{backgroundColor: themeToken.token?.colorPrimary, padding: 0, width: "100%", flex: "0 0 auto" }}>
+     { latest.length > 0 && <Header style={{ padding: spacing.md, width: "100%", flex: "0 0 auto" }}>
   <Tabs
     defaultActiveKey="latest"
     
