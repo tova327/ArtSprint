@@ -37,6 +37,7 @@ const toggleCollapsed = () => {
   top: 0,
   scrollbarWidth: 'thin',
   scrollbarGutter: 'stable',
+  background:themeToken.token?.colorBgContainer,
 };
   return (
     <AppSection>

@@ -109,8 +109,8 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
 
     {/* Actions */}
     <Flex justify="space-between" vertical={false} align="center">
-      <AppButton  onClick={handleLike}>
-        <LikeOutlined /> Love
+      <AppButton type="text" onClick={handleLike} icon={sessionLikes > 0 ? <LikeFilled /> : <LikeOutlined />} >
+        Love
       </AppButton>
 
       <AppButton  onClick={handleNavigate} icon={<RightCircleTwoTone />}>

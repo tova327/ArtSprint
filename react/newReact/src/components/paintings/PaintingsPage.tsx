@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Flex, Layout } from "antd";
+import { Row, Col, Flex, Layout, Tabs } from "antd";
 import type { AppDispatch, StoreType } from "../../store/store";
 import {
     fetchPaintingsAsync,
@@ -29,7 +29,7 @@ import AppInput from "../common/AppInput";
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
 import SelectedPaintings from "./SelectedPaintings";
-import { Content, Footer, Header } from "antd/es/layout/layout";
+import { Content, Header } from "antd/es/layout/layout";
 import { themeToken } from "../../theme/token";
 
 
@@ -184,16 +184,41 @@ const PaintingsPage: React.FC = () => {
     <Layout style={{ background: "transparent", gap: spacing.md ,height: "100vh", width: "100%" }}>
 
       {/* HEADER - רק עיצוב */}
-     { latest.length > 0 &&  <Header style={{ padding: 0, width: "100%" , flex: "0 0 20%"}}>
-      
+     { latest.length > 0 && <Header style={{ padding: 0, width: "100%", flex: "0 0 auto" }}>
+  <Tabs
+    defaultActiveKey="latest"
+    centered
+    size="small"
+    items={[
+      {
+        key: "latest",
+        label: "✨ Fresh",
+        children: latest.length > 0 && (
           <SelectedPaintings
             paintings={latest}
             categories={latestCategories}
-            title="✨ Fresh Creations ✨"
+            title=""
             tagContent="NEW"
           />
-        
-      </Header>}
+        ),
+      },
+      {
+        key: "popular",
+        label: "🔥 Popular",
+        children: popular.length > 0 ?(
+          <SelectedPaintings
+            paintings={popular}
+            categories={popularCategories}
+            title=""
+            tagContent="POPULAR"
+          />
+        ):(
+          <AppEmpty description="No popular masterpieces yet! Create and share your art to see it here." />
+        ),
+      },
+    ]}
+  />
+</Header>}
 
       {/* CONTENT */}
       <Content
@@ -204,6 +229,7 @@ const PaintingsPage: React.FC = () => {
           borderColor: themeToken.token?.colorBorder,
           flex: "1 1 auto",
           overflowY: "auto",
+          marginTop:spacing.xl
         }}
       >
         <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{width: "100%", alignItems: "stretch"}}>
@@ -276,18 +302,8 @@ const PaintingsPage: React.FC = () => {
         </Flex>
       </Content>
 
-      {/* FOOTER - רק עיצוב */}
-      {popular.length > 0 && (
-        <Footer style={{ padding: 0, width: "100%",flex: "0 0 20%" }}>
-         
-            <SelectedPaintings
-              paintings={popular}
-              categories={popularCategories}
-              title="✨ Popular Masterpieces ✨"
-            tagContent="POPULAR"
-          />
-       
-      </Footer>)}
+      
+      
 
     </Layout>
   </Flex>

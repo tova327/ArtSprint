@@ -66,13 +66,7 @@ const NavBarDraft: React.FC = () => {
         return getCategoryHierarchy(categories);
     }, [categories]);
 
-    const handleCategoryClick = (category: CategoryType) => {
-        if (+category.id === +currentSubject) {
-            navigate(`/`)
-        } else {
-            navigate(`/?catid=${encodeURIComponent(category.id)}`);
-        }
-    };
+    
 
     const buildMenuItems = (
         categoriesTree: CategoryType[]
@@ -81,7 +75,7 @@ const NavBarDraft: React.FC = () => {
             key: category.id.toString(),
             icon: <PieChartOutlined />,
             label: category.name,
-            onClick: () => handleCategoryClick(category),
+           
 
             children:
                 category.subCategories.length > 0
@@ -90,7 +84,15 @@ const NavBarDraft: React.FC = () => {
         }));
     };
 
-    
+    const handleMenuClick: MenuProps["onClick"] = (e) => {
+    const clickedId = e.key;
+
+    if (clickedId === currentSubject) {
+        navigate(`/`);
+    } else {
+        navigate(`/?catid=${encodeURIComponent(clickedId)}`);
+    }
+};
 
     return (
         <div >
@@ -106,14 +108,9 @@ const NavBarDraft: React.FC = () => {
 
             <Menu
                 mode="inline"
-                selectedKeys={
-                    currentSubject
-                        ? [categories.find(
-                            c => c.id === +currentSubject
-                        )?.id?.toString() || ""]
-                        : []
-                }
+                selectedKeys={currentSubject ? [currentSubject] : []}
                 items={buildMenuItems(hierarchy)}
+                onClick={handleMenuClick}
             />
         </div>
     );
