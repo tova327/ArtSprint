@@ -26,9 +26,7 @@ const NavBarDraft: React.FC = () => {
         (store: StoreType) => store.categories.loading
     );
 
-    const error = useSelector(
-        (store: StoreType) => store.categories.error
-    );
+    
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -48,19 +46,14 @@ const NavBarDraft: React.FC = () => {
     });
 
     useEffect(() => {
-        if (categories.length === 0) {
+        try{
             dispatch(fetchCategoriesAsync());
+        }catch(e: any){
+            handleOpenAlert("error", "Failed to load categories: " + e.message);
         }
-    }, [dispatch, categories.length]);
+    }, []);
 
-    useEffect(() => {
-        if (error) {
-            handleOpenAlert(
-                "error",
-                "Failed to load categories: " + error
-            );
-        }
-    }, [error, handleOpenAlert]);
+   
 
     const hierarchy = useMemo(() => {
         return getCategoryHierarchy(categories);

@@ -238,7 +238,7 @@ const PaintingsPage: React.FC = () => {
                 <Content
                     style={{
                         padding: spacing.md,
-                        backgroundColor: themeToken.token?.colorBgBase,
+                        backgroundColor: themeToken.token?.colorBgContainer,
                         borderRadius: themeToken.token?.borderRadius,
                         borderColor: themeToken.token?.colorBorder,
                         flex: "1 1 auto",
