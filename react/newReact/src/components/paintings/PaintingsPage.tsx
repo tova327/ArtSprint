@@ -254,7 +254,7 @@ const PaintingsPage: React.FC = () => {
                 key={painting.id}
                 xs={24}
                 md={12}
-                lg={8}
+                lg={6}
                 xl={6}
               >
                 <ShowPainting
