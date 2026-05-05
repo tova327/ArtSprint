@@ -80,6 +80,8 @@ const PaintingsPage: React.FC = () => {
             .slice(0, 8);
     }, [paintings]);
     const latestCategories = useMemo(() => {
+        console.log("in use memo"+latestCategories);
+        
         return latest.map((p) =>
             getCategoryNameById(categories, p.category)
         );
@@ -183,7 +185,7 @@ const PaintingsPage: React.FC = () => {
             </Layout> */}
 
     return (
-        <Flex vertical align="center" gap={spacing.lg} style={{ minHeight: "100vh", width: "100vw" }}>
+        <Flex vertical align="center" gap={spacing.lg} style={{ minHeight: "100vh", width: "100%" }}>
 
             <AppAlert
                 isVisible={alert.isVisible}

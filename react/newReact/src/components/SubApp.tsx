@@ -1,6 +1,6 @@
 import type React from "react"
 import { useEffect, useState } from "react"
-import {  Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import { Layout } from "antd"
 
 import { useDispatch } from "react-redux"
@@ -25,38 +25,43 @@ const SubApp: React.FC = () => {
   useEffect(() => {
     dispatch(fetchPaintingsAsync())
   }, [dispatch])
-const [collapsed, setCollapsed] = useState(false);
-const toggleCollapsed = () => {
-        setCollapsed((prev) => !prev);
-    };
-    const siderStyle: React.CSSProperties = {
-  overflow: 'auto',
-  height: '100vh',
-  position: 'sticky',
-  insetInlineStart: 0,
-  top: 0,
-  scrollbarWidth: 'thin',
-  scrollbarGutter: 'stable',
-};
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapsed = () => {
+    setCollapsed((prev) => !prev);
+  };
+  const siderStyle: React.CSSProperties = {
+    overflow: 'auto',
+    height: '100vh',
+    position: 'sticky',
+    insetInlineStart: 0,
+    top: 0,
+    scrollbarWidth: 'thin',
+    scrollbarGutter: 'stable',
+  };
   return (
     <AppSection>
-     
-        <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider  width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={{...siderStyle,flex: "0 0 260px", maxWidth: "20%", minWidth: "20%"}}>
+
+      <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
+        <Sider breakpoint="lg"
+          collapsedWidth={0} width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={siderStyle}>
           <NavBarDraft />
-          </Sider>
-          <Content style={{ padding: themeToken.token?.padding, minHeight: "100%", width: collapsed ? "100%" : "80%", maxWidth: "100%" }}>
-           
-              <Routes>
-                
-                <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
-                <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
-                <Route path="/login" element={<StartPage />} />
-              </Routes>
-           
-          </Content>
-        </Layout>
-      
+        </Sider>
+        <Content style={{
+          padding: themeToken.token?.padding, minHeight: "100%",
+          flex: 1,    
+          minWidth: 0,
+        }}>
+
+          <Routes>
+
+            <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
+            <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
+            <Route path="/login" element={<StartPage />} />
+          </Routes>
+
+        </Content>
+      </Layout>
+
     </AppSection>
   )
 }
