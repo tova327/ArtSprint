@@ -22,7 +22,7 @@ import { AppSpinner } from "../common/AppSpinner";
 import { AppEmpty } from "../common/AppEmpty";
 
 
-import { getCategoryNameById } from "../../store/categorySlice";
+import { fetchCategoriesAsync, getCategoryNameById } from "../../store/categorySlice";
 import { spacing } from "../../theme/constant";
 import AppButton from "../common/AppButton";
 import AppInput from "../common/AppInput";
@@ -86,6 +86,12 @@ const PaintingsPage: React.FC = () => {
     const popularCategories = popular.map((p) =>
         getCategoryNameById(categories, p.category)
     );
+    useEffect(() => {
+        console.log("in paintingspage"+categories);
+        if(categories.length === 0){
+            dispatch(fetchCategoriesAsync());
+        }
+    }, []);
     useEffect(() => {
         dispatch(fetchPaintingsAsync());
     }, [dispatch]);
