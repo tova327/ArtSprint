@@ -80,12 +80,14 @@ const PaintingsPage: React.FC = () => {
             .slice(0, 8);
     }, [paintings]);
     const latestCategories = useMemo(() => {
-        console.log("in use memo"+latestCategories);
-        
         return latest.map((p) =>
             getCategoryNameById(categories, p.category)
         );
     }, [latest, categories]);
+    useEffect(() => {
+        console.log("in useeffect paintings page"+ latestCategories);
+        
+    }, [latestCategories]);
     const popular = useMemo(() => {
         return [...paintings]
             .sort((a, b) => b.likes - a.likes)
