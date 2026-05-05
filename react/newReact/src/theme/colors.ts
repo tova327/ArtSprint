@@ -1,26 +1,29 @@
-// theme/colors.ts
-
 export const colors = {
-  primary: '#e9bf15',
-  primaryHover: '#d3dab6',
-  primaryActive: '#51ff0c',
+  // Vibrant Orange Theme
+  primary: '#FF8C42',       // A warm, energetic orange
+  primaryHover: '#FFA066',  // Slightly lighter for hover states
+  primaryActive: '#E67E30', // Deeper tone for clicks/interaction
 
-  secondary: '#8ED1B2',
-  accent: '#F6C177',
+  secondary: '#60A5FA',     // A soft blue to complement the orange
+  accent: '#FCD34D',        // Sunny yellow for small highlights
 
-  bgBase: '#F7F9FC',
-  bgLayout: '#F2F5FA',
-  surface: '#00ff44',
+  // Backgrounds & Surfaces
+  bgBase: '#FFFFFF',        // Pure white for a clean look
+  bgLayout: '#FFF9F5',      // Very subtle orange-tinted white for depth
+  surface: '#FFFFFF',       // Card and modal backgrounds
 
-  textPrimary: '#1F2937',
-  textSecondary: '#6B7280',
-  textDisabled: '#9CA3AF',
+  // Typography
+  textPrimary: '#2D3748',   // Deep slate (easier on eyes than pure black)
+  textSecondary: '#718096', // Mid-grey for subtext
+  textDisabled: '#A0AEC0',
 
-  border: '#E5E7EB',
-  divider: '#EEF1F6',
+  // Borders & Dividers
+  border: '#EDF2F7',
+  divider: '#F7FAFC',
 
-  success: '#52C41A',
-  warning: '#FAAD14',
-  error: '#FF4D4F',
-  info: '#1677FF',
+  // Status Colors (Standard but softened)
+  success: '#48BB78',
+  warning: '#F6AD55',
+  error: '#F56565',
+  info: '#4299E1',
 };
