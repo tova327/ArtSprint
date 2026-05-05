@@ -256,6 +256,7 @@ const PaintingsPage: React.FC = () => {
                 md={12}
                 lg={6}
                 xl={6}
+                flex="1 1 auto"
               >
                 <ShowPainting
                   painting={painting}
