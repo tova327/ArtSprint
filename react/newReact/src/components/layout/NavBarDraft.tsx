@@ -36,7 +36,7 @@ const NavBarDraft: React.FC = () => {
 
     const [searchParams] = useSearchParams();
 
-    const currentSubject = searchParams.get("subject");
+    const currentSubject = searchParams.get("catid") || "";
 
     const {
         alert,
@@ -67,10 +67,10 @@ const NavBarDraft: React.FC = () => {
     }, [categories]);
 
     const handleCategoryClick = (category: CategoryType) => {
-        if (category.name === currentSubject) {
+        if (+category.id === +currentSubject) {
             navigate(`/`)
         } else {
-            navigate(`/?subject=${encodeURIComponent(category.name)}`);
+            navigate(`/?catid=${encodeURIComponent(category.id)}`);
         }
     };
 
@@ -109,7 +109,7 @@ const NavBarDraft: React.FC = () => {
                 selectedKeys={
                     currentSubject
                         ? [categories.find(
-                            c => c.name === currentSubject
+                            c => c.id === +currentSubject
                         )?.id?.toString() || ""]
                         : []
                 }
