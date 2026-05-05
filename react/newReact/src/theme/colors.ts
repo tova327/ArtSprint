@@ -1,7 +1,7 @@
 export const colors = {
   // Vibrant Orange Theme
   primary: '#FF8C42',       // A warm, energetic orange
-  primaryHover: '#FFA066',  // Slightly lighter for hover states
+  primaryHover: '#f3bf9e',  // Slightly lighter for hover states
   primaryActive: '#E67E30', // Deeper tone for clicks/interaction
 
   secondary: '#60A5FA',     // A soft blue to complement the orange

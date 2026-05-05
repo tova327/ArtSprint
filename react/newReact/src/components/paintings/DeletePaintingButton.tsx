@@ -22,11 +22,10 @@ const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }
   return (
     <AppButton
       onClick={handleDelete}
-      type="dashed"
+      type="text"
       icon={<DeleteOutlined />}
       style={{color: themeToken.token?.colorError}}
     >
-      
       Delete
     </AppButton>
   );

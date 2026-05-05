@@ -37,7 +37,7 @@ export const themeToken: ThemeConfig = {
 
         // 🌫️ Shadows (soft, modern)
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
-        
+
     },
 
 
@@ -66,6 +66,11 @@ export const themeToken: ThemeConfig = {
         Layout: {
             headerBg: colors.surface,
             bodyBg: colors.bgLayout,
+        },
+        Tag: {
+            borderRadius: 8,
+            colorText: colors.textSecondary,
+            defaultBg: colors.accent,
         },
     },
 };

@@ -13,10 +13,9 @@ const AppTag: React.FC<TagProps> = ({ color, children, style }) => {
   return (
     <Tag
     key={1}
-      color={color || themeToken.token?.colorPrimary}
+      color={color || themeToken.components?.Tag?.defaultBg}
      
       style={{
-        borderRadius: themeToken.token?.borderRadius,
         fontWeight: 500,
         ...style,
       }}

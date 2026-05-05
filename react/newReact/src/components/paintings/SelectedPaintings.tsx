@@ -42,13 +42,6 @@ const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, categories, 
   return (
     <AppCard
       size="small"
-      style={{
-        background: themeToken.token?.colorBgContainer,
-        border: themeToken.token
-          ? `1px solid ${themeToken.token.colorBorder}`
-          : undefined,
-        borderRadius: themeToken.components?.Card?.borderRadiusLG,
-      }}
       bodyStyle={{ padding: 8 }}
     >
       <Flex vertical gap={8}>

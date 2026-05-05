@@ -21,7 +21,6 @@ const AppButton: React.FC<ButtonProps> = ({ type = 'primary', onClick, children,
       onClick={onClick}
       loading={loading}
       style={{
-        borderRadius: themeToken.token?.borderRadius,
         height: themeToken.token?.controlHeight,
         fontWeight: 500,
         ...style,

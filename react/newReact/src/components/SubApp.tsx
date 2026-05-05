@@ -42,7 +42,7 @@ const toggleCollapsed = () => {
     <AppSection>
      
         <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-          <Sider  width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={{...siderStyle,borderRight: themeToken.token?.colorBorder, flex: "0 0 260px", maxWidth: "20%", minWidth: "20%"}}>
+          <Sider  width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={{...siderStyle,flex: "0 0 260px", maxWidth: "20%", minWidth: "20%"}}>
           <NavBarDraft />
           </Sider>
           <Content style={{ padding: themeToken.token?.padding, minHeight: "100%", width: collapsed ? "100%" : "80%", maxWidth: "100%" }}>
@@ -64,13 +64,4 @@ const toggleCollapsed = () => {
 export default SubApp
 
 
-//  <Layout style={layoutStyle}>
-//       <Header style={headerStyle}>Header</Header>
-//       <Layout>
-//         <Sider width="25%" style={siderStyle}>
-//           Sider
-//         </Sider>
-//         <Content style={contentStyle}>Content</Content>
-//       </Layout>
-//       <Footer style={footerStyle}>Footer</Footer>
-//     </Layout>
+

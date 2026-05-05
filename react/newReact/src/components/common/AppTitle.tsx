@@ -23,7 +23,7 @@ const AppTitle: React.FC<TitleProps> = ({ level = 1, children, style, props }) =
        marginTop: 0,
        lineHeight: 1.2,
        wordBreak: "normal",
-        color: themeToken.token?.colorPrimary,
+        color: themeToken.token?.colorText,
         ...style,
       }}
       {...props}
