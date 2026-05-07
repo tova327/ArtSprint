@@ -11,7 +11,6 @@ import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
-import AppSection from "./common/AppSection"
 import { themeToken } from "../theme/token"
 import Sider from "antd/es/layout/Sider"
 
@@ -39,30 +38,26 @@ const SubApp: React.FC = () => {
     scrollbarGutter: 'stable',
   };
   return (
-    <AppSection>
-
+    
       <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-        <Sider breakpoint="lg"
-          collapsedWidth={0} width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={siderStyle}>
+        <Sider breakpoint="md"
+           width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={siderStyle}>
           <NavBarDraft />
         </Sider>
         <Content style={{
           padding: themeToken.token?.padding, minHeight: "100%",
           flex: 1,    
           minWidth: 0,
+          background: themeToken.token?.colorWarning
         }}>
-
           <Routes>
-
             <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
             <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
             <Route path="/login" element={<StartPage />} />
           </Routes>
-
         </Content>
       </Layout>
-
-    </AppSection>
+   
   )
 }
 

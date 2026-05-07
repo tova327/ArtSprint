@@ -64,9 +64,8 @@ const PaintingsPage: React.FC = () => {
 
     const location = useLocation();
 
-    const query = new URLSearchParams(location.search);
 
-    const subjectFilter = query.get("subject");
+
 
     const { alert, handleOpenAlert } = useAlert({ type: 'success', message: '', isVisible: false })
 
@@ -85,8 +84,8 @@ const PaintingsPage: React.FC = () => {
         );
     }, [latest, categories]);
     useEffect(() => {
-        console.log("in useeffect paintings page"+ latestCategories);
-        
+        console.log("in useeffect paintings page" + latestCategories);
+
     }, [latestCategories]);
     const popular = useMemo(() => {
         return [...paintings]
@@ -131,7 +130,7 @@ const PaintingsPage: React.FC = () => {
                 handleOpenAlert("error", "❌ Failed to upload painting");
             }
         } catch (error) {
-            handleOpenAlert("error", "❌ Failed to upload painting");
+            handleOpenAlert("error", "❌ Failed to upload painting "+( error instanceof Error ? error.message : "Unknown error"));
 
         } finally {
             setPaintingUploadLoading(false);
@@ -164,6 +163,8 @@ const PaintingsPage: React.FC = () => {
         }
     };
 
+    const query = new URLSearchParams(location.search);
+    const subjectFilter = query.get("catid");
     const filteredPaintings = paintings?.filter(
         (p: PaintingType) => {
             const matchesSubject =
