@@ -11,10 +11,9 @@ import StartPage from "./auth/StartPage"
 import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
-import { themeToken } from "../theme/token"
 import Sider from "antd/es/layout/Sider"
 
-const { Content } = Layout
+
 
 
 
@@ -44,18 +43,19 @@ const SubApp: React.FC = () => {
            width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={siderStyle}>
           <NavBarDraft />
         </Sider>
-        <Content style={{
+        {/* <Content style={{
           padding: themeToken.token?.padding, minHeight: "100%",
           flex: 1,    
+          
           minWidth: 0,
-          background: themeToken.token?.colorWarning
-        }}>
+          
+        }}> */}
           <Routes>
             <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
             <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
             <Route path="/login" element={<StartPage />} />
           </Routes>
-        </Content>
+        {/* </Content> */}
       </Layout>
    
   )
