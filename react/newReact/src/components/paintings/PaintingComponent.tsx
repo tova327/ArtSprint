@@ -105,15 +105,15 @@ const PaintingComponent = () => {
   const paintingComments = comments.filter((c) => c.paintId === painting.id)
 
   return (
-    <AppCard>
-      <Flex vertical gap={spacing.xl}>
+    <AppCard style={{maxWidth:"100%"}}>
+      <Flex vertical gap={spacing.xl} wrap style={{maxWidth:"100%"}}>
 
         {/* Back */}
-        <AppSection>
+        
           <AppButton onClick={handleBack} type="link">
             Back
           </AppButton>
-        </AppSection>
+      
 
         {/* Title + User */}
         <AppSection>

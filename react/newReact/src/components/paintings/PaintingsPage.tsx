@@ -188,7 +188,7 @@ const PaintingsPage: React.FC = () => {
             </Layout> */}
 
     return (
-        <Flex vertical align="center" gap={spacing.lg} style={{ minHeight: "100vh", width: "100%" }}>
+        <Flex wrap vertical align="center" gap={spacing.lg} style={{ minHeight: "100vh", maxWidth: "100%" }}>
 
             <AppAlert
                 isVisible={alert.isVisible}
