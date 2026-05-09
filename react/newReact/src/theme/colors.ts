@@ -8,7 +8,7 @@ export const colors = {
   accent: '#FCD34D',        // Sunny yellow for small highlights
 
   // Backgrounds & Surfaces
-  bgBase: '#ece1e1',        // Pure white for a clean look
+  bgBase: '#ffffff',        // Pure white for a clean look
   bgLayout: '#FFF9F5',      // Very subtle orange-tinted white for depth
   surface: '#fcfaed',       // Card and modal backgrounds
 

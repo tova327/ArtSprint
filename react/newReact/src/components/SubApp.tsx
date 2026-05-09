@@ -37,28 +37,59 @@ const SubApp: React.FC = () => {
     scrollbarGutter: 'stable',
   };
   return (
-    
-      <Layout hasSider style={{ minHeight: "100vh", maxWidth: "100vw", background: "transparent" }}>
-        <Sider breakpoint="md"
-           width={260} collapsed={collapsed} collapsible onCollapse={toggleCollapsed} style={siderStyle}>
-          <NavBarDraft />
-        </Sider>
-        {/* <Content style={{
-          padding: themeToken.token?.padding, minHeight: "100%",
-          flex: 1,    
-          
-          minWidth: 0,
-          
-        }}> */}
-          <Routes>
-            <Route path="/" element={<ProtectedRoute><PaintingsPage /></ProtectedRoute>} />
-            <Route path="/painting/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>} />
-            <Route path="/login" element={<StartPage />} />
-          </Routes>
-        {/* </Content> */}
-      </Layout>
-   
-  )
+  <Layout
+    hasSider
+    style={{
+      minHeight: "100vh",
+      background: "#f5f5f5",
+    }}
+  >
+    <Sider
+      breakpoint="md"
+      width={240}
+      collapsed={collapsed}
+      collapsible
+      onCollapse={toggleCollapsed}
+      style={siderStyle}
+    >
+      <NavBarDraft />
+    </Sider>
+
+    <Layout
+      style={{
+        padding: "16px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          width: "100%",
+        }}
+      >
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <PaintingsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/painting/:id"
+            element={
+              <ProtectedRoute>
+                <PaintingComponent />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<StartPage />} />
+        </Routes>
+      </div>
+    </Layout>
+  </Layout>
+)
 }
 
 export default SubApp

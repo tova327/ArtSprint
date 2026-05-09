@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Flex, Layout, Tabs } from "antd";
+import { Row, Col, Flex, Tabs } from "antd";
 import type { AppDispatch, StoreType } from "../../store/store";
 import {
     fetchPaintingsAsync,
@@ -29,8 +29,7 @@ import AppInput from "../common/AppInput";
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
 import SelectedPaintings from "./SelectedPaintings";
-import { Content, Header } from "antd/es/layout/layout";
-import { themeToken } from "../../theme/token";
+
 
 
 const PaintingsPage: React.FC = () => {
@@ -113,6 +112,8 @@ const PaintingsPage: React.FC = () => {
         }
     }, [error]);
 
+
+
     const handleUpload = async (paintingData: any) => {
         setPaintingUploadLoading(true);
 
@@ -130,7 +131,7 @@ const PaintingsPage: React.FC = () => {
                 handleOpenAlert("error", "❌ Failed to upload painting");
             }
         } catch (error) {
-            handleOpenAlert("error", "❌ Failed to upload painting "+( error instanceof Error ? error.message : "Unknown error"));
+            handleOpenAlert("error", "❌ Failed to upload painting " + (error instanceof Error ? error.message : "Unknown error"));
 
         } finally {
             setPaintingUploadLoading(false);
@@ -188,143 +189,98 @@ const PaintingsPage: React.FC = () => {
             </Layout> */}
 
     return (
-        <Flex wrap vertical align="center" gap={spacing.lg} style={{ minHeight: "100vh", maxWidth: "100%" }}>
+  <Flex vertical gap={spacing.md} style={{ width: "100%" }}>
 
-            <AppAlert
-                isVisible={alert.isVisible}
-                type={alert.type}
-                message={alert.message}
+    <AppAlert {...alert} />
+    {loading && <AppSpinner />}
+
+    {/* HEADER */}
+    <Tabs
+      size="small"
+      tabBarStyle={{ marginBottom: 8 }}
+      items={[
+        {
+          key: "latest",
+          label: "✨ Fresh",
+          children: (
+            <SelectedPaintings
+              paintings={latest}
+              categories={latestCategories}
+              title=""
+              tagContent="NEW"
             />
+          ),
+        },
+        {
+          key: "popular",
+          label: "🔥 Popular",
+          children: (
+            <SelectedPaintings
+              paintings={popular}
+              categories={popularCategories}
+              title=""
+              tagContent="POPULAR"
+            />
+          ),
+        },
+      ]}
+    />
 
-            {loading && <AppSpinner />}
+    {/* SEARCH */}
+    <Flex align="center" gap={8}>
+      <AppInput
+        suffix={<SearchOutlined />}
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={handleSearch}
+        allowClear
+        style={{ flex: 1 }}
+      />
+      <AppButton onClick={handleMagicSearch}>
+        ✨ Magic
+      </AppButton>
+    </Flex>
 
+    {/* UPLOAD */}
+    <Flex justify="center">
+      <AppButton onClick={showModal}>
+        <CloudUploadOutlined />
+        Upload
+      </AppButton>
+    </Flex>
 
+    <PaintingUploadModal {...{
+      visible: isModalVisible,
+      onCancel: handleCancel,
+      onUpload: handleUpload,
+      loading: paintingUploadLoading,
+      userId,
+    }} />
 
-            <Layout style={{ background: "transparent", gap: spacing.md, minHeight: "100vh", width: "100%", flexDirection: "column" }}>
-
-                {/* HEADER - רק עיצוב */}
-                {latest.length > 0 && <Header style={{ padding: spacing.md, width: "100%", flex: "0 0 20%" }}>
-                    <Tabs
-                        defaultActiveKey="latest"
-
-                        size="small"
-                        items={[
-                            {
-                                key: "latest",
-                                label: "✨ Fresh",
-                                children: latest.length > 0 && (
-                                    <SelectedPaintings
-                                        paintings={latest}
-                                        categories={latestCategories}
-                                        title=""
-                                        tagContent="NEW"
-                                    />
-                                ),
-                            },
-                            {
-                                key: "popular",
-                                label: "🔥 Popular",
-                                children: popular.length > 0 ? (
-                                    <SelectedPaintings
-                                        paintings={popular}
-                                        categories={popularCategories}
-                                        title=""
-                                        tagContent="POPULAR"
-                                    />
-                                ) : (
-                                    <AppEmpty description="No popular masterpieces yet! Create and share your art to see it here." />
-                                ),
-                            },
-                        ]}
-                    />
-                </Header>}
-
-                {/* CONTENT */}
-                <Content
-                    style={{
-                        padding: spacing.md,
-                        backgroundColor: themeToken.token?.colorBgContainer,
-                        borderRadius: themeToken.token?.borderRadius,
-                        borderColor: themeToken.token?.colorBorder,
-                        flex: "1 1 auto",
-                        overflowY: "auto",
-                    }}
-                >
-                    <Flex justify="center" gap={spacing.sm} wrap vertical align="center" style={{ width: "100%", alignItems: "stretch" }}>
-                        {/* SEARCH */}
-                        <Flex vertical={false} style={{ width: "100%" }}>
-
-
-                            <AppInput
-                                suffix={<SearchOutlined />}
-                                placeholder="Search for masterpieces by name..."
-                                value={searchQuery}
-                                onChange={handleSearch}
-                                allowClear
-                                style={{ maxWidth: "70%" }}
-                            />
-
-                            <AppButton onClick={handleMagicSearch}>
-                                ✨ Magic Search
-                            </AppButton>
-                        </Flex>
-
-                        {/* UPLOAD */}
-                        <Flex
-                            justify="center"
-                            align="center"
-                            style={{ marginTop: spacing.sm, marginBottom: spacing.lg }}
-                        >
-                            <AppButton onClick={showModal}>
-                                <CloudUploadOutlined />
-                                Upload New Masterpiece
-                            </AppButton>
-                        </Flex>
-
-                        {/* MODAL - ללא שינוי */}
-                        <PaintingUploadModal
-                            visible={isModalVisible}
-                            onCancel={handleCancel}
-                            onUpload={handleUpload}
-                            loading={paintingUploadLoading}
-                            userId={userId}
-                        />
-
-                        {/* GRID */}
-                        {filteredPaintings.length > 0 ? (
-                            <Row gutter={[6, 6]} justify="start" align="stretch">
-                                {filteredPaintings.map((painting: PaintingType) => (
-                                    <Col
-                                        key={painting.id}
-                                        xs={24}
-                                        md={12}
-                                        lg={8}
-                                    >
-                                        <ShowPainting
-                                            painting={painting}
-                                            category={getCategoryNameById(
-                                                categories,
-                                                painting.category
-                                            )}
-                                            userId={userId}
-                                        />
-                                    </Col>
-                                ))}
-                            </Row>
-                        ) : (
-                            <AppEmpty
-                                description="No masterpieces found! Try adjusting your search or explore other subjects."
-                            />
-                        )}
-                    </Flex>
-                </Content>
-
-
-
-
-            </Layout>
-        </Flex>
-    );
+    {/* GRID */}
+    {filteredPaintings.length > 0 ? (
+      <Row gutter={[12, 12]}>
+        {filteredPaintings.map((painting: PaintingType) => (
+          <Col
+            key={painting.id}
+            xs={24}
+            sm={12}
+            md={12}
+            lg={6}
+          >
+            <ShowPainting
+              painting={painting}
+              category={getCategoryNameById(categories, painting.category)}
+              userId={userId}
+            />
+          </Col>
+        ))}
+      </Row>
+    ) : (
+      <AppEmpty description="No results" />
+    )}
+  </Flex>
+)
 };
 
 export default PaintingsPage;

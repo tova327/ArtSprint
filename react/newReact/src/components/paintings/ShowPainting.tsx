@@ -59,68 +59,93 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
   
 
 
-  return (<>{alert.isVisible && <AppAlert type={alert.type} message={alert.message} isVisible={alert.isVisible} />}  
-  <AppCard
-  style={{
-    height:"100%",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-  }}
-  bodyStyle={{ padding: 12 }}
->
-  <Flex vertical gap={8} style={{ height: "100%",width: "100%" }}>
+  return (
+  <>
+    {alert.isVisible && (
+      <AppAlert {...alert} />
+    )}
 
-    {/* Title + actions */}
-    <Flex justify="space-between" align="center" vertical>
-      <AppTitle level={5} style={{ margin: 0 ,display:"block",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",maxWidth:"70%"}}>
-        {painting.name}
-      </AppTitle>
+    <AppCard
+      style={{ width: "100%" }}
+      bodyStyle={{ padding: 10 }}
+    >
+      <Flex gap={10} align="center">
 
-      <Flex gap={4} justify="space-between" align="center" vertical={false}>
-        <DownloadButton url={painting.url} />
-        {painting.ownerId === userId && (
-          <DeletePaintingButton painting={painting}  />
-        )}
+        {/* IMAGE */}
+        <AppImagePreview
+          src={painting.url}
+          style={{
+            width: 90,
+            height: 70,
+            objectFit: "cover",
+            borderRadius: 8,
+            flexShrink: 0,
+          }}
+        />
+
+        {/* CONTENT */}
+        <Flex vertical style={{ flex: 1, minWidth: 0 }} gap={4}>
+
+          {/* TITLE */}
+          <Flex justify="space-between" align="center">
+            <AppTitle
+              level={5}
+              style={{
+                margin: 0,
+                fontSize: 14,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {painting.name}
+            </AppTitle>
+
+            <Flex gap={4}>
+              <DownloadButton url={painting.url} />
+              {painting.ownerId === userId && (
+                <DeletePaintingButton painting={painting} />
+              )}
+            </Flex>
+          </Flex>
+
+          {/* TAGS */}
+          <Flex justify="space-between">
+            <AppTag color={themeToken.token?.colorTextSecondary}>
+              {category}
+            </AppTag>
+
+            <AppTag>
+              {painting.likes + sessionLikes}
+              <LikeFilled style={{ marginLeft: 4 }} />
+            </AppTag>
+          </Flex>
+
+          {/* ACTIONS */}
+          <Flex justify="space-between">
+            <AppButton
+             
+              type="text"
+              onClick={handleLike}
+              icon={sessionLikes ? <LikeFilled /> : <LikeOutlined />}
+            >
+              Love
+            </AppButton>
+
+            <AppButton
+            
+              onClick={handleNavigate}
+              icon={<RightCircleTwoTone />}
+            >
+              View
+            </AppButton>
+          </Flex>
+
+        </Flex>
       </Flex>
-    </Flex>
-
-    {/* Image */}
-    <AppImagePreview
-      src={painting.url}
-      style={{
-        height: 70,
-        objectFit: "cover",
-        borderRadius: 12,
-        width:"80%"
-      }}
-    />
-
-    {/* Tags */}
-    <Flex justify="space-between" vertical={false} align="center">
-      <AppTag color={themeToken.token?.colorTextSecondary}>
-        {category}
-      </AppTag>
-      <AppTag>
-        {painting.likes + sessionLikes}<LikeFilled style={{ marginLeft: 4 }} />
-      </AppTag>
-    </Flex>
-
-    {/* Actions */}
-    <Flex justify="space-between" vertical={false} align="center">
-      <AppButton type="text" onClick={handleLike} icon={sessionLikes > 0 ? <LikeFilled /> : <LikeOutlined />} >
-        Love
-      </AppButton>
-
-      <AppButton  onClick={handleNavigate} icon={<RightCircleTwoTone />}>
-         View
-      </AppButton>
-    </Flex>
-
-  </Flex>
-</AppCard>
-</>);
+    </AppCard>
+  </>
+)
 }
 
 export default ShowPainting
