@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import {  Button, Col, Flex, Row, Splitter } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import AppCard from "../common/AppCard";
@@ -11,18 +11,27 @@ import AppTitle from "../common/AppTitle";
 import { PaintingType } from "../../store/paintingSlice";
 import { themeToken } from "../../theme/token";
 import { AppCaption } from "../common/AppText";
+import { useSelector } from "react-redux";
+import { StoreType } from "../../store/store";
+import { getCategoryNameById } from "../../store/categorySlice";
 
 type SelectedPaintingsProps = {
   paintings: PaintingType[];
-  categories: string[];
+  
   title: string;
   tagContent: string;
 };
 
-const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, categories, title, tagContent }: SelectedPaintingsProps) => {
+const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, title, tagContent }: SelectedPaintingsProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
+const ccategories = useSelector(
+        (store: StoreType) => store.categories.categories
+    );
+    const [category,setCategory]=useState<string[]>([])
+    useEffect(()=>{
+     setCategory( paintings.map(p=>getCategoryNameById(ccategories,p.category)))
+    },[paintings])
+      const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
 
     const amount = direction === "left" ? -280 : 280;
@@ -75,7 +84,7 @@ const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, categories, 
                       <Row align="middle" justify="space-between" style={{ width: "100%" }}> 
                         <Col><AppCaption >{tagContent}</AppCaption></Col>
                         <Col><AppTag color={themeToken.token?.colorTextSecondary}>
-                          {categories[index] || "Uncategorized"}
+                          {category[index] || "Uncategorized"}
                         </AppTag></Col>
 
                       </Row>

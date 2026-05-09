@@ -91,11 +91,11 @@ const PaintingsPage: React.FC = () => {
             .sort((a, b) => b.likes - a.likes)
             .slice(0, 8);
     }, [paintings]);
-    const popularCategories = useMemo(() => {
-        return popular.map((p) =>
-            getCategoryNameById(categories, p.category)
-        );
-    }, [popular, categories]);
+    // const popularCategories = useMemo(() => {
+    //     return popular.map((p) =>
+    //         getCategoryNameById(categories, p.category)
+    //     );
+    // }, [popular, categories]);
     useEffect(() => {
         console.log("in paintingspage" + categories);
         if (categories.length === 0) {
@@ -201,7 +201,7 @@ const PaintingsPage: React.FC = () => {
           children: (
             <SelectedPaintings
               paintings={latest}
-              categories={latestCategories}
+             
               title=""
               tagContent="NEW"
             />
@@ -213,7 +213,7 @@ const PaintingsPage: React.FC = () => {
           children: (
             <SelectedPaintings
               paintings={popular}
-              categories={popularCategories}
+            
               title=""
               tagContent="POPULAR"
             />
