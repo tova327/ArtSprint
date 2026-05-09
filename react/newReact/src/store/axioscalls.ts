@@ -120,7 +120,7 @@ export const uploadPainting = async (painting: PaintingToAddType) => {
     const formData = new FormData();
     formData.append('OwnerId', painting.ownerId.toString());
     formData.append('Name', painting.name);
-    formData.append('Subject', painting.category.toString());
+    formData.append('Subject', painting.categoryId.toString());
     formData.append('paintingFile', painting.paintingFile);
 
     try {
