@@ -5,12 +5,12 @@ export const colors = {
   primaryActive: '#E67E30', // Deeper tone for clicks/interaction
 
   secondary: '#60A5FA',     // A soft blue to complement the orange
-  accent: '#FCD34D',        // Sunny yellow for small highlights
+  accent: '#ff3ab0',        // Sunny yellow for small highlights
 
   // Backgrounds & Surfaces
   bgBase: '#ffffff',        // Pure white for a clean look
-  bgLayout: '#FFF9F5',      // Very subtle orange-tinted white for depth
-  surface: '#fcfaed',       // Card and modal backgrounds
+  bgLayout: '#cbf5e9',      // Very subtle orange-tinted white for depth
+  surface: '#e4f1f0',       // Card and modal backgrounds
 
   // Typography
   textPrimary: '#2D3748',   // Deep slate (easier on eyes than pure black)
