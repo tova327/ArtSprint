@@ -79,7 +79,7 @@ const PaintingsPage: React.FC = () => {
     }, [paintings]);
     const latestCategories = useMemo(() => {
         return latest.map((p) =>
-            getCategoryNameById(categories, p.category)
+            getCategoryNameById(categories, p.categoryId)
         );
     }, [latest, categories]);
     useEffect(() => {
@@ -170,7 +170,7 @@ const PaintingsPage: React.FC = () => {
         (p: PaintingType) => {
             const matchesSubject =
                 !subjectFilter ||
-                p.category ===
+                p.categoryId ===
                 categories.find((c) => c.name === subjectFilter)?.id;
 
             const matchesSearch =
@@ -266,7 +266,7 @@ const PaintingsPage: React.FC = () => {
           >
             <ShowPainting
               painting={painting}
-              category={getCategoryNameById(categories, painting.category)}
+              category={getCategoryNameById(categories, painting.categoryId)}
               userId={userId}
             />
           </Col>

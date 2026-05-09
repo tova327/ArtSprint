@@ -11,13 +11,13 @@ export type PaintingType = {
     likes: number,
     url: string,
     isMedal: boolean,
-    category: number,
+    categoryId: number,
 };
 
 export type PaintingToAddType = {
     ownerId: number,
     name: string,
-    category: number,
+    categoryId: number,
     paintingFile: File
 };
 

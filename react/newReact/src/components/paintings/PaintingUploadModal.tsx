@@ -119,7 +119,7 @@ const {alert, handleOpenAlert} = useAlert({type: 'success', message: '', isVisib
       await onUpload({
         ownerId: userId,
         name: values.name,
-        category: values.category,
+        categoryId: values.categoryId,
         paintingFile,
       })
 
@@ -189,7 +189,7 @@ const {alert, handleOpenAlert} = useAlert({type: 'success', message: '', isVisib
 
             <AppSection>
               <AppFormItem
-                name="category"
+                name="categoryId"
                 label="Category"
                 rules={[
                   {

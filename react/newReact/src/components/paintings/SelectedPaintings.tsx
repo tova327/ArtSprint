@@ -80,7 +80,7 @@ const categories = useSelector(
                       <Row align="middle" justify="space-between" style={{ width: "100%" }}> 
                         <Col><AppCaption >{tagContent}</AppCaption></Col>
                         <Col><AppTag color={themeToken.token?.colorTextSecondary}>
-                          {categories.find(c=>c.id===painting.category)?.name || "Uncategorized"}
+                          {categories.find(c=>c.id===painting.categoryId)?.name || "Uncategorized"}
                         </AppTag></Col>
 
                       </Row>
