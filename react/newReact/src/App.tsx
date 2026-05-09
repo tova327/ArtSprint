@@ -1,5 +1,4 @@
 
-import "./App.css"
 import SubApp from "./components/SubApp"
 import { AuthProvider } from "./components/auth/AuthProvider"
 
