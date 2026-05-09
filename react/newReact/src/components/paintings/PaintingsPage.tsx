@@ -182,11 +182,7 @@ const PaintingsPage: React.FC = () => {
             return matchesSubject && matchesSearch;
         }
     );
-    {/* <Layout style={layoutStyle}>
-            <Header style={headerStyle}>Header</Header>
-            <Content style={contentStyle}>Content</Content>
-            <Footer style={footerStyle}>Footer</Footer>
-            </Layout> */}
+   
 
     return (
   <Flex vertical gap={spacing.md} style={{ width: "100%" }}>

@@ -14,7 +14,7 @@ export type CategoryType = {
 
 export const getCategoryHierarchy = (categories: CategoryType[], parentId: number | null = null): CategoryType[] => {
     return categories
-        .filter(category => category.parentCategoryId === parentId) 
+        .filter(category => category.parentCategoryId === parentId)
         .map(category => ({
             ...category,
             subCategories: getCategoryHierarchy(categories, category.id)
@@ -24,10 +24,10 @@ export const getCategoryHierarchy = (categories: CategoryType[], parentId: numbe
 export const getCategoryPath = (categories: CategoryType[], categoryId: number): string => {
     const categoryMap = new Map(categories.map(c => [c.id, c]));
     const path: string[] = [];
-    let currentId: number | null |undefined = categoryId;
+    let currentId: number | null | undefined = categoryId;
 
     while (currentId !== null) {
-        const category = categoryMap.get(currentId??0);
+        const category = categoryMap.get(currentId ?? 0);
         if (!category) break;
         path.unshift(category.name);
         currentId = category.parentCategoryId;
@@ -37,6 +37,11 @@ export const getCategoryPath = (categories: CategoryType[], categoryId: number):
 };
 export const getCategoryNameById = (categories: CategoryType[], categoryId: number): string => {
     const category = categories.find(c => c.id === categoryId);
+    console.log("gotten categories: " + categories);
+    console.log("gotten categoryid: " + categoryId);
+    console.log("result category: " + category);
+
+
     return category ? category.name : "Unknown";
 };
 
