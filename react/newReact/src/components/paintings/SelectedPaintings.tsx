@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import {  Button, Col, Flex, Row, Splitter } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import AppCard from "../common/AppCard";
@@ -13,7 +13,6 @@ import { themeToken } from "../../theme/token";
 import { AppCaption } from "../common/AppText";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../store/store";
-import { getCategoryNameById } from "../../store/categorySlice";
 
 type SelectedPaintingsProps = {
   paintings: PaintingType[];
@@ -24,13 +23,10 @@ type SelectedPaintingsProps = {
 
 const SelectedPaintings: FC<SelectedPaintingsProps> = ({ paintings, title, tagContent }: SelectedPaintingsProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-const ccategories = useSelector(
+const categories = useSelector(
         (store: StoreType) => store.categories.categories
     );
-    const [category,setCategory]=useState<string[]>([])
-    useEffect(()=>{
-     setCategory( paintings.map(p=>getCategoryNameById(ccategories,p.category)))
-    },[paintings])
+   
       const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
 
@@ -74,7 +70,7 @@ const ccategories = useSelector(
             }}
           >
             <Flex gap={8} wrap={false} style={{ width: "max-content", paddingBottom: 4 }}>
-              {paintings.map((painting, index) => (
+              {paintings.map((painting) => (
                 <Splitter style={{width:300, padding: 15,border: `3px solid ${themeToken.token?.colorPrimary}`, boxShadow: themeToken.components?.Card?.boxShadow , flex: "0 0 auto", borderRadius: themeToken.components?.Card?.borderRadiusLG }} key={painting.id}>
                   <Splitter.Panel size="40%">
                     <Flex vertical gap={4} align="space-between" style={{ height: "100%", padding: 8 }}>
@@ -84,7 +80,7 @@ const ccategories = useSelector(
                       <Row align="middle" justify="space-between" style={{ width: "100%" }}> 
                         <Col><AppCaption >{tagContent}</AppCaption></Col>
                         <Col><AppTag color={themeToken.token?.colorTextSecondary}>
-                          {category[index] || "Uncategorized"}
+                          {categories.find(c=>c.id===painting.category)?.name || "Uncategorized"}
                         </AppTag></Col>
 
                       </Row>
