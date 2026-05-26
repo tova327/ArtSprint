@@ -85,7 +85,11 @@ internal class Program
         }
             });
         });
-        builder.Services.AddDbContext<DataContext>();
+		builder.Configuration.AddJsonFile(
+	"appsettings.json",
+	optional: false,
+	reloadOnChange: false);
+		builder.Services.AddDbContext<DataContext>();
         builder.Services.AddHttpClient();
         //=================
         builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
