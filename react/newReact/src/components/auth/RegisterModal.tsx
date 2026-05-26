@@ -81,9 +81,9 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 const values = form.getFieldsValue();
                 try {
                     
-                    console.log(values.answers);
+                    console.log(Object.values(values.answers));
                     
-                    const isValid = await checkAnswers({subject: 'logic', questions: questions.map(q => q.question), answers: values.answers});
+                    const isValid = await checkAnswers({subject: 'logic', questions: questions.map(q => q.question), answers: Object.values(values.answers)});
                     if (!isValid) return;
                     handleOpenAlert('success', "You passed the test, let's move on!");
                 } catch (e) {
