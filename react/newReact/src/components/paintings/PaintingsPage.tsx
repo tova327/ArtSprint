@@ -91,11 +91,7 @@ const PaintingsPage: React.FC = () => {
             .sort((a, b) => b.likes - a.likes)
             .slice(0, 8);
     }, [paintings]);
-    // const popularCategories = useMemo(() => {
-    //     return popular.map((p) =>
-    //         getCategoryNameById(categories, p.category)
-    //     );
-    // }, [popular, categories]);
+    
     useEffect(() => {
         console.log("in paintingspage" + categories);
         if (categories.length === 0) {

@@ -80,7 +80,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
             if (step === 2) {
                 const values = form.getFieldsValue();
                 try {
-                    const isValid = await checkAnswers(values.answers || {});
+                    
+                    console.log(values.answers);
+                    
+                    const isValid = await checkAnswers({subject: 'logic', questions: questions.map(q => q.question), answers: values.answers});
                     if (!isValid) return;
                     handleOpenAlert('success', "You passed the test, let's move on!");
                 } catch (e) {
@@ -157,7 +160,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                                 },
                             ]}
                         >
-                            <AppCheckbox>Agree to terms</AppCheckbox>
+                            <AppCheckbox>Agree to <AppButton type="link">terms</AppButton> </AppCheckbox>
                         </AppFormItem>
                     </>
                 )}
