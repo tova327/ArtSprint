@@ -47,18 +47,14 @@ public class StorageService:IStorageService
 
     public async Task<string> UploadFileAsync(string filePath, string objectName)
     {
-
         if (!File.Exists(filePath))
         {
             throw new FileNotFoundException($"The file {filePath} does not exist.");
         }
         try
         {
-            
             using (var fileStream = File.OpenRead(filePath))
             {
-                
-
                 var provider = new FileExtensionContentTypeProvider();
 
                 if (provider.TryGetContentType(filePath, out string contentType))
@@ -70,25 +66,20 @@ public class StorageService:IStorageService
                     else
                     {
                         await _storageClient.UploadObjectAsync(_bucketName, objectName, contentType, fileStream);
-
                     }
                 }
                 else
                 {
                     await _storageClient.UploadObjectAsync(_bucketName, objectName, "application/octet-stream", fileStream);
                 }
-
                 Console.WriteLine($"File {objectName} uploaded to bucket {_bucketName}.");
-                
-
                 return $"https://storage.cloud.google.com/{_bucketName}/{objectName}";
             }
         }
         catch (Exception ex)
         {
-            // Log the exception details for debugging.  Include ex.ErrorCode and ex.Message
             Console.WriteLine($"Error uploading file: {ex.Message}");
-            throw; // Re-throw the exception so the calling code knows there was an error.
+            throw; 
         }
     }
 

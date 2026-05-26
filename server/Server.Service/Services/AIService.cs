@@ -48,22 +48,17 @@ namespace Server.Service.Services
                 Console.WriteLine(ex.Message);
                 return null;
             }
-
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Failed to call OpenAI: " + response.ReasonPhrase);
-
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic result = JsonConvert.DeserializeObject(responseBody);
             string aiText = result.choices[0].message.content;
-
-            // Parse the numbered list into a List<string>
             var questions = new List<string>();
             foreach (var line in aiText.Split('\n'))
             {
                 var trimmed = line.Trim();
                 if (!string.IsNullOrEmpty(trimmed))
                 {
-                    // Remove leading numbers and dots (e.g., "1. ")
                     var idx = trimmed.IndexOf('.');
                     if (idx > 0 && idx < 3)
                     {
@@ -72,9 +67,7 @@ namespace Server.Service.Services
                     questions.Add(trimmed);
                 }
             }
-            // Remove empty and redundant lines
             questions = questions.FindAll(q => !string.IsNullOrWhiteSpace(q));
-
             return questions;
         }
 

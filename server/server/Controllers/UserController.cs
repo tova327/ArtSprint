@@ -48,17 +48,17 @@ namespace server.Controllers
             return Ok(user);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<UserDTO>> Update(int id, [FromBody] UserPostModel userPostModel)
-        //{
-        //    var userDto = _mapper.Map<UserDTO>(userPostModel);
-        //    var user = await _userService.UpdateAsync(id, userDto);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user);
-        //}
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserDTO>> Update(int id, [FromBody] UserPostModel userPostModel)
+        {
+            var userDto = _mapper.Map<UserDTO>(userPostModel);
+            var user = await _userService.UpdateAsync(id, userDto);
+            if (user == null)
+            {
+                return new BadRequestResult();
+            }
+            return Ok(user);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
