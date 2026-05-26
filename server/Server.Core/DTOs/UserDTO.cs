@@ -16,6 +16,7 @@ namespace Server.Core.DTOs
         public string Password { get; set; }
         public DateTime CameOn { get; set; } = DateTime.Now;
         public DateTime BirthDate { get; set; }
+        public string Role {  get; set; }
 
         public bool IsMedal { get; set; } = false;
 
