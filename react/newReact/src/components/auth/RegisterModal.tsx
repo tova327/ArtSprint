@@ -31,6 +31,12 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
     loading,
     onRegister,
 }) => {
+    const [userDetails, setUserDetails] = useState<{
+  name: string;
+  email: string;
+  password: string;
+  birthDate: string;
+} | null>(null);
     const [step, setStep] = useState(1);
     const [form] = AppForm.useForm();
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -64,6 +70,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
         try {
             if (step === 1) {
                 await form.validateFields(["name", "email", "password", "birthDate"]);
+                
+                const step1Values = form.getFieldsValue(["name", "email", "password", "birthDate"]);
+                setUserDetails(step1Values);
+                
                 try {
                     const q = await getTest();
                     
@@ -100,7 +110,9 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
 
     const onSubmit = async (values: any) => {
         console.log("FINAL SUBMIT", values);
-        await onRegister(values);
+        if (userDetails&&values.agree) {
+            await onRegister(userDetails);
+        }
         onClose();
     };
 
