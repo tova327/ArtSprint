@@ -12,6 +12,8 @@ import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
 import Sider from "antd/es/layout/Sider"
+import { Header } from "antd/es/layout/layout"
+import UserProfileAvatar from "./user/UserProfileAvatar"
 
 
 
@@ -44,6 +46,7 @@ const SubApp: React.FC = () => {
       background: "#f5f5f5",
     }}
   >
+    <Header><UserProfileAvatar /></Header>
     <Sider
       breakpoint="md"
       width={240}

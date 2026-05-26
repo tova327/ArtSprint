@@ -66,11 +66,9 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 await form.validateFields(["name", "email", "password", "birthDate"]);
                 try {
                     const q = await getTest();
-                    if (!q || q.length === 0) {
-                        handleOpenAlert('error', "Sorry,something went wrong");
-                        return;
-                    }
-                    setQuestions(q);
+                    
+
+                    setQuestions(q.map((question, index) => ({ id: index.toString(), question })));
                 } catch (e) {
                     console.log("Error fetching questions", e);
                     setQuestions([]);

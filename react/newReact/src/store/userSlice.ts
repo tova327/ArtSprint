@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getAllUsers, Login, Register } from "./axioscalls"
+import { getAllUsers, Login, Register, updateUser } from "./axioscalls"
 
 
 export type UserType = {
@@ -27,7 +27,7 @@ export type UserLoginType = {
     password: string
 }
 
-
+export type QuestionsFromAIType= string[]
 
 export const LoginAsync = createAsyncThunk<any, { user: UserLoginType }>(
     'user/login',
@@ -69,6 +69,18 @@ export const getAllUsersAsync = createAsyncThunk(
         }
     }
 )
+
+export const updateUserAsync = createAsyncThunk<any, { userId: number, userData: UserToAddType }>(
+    'user/update',
+    async ({ userId, userData }, thunkAPI) => {
+        try {
+            const response = await updateUser(userId, userData);
+            return response;
+        } catch (e: any) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+);
 
 const userSlice = createSlice({
     name: 'user',
@@ -135,6 +147,20 @@ const userSlice = createSlice({
             .addCase(getAllUsersAsync.rejected, (state, action) => {
                 state.allusers = null
                 console.log(action.error.message);
+            })
+            .addCase(updateUserAsync.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateUserAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload.user;
+                console.log("user updated " + state.user.id);
+            })
+            .addCase(updateUserAsync.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to update user';
+                console.log("update user rejected: " + action.error.message);
             })
     }
 });

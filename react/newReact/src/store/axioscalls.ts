@@ -1,6 +1,6 @@
 import axios from "axios"
 import { PaintingToAddType, PaintingType } from "./paintingSlice";
-import { UserLoginType, UserToAddType } from "./userSlice";
+import { QuestionsFromAIType, UserLoginType, UserToAddType } from "./userSlice";
 import { CommentPostModel } from "./commentSlice";
 import api from "../api/axios";
 
@@ -136,10 +136,24 @@ export const uploadPainting = async (painting: PaintingToAddType) => {
     }
 };
 
-export const getTest = async () => {
+export const getTest = async (): Promise<QuestionsFromAIType> => {
     try {
         const response = await axios.get(`${globalAPI}AI?subject=logic`)
-        return response.data
+        
+        // Validate the response matches QuestionsFromAIType with exactly 3 strings
+        if (!Array.isArray(response.data)) {
+            throw new Error('Expected an array of questions');
+        }
+        
+        if (response.data.length !== 3) {
+            throw new Error(`Expected exactly 3 questions, got ${response.data.length}`);
+        }
+        
+        if (!response.data.every((item) => typeof item === 'string')) {
+            throw new Error('All items in the array must be strings');
+        }
+        
+        return response.data as QuestionsFromAIType;
     } catch (error) {
         console.log(error);
         throw error
@@ -193,6 +207,18 @@ export const fetchCategories = async () => {
 export const fetchCategoryById = async (id: number) => {
     try {
         const response = await axios.get(`${categoryURL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+const userURL = globalAPI + 'user';
+
+export const updateUser = async (userId: number, userData: UserToAddType) => {
+    try {
+        const response = await api.put(`${userURL}/${userId}`, userData);
         return response.data;
     } catch (error) {
         console.log(error);
