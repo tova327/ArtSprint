@@ -62,12 +62,50 @@ namespace Server.Service.Services
             return userDTO;
         }
 
-        public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
+        
+public async Task<UserDTO> UpdateAsync(int id, UserToAddDTO entity)
         {
-            var user=await _repositoryManager.Users.UpdateAsync(id,_mapper.Map<UserModel>(entity));
+            // -----------------------------
+            // GET EXISTING USER
+            // -----------------------------
+            var existingUser = await _repositoryManager.Users.GetByIdAsync(id);
+
+            if (existingUser == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            // -----------------------------
+            // UPDATE ALLOWED FIELDS ONLY
+            // -----------------------------
+            existingUser.Name = entity.Name;
+            existingUser.Email = entity.Email;
+            existingUser.BirthDate = entity.BirthDate;
+
+            // -----------------------------
+            // UPDATE PASSWORD ONLY IF EXISTS
+            // -----------------------------
+            if (!string.IsNullOrWhiteSpace(entity.Password))
+            {
+                existingUser.HashedPassword =
+                    BCrypt.Net.BCrypt.HashPassword(entity.Password);
+            }
+
+            // -----------------------------
+            // SAVE
+            // -----------------------------
+            var updatedUser =
+                await _repositoryManager.Users.UpdateAsync(id, existingUser);
+
             await _repositoryManager.SaveAsync();
-            return _mapper.Map<UserDTO>(user);
+
+            // -----------------------------
+            // RETURN SAFE DTO
+            // -----------------------------
+            return _mapper.Map<UserDTO>(updatedUser);
         }
+
+
 
         public async Task UpdateUserCameOnAsync(int id, DateTime cameOn)
         {

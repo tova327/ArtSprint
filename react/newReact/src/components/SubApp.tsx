@@ -12,6 +12,8 @@ import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
 import Sider from "antd/es/layout/Sider"
+import EditProfilePage from "./user/EditProfilePage"
+import ProfilePage from "./user/ProfilePage"
 // import { Header } from "antd/es/layout/layout"
 // import UserProfileAvatar from "./user/UserProfileAvatar"
 
@@ -39,60 +41,66 @@ const SubApp: React.FC = () => {
     scrollbarGutter: 'stable',
   };
   return (
-  <Layout
-    hasSider
-    style={{
-      minHeight: "100vh",
-      background: "#f5f5f5",
-    }}
-  >
-    {/* <Header><UserProfileAvatar /></Header> */}
-    <Sider
-      breakpoint="md"
-      width={240}
-      collapsed={collapsed}
-      collapsible
-      onCollapse={toggleCollapsed}
-      style={siderStyle}
-    >
-      <NavBarDraft />
-    </Sider>
-
     <Layout
+      hasSider
       style={{
-        padding: "16px",
+        minHeight: "100vh",
+        background: "#f5f5f5",
       }}
     >
-      <div
+      {/* <Header><UserProfileAvatar /></Header> */}
+      <Sider
+        breakpoint="md"
+        width={240}
+        collapsed={collapsed}
+        collapsible
+        onCollapse={toggleCollapsed}
+        style={siderStyle}
+      >
+        <NavBarDraft />
+      </Sider>
+
+      <Layout
         style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          width: "100%",
+          padding: "16px",
         }}
       >
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <PaintingsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/painting/:id"
-            element={
-              <ProtectedRoute>
-                <PaintingComponent />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/login" element={<StartPage />} />
-        </Routes>
-      </div>
+        <div
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            width: "100%",
+          }}
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <PaintingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/painting/:id"
+              element={
+                <ProtectedRoute>
+                  <PaintingComponent />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<StartPage />} />
+
+            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+
+            <Route path="/profile/edit" element={<ProtectedRoute><EditProfilePage /></ProtectedRoute>} />
+
+
+          </Routes>
+        </div>
+      </Layout>
     </Layout>
-  </Layout>
-)
+  )
 }
 
 export default SubApp
