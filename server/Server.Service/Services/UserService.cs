@@ -63,7 +63,7 @@ namespace Server.Service.Services
         }
 
         
-public async Task<UserDTO> UpdateAsync(int id, UserToAddDTO entity)
+public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
         {
             // -----------------------------
             // GET EXISTING USER

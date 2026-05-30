@@ -1,81 +1,74 @@
-import axios from "axios"
 import { PaintingToAddType, PaintingType } from "./paintingSlice";
 import { QuestionsFromAIType, UserLoginType, UserToAddType } from "./userSlice";
 import { CommentPostModel } from "./commentSlice";
 import api from "../api/axios";
 
+const paintingURL = "painting";
+const authURL = "Auth";
+const commentURL = "comment";
+const categoryURL = "category";
+const userURL = "user";
 
-const globalAPI = import.meta.env.VITE_MY_API_URL
-const paintingURL = globalAPI + 'painting'
-
-//const userURL=globalAPI+'/api/user'
-const authURL = globalAPI + 'Auth'
 export const fetchPaintings = async () => {
     try {
-        const response =
-            await axios.get(paintingURL);
-        return response.data
+        const response = await api.get(paintingURL);
+        return response.data;
     } catch (error) {
         console.log(error);
-
-        throw error
+        throw error;
     }
-}
-//return axios.get(URLConstants.USER_URL, { headers: { Authorization: `Bearer ${data.token}` } });
+};
 
-export const addPainting = async (painting: PaintingToAddType, token: string) => {
+export const addPainting = async (painting: PaintingToAddType) => {
     try {
-        const response =
-            await axios.post(paintingURL, painting, { headers: { Authorization: `Bearer ${token}` } })
-        return response.data
+        const response = await api.post(paintingURL, painting);
+        return response.data;
     } catch (error) {
         console.log(error);
-        throw error
+        throw error;
     }
-}
+};
 
 export const addLike = async (id: number, count: number) => {
-    console.log(count + '  add like');
+    console.log(count + " add like");
+
     try {
-        const response =
-            await api.post(`${paintingURL}/${id}/like?count=${count}`, {})
-        return response.data
+        const response = await api.post(
+            `${paintingURL}/${id}/like?count=${count}`,
+            {}
+        );
+
+        return response.data;
     } catch (error) {
         console.log(error);
-        throw error
+        throw error;
     }
-}
-
+};
 
 export const Login = async (user: UserLoginType) => {
     try {
-        console.log('authurl '+authURL);
-        
-        const response = await axios.post(authURL + '/login', user);
-        return response.data; // Return user data if needed
+        const response = await api.post(`${authURL}/login`, user);
+        return response.data;
     } catch (e) {
         console.log("login error");
         console.log(e);
         throw e;
     }
-}
+};
 
 export const Register = async (user: UserToAddType) => {
     try {
-        const response = await axios.post(authURL + '/register', user);
-        return response.data; // Return user data if needed
+        const response = await api.post(`${authURL}/register`, user);
+        return response.data;
     } catch (e) {
         console.log(e);
         throw e;
     }
-}
-
-
-const commentURL = globalAPI + 'comment';
+};
 
 export const fetchComments = async () => {
     try {
-        const response = await axios.get(commentURL);
+        const response = await api.get(commentURL);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -85,7 +78,7 @@ export const fetchComments = async () => {
 
 export const addComment = async (comment: CommentPostModel) => {
     try {
-        const response = await axios.post(commentURL, comment);
+        const response = await api.post(commentURL, comment);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -93,11 +86,16 @@ export const addComment = async (comment: CommentPostModel) => {
     }
 };
 
-export const updateComment = async (id: number, comment: CommentPostModel, token: string) => {
+export const updateComment = async (
+    id: number,
+    comment: CommentPostModel
+) => {
     try {
-        const response = await axios.put(`${commentURL}/${id}`, comment, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await api.put(
+            `${commentURL}/${id}`,
+            comment
+        );
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -105,30 +103,36 @@ export const updateComment = async (id: number, comment: CommentPostModel, token
     }
 };
 
-export const deleteComment = async (id: number, token: string) => {
+export const deleteComment = async (id: number) => {
     try {
-        await axios.delete(`${commentURL}/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
+        await api.delete(`${commentURL}/${id}`);
     } catch (error) {
         console.log(error);
         throw error;
     }
 };
 
-export const uploadPainting = async (painting: PaintingToAddType) => {
+export const uploadPainting = async (
+    painting: PaintingToAddType
+) => {
     const formData = new FormData();
-    formData.append('OwnerId', painting.ownerId.toString());
-    formData.append('Name', painting.name);
-    formData.append('Subject', painting.categoryId.toString());
-    formData.append('paintingFile', painting.paintingFile);
+
+    formData.append("OwnerId", painting.ownerId.toString());
+    formData.append("Name", painting.name);
+    formData.append("CategoryId", painting.categoryId.toString());
+    formData.append("paintingFile", painting.paintingFile);
 
     try {
-        const response = await axios.post(`${paintingURL}/upload`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+        const response = await api.post(
+            `${paintingURL}/upload`,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             }
-        });
+        );
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -138,65 +142,91 @@ export const uploadPainting = async (painting: PaintingToAddType) => {
 
 export const getTest = async (): Promise<QuestionsFromAIType> => {
     try {
-        const response = await axios.get(`${globalAPI}AI?subject=logic`)
-        
-        // Validate the response matches QuestionsFromAIType with exactly 3 strings
+        const response = await api.get("AI?subject=logic");
+
         if (!Array.isArray(response.data)) {
-            throw new Error('Expected an array of questions');
+            throw new Error("Expected an array of questions");
         }
-        
+
         if (response.data.length !== 3) {
-            throw new Error(`Expected exactly 3 questions, got ${response.data.length}`);
+            throw new Error(
+                `Expected exactly 3 questions, got ${response.data.length}`
+            );
         }
-        
-        if (!response.data.every((item) => typeof item === 'string')) {
-            throw new Error('All items in the array must be strings');
+
+        if (
+            !response.data.every(
+                (item) => typeof item === "string"
+            )
+        ) {
+            throw new Error(
+                "All items in the array must be strings"
+            );
         }
-        
+
         return response.data as QuestionsFromAIType;
     } catch (error) {
         console.log(error);
-        throw error
+        throw error;
     }
-}
+};
 
-export const checkAnswers = async ({ subject, questions, answers }: { subject: string, questions: string[], answers: string[] }) => {
+export const checkAnswers = async ({
+    subject,
+    questions,
+    answers,
+}: {
+    subject: string;
+    questions: string[];
+    answers: string[];
+}) => {
     try {
-        const response = await api.post(`${globalAPI}AI/check`, { subject, questions, answers })
-        return response.data
-    }catch(error){
-        console.log(error);
-        throw error
-    }
-}
+        const response = await api.post("AI/check", {
+            subject,
+            questions,
+            answers,
+        });
 
-export const getAllUsers=async()=>{
-    try{
-            const response=await api.get(`${globalAPI}user`)
-        return response.data
-    }catch(error){
+        return response.data;
+    } catch (error) {
         console.log(error);
-        throw error
+        throw error;
     }
-}
+};
 
-export const deletePainting=async(painting:PaintingType,userId:number)=>{
-    if(userId!==painting.ownerId)
-        throw Error("Unathorized")
-    try{
-        const response=await api.delete(`${paintingURL}/${painting.id}`)
-        return response.data
-    }catch(error){
+export const getAllUsers = async () => {
+    try {
+        const response = await api.get(userURL);
+        return response.data;
+    } catch (error) {
         console.log(error);
-        throw error
+        throw error;
     }
-}
+};
 
-const categoryURL = globalAPI + 'category';
+export const deletePainting = async (
+    painting: PaintingType,
+    userId: number
+) => {
+    if (userId !== painting.ownerId) {
+        throw new Error("Unauthorized");
+    }
+
+    try {
+        const response = await api.delete(
+            `${paintingURL}/${painting.id}`
+        );
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
 
 export const fetchCategories = async () => {
     try {
-        const response = await axios.get(categoryURL);
+        const response = await api.get(categoryURL);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -206,7 +236,10 @@ export const fetchCategories = async () => {
 
 export const fetchCategoryById = async (id: number) => {
     try {
-        const response = await axios.get(`${categoryURL}/${id}`);
+        const response = await api.get(
+            `${categoryURL}/${id}`
+        );
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -214,11 +247,16 @@ export const fetchCategoryById = async (id: number) => {
     }
 };
 
-const userURL = globalAPI + 'user';
-
-export const updateUser = async (userId: number, userData: UserToAddType) => {
+export const updateUser = async (
+    userId: number,
+    userData: UserToAddType
+) => {
     try {
-        const response = await api.put(`${userURL}/${userId}`, userData);
+        const response = await api.put(
+            `${userURL}/${userId}`,
+            userData
+        );
+
         return response.data;
     } catch (error) {
         console.log(error);

@@ -37,9 +37,9 @@ export const fetchPaintingsAsync = createAsyncThunk(
 // Add painting
 export const addPaintingAsync = createAsyncThunk(
     'paintings/add',
-    async ({ painting, token }: { painting: PaintingToAddType, token: string }, thunkAPI) => {
+    async ({ painting}: { painting: PaintingToAddType }, thunkAPI) => {
         try {
-            const response = await addPainting(painting, token);
+            const response = await addPainting(painting);
             return response;
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);

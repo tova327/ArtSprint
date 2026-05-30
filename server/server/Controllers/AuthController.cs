@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using server.Post_Models;
+using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AutoMapper;
-using Server.Core.DTOs;
-using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,34 +24,34 @@ namespace server.Controllers
         private readonly IUserService _userService; // Add IUserService to handle user registration
         private readonly IMapper _mapper; // Add IUserService to handle user registration
 
-        public AuthController(IConfiguration configuration, IAuthService authService, IUserService userService,IMapper mapper)
+        public AuthController(IConfiguration configuration, IAuthService authService, IUserService userService, IMapper mapper)
         {
             _configuration = configuration;
             _authService = authService;
-            _userService = userService; 
+            _userService = userService;
             _mapper = mapper;
         }
         [Authorize]
 
         [HttpPost("authuser")]
-        public async Task<IActionResult> GetUserFromToken([FromBody]TokenPostModel token)
+        public async Task<IActionResult> GetUserFromToken([FromBody] TokenPostModel token)
         {
-                var handler = new JwtSecurityTokenHandler();
-                var jwtToken = handler.ReadToken(token.Token) as JwtSecurityToken;
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadToken(token.Token) as JwtSecurityToken;
 
-                if (jwtToken != null)
+            if (jwtToken != null)
+            {
+
+                var userName = jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Name).Value;
+                var user = await _userService.GetUserByUsername(userName);
+
+                return Ok(new
                 {
-                    
-                    var userName = jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Name).Value;
-                    var user=await _userService.GetUserByUsername(userName);
-                    
-                    return Ok(new
-                    {
-                        User = user,
-                        Token = token
-                    });
-                }
-            
+                    User = user,
+                    Token = token
+                });
+            }
+
 
             return Unauthorized();
         }
@@ -59,18 +60,28 @@ namespace server.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-            var token=await _authService.Authenticate(base.HttpContext, loginModel.UserName, loginModel.Password);
+            var token = await _authService.Authenticate(base.HttpContext, loginModel.UserName, loginModel.Password);
             var user = await _userService.GetUserByUsername(loginModel.UserName);
-            if (user == null||token==null)
+            if (user == null || token == null)
                 return Unauthorized();
+            Response.Cookies.Append(
+    "AuthToken",
+    token,
+    new CookieOptions
+    {
+        HttpOnly = true,
+        Secure = true,      // HTTPS only
+        SameSite = SameSiteMode.Lax,
+        Expires = DateTime.UtcNow.AddDays(1)
+    });
 
-            return Ok(new {token=token, User = user }); // No token returned
+            return Ok(new { token = token, User = user }); // No token returned
         }
 
         [HttpPost("logout")]
         public IActionResult Logout()
         {
-            //Response.Cookies.Delete("authToken"); // Clear the cookie
+            Response.Cookies.Delete("AuthToken");
             return Ok();
         }
 
@@ -87,11 +98,11 @@ namespace server.Controllers
 
             // Step 2: Add the user using the user service
 
-            var userDto=_mapper.Map<UserDTO>(userPostModel);
-            
+            var userDto = _mapper.Map<UserDTO>(userPostModel);
+
             var result = await _userService.AddAsync(userDto);
 
-            if (result==null)
+            if (result == null)
             {
                 return BadRequest("THIS USER ALREADY EXISTS"); // Return error message if registration fails
             }
@@ -102,7 +113,7 @@ namespace server.Controllers
             loginModel.Password = userPostModel.Password;
             loginModel.UserName = userPostModel.Name;
             return await Login(loginModel);
-            
+
         }
     }
 

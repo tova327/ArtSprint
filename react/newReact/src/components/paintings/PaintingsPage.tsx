@@ -167,7 +167,7 @@ const PaintingsPage: React.FC = () => {
             const matchesSubject =
                 !subjectFilter ||
                 p.categoryId ===
-                categories.find((c) => c.name === subjectFilter)?.id;
+                    parseInt(subjectFilter);
 
             const matchesSearch =
                 !searchQuery ||

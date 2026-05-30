@@ -16,7 +16,7 @@ import { AppSpinner } from "../common/AppSpinner";
 
 
 const NavBarDraft: React.FC = () => {
-    
+
 
     const categories = useSelector(
         (store: StoreType) => store.categories.categories
@@ -26,7 +26,7 @@ const NavBarDraft: React.FC = () => {
         (store: StoreType) => store.categories.loading
     );
 
-    
+
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -46,20 +46,20 @@ const NavBarDraft: React.FC = () => {
     });
 
     useEffect(() => {
-        try{
+        try {
             dispatch(fetchCategoriesAsync());
-        }catch(e: any){
+        } catch (e: any) {
             handleOpenAlert("error", "Failed to load categories: " + e.message);
         }
     }, []);
 
-   
+
 
     const hierarchy = useMemo(() => {
         return getCategoryHierarchy(categories);
     }, [categories]);
 
-    
+
 
     const buildMenuItems = (
         categoriesTree: CategoryType[]
@@ -68,7 +68,14 @@ const NavBarDraft: React.FC = () => {
             key: category.id.toString(),
             icon: <PieChartOutlined />,
             label: category.name,
-           
+            onTitleClick: () => {
+                if (category.id === parseInt(currentSubject)) {
+                    navigate(`/`);
+                } else {
+                    navigate(`/?catid=${encodeURIComponent(category.id.toString())}`);
+                }
+            },
+
 
             children:
                 category.subCategories.length > 0
@@ -78,19 +85,19 @@ const NavBarDraft: React.FC = () => {
     };
 
     const handleMenuClick: MenuProps["onClick"] = (e) => {
-    const clickedId = e.key;
+        const clickedId = e.key;
 
-    if (clickedId === currentSubject) {
-        navigate(`/`);
-    } else {
-        navigate(`/?catid=${encodeURIComponent(clickedId)}`);
-    }
-};
+        if (clickedId === currentSubject) {
+            navigate(`/`);
+        } else {
+            navigate(`/?catid=${encodeURIComponent(clickedId)}`);
+        }
+    };
 
     return (
         <div >
 
-            
+
             <AppAlert
                 isVisible={alert.isVisible}
                 type={alert.type}
