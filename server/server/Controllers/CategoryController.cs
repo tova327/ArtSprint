@@ -49,6 +49,7 @@ namespace server.Controllers
         }
 
         [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<CategoryDTO>> Post([FromBody] CategoryPostModel category)
         {
@@ -81,6 +82,7 @@ namespace server.Controllers
         }
 
         [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<CategoryDTO>> Put(int id, [FromBody] CategoryPostModel category)
         {
@@ -105,7 +107,8 @@ namespace server.Controllers
         }
 
 		[Authorize]
-		[HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             try

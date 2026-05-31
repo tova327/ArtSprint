@@ -115,6 +115,22 @@ namespace server.Controllers
             return await Login(loginModel);
 
         }
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> Me()
+        {
+            var username = User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(username))
+                return Unauthorized();
+
+            var user = await _userService.GetUserByUsername(username);
+
+            if (user == null)
+                return Unauthorized();
+
+            return Ok(user);
+        }
     }
 
 }
