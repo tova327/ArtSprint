@@ -49,33 +49,35 @@ namespace Server.Service.Services
 			return _mapper.Map<CategoryDTO?>(category);
 		}
 
-		public async Task DeleteAsync(int id)
-		{
-			var categoryToDelete= await GetByIdAsync(id);	
-			if (categoryToDelete == null)
-				throw new KeyNotFoundException($"Category {id} was not found.");
-			if (categoryToDelete.ParentCategoryId != null)
-			{
-				var parent = await GetByIdAsync(categoryToDelete.ParentCategoryId ?? -1);
-				if (parent == null) throw new Exception("ERORR: Bad details");
-				foreach (var child in categoryToDelete.SubCategories)
-				{
-					await UpdateParentAsync(child.Id, parent.Id, child);
-				}
+        public async Task DeleteAsync(int id)
+        {
+            var category = await GetByIdAsync(id);
 
-			}
-			else
-			{
-				if (categoryToDelete.SubCategories != null && categoryToDelete.SubCategories.Count > 0)
-				{
-					throw new InvalidOperationException("Can not be deleted. Cannot throw children");
-				}
-			}
-			await _repositoryManager.Categories.DeleteAsync(categoryToDelete.Id);
-			await _repositoryManager.SaveAsync();
-		}
+            if (category == null)
+                throw new KeyNotFoundException($"Category {id} was not found.");
 
-		public async Task<IEnumerable<CategoryDTO>> GetAllAsync()
+            // Ensure children are loaded
+            var children = category.SubCategories?.ToList() ?? new List<CategoryDTO>();
+
+            // Root category with children cannot be deleted
+            if (category.ParentCategoryId == null && children.Any())
+                throw new InvalidOperationException("Cannot delete root category that has children.");
+
+            if (children.Any())
+            {
+                var newParentId = category.ParentCategoryId;
+
+                foreach (var child in children)
+                {
+                    await UpdateParentAsync(child.Id, newParentId, child);
+                }
+            }
+
+            await _repositoryManager.Categories.DeleteAsync(category.Id);
+            await _repositoryManager.SaveAsync();
+        }
+
+        public async Task<IEnumerable<CategoryDTO>> GetAllAsync()
 		{
 			var categories = await _repositoryManager.Categories.GetAllAsync();
 
