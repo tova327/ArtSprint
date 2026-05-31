@@ -68,6 +68,7 @@ namespace server.Controllers
             return Ok(commentPut);
         }
         [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

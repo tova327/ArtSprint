@@ -71,7 +71,7 @@ namespace server.Controllers
     {
         HttpOnly = true,
         Secure = true,      // HTTPS only
-        SameSite = SameSiteMode.Lax,
+        SameSite = SameSiteMode.None,
         Expires = DateTime.UtcNow.AddDays(1)
     });
 
