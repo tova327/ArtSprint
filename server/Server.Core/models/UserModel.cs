@@ -30,7 +30,7 @@ namespace Server.Core.models
         public DateTime BirthDate { get; set; }// X
 
         public bool IsMedal { get; set; } = false;// V
-        public string Role { get; set; } = "member";
+        public string Role { get; set; } 
         public DateTime? LastPaint { get; set; }= DateTime.Now;// V
 
         public ICollection<PaintingModel> Paintings { get; set; }

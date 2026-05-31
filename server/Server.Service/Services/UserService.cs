@@ -81,6 +81,7 @@ public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
             existingUser.Name = entity.Name;
             existingUser.Email = entity.Email;
             existingUser.BirthDate = entity.BirthDate;
+            existingUser.Role = entity.Role; 
 
             // -----------------------------
             // UPDATE PASSWORD ONLY IF EXISTS
