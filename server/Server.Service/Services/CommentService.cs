@@ -56,7 +56,22 @@ namespace Server.Service.Services
 
         public async Task<CommentDTO> UpdateAsync(int id, CommentDTO entity)
         {
-            var comment = await _repositoryManager.Comments.UpdateAsync(id,_mapper.Map<CommentModel>( entity));
+            if (entity == null)
+                return null;
+            var existComment=await GetByIdAsync(id);
+            if (existComment == null)
+                return null;
+            var painting = await _repositoryManager.Paintings.GetByIdAsync(entity.PaintId);
+            if (painting == null)
+                return null;
+
+            var user = await _repositoryManager.Users.GetByIdAsync(entity.UserId);
+            if (user == null)
+                return null;
+            existComment.UserId=entity.UserId;
+            existComment.PaintId=entity.PaintId;
+            existComment.Content = entity.Content;
+            var comment = await _repositoryManager.Comments.UpdateAsync(id,_mapper.Map<CommentModel>( existComment));
             await _repositoryManager.SaveAsync();
             return _mapper.Map<CommentDTO>( comment);
         }
