@@ -88,7 +88,7 @@ const navigate = useNavigate();
           {user?.role === "admin" && (
             <AppButton
               type="default"
-              onClick={() => navigate("https://localhost:5173")}
+              onClick={() => window.location.href = "https://localhost:5173"}
             >
               Admin Panel
             </AppButton>
