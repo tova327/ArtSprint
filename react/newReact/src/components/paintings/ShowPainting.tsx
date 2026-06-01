@@ -103,13 +103,13 @@ const ShowPainting = ({ painting,category, userId }: { painting: PaintingType ,c
         {category}
       </AppTag>
       <AppTag>
-        {painting.likes + sessionLikes}<LikeFilled style={{ marginLeft: 4 }} />
+        {painting.likes}<LikeFilled style={{ marginLeft: 4 }} />
       </AppTag>
     </Flex>
 
     {/* Actions */}
     <Flex justify="space-between" vertical={false} align="center">
-      <AppButton type="text" onClick={handleLike} icon={sessionLikes > 0 ? <LikeFilled /> : <LikeOutlined />} >
+      <AppButton type="text" onClick={handleLike} icon={painting.likes > 0 ? <LikeFilled /> : <LikeOutlined />} >
         Love
       </AppButton>
 
