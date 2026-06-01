@@ -8,6 +8,6 @@ namespace server.Post_Models
         public int OwnerId { get; set; }
         public string Name { get; set; }
         public int CategoryId { get; set; }
-        public IFormFile paintingFile { get; set; }
+        public IFormFile? paintingFile { get; set; }
     }
 }
