@@ -28,10 +28,8 @@ namespace Server.Data.repositories
         public async Task DeleteAsync(int id)
         {
             var item=await _dbSet.FindAsync(id);
-            //var user = await _dataContext.Users.FindAsync(id);
             if (item != null)
             {
-                //_dataContext.Users.Remove(user);
                 _dbSet.Remove(item);
                 await  _dataContext.SaveChangesAsync();
             }

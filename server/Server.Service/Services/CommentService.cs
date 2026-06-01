@@ -5,6 +5,7 @@ using Server.Core.Repositories;
 using Server.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,9 +38,20 @@ namespace Server.Service.Services
 
         public async Task<CommentDTO> AddAsync(CommentDTO entity)
         {
+            if (entity == null)
+                return null;
+
+            var painting = await _repositoryManager.Paintings.GetByIdAsync(entity.PaintId);
+            if (painting == null)
+                return null;
+
+            var user = await _repositoryManager.Users.GetByIdAsync(entity.UserId);
+            if (user == null)
+                return null;
+
             var comment = await _repositoryManager.Comments.AddAsync(_mapper.Map<CommentModel>(entity));
             await _repositoryManager.SaveAsync();
-            return _mapper.Map<CommentDTO?>(comment);
+            return _mapper.Map<CommentDTO>(comment);
         }
 
         public async Task<CommentDTO> UpdateAsync(int id, CommentDTO entity)
