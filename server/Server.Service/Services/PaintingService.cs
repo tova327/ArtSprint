@@ -62,7 +62,7 @@ namespace Server.Service.Services
             if (entity == null)
                 return null;
             var allPaintings=await GetAllAsync();
-            var existPainting=allPaintings.First(p=>p.Id==entity.Id);
+            var existPainting = allPaintings.FirstOrDefault(p => p.Id == id)?? throw new InvalidOperationException($"Painting with id {id} not found");
             if (existPainting == null)
                 return null;
             existPainting.OwnerId = entity.OwnerId;
