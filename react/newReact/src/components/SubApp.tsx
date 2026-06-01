@@ -4,8 +4,8 @@ import { useEffect, useState } from "react"
 import { Routes, Route, useNavigate } from "react-router-dom"
 import { Layout, Typography } from "antd"
 
-import { useDispatch } from "react-redux"
-import type { AppDispatch } from "../store/store"
+import { useDispatch, useSelector } from "react-redux"
+import type { AppDispatch, StoreType } from "../store/store"
 import PaintingComponent from "./paintings/PaintingComponent"
 import ProtectedRoute from "./auth/ProtectedRoute"
 import StartPage from "./auth/StartPage"
@@ -22,6 +22,7 @@ const { Header, Content, Footer } = Layout
 
 const SubApp: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const user = useSelector((state: StoreType) => state.user.user);
 const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchPaintingsAsync())
@@ -84,12 +85,20 @@ const navigate = useNavigate();
           >
             Home
           </AppButton>
+          {user?.role === "admin" && (
+            <AppButton
+              type="default"
+              onClick={() => navigate("https://localhost:5173")}
+            >
+              Admin Panel
+            </AppButton>
+          )}
         </div>
 
         <UserAvatar />
       </Header>
       <Layout>
-
+            
         <Sider
           breakpoint="md"
           width={240}

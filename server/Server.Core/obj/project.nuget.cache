@@ -46,22 +46,16 @@
   ],
   "logs": [
     {
-      "code": "Undefined",
+      "code": "NU1903",
       "level": "Warning",
-      "message": "Problem reading the cache file C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "message": "Package 'AutoMapper' 13.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
       "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Server.Core.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Server.Core.csproj",
-      "targetGraphs": []
-    },
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Server.Core.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Server.Core.csproj",
-      "targetGraphs": []
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net7.0"
+      ]
     }
   ]
 }
