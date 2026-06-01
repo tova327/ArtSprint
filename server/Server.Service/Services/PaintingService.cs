@@ -59,7 +59,16 @@ namespace Server.Service.Services
 
         public async Task<PaintingDTO> UpdateAsync(int id, PaintingDTO entity)
         {
-            var paintingModel = _mapper.Map<PaintingModel>(entity);
+            if (entity == null)
+                return null;
+            var allPaintings=await GetAllAsync();
+            var existPainting=allPaintings.First(p=>p.Id==entity.Id);
+            if (existPainting == null)
+                return null;
+            existPainting.OwnerId = entity.OwnerId;
+            existPainting.Name = entity.Name;
+            existPainting.CategoryId = entity.CategoryId;
+            var paintingModel = _mapper.Map<PaintingModel>(existPainting);
             var painting = await _repositoryManager.Paintings.UpdateAsync(id, paintingModel);
             await _repositoryManager.SaveAsync();
             return _mapper.Map<PaintingDTO>(painting);
