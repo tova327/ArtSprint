@@ -43,9 +43,9 @@ export const addCommentAsync = createAsyncThunk(
 
 export const updateCommentAsync = createAsyncThunk(
     'comments/update',
-    async ({ id, comment, token }: { id: number; comment: CommentPostModel; token: string }, thunkAPI) => {
+    async ({ id, comment }: { id: number; comment: CommentPostModel }, thunkAPI) => {
         try {
-            const response = await updateComment(id, comment, token);
+            const response = await updateComment(id, comment);
             return response;
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);
@@ -55,9 +55,9 @@ export const updateCommentAsync = createAsyncThunk(
 
 export const deleteCommentAsync = createAsyncThunk(
     'comments/delete',
-    async ({ id, token }: { id: number; token: string }, thunkAPI) => {
+    async ({ id }: { id: number;}, thunkAPI) => {
         try {
-            await deleteComment(id, token);
+            await deleteComment(id);
             return id; // return the id to remove it from the state
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);
