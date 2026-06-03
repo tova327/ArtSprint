@@ -21,7 +21,7 @@ public class UserRepository:GenericRepository<UserModel> , IUserRepository
         return await _context.Users.Include(u => u.Paintings).Include(u => u.Comments).ToListAsync();
             
     }
-    public override async Task<UserModel> GetByIdAsync(int id)
+    public override async Task<UserModel?> GetByIdAsync(int id)
     {
         return await _context.Users.Include(u => u.Paintings).Include(u => u.Comments).FirstOrDefaultAsync(u => u.Id == id);
 

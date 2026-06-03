@@ -106,7 +106,7 @@ namespace Server.Service.Services
             return _mapper.Map<List<PaintingDTO>>(paintingsList);
         }
 
-        public async Task<IEnumerable<PaintingDTO>> GetPaintingsForUser(int userId)
+        public async Task<IEnumerable<PaintingDTO>> GetPaintingsForUserAsync(int userId)
         {
             var paintings = await GetAllAsync();
             if (paintings == null)
