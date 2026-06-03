@@ -15,18 +15,20 @@ namespace Server.Service.Services
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public PaintingService(IRepositoryManager repositoryManager, IMapper mapper)
+        public PaintingService(IRepositoryManager repositoryManager, IMapper mapper, IUserService userService)
         {
             _repositoryManager = repositoryManager;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public async Task<IEnumerable<PaintingDTO>> GetAllAsync()
         {
             var paintings = await _repositoryManager.Paintings.GetAllAsync();
-            var paintingsList= paintings.ToList();
-            var res=new List<PaintingDTO>();
+            var paintingsList = paintings.ToList();
+            var res = new List<PaintingDTO>();
             foreach (var painting in paintingsList)
             {
                 res.Add(_mapper.Map<PaintingDTO>(painting));
@@ -42,18 +44,19 @@ namespace Server.Service.Services
 
         public async Task<PaintingDTO> AddAsync(PaintingDTO entity)
         {
-            var allPaintings=await GetAllAsync();
-            var existPainting=allPaintings.FirstOrDefault(p=>p.Name.Equals(entity.Name)&&p.OwnerId==entity.OwnerId);
+            var allPaintings = await GetAllAsync();
+            var existPainting = allPaintings.FirstOrDefault(p => p.Name.Equals(entity.Name) && p.OwnerId == entity.OwnerId);
             if (existPainting != null)
                 return null;
-            if(entity.CreatedAt == default)
-                entity.CreatedAt = DateTime.UtcNow; 
+            if (entity.CreatedAt == default)
+                entity.CreatedAt = DateTime.UtcNow;
             var category = await _repositoryManager.Categories.GetByIdAsync(entity.CategoryId);
-            if(category==null)
+            if (category == null)
                 return null;
-			var paintingModel = _mapper.Map<PaintingModel>(entity);
+            var paintingModel = _mapper.Map<PaintingModel>(entity);
             var painting = await _repositoryManager.Paintings.AddAsync(paintingModel);
             await _repositoryManager.SaveAsync();
+            await _userService.UpdateUserLastPaintAsync(painting.OwnerId, painting.CreatedAt);
             return _mapper.Map<PaintingDTO>(painting);
         }
 
@@ -61,8 +64,8 @@ namespace Server.Service.Services
         {
             if (entity == null)
                 return null;
-            var allPaintings=await GetAllAsync();
-            var existPainting = allPaintings.FirstOrDefault(p => p.Id == id)?? throw new InvalidOperationException($"Painting with id {id} not found");
+            var allPaintings = await GetAllAsync();
+            var existPainting = allPaintings.FirstOrDefault(p => p.Id == id) ?? throw new InvalidOperationException($"Painting with id {id} not found");
             if (existPainting == null)
                 return null;
             existPainting.OwnerId = entity.OwnerId;
@@ -76,21 +79,21 @@ namespace Server.Service.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var paintingToDelete=await GetByIdAsync(id);
+            var paintingToDelete = await GetByIdAsync(id);
             if (paintingToDelete == null)
                 return false;
-            
+
             await _repositoryManager.Paintings.DeleteAsync(id);
             await _repositoryManager.SaveAsync();
             return true;
         }
 
-        public async Task<bool> AddLikeAsync(int id,int count)
+        public async Task<bool> AddLikeAsync(int id, int count)
         {
             if (count < 0 || count > 10)
                 return false;
-           var res= await _repositoryManager.Paintings.AddLikeAsync(id,count);
-            if(!res)
+            var res = await _repositoryManager.Paintings.AddLikeAsync(id, count);
+            if (!res)
                 return false;
             await _repositoryManager.SaveAsync();
             return true;
@@ -99,8 +102,19 @@ namespace Server.Service.Services
         public async Task<IEnumerable<PaintingDTO>> GetAllFromDateToDateAsync(DateTime startDate, DateTime endDate)
         {
             var paintings = await _repositoryManager.Paintings.GetAllFromDateToDateAsync(startDate, endDate);
-            var paintingsList=paintings.ToList();
-            return _mapper.Map<List<PaintingDTO>>(paintingsList);   
+            var paintingsList = paintings.ToList();
+            return _mapper.Map<List<PaintingDTO>>(paintingsList);
+        }
+
+        public async Task<IEnumerable<PaintingDTO>> GetPaintingsForUser(int userId)
+        {
+            var paintings = await GetAllAsync();
+            if (paintings == null)
+            {
+                return null;
+            }
+            var specificPaintings = paintings.Where(p => p.OwnerId == userId);
+            return specificPaintings;
         }
     }
 }

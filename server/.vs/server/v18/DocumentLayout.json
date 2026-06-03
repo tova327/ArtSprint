@@ -3,36 +3,80 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\paintingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\paintingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\aiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\aiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\categorymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\categorymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\paintingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\paintingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\commentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\dtos\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\dtos\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\commentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\commentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\commentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\competitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\competitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.data\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|solutionrelative:server.data\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.data\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|solutionrelative:server.data\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\post models\\paintingpostmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\post models\\paintingpostmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\post models\\userpostmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,14 +89,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\aiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\aiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\storageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,10 +107,6 @@
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\loginmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\post models\\paintingpostmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\post models\\paintingpostmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\dtos\\paintingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\dtos\\paintingdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -89,10 +121,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\categorymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\categorymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -114,10 +142,6 @@
       "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\competitionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.service\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{08A8E4BD-2C8B-4B4C-B0AD-09097ED6C038}|Server.Service\\Server.Service.csproj|solutionrelative:server.service\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\services\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\services\\icategoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -134,10 +158,6 @@
       "RelativeMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|solutionrelative:server.data\\idatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.data\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|solutionrelative:server.data\\repositories\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\repositories\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -146,20 +166,12 @@
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\competitionpaintingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\commentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\commentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\esubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\esubject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\models\\competitionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\models\\competitionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server\\controllers\\competitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD62AD0-C236-40D6-BBE9-40F552AC657B}|server\\server.csproj|solutionrelative:server\\controllers\\competitioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.data\\repositories\\competitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -172,10 +184,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\repositories\\icompetitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\repositories\\icompetitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.core\\dtos\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD8DB1D8-BA79-4CE1-B487-37ED382045F6}|Server.Core\\Server.Core.csproj|solutionrelative:server.core\\dtos\\commentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4A3C0E77-B4B2-456A-A4DD-44E4CE5C5BB3}|Server.Data\\Server.Data.csproj|c:\\users\\user\\source\\repos\\tova327\\artsprint\\server\\server.data\\migrations\\20260210204833_addtimes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -197,7 +205,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 18,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "server\\Controllers\\CategoryController.cs",
@@ -218,130 +226,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CommentController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CommentController.cs",
-              "RelativeDocumentMoniker": "server\\Controllers\\CommentController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CommentController.cs",
-              "RelativeToolTip": "server\\Controllers\\CommentController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAuwEYAAAAkAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "CategoryModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CategoryModel.cs",
+              "RelativeDocumentMoniker": "Server.Core\\models\\CategoryModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CategoryModel.cs",
+              "RelativeToolTip": "Server.Core\\models\\CategoryModel.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAxwBYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-17T16:26:05.868Z"
+              "WhenOpened": "2026-02-04T22:43:49.171Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "server\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "server\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAuwIMAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-27T20:29:28.017Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs",
-              "RelativeDocumentMoniker": "server\\Program.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs",
-              "RelativeToolTip": "server\\Program.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAswCAAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T20:02:47.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PaintingService.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\PaintingService.cs",
-              "RelativeDocumentMoniker": "Server.Service\\Services\\PaintingService.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\PaintingService.cs",
-              "RelativeToolTip": "Server.Service\\Services\\PaintingService.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAD4v14AAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-23T19:30:59.283Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "server\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\UserController.cs",
-              "RelativeToolTip": "server\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAA9wEAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T14:39:11.83Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "Server.Service\\Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\AuthService.cs",
-              "RelativeToolTip": "Server.Service\\Services\\AuthService.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAuwDUAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-10T00:04:31.325Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "Server.Service\\Services\\UserService.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\UserService.cs",
-              "RelativeToolTip": "Server.Service\\Services\\UserService.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAADwv0sAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-28T20:51:43.694Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "UserDTO.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\UserDTO.cs",
-              "RelativeDocumentMoniker": "Server.Core\\DTOs\\UserDTO.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\UserDTO.cs",
-              "RelativeToolTip": "Server.Core\\DTOs\\UserDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T18:39:54.111Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UserPostModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\UserPostModel.cs",
-              "RelativeDocumentMoniker": "server\\Post Models\\UserPostModel.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\UserPostModel.cs",
-              "RelativeToolTip": "server\\Post Models\\UserPostModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T23:39:46.142Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Dockerfile",
-              "RelativeDocumentMoniker": "server\\Dockerfile",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Dockerfile",
-              "RelativeToolTip": "server\\Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-05-26T16:04:43.348Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "AIService.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\AIService.cs",
               "RelativeDocumentMoniker": "Server.Service\\Services\\AIService.cs",
@@ -353,19 +250,236 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Server.Service\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\AuthService.cs",
+              "RelativeToolTip": "Server.Service\\Services\\AuthService.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAuwDkAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T00:04:31.325Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "Server.Service\\Services\\CategoryService.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CategoryService.cs",
+              "RelativeToolTip": "Server.Service\\Services\\CategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-15T18:17:35.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "UserModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\UserModel.cs",
               "RelativeDocumentMoniker": "Server.Core\\models\\UserModel.cs",
               "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\UserModel.cs",
               "RelativeToolTip": "Server.Core\\models\\UserModel.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAqwDsAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABkAAAAAAAAAAAA/wCQAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-10T20:34:10.966Z"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "Server.Service\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\UserService.cs",
+              "RelativeToolTip": "Server.Service\\Services\\UserService.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAuwEUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-28T20:51:43.694Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\UserController.cs",
+              "RelativeToolTip": "server\\Controllers\\UserController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAYwGcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T14:39:11.83Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "server\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAiwEUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-27T20:29:28.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PaintingService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\PaintingService.cs",
+              "RelativeDocumentMoniker": "Server.Service\\Services\\PaintingService.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\PaintingService.cs",
+              "RelativeToolTip": "Server.Service\\Services\\PaintingService.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAIAwwEEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-23T19:30:59.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CommentService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CommentService.cs",
+              "RelativeDocumentMoniker": "Server.Service\\Services\\CommentService.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CommentService.cs",
+              "RelativeToolTip": "Server.Service\\Services\\CommentService.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAkwEsAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T17:27:32.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CommentDTO.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\CommentDTO.cs",
+              "RelativeDocumentMoniker": "Server.Core\\DTOs\\CommentDTO.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\CommentDTO.cs",
+              "RelativeToolTip": "Server.Core\\DTOs\\CommentDTO.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-04T22:49:04.01Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CommentModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CommentModel.cs",
+              "RelativeDocumentMoniker": "Server.Core\\models\\CommentModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CommentModel.cs",
+              "RelativeToolTip": "Server.Core\\models\\CommentModel.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T19:56:39.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CommentController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CommentController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\CommentController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CommentController.cs",
+              "RelativeToolTip": "server\\Controllers\\CommentController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwDMAAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-17T16:26:05.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "Server.Data\\repositories\\GenericRepository.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\GenericRepository.cs",
+              "RelativeToolTip": "Server.Data\\repositories\\GenericRepository.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T17:10:37.163Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 13,
+              "Title": "CompetitionController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CompetitionController.cs",
+              "RelativeDocumentMoniker": "server\\Controllers\\CompetitionController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CompetitionController.cs",
+              "RelativeToolTip": "server\\Controllers\\CompetitionController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAowEsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-05T20:31:07.94Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PaintingPostModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\PaintingPostModel.cs",
+              "RelativeDocumentMoniker": "server\\Post Models\\PaintingPostModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\PaintingPostModel.cs",
+              "RelativeToolTip": "server\\Post Models\\PaintingPostModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-22T20:40:09.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CategoryRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\CategoryRepository.cs",
+              "RelativeDocumentMoniker": "Server.Data\\repositories\\CategoryRepository.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\CategoryRepository.cs",
+              "RelativeToolTip": "Server.Data\\repositories\\CategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-15T18:12:55.789Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs",
+              "RelativeDocumentMoniker": "server\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Program.cs",
+              "RelativeToolTip": "server\\Program.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAswCAAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-18T20:02:47.751Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "UserDTO.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\UserDTO.cs",
+              "RelativeDocumentMoniker": "Server.Core\\DTOs\\UserDTO.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\UserDTO.cs",
+              "RelativeToolTip": "Server.Core\\DTOs\\UserDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T18:39:54.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "UserPostModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\UserPostModel.cs",
+              "RelativeDocumentMoniker": "server\\Post Models\\UserPostModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\UserPostModel.cs",
+              "RelativeToolTip": "server\\Post Models\\UserPostModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T23:39:46.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Dockerfile",
+              "RelativeDocumentMoniker": "server\\Dockerfile",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Dockerfile",
+              "RelativeToolTip": "server\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-26T16:04:43.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
               "Title": "StorageService.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\StorageService.cs",
               "RelativeDocumentMoniker": "Server.Service\\Services\\StorageService.cs",
@@ -377,7 +491,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 23,
               "Title": "PaintingModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\PaintingModel.cs",
               "RelativeDocumentMoniker": "Server.Core\\models\\PaintingModel.cs",
@@ -389,19 +503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "PaintingPostModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\PaintingPostModel.cs",
-              "RelativeDocumentMoniker": "server\\Post Models\\PaintingPostModel.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\PaintingPostModel.cs",
-              "RelativeToolTip": "server\\Post Models\\PaintingPostModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T20:40:09.188Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "TokenPostModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\TokenPostModel.cs",
               "RelativeDocumentMoniker": "server\\Post Models\\TokenPostModel.cs",
@@ -413,7 +515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 27,
               "Title": "MappingPostProfile.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\MappingPostProfile.cs",
               "RelativeDocumentMoniker": "server\\MappingPostProfile.cs",
@@ -425,7 +527,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 25,
               "Title": "LoginModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\LoginModel.cs",
               "RelativeDocumentMoniker": "Server.Core\\models\\LoginModel.cs",
@@ -437,7 +539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 26,
               "Title": "PaintingDTO.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\PaintingDTO.cs",
               "RelativeDocumentMoniker": "Server.Core\\DTOs\\PaintingDTO.cs",
@@ -449,7 +551,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 29,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\MappingProfile.cs",
               "RelativeDocumentMoniker": "Server.Core\\MappingProfile.cs",
@@ -461,7 +563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 28,
               "Title": "CategoryPostModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Post Models\\CategoryPostModel.cs",
               "RelativeDocumentMoniker": "server\\Post Models\\CategoryPostModel.cs",
@@ -473,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 30,
               "Title": "DataContext.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\DataContext.cs",
               "RelativeDocumentMoniker": "Server.Data\\DataContext.cs",
@@ -485,7 +587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 31,
               "Title": "20260218202702_general.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\Migrations\\20260218202702_general.cs",
               "RelativeDocumentMoniker": "Server.Data\\Migrations\\20260218202702_general.cs",
@@ -497,19 +599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CategoryModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CategoryModel.cs",
-              "RelativeDocumentMoniker": "Server.Core\\models\\CategoryModel.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CategoryModel.cs",
-              "RelativeToolTip": "Server.Core\\models\\CategoryModel.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAzwBMAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T22:43:49.171Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 34,
               "Title": "CompetitionService.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CompetitionService.cs",
               "RelativeDocumentMoniker": "Server.Service\\Services\\CompetitionService.cs",
@@ -521,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 33,
               "Title": "CategoryDTO.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\CategoryDTO.cs",
               "RelativeDocumentMoniker": "Server.Core\\DTOs\\CategoryDTO.cs",
@@ -533,7 +623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 32,
               "Title": "Microsoft.NET.Sdk.StaticWebAssets.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\10.0.102\\Sdks\\Microsoft.NET.Sdk.StaticWebAssets\\targets\\Microsoft.NET.Sdk.StaticWebAssets.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.102\\Sdks\\Microsoft.NET.Sdk.StaticWebAssets\\targets\\Microsoft.NET.Sdk.StaticWebAssets.targets",
@@ -545,19 +635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "CategoryService.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CategoryService.cs",
-              "RelativeDocumentMoniker": "Server.Service\\Services\\CategoryService.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Service\\Services\\CategoryService.cs",
-              "RelativeToolTip": "Server.Service\\Services\\CategoryService.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAADgv0oAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T18:17:35.04Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 35,
               "Title": "ICategoryService.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Services\\ICategoryService.cs",
               "RelativeDocumentMoniker": "Server.Core\\Services\\ICategoryService.cs",
@@ -569,7 +647,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 36,
               "Title": "IRepositoryManager.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Repositories\\IRepositoryManager.cs",
               "RelativeDocumentMoniker": "Server.Core\\Repositories\\IRepositoryManager.cs",
@@ -581,7 +659,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 37,
               "Title": "RepositoryManager.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\RepositoryManager.cs",
               "RelativeDocumentMoniker": "Server.Data\\repositories\\RepositoryManager.cs",
@@ -593,19 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "CategoryRepository.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\CategoryRepository.cs",
-              "RelativeDocumentMoniker": "Server.Data\\repositories\\CategoryRepository.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\CategoryRepository.cs",
-              "RelativeToolTip": "Server.Data\\repositories\\CategoryRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T18:12:55.789Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 39,
               "Title": "ICategoryRepository.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Repositories\\ICategoryRepository.cs",
               "RelativeDocumentMoniker": "Server.Core\\Repositories\\ICategoryRepository.cs",
@@ -617,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 38,
               "Title": "IDataContext.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\IDataContext.cs",
               "RelativeDocumentMoniker": "Server.Data\\IDataContext.cs",
@@ -629,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 40,
               "Title": "CompetitionPaintingModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CompetitionPaintingModel.cs",
               "RelativeDocumentMoniker": "Server.Core\\models\\CompetitionPaintingModel.cs",
@@ -641,7 +707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 46,
               "Title": "20260210204833_addTimes.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\Migrations\\20260210204833_addTimes.cs",
               "RelativeDocumentMoniker": "Server.Data\\Migrations\\20260210204833_addTimes.cs",
@@ -653,19 +719,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "CommentModel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CommentModel.cs",
-              "RelativeDocumentMoniker": "Server.Core\\models\\CommentModel.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CommentModel.cs",
-              "RelativeToolTip": "Server.Core\\models\\CommentModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-05T19:56:39.991Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 41,
               "Title": "ESubject.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\ESubject.cs",
               "RelativeDocumentMoniker": "Server.Core\\models\\ESubject.cs",
@@ -677,7 +731,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 47,
               "Title": "20260210202412_addCtegoriesTable.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\Migrations\\20260210202412_addCtegoriesTable.cs",
               "RelativeDocumentMoniker": "Server.Data\\Migrations\\20260210202412_addCtegoriesTable.cs",
@@ -689,7 +743,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 42,
               "Title": "CompetitionModel.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\models\\CompetitionModel.cs",
               "RelativeDocumentMoniker": "Server.Core\\models\\CompetitionModel.cs",
@@ -701,7 +755,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 43,
               "Title": "CompetitionRepository.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Data\\repositories\\CompetitionRepository.cs",
               "RelativeDocumentMoniker": "Server.Data\\repositories\\CompetitionRepository.cs",
@@ -713,19 +767,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "CompetitionController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CompetitionController.cs",
-              "RelativeDocumentMoniker": "server\\Controllers\\CompetitionController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\server\\Controllers\\CompetitionController.cs",
-              "RelativeToolTip": "server\\Controllers\\CompetitionController.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAA9wEsAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-05T20:31:07.94Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 44,
               "Title": "ICompetitionService.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Services\\ICompetitionService.cs",
               "RelativeDocumentMoniker": "Server.Core\\Services\\ICompetitionService.cs",
@@ -737,7 +779,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 45,
               "Title": "ICompetitionRepository.cs",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\Repositories\\ICompetitionRepository.cs",
               "RelativeDocumentMoniker": "Server.Core\\Repositories\\ICompetitionRepository.cs",
@@ -746,18 +788,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-05T20:27:45.567Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "CommentDTO.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\CommentDTO.cs",
-              "RelativeDocumentMoniker": "Server.Core\\DTOs\\CommentDTO.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\tova327\\ArtSprint\\server\\Server.Core\\DTOs\\CommentDTO.cs",
-              "RelativeToolTip": "Server.Core\\DTOs\\CommentDTO.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T22:49:04.01Z"
             }
           ]
         }

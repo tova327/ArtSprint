@@ -65,13 +65,13 @@ namespace server.Controllers
         {
             try
             {
-                var paintings = await _paintingService.GetAllAsync();
+                var paintings = await _paintingService.GetPaintingsForUserAsync(userId);
                 if (paintings == null)
                 {
-                    return NotFound();
+                    return new List<PaintingDTO>();
                 }
-                var specificPaintings = paintings.Where(p => p.OwnerId == userId);
-                return Ok(specificPaintings);
+                
+                return Ok(paintings);
             }
             catch (Exception ex)
             {

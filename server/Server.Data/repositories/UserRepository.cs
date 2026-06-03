@@ -16,7 +16,16 @@ public class UserRepository:GenericRepository<UserModel> , IUserRepository
         _context = context;
     }
 
-    
+    public override async Task<IEnumerable<UserModel>> GetAllAsync()
+    {
+        return await _context.Users.Include(u => u.Paintings).Include(u => u.Comments).ToListAsync();
+            
+    }
+    public override async Task<UserModel> GetByIdAsync(int id)
+    {
+        return await _context.Users.Include(u => u.Paintings).Include(u => u.Comments).FirstOrDefaultAsync(u => u.Id == id);
+
+    }
 
     public async Task<UserModel> GetUserDetailsByIdAsync(int id)
     {

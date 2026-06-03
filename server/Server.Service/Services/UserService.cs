@@ -18,19 +18,19 @@ namespace Server.Service.Services
 
         public UserService(IRepositoryManager repositoryManager, IMapper mapper)
         {
-            _repositoryManager = repositoryManager; 
+            _repositoryManager = repositoryManager;
             _mapper = mapper;
         }
         public async Task<UserDTO> AddAsync(UserDTO entity)
         {
-            var existUser =await _repositoryManager.Users.GetUserByUsername(entity.Name);
-            if (existUser != null) 
+            var existUser = await _repositoryManager.Users.GetUserByUsername(entity.Name);
+            if (existUser != null)
             {
                 return null;
             }
             var userModel = _mapper.Map<UserModel>(entity);
-            userModel.HashedPassword =BCrypt.Net.BCrypt.HashPassword(entity.Password); 
-            var user=await _repositoryManager.Users.AddAsync(userModel);
+            userModel.HashedPassword = BCrypt.Net.BCrypt.HashPassword(entity.Password);
+            var user = await _repositoryManager.Users.AddAsync(userModel);
             await _repositoryManager.SaveAsync();
             return _mapper.Map<UserDTO>(user);
         }
@@ -44,14 +44,14 @@ namespace Server.Service.Services
         public async Task<IEnumerable<UserDTO>> GetAllAsync()
         {
             var users = await _repositoryManager.Users.GetAllAsync();
-            var usersList=users.ToList();
+            var usersList = users.ToList();
             return _mapper.Map<List<UserDTO>>(usersList);
         }
 
         public async Task<UserDTO?> GetByIdAsync(int id)
         {
-            var user=await _repositoryManager.Users.GetByIdAsync(id);
-            var userDTO=_mapper.Map<UserDTO>(user);
+            var user = await _repositoryManager.Users.GetByIdAsync(id);
+            var userDTO = _mapper.Map<UserDTO>(user);
             return userDTO;
         }
 
@@ -62,8 +62,8 @@ namespace Server.Service.Services
             return userDTO;
         }
 
-        
-public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
+
+        public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
         {
             // -----------------------------
             // GET EXISTING USER
@@ -81,7 +81,7 @@ public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
             existingUser.Name = entity.Name;
             existingUser.Email = entity.Email;
             existingUser.BirthDate = entity.BirthDate;
-            existingUser.Role = entity.Role; 
+            existingUser.Role = entity.Role;
 
             // -----------------------------
             // UPDATE PASSWORD ONLY IF EXISTS
@@ -110,7 +110,7 @@ public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
 
         public async Task UpdateUserCameOnAsync(int id, DateTime cameOn)
         {
-            await _repositoryManager.Users.UpdateUserCameOnAsync(id,cameOn);
+            await _repositoryManager.Users.UpdateUserCameOnAsync(id, cameOn);
             await _repositoryManager.SaveAsync();
         }
 
@@ -134,7 +134,7 @@ public async Task<UserDTO> UpdateAsync(int id, UserDTO entity)
         public async Task<UserDTO> GetUserByUsername(string username)
         {
             var user = await _repositoryManager.Users.GetUserByUsername(username);
-            var userDto=_mapper.Map<UserDTO>(user);
+            var userDto = _mapper.Map<UserDTO>(user);
             return userDto;
         }
     }

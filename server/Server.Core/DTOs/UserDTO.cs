@@ -14,7 +14,7 @@ namespace Server.Core.DTOs
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public DateTime CameOn { get; set; } = DateTime.Now;
+        public DateTime? CameOn { get; set; }
         public DateTime BirthDate { get; set; }
         public string Role {  get; set; }
 
