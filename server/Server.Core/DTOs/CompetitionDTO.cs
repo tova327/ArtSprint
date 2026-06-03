@@ -19,7 +19,7 @@ namespace Server.Core.DTOs
         public DateTime Deadline { get; set; }
         public int? WinnerId { get; set; }
         public ESubject Subject { get; set; }
-        public UserModel Winner { get; set; }
-        public ICollection<CompetitionPaintingModel> CompetitionPaintings { get; set; }
+        public UserDTO Winner { get; set; }
+        public ICollection<CompetitionPaintingDTO> CompetitionPaintings { get; set; }
     }
 }

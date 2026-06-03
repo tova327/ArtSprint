@@ -22,7 +22,7 @@ namespace Server.Core.DTOs
 
         public DateTime? LastPaint { get; set; }
 
-        public ICollection<PaintingModel> Paintings { get; set; }
-        public ICollection<CommentModel> Comments { get; set; }
+        public ICollection<PaintingDTO> Paintings { get; set; }
+        public ICollection<CommentDTO> Comments { get; set; }
     }
 }
