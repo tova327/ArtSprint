@@ -88,7 +88,7 @@ const navigate = useNavigate();
           {user?.role === "admin" && (
             <AppButton
               type="default"
-              onClick={() => window.location.href = "https://localhost:5173"}
+              onClick={() => window.location.href = "https://artsprintadmin.onrender.com"}
             >
               Admin Panel
             </AppButton>
