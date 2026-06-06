@@ -26,7 +26,7 @@ internal class Program
             options.AddPolicy("AllowAll", builder =>
             {
 
-                builder.WithOrigins("https://artsprint.onrender.com", "http://localhost:5173", "http://localhost:5173")
+                builder.WithOrigins("https://artsprint.onrender.com", "http://localhost:5173", "https://artsprintadmin.onrender.com")
 
                        .AllowAnyMethod()
                        .AllowAnyHeader()
