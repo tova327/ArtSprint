@@ -9,8 +9,8 @@ export const colors = {
 
   // Backgrounds & Surfaces
   bgBase: '#ffffff',        // Pure white for a clean look
-  bgLayout: '#cbf5e9',      // Very subtle orange-tinted white for depth
-  surface: '#e4f1f0',       // Card and modal backgrounds
+  bgLayout: '#fcfcfc',      // Very subtle orange-tinted white for depth
+  surface: '#e8eae9',       // Card and modal backgrounds
 
   // Typography
   textPrimary: '#2D3748',   // Deep slate (easier on eyes than pure black)
