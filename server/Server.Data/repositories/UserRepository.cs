@@ -94,6 +94,6 @@ public class UserRepository:GenericRepository<UserModel> , IUserRepository
 
     public async Task<UserModel> GetUserByUsername(string username)
     {
-        return await _context.Users.SingleOrDefaultAsync(u => u.Name.Equals(username));
+        return await _context.Users.Include(u => u.Paintings).Include(u => u.Comments).SingleOrDefaultAsync(u => u.Name.Equals(username));
     }
 }
