@@ -37,7 +37,6 @@ namespace Server.Core.models
         public int? CategoryId { get; set; }
         [Required]
         
-
         public UserModel Owner { get; set; }
         public ICollection<CommentModel> Comments { get; set; }
         public CompetitionPaintingModel CompetitionPainting { get; set; }
