@@ -92,7 +92,7 @@ export const ProfilePage: React.FC = () => {
 
           <ProfileRow
             label="Last Paint"
-            value={new Date(user.lastPaint).toLocaleDateString()}
+            value={user.lastPaint ? new Date(user.lastPaint).toLocaleDateString() : "No painting yet"}
           />
         </Flex>
       </Card>
