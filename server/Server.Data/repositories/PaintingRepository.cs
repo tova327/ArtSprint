@@ -15,9 +15,6 @@ public class PaintingRepository:GenericRepository<PaintingModel>, IPaintingRepos
     {
         _context = context;
     }
-
-    
-
     public async Task<bool> AddLikeAsync(int id,int count)
     {
         var painting = await _context.Paintings.FindAsync(id);

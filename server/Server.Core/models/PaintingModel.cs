@@ -36,8 +36,7 @@ namespace Server.Core.models
         
         public int? CategoryId { get; set; }
         [Required]
-        //public IFormFile paintingFile { get; set; }
-        //art-sprint-bucket/folder1/Untitled-135.pdf
+        
 
         public UserModel Owner { get; set; }
         public ICollection<CommentModel> Comments { get; set; }

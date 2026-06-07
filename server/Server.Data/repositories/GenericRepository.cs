@@ -21,10 +21,11 @@ namespace Server.Data.repositories
         }
         public  async Task<T> AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
+            var item = await _dbSet.AddAsync(entity);
             await _dataContext.SaveChangesAsync();
-            return entity;
+            return item.Entity;
         }
+
 
         public async Task DeleteAsync(int id)
         {
