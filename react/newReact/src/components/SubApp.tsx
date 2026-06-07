@@ -80,14 +80,14 @@ const navigate = useNavigate();
           </Typography.Title>
 
           <AppButton
-            type="default"
+            type="link"
             onClick={() => navigate("/")}
           >
             Home
           </AppButton>
           {user?.role === "admin" && (
             <AppButton
-              type="default"
+              type="link"
               onClick={() => window.location.href = "https://artsprintadmin.onrender.com"}
             >
               Admin Panel

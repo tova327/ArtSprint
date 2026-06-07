@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import {
   Avatar,
-  Button,
+  
   Dropdown,
   Flex,
   MenuProps,
@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 
 import { StoreType } from "../../store/store";
 import { useAuth } from "../auth/AuthProvider";
+import AppButton from "../common/AppButton";
 
 const { Text } = Typography;
 
@@ -52,13 +53,13 @@ export const UserAvatar: React.FC = () => {
   // -----------------------------------
   if (!isAuthenticated || !user) {
     return (
-      <Button
+      <AppButton
         type="primary"
         icon={<LoginOutlined />}
         onClick={() => navigate("/login")}
       >
         Login
-      </Button>
+      </AppButton>
     );
   }
 

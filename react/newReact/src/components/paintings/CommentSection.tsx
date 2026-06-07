@@ -1,11 +1,12 @@
-import { List, Card, Flex, Avatar, Typography, Space, Input, Button } from "antd"
+import { List, Card, Flex, Avatar, Typography, Space, Input } from "antd"
 import { AppEmpty } from "../common/AppEmpty"
 import AppSection from "../common/AppSection"
 import AppTitle from "../common/AppTitle"
 import { CommentType } from "../../store/commentSlice"
 import { UserType } from "../../store/userSlice"
+import AppButton from "../common/AppButton"
 
-const CommentSection=({paintingComments, allUsers, commentContent, setCommentContent, handleAddComment}:{paintingComments:CommentType[], allUsers: UserType[], commentContent: string, setCommentContent: React.Dispatch<React.SetStateAction<string>>, handleAddComment: () => void}) => {
+const CommentSection=({paintingComments, allUsers, commentContent, setCommentContent, handleAddComment,loading}:{paintingComments:CommentType[], allUsers: UserType[], commentContent: string, setCommentContent: React.Dispatch<React.SetStateAction<string>>, handleAddComment: () => void, loading: boolean  }) => {
    return(
     <AppSection>
       <AppTitle>Comments</AppTitle>
@@ -70,9 +71,9 @@ const CommentSection=({paintingComments, allUsers, commentContent, setCommentCon
         onPressEnter={handleAddComment}
       />
 
-      <Button type="primary" onClick={handleAddComment}>
+      <AppButton type="primary" onClick={handleAddComment} loading={loading} disabled={loading}>
         Send
-      </Button>
+      </AppButton>
     </Space.Compact>
   </Card>
 </AppSection>)

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { message, Flex } from "antd"
 import { useDispatch, useSelector } from "react-redux"
@@ -34,6 +34,7 @@ const PaintingComponent = () => {
   const [commentContent, setCommentContent] = useState<string>("")
 
   const comments = useSelector((store: StoreType) => store.comments.comments)
+  const commentLoading = useSelector((store: StoreType) => store.comments.loading)
   const userId = useSelector((store: StoreType) => store.user.user.id)
   const allUsers = useSelector((store: StoreType) => store.user.allusers)
 
@@ -102,15 +103,15 @@ const PaintingComponent = () => {
   const paintingComments = comments.filter((c) => c.paintId === painting.id)
 
   return (
-    <AppCard style={{maxWidth:"100%"}}>
-      <Flex vertical gap={spacing.xl} wrap style={{maxWidth:"100%"}}>
+    <AppCard style={{ maxWidth: "100%" }}>
+      <Flex vertical gap={spacing.xl} wrap style={{ maxWidth: "100%" }}>
 
         {/* Back */}
-        
-          <AppButton onClick={handleBack} type="link">
-            Back
-          </AppButton>
-      
+
+        <AppButton onClick={handleBack} type="link">
+          Back
+        </AppButton>
+
 
         {/* Title + User */}
         <AppSection>
@@ -134,8 +135,13 @@ const PaintingComponent = () => {
         </AppSection>
 
         {/* Comments */}
-        <CommentSection paintingComments={paintingComments} allUsers={allUsers??[]} commentContent={commentContent} setCommentContent={setCommentContent} handleAddComment={handleAddComment} />
-        
+        <CommentSection paintingComments={paintingComments}
+          allUsers={allUsers ?? []}
+          commentContent={commentContent}
+          setCommentContent={setCommentContent}
+          handleAddComment={handleAddComment}
+          loading={commentLoading} />
+
 
       </Flex>
     </AppCard>
