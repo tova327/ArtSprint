@@ -5,6 +5,7 @@ import {
   setUser,
   logout as reduxLogout,
   UserType,
+  UserToAddType,
 } from "../../store/userSlice";
 import { StoreType } from "../../store/store";
 import { AppSpinner } from "../common/AppSpinner";
@@ -78,12 +79,7 @@ export const AuthProvider = ({ children }: any) => {
   // --------------------
   // REGISTER
   // --------------------
-  const register = async (userDetails: {
-    name: string;
-    email: string;
-    password: string;
-    birthDate: string;
-  }) => {
+  const register = async (userDetails: UserToAddType) => {
     const res = await api.post("/auth/register", userDetails);
 
     const token = res.data.token;
@@ -146,12 +142,7 @@ type AuthContextType = {
     username: string;
     password: string;
   }) => Promise<void>;
-  register: (userDetails: {
-    name: string;
-    email: string;
-    password: string;
-    birthDate: string;
-  }) => Promise<void>;
+  register: (userDetails: UserToAddType) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
   refreshUser: () => Promise<void>;

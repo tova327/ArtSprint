@@ -1,6 +1,6 @@
 import  { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { List, message, Flex } from "antd"
+import { message, Flex } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 
 import type { PaintingType } from "../../store/paintingSlice"
@@ -15,15 +15,12 @@ import DeletePaintingButton from "./DeletePaintingButton"
 import AppCard from "../common/AppCard"
 import { spacing } from "../../theme/constant"
 import AppButton from "../common/AppButton"
-import { AppEmpty } from "../common/AppEmpty"
 import { AppImageLarge } from "../common/AppImage"
-import AppInput from "../common/AppInput"
 import { AppSpinner } from "../common/AppSpinner"
-import AppTag from "../common/AppTag"
-import { AppCaption, AppParagraph } from "../common/AppText"
 import AppTitle from "../common/AppTitle"
 import AppSection from "../common/AppSection"
 import { AppResult } from "../common/AppResult"
+import CommentSection from "./CommentSection"
 
 
 const PaintingComponent = () => {
@@ -137,44 +134,8 @@ const PaintingComponent = () => {
         </AppSection>
 
         {/* Comments */}
-        <AppSection>
-          <AppTitle>Comments</AppTitle>
-
-          {paintingComments.length === 0 ? (
-            <AppEmpty description="No comments yet" />
-          ) : (
-            <List
-              dataSource={paintingComments}
-              renderItem={(item) => {
-                const user = allUsers?.find((u) => u.id === item.userId)
-
-                return (
-                  <Flex vertical gap={spacing.xs} style={{ marginBottom: spacing.md }}>
-                    <AppTag>
-                      <AppCaption>{user?.name || "Unknown"}</AppCaption>
-                    </AppTag>
-
-                    <AppParagraph>{item.content}</AppParagraph>
-                  </Flex>
-                )
-              }}
-            />
-          )}
-
-          {/* Add Comment */}
-          <Flex gap={spacing.sm} style={{ marginTop: spacing.md }}>
-            <AppInput
-              value={commentContent}
-              onChange={(e: any) => setCommentContent(e.target.value)}
-              placeholder="Write a comment..."
-              onPressEnter={handleAddComment}
-            />
-
-            <AppButton type="primary" onClick={handleAddComment}>
-              Send
-            </AppButton>
-          </Flex>
-        </AppSection>
+        <CommentSection paintingComments={paintingComments} allUsers={allUsers??[]} commentContent={commentContent} setCommentContent={setCommentContent} handleAddComment={handleAddComment} />
+        
 
       </Flex>
     </AppCard>

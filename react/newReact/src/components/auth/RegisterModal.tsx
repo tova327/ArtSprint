@@ -9,6 +9,7 @@ import AppButton from "../common/AppButton";
 import { checkAnswers, getTest } from "../../store/axioscalls";
 import { AppCheckbox } from "../common/AppCheckbox";
 import { AppAlert } from "../common/AppAlert";
+import { UserToAddType } from "../../store/userSlice";
 
 
 
@@ -31,12 +32,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
     loading,
     onRegister,
 }) => {
-    const [userDetails, setUserDetails] = useState<{
-  name: string;
-  email: string;
-  password: string;
-  birthDate: string;
-} | null>(null);
+    const [userDetails, setUserDetails] = useState<UserToAddType | null>(null);
     const [step, setStep] = useState(1);
     const [form] = AppForm.useForm();
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -72,7 +68,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 await form.validateFields(["name", "email", "password", "birthDate"]);
                 
                 const step1Values = form.getFieldsValue(["name", "email", "password", "birthDate"]);
-                setUserDetails(step1Values);
+                setUserDetails({ ...step1Values, role: "member" });
                 
                 try {
                     const q = await getTest();
