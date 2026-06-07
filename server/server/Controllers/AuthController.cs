@@ -65,17 +65,17 @@ namespace server.Controllers
             if (user == null || token == null)
                 return Unauthorized();
             Response.Cookies.Append(
-    "AuthToken",
-    token,
-    new CookieOptions
-    {
-        HttpOnly = true,
-        Secure = true,      // HTTPS only
-        SameSite = SameSiteMode.None,
-        Expires = DateTime.UtcNow.AddDays(1)
-    });
+             "AuthToken",
+                token,
+                new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,      // HTTPS only
+                    SameSite = SameSiteMode.None,
+                    Expires = DateTime.UtcNow.AddDays(1)
+                });
 
-            return Ok(new { token = token, User = user }); // No token returned
+            return Ok(new { token = token, User = user });
         }
 
         [HttpPost("logout")]

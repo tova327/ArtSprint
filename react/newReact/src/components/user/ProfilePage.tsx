@@ -59,13 +59,13 @@ export const ProfilePage: React.FC = () => {
           </Title>
 
           <Space>
-            <Tag color="blue">{user.role}</Tag>
+            
 
-            {user.role === "admin" && (
+            {user.role === "admin" ? (
               <Tag icon={<CrownOutlined />} color="gold">
                 Admin
               </Tag>
-            )}
+            ):<Tag color="blue">{user.role}</Tag>}
 
             {user.isMedal && (
               <Tag icon={<TrophyOutlined />} color="purple">
@@ -93,11 +93,6 @@ export const ProfilePage: React.FC = () => {
           <ProfileRow
             label="Last Paint"
             value={user.lastPaint || "No paint yet"}
-          />
-
-          <ProfileRow
-            label="User ID"
-            value={String(user.id)}
           />
         </Flex>
       </Card>

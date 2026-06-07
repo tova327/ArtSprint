@@ -105,6 +105,19 @@ export const AuthProvider = ({ children }: any) => {
 
     navigate("/login");
   };
+  const refreshUser = async () => {
+    try {
+      const res = await api.get(
+        "auth/me",
+      );
+
+     dispatch(setUser(res.data))
+    } catch {
+      dispatch(setUser(null));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (loading) return <AppSpinner />;
 
@@ -115,6 +128,7 @@ export const AuthProvider = ({ children }: any) => {
         login,
         register,
         logout,
+        refreshUser,
         isAuthenticated: user !== null && user?.id !== 0,
       }}
     >
@@ -140,6 +154,7 @@ type AuthContextType = {
   }) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  refreshUser: () => Promise<void>;
 };
 
 export const useAuth = () => {
