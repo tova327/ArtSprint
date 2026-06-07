@@ -1,3 +1,6 @@
+import type { CommentDTO } from "./comment.types";
+import type { PaintingDTO } from "./painting.types";
+
 export type UserDTO = {
   id: number;
   name: string | null;
@@ -8,8 +11,8 @@ export type UserDTO = {
   role:"member" | "admin";
   isMedal: boolean;
   lastPaint: string | null;
-  paintings: any[];
-  comments: any[];
+  paintings: PaintingDTO[];
+  comments: CommentDTO[];
 };
 
 export type UserPostModel = {
