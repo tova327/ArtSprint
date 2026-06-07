@@ -29,12 +29,13 @@ import AppInput from "../common/AppInput";
 import useAlert from "../../Hooks/useAlert";
 import { AppAlert } from "../common/AppAlert";
 import SelectedPaintings from "./SelectedPaintings";
+import { useAuth } from "../auth/AuthProvider";
 
 
 
 const PaintingsPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-
+    const {refreshUser} = useAuth();
     const paintings = useSelector(
         (store: StoreType) => store.painting.paintings
     );
@@ -119,7 +120,8 @@ const PaintingsPage: React.FC = () => {
                     painting: paintingData,
                 })
             );
-
+            await dispatch(fetchPaintingsAsync());
+            await refreshUser();
             if (uploadPaintingAsync.fulfilled.match(resultAction)) {
                 handleOpenAlert("success", " Masterpiece uploaded successfully!");
                 setIsModalVisible(false);
