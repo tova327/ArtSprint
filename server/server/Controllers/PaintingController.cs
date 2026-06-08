@@ -7,6 +7,7 @@ using server.Post_Models;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Services;
+using Server.Service.Services;
 using System.Net.Http;
 
 namespace server.Controllers
@@ -20,7 +21,7 @@ namespace server.Controllers
         private readonly IUserService _userService;
         private readonly IStorageService _storageService;
         private readonly HttpClient _httpClient;
-        public PaintingController(IPaintingService paintingService, IMapper mapper,IUserService userService, IStorageService storageService, HttpClient httpClient)
+        public PaintingController(IPaintingService paintingService, IMapper mapper, IUserService userService, IStorageService storageService, HttpClient httpClient)
         {
             _paintingService = paintingService;
             _mapper = mapper;
@@ -36,11 +37,12 @@ namespace server.Controllers
             {
                 var paintings = await _paintingService.GetAllAsync();
                 return Ok(paintings);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
         [HttpGet("{id}")]
@@ -54,11 +56,12 @@ namespace server.Controllers
                     return NotFound();
                 }
                 return Ok(painting);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<PaintingDTO>>> GetPaintingsForUser(int userId)
@@ -70,16 +73,16 @@ namespace server.Controllers
                 {
                     return new List<PaintingDTO>();
                 }
-                
+
                 return Ok(paintings);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
-        
+
         [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<PaintingDTO>> Update(int id, [FromBody] PaintingPostModel paintingPostModel)
@@ -95,16 +98,16 @@ namespace server.Controllers
         [Authorize]
         // Additional methods to use other service functions
         [HttpPost("{id}/like")]
-        public async Task<IActionResult> AddLike(int id, [FromQuery]string count)
+        public async Task<IActionResult> AddLike(int id, [FromQuery] string count)
         {
             int intCount;
-            var isInt=int.TryParse(count,out intCount);
+            var isInt = int.TryParse(count, out intCount);
             if (!isInt)
             {
                 return BadRequest();
             }
-            var res=await _paintingService.AddLikeAsync(id,intCount);
-            if(!res)
+            var res = await _paintingService.AddLikeAsync(id, intCount);
+            if (!res)
                 return BadRequest("PAINTING DOES NOT EXIST OR LIKES ARE INCORRECT");
             return Ok($"painting: {id}, likes: {count}");
         }
@@ -148,32 +151,32 @@ namespace server.Controllers
             {
                 return NotFound("Owner not found.");
             }
-            
+
 
             var paintingDto = _mapper.Map<PaintingDTO>(paintingPostModel);
-            var paintingAdded= await _paintingService.AddAsync(paintingDto);
-            if(paintingAdded == null)
+            var paintingAdded = await _paintingService.AddAsync(paintingDto);
+            if (paintingAdded == null)
             {
                 return BadRequest();
             }
             // succeed to add to db
-            
+
             try
             {
                 var path = await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
                 paintingAdded.Url = path;
-                var finalPainting=await _paintingService.UpdateAsync(paintingAdded.Id, paintingAdded);
+                var finalPainting = await _paintingService.UpdateAsync(paintingAdded.Id, paintingAdded);
                 return Ok(finalPainting);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await _paintingService.DeleteAsync(paintingAdded.Id);
                 throw;
             }
-            
+
         }
 
-        
+
         [HttpGet("download")]
         public async Task<IActionResult> Download(string fileNamePrefix)
         {
@@ -206,20 +209,43 @@ namespace server.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
+
+
         public async Task<IActionResult> Delete(int id)
         {
-            var paintingToDelete=await _paintingService.GetByIdAsync(id);
+            var paintingToDelete = await _paintingService.GetByIdAsync(id);
             if (paintingToDelete == null)
                 return BadRequest();
-            var paintingNameWithExtention = paintingToDelete.Url.Substring(paintingToDelete.Url.IndexOf(paintingToDelete.Name));
-            var deletedFromCloud =await _storageService.DeleteFileAsync(paintingNameWithExtention);
+
+            string fileName;
+
+            // 1. אם יש URL – נחלץ ממנו שם קובץ
+            if (!string.IsNullOrWhiteSpace(paintingToDelete.Url))
+            {
+                fileName = Path.GetFileName(paintingToDelete.Url);
+            }
+            else
+            {
+                // 2. fallback לשם מה־DB
+                fileName = paintingToDelete.Name;
+            }
+
+            if (string.IsNullOrWhiteSpace(fileName))
+                return BadRequest("Invalid file name");
+
+            // 3. טיפול ברווחים / תווים ל־Google Cloud
+            var cloudFileName = Uri.EscapeDataString(fileName);
+
+            var deletedFromCloud = await _storageService.DeleteFileAsync(cloudFileName);
             if (!deletedFromCloud)
                 return StatusCode(500, "can't delete from cloud");
-            var deletedFromDB = await _paintingService.DeleteAsync(id);
-            if(!deletedFromDB) return BadRequest();
-            var allPainting=await _paintingService.GetAllAsync();
-            return Ok(allPainting);
 
+            var deletedFromDB = await _paintingService.DeleteAsync(id);
+            if (!deletedFromDB)
+                return BadRequest();
+
+            var allPainting = await _paintingService.GetAllAsync();
+            return Ok(allPainting);
         }
 
     }
