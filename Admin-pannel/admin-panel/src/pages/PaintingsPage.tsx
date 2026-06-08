@@ -8,10 +8,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
- 
+
   IconButton,
   MenuItem,
-  
+
   TextField,
   Typography,
 } from "@mui/material";
@@ -22,15 +22,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import { useEffect, useMemo, useState } from "react";
 
-import {
-  createPainting,
-  deletePainting,
-  getPaintings,
-  updatePainting,
-} from "../api/paintingsApi";
 
-import { getUsers } from "../api/usersApi";
-import { getCategories } from "../api/categoriesApi";
 
 
 
@@ -40,24 +32,15 @@ import PageHeader from "../components/common/PageHeader";
 import SearchBox from "../components/common/SearchBox";
 import EmptyState from "../components/common/EmptyState";
 import ConfirmDialog from "../components/common/ConfirmDialog";
-import type { CategoryDTO } from "../types/category.types";
 import type { PaintingDTO, PaintingPostModel } from "../types/painting.types";
-import type { UserDTO } from "../types/user.types";
+import { useCategories } from "../hooks/useCategories";
+import { useUsers } from "../hooks/useUsers";
+import { useCreatePainting, useDeletePainting, usePaintings, useUpdatePainting } from "../hooks/usePaintings";
 
 export default function PaintingsPage() {
-  const [paintings, setPaintings] = useState<
-    PaintingDTO[]
-  >([]);
 
-  const [users, setUsers] = useState<UserDTO[]>(
-    []
-  );
 
-  const [categories, setCategories] = useState<
-    CategoryDTO[]
-  >([]);
 
-  const [loading, setLoading] = useState(false);
 
   const [search, setSearch] = useState("");
 
@@ -71,7 +54,9 @@ export default function PaintingsPage() {
     useState<PaintingDTO | null>(null);
 
   const [open, setOpen] = useState(false);
-
+  const { data: paintings = [], isLoading: loading, error } = usePaintings();
+  const { data: users = [], error: usersError } = useUsers();
+  const { data: categories = [], error: categoriesError } = useCategories();
   const [form, setForm] =
     useState<PaintingPostModel>({
       ownerId: 0,
@@ -79,41 +64,23 @@ export default function PaintingsPage() {
       categoryId: 0,
       paintingFile: null,
     });
+const createPaintingMutation =
+  useCreatePainting();
 
-  // =====================
-  // LOAD
-  // =====================
+const updatePaintingMutation =
+  useUpdatePainting();
 
-  const load = async () => {
-    try {
-      setLoading(true);
+const deletePaintingMutation =
+  useDeletePainting();
 
-      const [
-        paintingsRes,
-        usersRes,
-        categoriesRes,
-      ] = await Promise.all([
-        getPaintings(),
-        getUsers(),
-        getCategories(),
-      ]);
-
-      setPaintings(paintingsRes.data);
-
-      setUsers(usersRes.data);
-
-      setCategories(categoriesRes.data);
-    } catch {
-      toast.error("Failed loading data");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
+useEffect(() => {
+  if (error) {
+    toast.error("Failed to load paintings");
+  }if (usersError) {
+    toast.error("Failed to load users");
+  }if (categoriesError) {
+    toast.error("Failed to load categories");
+  }}, [error, usersError, categoriesError]);
   // =====================
   // HELPERS
   // =====================
@@ -137,12 +104,12 @@ export default function PaintingsPage() {
   // =====================
 
   const handleCreate = async () => {
-    if(form.ownerId === 0 || form.categoryId === 0 || !form.name || form.name.trim()=== "" || !form.paintingFile) {
+    if (form.ownerId === 0 || form.categoryId === 0 || !form.name || form.name.trim() === "" || !form.paintingFile) {
       toast.error("Please fill all fields");
       return;
     }
     try {
-      await createPainting(form);
+      await createPaintingMutation.mutateAsync(form);
 
       toast.success("Painting created");
 
@@ -150,7 +117,7 @@ export default function PaintingsPage() {
 
       resetForm();
 
-      load();
+      
     } catch {
       toast.error("Create failed");
     }
@@ -162,18 +129,19 @@ export default function PaintingsPage() {
 
   const handleUpdate = async () => {
     if (!editPainting) return;
-    const paintingPostModel={ownerId: editPainting.ownerId, name: editPainting.name, categoryId: editPainting.categoryId, paintingFile: null} as PaintingPostModel
+    const paintingPostModel = { ownerId: editPainting.ownerId, name: editPainting.name, categoryId: editPainting.categoryId, paintingFile: null } as PaintingPostModel
     try {
-      await updatePainting(
-        paintingPostModel,
-        editPainting.id
-      );
+      await updatePaintingMutation.mutateAsync({
+        id: editPainting.id,
+        data: paintingPostModel
+      });
+     
 
       toast.success("Updated");
 
       setEditPainting(null);
 
-      load();
+      
     } catch {
       toast.error("Update failed");
     }
@@ -187,13 +155,13 @@ export default function PaintingsPage() {
     if (!deleteId) return;
 
     try {
-      await deletePainting(deleteId);
+      await deletePaintingMutation.mutateAsync(deleteId);
 
       toast.success("Deleted");
 
       setDeleteId(null);
 
-      load();
+     
     } catch {
       toast.error("Delete failed");
     }
@@ -258,7 +226,7 @@ export default function PaintingsPage() {
       ) : (
         <Grid container spacing={2}>
           {filtered.map((p) => (
-           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
               <Card>
                 <CardMedia
                   component="img"
@@ -272,7 +240,7 @@ export default function PaintingsPage() {
                 <CardContent>
                   <Typography
                     variant="h6"
-                    
+
                   >
                     {p.name}
                   </Typography>
@@ -527,24 +495,24 @@ export default function PaintingsPage() {
               mt: 1,
             }}
           >
-          <TextField
-            fullWidth
-            label="Painting Name"
-            value={editPainting?.name || ""}
-            onChange={(e) =>
-              setEditPainting((prev) =>
-                prev
-                  ? {
+            <TextField
+              fullWidth
+              label="Painting Name"
+              value={editPainting?.name || ""}
+              onChange={(e) =>
+                setEditPainting((prev) =>
+                  prev
+                    ? {
                       ...prev,
                       name:
                         e.target.value,
                     }
-                  : null
-              )
-            }
-            sx={{ mt: 2 }}
-          />
-          <TextField
+                    : null
+                )
+              }
+              sx={{ mt: 2 }}
+            />
+            <TextField
               select
               required
               fullWidth
@@ -552,14 +520,14 @@ export default function PaintingsPage() {
               value={editPainting?.categoryId}
               onChange={(e) =>
                 setEditPainting((prev) =>
-                prev
-                  ? {
+                  prev
+                    ? {
                       ...prev,
                       categoryId: Number(
                         e.target.value),
                     }
-                  : null
-              )
+                    : null
+                )
               }
             >
               {categories.map((c) => (
