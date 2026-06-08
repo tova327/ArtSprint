@@ -233,10 +233,7 @@ namespace server.Controllers
             if (string.IsNullOrWhiteSpace(fileName))
                 return BadRequest("Invalid file name");
 
-            // 3. טיפול ברווחים / תווים ל־Google Cloud
-            var cloudFileName = Uri.EscapeDataString(fileName);
-
-            var deletedFromCloud = await _storageService.DeleteFileAsync(cloudFileName);
+            var deletedFromCloud = await _storageService.DeleteFileAsync(fileName);
             if (!deletedFromCloud)
                 return StatusCode(500, "can't delete from cloud");
 
