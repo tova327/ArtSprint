@@ -128,7 +128,10 @@ const UserDetails = ({ id, short }: { id: number; short: boolean }) => {
   const [user, setUser] = useState<UserType | undefined>(undefined)
 
   useEffect(() => {
-    dispatch(getAllUsersAsync())
+    if (!allUsers || allUsers.length === 0) {
+      dispatch(getAllUsersAsync())
+    }
+    
   }, [dispatch])
 
   useEffect(() => {

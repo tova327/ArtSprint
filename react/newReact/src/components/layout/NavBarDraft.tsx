@@ -46,10 +46,10 @@ const NavBarDraft: React.FC = () => {
     });
 
     useEffect(() => {
-        try {
-            dispatch(fetchCategoriesAsync());
-        } catch (e: any) {
-            handleOpenAlert("error", "Failed to load categories: " + e.message);
+        if(!categories || categories.length === 0) {
+             dispatch(fetchCategoriesAsync()).unwrap().catch((e: any) => {
+                handleOpenAlert("error", "Failed to load categories: " + e.message);
+            });
         }
     }, []);
 

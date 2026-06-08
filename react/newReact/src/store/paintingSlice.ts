@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addLike, addPainting, deletePainting, fetchPaintings, uploadPainting } from "./axioscalls";
+import { addLike, addPainting, deletePainting, fetchPaintingById, fetchPaintings, uploadPainting } from "./axioscalls";
 
 
 
@@ -27,6 +27,19 @@ export const fetchPaintingsAsync = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const response = await fetchPaintings();
+            return response;
+        } catch (e: any) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+);
+
+//Fech painting by id
+export const fetchPaintingByIdAsync = createAsyncThunk(
+    'paintings/fetchById',
+    async (id: number, thunkAPI) => {
+        try {
+            const response = await fetchPaintingById(id);
             return response;
         } catch (e: any) {
             return thunkAPI.rejectWithValue(e.message);
@@ -89,6 +102,7 @@ const paintingSlice = createSlice({
     name: 'painting',
     initialState: {
         paintings: [] as PaintingType[],
+        currentPainting: null as PaintingType | null,
         loading: false,
         error: null as null | string|undefined,
     },
@@ -98,7 +112,8 @@ const paintingSlice = createSlice({
                 if (p.id === action.payload) p.likes++;
                 return p;
             });
-        }
+        },
+        
     },
     extraReducers: (builder) => {
         builder
@@ -111,6 +126,18 @@ const paintingSlice = createSlice({
                 state.paintings = action.payload;
             })
             .addCase(fetchPaintingsAsync.rejected, (state, action) => {
+                state.error = action.error.message;
+                state.loading = false;
+            })
+            .addCase(fetchPaintingByIdAsync.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchPaintingByIdAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                state.currentPainting = action.payload;
+            })
+            .addCase(fetchPaintingByIdAsync.rejected, (state, action) => {
                 state.error = action.error.message;
                 state.loading = false;
             })

@@ -100,7 +100,9 @@ const PaintingsPage: React.FC = () => {
         }
     }, []);
     useEffect(() => {
-        dispatch(fetchPaintingsAsync());
+        if (paintings.length === 0) {
+            dispatch(fetchPaintingsAsync());
+        }
     }, [dispatch]);
 
     useEffect(() => {
