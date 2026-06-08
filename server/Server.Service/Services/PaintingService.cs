@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using Server.Core.DTOs;
 using Server.Core.models;
 using Server.Core.Repositories;
@@ -71,7 +72,7 @@ namespace Server.Service.Services
             existPainting.OwnerId = entity.OwnerId;
             existPainting.Name = entity.Name;
             existPainting.CategoryId = entity.CategoryId;
-            if(entity.Url != null)
+            if(!entity.Url.IsNullOrEmpty())
             {
                 existPainting.Url = entity.Url;
             }
