@@ -10,82 +10,44 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-
 import { useEffect, useMemo, useState } from "react";
-
-import {
-  getComments,
-  deleteComment,
-} from "../api/commentsApi";
-
-import { getUsers } from "../api/usersApi";
-import { getPaintings } from "../api/paintingsApi";
-
-
-
 import { toast } from "sonner";
-
 import PageHeader from "../components/common/PageHeader";
 import SearchBox from "../components/common/SearchBox";
 import EmptyState from "../components/common/EmptyState";
 import ConfirmDialog from "../components/common/ConfirmDialog";
-import type { CommentDTO } from "../types/comment.types";
-import type { PaintingDTO } from "../types/painting.types";
-import type { UserDTO } from "../types/user.types";
+import { useComments, useDeleteComment } from "../hooks/useComments";
+import { usePaintings } from "../hooks/usePaintings";
+import { useUsers } from "../hooks/useUsers";
 
 export default function CommentsPage() {
-  const [comments, setComments] = useState<
-    CommentDTO[]
-  >([]);
 
-  const [users, setUsers] = useState<UserDTO[]>(
-    []
-  );
 
-  const [paintings, setPaintings] =
-    useState<PaintingDTO[]>([]);
+
+
+
 
   const [search, setSearch] = useState("");
 
-  const [loading, setLoading] = useState(false);
 
   const [deleteId, setDeleteId] =
     useState<number | null>(null);
+  const { data: comments = [], isLoading: loading, error } = useComments();
+  const { data: users = [],  error: usersError } = useUsers();
+  const { data: paintings = [],  error: paintingsError } = usePaintings();
 
-  // =====================
-  // LOAD
-  // =====================
-
-  const load = async () => {
-    try {
-      setLoading(true);
-
-      const [
-        commentsRes,
-        usersRes,
-        paintingsRes,
-      ] = await Promise.all([
-        getComments(),
-        getUsers(),
-        getPaintings(),
-      ]);
-
-      setComments(commentsRes.data);
-
-      setUsers(usersRes.data);
-
-      setPaintings(paintingsRes.data);
-    } catch {
-      toast.error("Failed loading comments");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+const deleteCommentMutation = useDeleteComment();
   useEffect(() => {
-    load();
-  }, []);
-
+    if (error) {
+      toast.error("Failed to load comments");
+    }
+    if (usersError) {
+      toast.error("Failed to load users");
+    }
+    if (paintingsError) {
+      toast.error("Failed to load paintings");
+    }
+  }, [error, usersError, paintingsError]);
   // =====================
   // HELPERS
   // =====================
@@ -112,13 +74,11 @@ export default function CommentsPage() {
     if (!deleteId) return;
 
     try {
-      await deleteComment(deleteId);
+      await deleteCommentMutation.mutateAsync(deleteId);
 
       toast.success("Comment deleted");
 
       setDeleteId(null);
-
-      load();
     } catch {
       toast.error("Delete failed");
     }
@@ -221,7 +181,7 @@ export default function CommentsPage() {
 
                   <TableCell>
                     {c.content &&
-                    c.content.length > 80 ? (
+                      c.content.length > 80 ? (
                       <Chip
                         label="Long"
                         color="warning"

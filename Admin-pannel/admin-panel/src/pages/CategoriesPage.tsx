@@ -22,20 +22,7 @@ import {
   TreeItem,
   SimpleTreeView
 } from "@mui/x-tree-view";
-
-
-
 import { useEffect, useMemo, useState } from "react";
-
-import {
-  createCategory,
-  deleteCategory,
-  getCategories,
-  updateCategory,
-} from "../api/categoriesApi";
-
-
-
 import { toast } from "sonner";
 
 import PageHeader from "../components/common/PageHeader";
@@ -43,13 +30,23 @@ import SearchBox from "../components/common/SearchBox";
 import EmptyState from "../components/common/EmptyState";
 import ConfirmDialog from "../components/common/ConfirmDialog";
 import type { CategoryDTO, CategoryPostModel } from "../types/category.types";
+import { useCategories, useCreateCategory, useDeleteCategory, useUpdateCategory } from "../hooks/useCategories";
 
 export default function CategoriesPage() {
-  const [categories, setCategories] =
-    useState<CategoryDTO[]>([]);
+  const {
+  data: categories = [],
+  isLoading: loading,
+  error,
+} = useCategories();
 
-  const [loading, setLoading] =
-    useState(false);
+const createCategoryMutation =
+  useCreateCategory();
+
+const updateCategoryMutation =
+  useUpdateCategory();
+
+const deleteCategoryMutation =
+  useDeleteCategory();
 
   const [search, setSearch] = useState("");
 
@@ -68,87 +65,60 @@ export default function CategoriesPage() {
       parentCategoryId: null,
       isActive: true,
     });
-
-  // =====================
-  // LOAD
-  // =====================
-
-  const load = async () => {
-    try {
-      setLoading(true);
-
-      const res = await getCategories();
-
-      setCategories(res.data);
-    } catch {
-      toast.error(
-        "Failed loading categories"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
-
+    
+useEffect(() => {
+  if (error) {
+    toast.error("Failed loading categories");
+  }
+}, [error]);
+  
   // =====================
   // SAVE
   // =====================
 
   const handleSave = async () => {
-    try {
-      if (editId) {
-        await updateCategory(
-          editId,
-          form
-        );
+  try {
+    if (editId) {
+      await updateCategoryMutation.mutateAsync({
+        id: editId,
+        data: form,
+      });
 
-        toast.success(
-          "Category updated"
-        );
-      } else {
-        await createCategory(form);
+      toast.success("Category updated");
+    } else {
+      await createCategoryMutation.mutateAsync(
+        form
+      );
 
-        toast.success(
-          "Category created"
-        );
-      }
-
-      setOpen(false);
-
-      resetForm();
-
-      load();
-    } catch {
-      toast.error("Save failed");
+      toast.success("Category created");
     }
-  };
+
+    setOpen(false);
+    resetForm();
+  } catch {
+    toast.error("Save failed");
+  }
+};
 
   // =====================
   // DELETE
   // =====================
 
   const handleDelete = async () => {
-    if (!deleteId) return;
+  if (!deleteId) return;
 
-    try {
-      await deleteCategory(deleteId);
+  try {
+    await deleteCategoryMutation.mutateAsync(
+      deleteId
+    );
 
-      toast.success(
-        "Category deleted"
-      );
+    toast.success("Category deleted");
 
-      setDeleteId(null);
-
-      load();
-    } catch {
-      toast.error(
-        "Delete not allowed"
-      );
-    }
-  };
+    setDeleteId(null);
+  } catch {
+    toast.error("Delete not allowed");
+  }
+};
 
   // =====================
   // EDIT
