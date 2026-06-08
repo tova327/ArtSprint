@@ -7,16 +7,11 @@ import {
   TableHead,
   TableRow,
   Box,
+  Typography,
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
 
-import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-} from "../api/usersApi";
 
 
 
@@ -28,9 +23,9 @@ import EmptyState from "../components/common/EmptyState";
 import ConfirmDialog from "../components/common/ConfirmDialog";
 import type { UserDTO, UserPostModel } from "../types/user.types";
 import UserDialog from "./UserDialog";
+import { useCreateUser, useDeleteUser, useUpdateUser, useUsers } from "../hooks/useUsers";
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<UserDTO[]>([]);
 
   const [search, setSearch] = useState("");
 
@@ -50,23 +45,20 @@ export default function UsersPage() {
       birthDate: "",
       role: "member",
     });
+const {data: users = [], isLoading: loading, error} = useUsers();
+const createUserMutation =
+  useCreateUser();
 
-  // =====================
-  // LOAD
-  // =====================
+const updateUserMutation =
+  useUpdateUser();
 
-  const load = async () => {
-    try {
-      const res = await getUsers();
-      setUsers(res.data);
-    } catch {
-      toast.error("Failed to load users");
-    }
-  };
-
+const deleteUserMutation =
+  useDeleteUser();
   useEffect(() => {
-    load();
-  }, []);
+    if (error) {
+      toast.error("Failed loading users");
+    }
+  }, [error]);
 
   // =====================
   // SAVE
@@ -75,10 +67,10 @@ export default function UsersPage() {
   const handleSave = async () => {
     try {
       if (editId) {
-        await updateUser(editId, form);
+        await updateUserMutation.mutateAsync({ id: editId, data: form });
         toast.success("User updated");
       } else {
-        await createUser(form);
+        await createUserMutation.mutateAsync(form);
         toast.success("User created");
       }
 
@@ -86,7 +78,7 @@ export default function UsersPage() {
 
       resetForm();
 
-      load();
+      
     } catch {
       toast.error("Error saving user");
     }
@@ -100,13 +92,13 @@ export default function UsersPage() {
     if (!deleteId) return;
 
     try {
-      await deleteUser(deleteId);
+      await deleteUserMutation.mutateAsync(deleteId);
 
       toast.success("Deleted");
 
       setDeleteId(null);
 
-      load();
+      
     } catch {
       toast.error("Delete failed");
     }
@@ -202,7 +194,9 @@ export default function UsersPage() {
           </TableHead>
 
           <TableBody>
-            {filtered.map((u) => (
+            {loading?<Typography>
+        Loading users...
+      </Typography>:filtered.map((u) => (
               <TableRow key={u.id}>
                 <TableCell>{u.id}</TableCell>
 

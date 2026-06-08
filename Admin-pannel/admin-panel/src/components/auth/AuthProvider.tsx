@@ -2,10 +2,11 @@ import {
   createContext,
   useContext,
   useEffect,
-  useState,
 } from "react";
 import { axiosClient } from "../../api/axiosClient";
 import type { UserDTO } from "../../types/user.types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { AxiosResponse } from "axios";
 
 
 
@@ -22,7 +23,7 @@ type AuthContextType = {
   login: (
     username: string,
     password: string
-  ) => Promise<void>;
+  ) => Promise<UserDTO>;
 
   logout: () => Promise<void>;
 
@@ -32,75 +33,77 @@ type AuthContextType = {
 const AuthContext =
   createContext<AuthContextType | null>(null);
 
+
+
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] =
-    useState<UserDTO | null>(null);
-
-  const [loading, setLoading] =
-    useState(true);
+  const queryClient = useQueryClient();
+  const {
+    data: user,
+    isLoading,
+  } = useQuery({
+    queryKey: ["me"],
+    queryFn: async () => {
+      try {
+        const res = await axiosClient.get("/auth/me");
+        return res.data;
+      } catch {
+        return null;
+      }
+    },
+    retry: false,
+  });
+  const loginMutation = useMutation({
+    mutationFn: async (data: { username: string; password: string }) => {
+      const res: AxiosResponse<UserDTO> = await axiosClient.post("/auth/login", {
+        userName: data.username,
+        password: data.password,
+      });
+      return res.data;
+    },
+     
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["me"] });
+    },
+  });
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await axiosClient.post(
+        "/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["me"], null);
+    },
+  });
+ 
 
   const refreshUser = async () => {
-    try {
-      const res = await axiosClient.get(
-        "auth/me",
-      );
-
-      setUser(res.data);
-    } catch {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
+    await queryClient.invalidateQueries({ queryKey: ["me"] });
   };
 
   useEffect(() => {
     refreshUser();
   }, []);
 
-  const login = async (
-    username: string,
-    password: string
-  ) => {
-    await axiosClient.post(
-      "/auth/login",
-      {
-        userName: username,
-        password,
-      },
-     
-    );
-   
+ 
 
-    await refreshUser();
-  };
-
-  const logout = async () => {
-    try {
-      await axiosClient.post(
-        "auth/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-    } finally {
-      setUser(null);
-    }
-  };
-
-  return (
+  
+    return (
     <AuthContext.Provider
       value={{
-        user,
-        loading,
-        isAuthenticated: user !== null,
+        user: user ?? null,
+        loading: isLoading,
+        isAuthenticated: !!user,
         isAdmin: user?.role === "admin",
-        login,
-        logout,
+        login: async (username, password) =>
+          await loginMutation.mutateAsync({ username, password }),
+        logout: async () => await logoutMutation.mutateAsync(),
         refreshUser,
       }}
     >
@@ -108,6 +111,7 @@ export default function AuthProvider({
     </AuthContext.Provider>
   );
 }
+
 
 export const useAuth = () => {
   const context =
