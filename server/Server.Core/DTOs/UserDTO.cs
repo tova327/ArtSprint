@@ -14,13 +14,13 @@ namespace Server.Core.DTOs
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public DateTime? CameOn { get; set; }
+        public DateTime? CameOn { get; set; } = DateTime.Now;
         public DateTime BirthDate { get; set; }
         public string Role {  get; set; }
 
         public bool IsMedal { get; set; } = false;
 
-        public DateTime? LastPaint { get; set; }
+        public DateTime? LastPaint { get; set; } = null;
 
         public ICollection<PaintingDTO> Paintings { get; set; }
         public ICollection<CommentDTO> Comments { get; set; }

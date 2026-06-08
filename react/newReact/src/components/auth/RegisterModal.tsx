@@ -9,6 +9,7 @@ import AppButton from "../common/AppButton";
 import { checkAnswers, getTest } from "../../store/axioscalls";
 import { AppCheckbox } from "../common/AppCheckbox";
 import { AppAlert } from "../common/AppAlert";
+import { UserToAddType } from "../../store/userSlice";
 
 
 
@@ -31,12 +32,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
     loading,
     onRegister,
 }) => {
-    const [userDetails, setUserDetails] = useState<{
-  name: string;
-  email: string;
-  password: string;
-  birthDate: string;
-} | null>(null);
+    const [userDetails, setUserDetails] = useState<UserToAddType | null>(null);
+    const[questionsLoading, setQuestionsLoading] = useState(false)
+        const[answersLoading, setAnswersLoading] = useState(false)
+
     const [step, setStep] = useState(1);
     const [form] = AppForm.useForm();
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -72,9 +71,10 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                 await form.validateFields(["name", "email", "password", "birthDate"]);
                 
                 const step1Values = form.getFieldsValue(["name", "email", "password", "birthDate"]);
-                setUserDetails(step1Values);
+                setUserDetails({ ...step1Values, role: "member" });
                 
                 try {
+                    setQuestionsLoading(true);
                     const q = await getTest();
                     
 
@@ -83,6 +83,8 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                     console.log("Error fetching questions", e);
                     setQuestions([]);
                     handleOpenAlert('error', "Sorry, failed to fetch questions");
+                }finally {
+                    setQuestionsLoading(false);
                 }
 
             }
@@ -90,7 +92,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
             if (step === 2) {
                 const values = form.getFieldsValue();
                 try {
-                    
+                    setAnswersLoading(true);
                     console.log(Object.values(values.answers));
                     
                     const isValid = await checkAnswers({subject: 'logic', questions: questions.map(q => q.question), answers: Object.values(values.answers)});
@@ -100,6 +102,8 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                     console.log("Error checking answers", e);
                     handleOpenAlert('error', "Sorry, failed to check answers");
                     return;
+                } finally {
+                    setAnswersLoading(false);
                 }
                 
             }
@@ -185,13 +189,13 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({
                     )}
 
                     {step < 3 && (
-                        <AppButton type="primary" onClick={nextStep} loading={loading}>
+                        <AppButton type="primary" onClick={nextStep} loading={step===1?questionsLoading:answersLoading} disabled={step===1?questionsLoading:answersLoading}>
                             Next
                         </AppButton>
                     )}
 
                     {step === 3 && (
-                        <AppButton type="primary" htmlType="submit">
+                        <AppButton type="primary" htmlType="submit" loading={loading} disabled={loading}>
                             Join Us
                         </AppButton>
                     )}

@@ -17,13 +17,14 @@ import EditProfilePage from "./user/EditProfilePage"
 import ProfilePage from "./user/ProfilePage"
 import UserAvatar from "./user/UserAvatar"
 import AppButton from "./common/AppButton"
+import { themeToken } from "../theme/token"
 
 const { Header, Content, Footer } = Layout
 
 const SubApp: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: StoreType) => state.user.user);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchPaintingsAsync())
   }, [dispatch])
@@ -40,7 +41,7 @@ const navigate = useNavigate();
     top: 0,
     position: "sticky",
     insetInlineStart: 0,
-
+    background: themeToken?.token?.colorBgContainer,
     scrollbarWidth: "thin",
     scrollbarGutter: "stable",
   }
@@ -80,14 +81,14 @@ const navigate = useNavigate();
           </Typography.Title>
 
           <AppButton
-            type="default"
+            type="link"
             onClick={() => navigate("/")}
           >
             Home
           </AppButton>
           {user?.role === "admin" && (
             <AppButton
-              type="default"
+              type="link"
               onClick={() => window.location.href = "https://artsprintadmin.onrender.com"}
             >
               Admin Panel
@@ -98,7 +99,7 @@ const navigate = useNavigate();
         <UserAvatar />
       </Header>
       <Layout>
-            
+
         <Sider
           breakpoint="md"
           width={240}

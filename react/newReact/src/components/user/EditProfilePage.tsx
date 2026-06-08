@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import {
-  Button,
   Card,
   DatePicker,
   Flex,
@@ -17,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { StoreType } from "../../store/store";
 import { setUser } from "../../store/userSlice";
+import AppButton from "../common/AppButton";
 
 const { Title } = Typography;
 
@@ -149,14 +149,14 @@ export const EditProfilePage: React.FC = () => {
             />
           </Form.Item>
 
-          <Button
+          <AppButton
             type="primary"
             htmlType="submit"
             loading={loading}
-            block
+            disabled={loading}
           >
             Save Changes
-          </Button>
+          </AppButton>
         </Form>
       </Card>
     </Flex>

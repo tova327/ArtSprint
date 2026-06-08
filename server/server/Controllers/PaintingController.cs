@@ -162,13 +162,15 @@ namespace server.Controllers
             {
                 var path = await _storageService.UploadFileAsync(filePath, paintingPostModel.Name);
                 paintingAdded.Url = path;
-                await _paintingService.UpdateAsync(paintingAdded.Id, paintingAdded);
-            }catch(Exception ex)
+                var finalPainting=await _paintingService.UpdateAsync(paintingAdded.Id, paintingAdded);
+                return Ok(finalPainting);
+            }
+            catch(Exception ex)
             {
                 await _paintingService.DeleteAsync(paintingAdded.Id);
                 throw;
             }
-            return Ok(paintingAdded);
+            
         }
 
         

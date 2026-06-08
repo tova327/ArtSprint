@@ -254,6 +254,7 @@ const {alert, handleOpenAlert} = useAlert({type: 'success', message: '', isVisib
               type="primary"
               htmlType="submit"
               loading={loading || isUploading}
+              disabled={loading || isUploading}
             >
               Upload Painting
             </AppButton>

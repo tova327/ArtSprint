@@ -108,7 +108,6 @@ const NavBarDraft: React.FC = () => {
 
             <Menu
                 mode="inline"
-                theme="dark"
                 selectedKeys={currentSubject ? [currentSubject] : []}
                 items={buildMenuItems(hierarchy)}
                 onClick={handleMenuClick}

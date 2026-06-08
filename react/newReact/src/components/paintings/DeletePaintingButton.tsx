@@ -12,7 +12,7 @@ const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }
   const dispatch = useDispatch<AppDispatch>();
   
   const userId = useSelector((store: StoreType) => store?.user?.user?.id);
-
+const loading = useSelector((store: StoreType) => store.painting.loading);
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this painting?")) {
       dispatch(deleteAsync({ painting, userId }));
@@ -25,6 +25,8 @@ const DeletePaintingButton: React.FC<{ painting: PaintingType }> = ({ painting }
       type="text"
       icon={<DeleteOutlined />}
       style={{color: themeToken.token?.colorError}}
+      disabled={loading}
+      loading={loading}
     >
       Delete
     </AppButton>

@@ -71,6 +71,11 @@ namespace Server.Service.Services
             existPainting.OwnerId = entity.OwnerId;
             existPainting.Name = entity.Name;
             existPainting.CategoryId = entity.CategoryId;
+            if(entity.Url != null)
+            {
+                existPainting.Url = entity.Url;
+            }
+            existPainting.IsMedal = entity.IsMedal;
             var paintingModel = _mapper.Map<PaintingModel>(existPainting);
             var painting = await _repositoryManager.Paintings.UpdateAsync(id, paintingModel);
             await _repositoryManager.SaveAsync();

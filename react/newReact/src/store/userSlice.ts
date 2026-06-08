@@ -19,7 +19,8 @@ export type UserToAddType = {
     name: string,
     email: string,
     password: string,
-    birthDate: string
+    birthDate: string,
+    role: "member" | "admin",
 }
 
 export type UserLoginType = {

@@ -19,7 +19,7 @@ namespace Server.Core.models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public DateTime CameOn { get; set; } = DateTime.Now;
+        public DateTime CameOn { get; set; } 
 		public DateTime CreatedAt { get; set; }
 		public DateTime UpdatedAt { get; set; }
 		public string Email { get; set; }
