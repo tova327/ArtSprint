@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { message, Flex } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 
-import type { PaintingType } from "../../store/paintingSlice"
+import { fetchPaintingByIdAsync } from "../../store/paintingSlice"
 import type { CommentPostModel } from "../../store/commentSlice"
 import { fetchCommentsAsync, addCommentAsync } from "../../store/commentSlice"
 import type { AppDispatch, StoreType } from "../../store/store"
@@ -28,29 +28,21 @@ const PaintingComponent = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
 
-  const [painting, setPainting] = useState<PaintingType | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
+  const loading = useSelector((store: StoreType) => store.painting.loading)
+  const error = useSelector((store: StoreType) => store.painting.error)
   const [commentContent, setCommentContent] = useState<string>("")
 
   const comments = useSelector((store: StoreType) => store.comments.comments)
   const commentLoading = useSelector((store: StoreType) => store.comments.loading)
   const userId = useSelector((store: StoreType) => store.user.user.id)
   const allUsers = useSelector((store: StoreType) => store.user.allusers)
-
+const painting = useSelector((store: StoreType) => store.painting.currentPainting)
   useEffect(() => {
     const fetchPainting = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_MY_API_URL}Painting/${id}`)
-        if (!response.ok) throw new Error("Failed to fetch painting")
-        const data = await response.json()
-        setPainting(data)
-        dispatch(fetchCommentsAsync())
-      } catch (err: any) {
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
+      if (!id) return;
+      if (painting && painting.id === Number(id)) return; 
+      await dispatch(fetchPaintingByIdAsync(Number(id)))
+      await dispatch(fetchCommentsAsync())
     }
 
     fetchPainting()

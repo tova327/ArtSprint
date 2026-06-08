@@ -19,6 +19,16 @@ export const fetchPaintings = async () => {
     }
 };
 
+export const fetchPaintingById = async (id: number) => {
+    try {
+        const response = await api.get(`${paintingURL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 export const addPainting = async (painting: PaintingToAddType) => {
     try {
         const response = await api.post(paintingURL, painting);

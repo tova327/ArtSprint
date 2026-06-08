@@ -1,23 +1,24 @@
 
 import type React from "react"
-import { useEffect, useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
 import { Routes, Route, useNavigate } from "react-router-dom"
-import { Layout, Typography } from "antd"
+import { Layout, Spin, Typography } from "antd"
 
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, StoreType } from "../store/store"
-import PaintingComponent from "./paintings/PaintingComponent"
-import ProtectedRoute from "./auth/ProtectedRoute"
-import StartPage from "./auth/StartPage"
-import PaintingsPage from "./paintings/PaintingsPage"
 import NavBarDraft from "./layout/NavBarDraft"
 import { fetchPaintingsAsync } from "../store/paintingSlice"
 import Sider from "antd/es/layout/Sider"
-import EditProfilePage from "./user/EditProfilePage"
-import ProfilePage from "./user/ProfilePage"
 import UserAvatar from "./user/UserAvatar"
 import AppButton from "./common/AppButton"
 import { themeToken } from "../theme/token"
+import ProtectedRoute from "./auth/ProtectedRoute"
+const PaintingComponent = lazy(() => import("./paintings/PaintingComponent"))
+const StartPage = lazy(() => import("./auth/StartPage"))
+const PaintingsPage = lazy(() => import("./paintings/PaintingsPage"));
+const EditProfilePage = lazy(() => import("./user/EditProfilePage"));
+const ProfilePage = lazy(() => import("./user/ProfilePage"));
+
 
 const { Header, Content, Footer } = Layout
 
@@ -26,7 +27,7 @@ const SubApp: React.FC = () => {
   const user = useSelector((state: StoreType) => state.user.user);
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(fetchPaintingsAsync())
+    dispatch(fetchPaintingsAsync());
   }, [dispatch])
 
   const [collapsed, setCollapsed] = useState(false)
@@ -122,45 +123,56 @@ const SubApp: React.FC = () => {
               width: "100%",
             }}
           >
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <PaintingsPage />
-                  </ProtectedRoute>
-                }
-              />
+            <Suspense fallback={<div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "300px",
+              }}
+            >
+              <Spin size="large" />
+            </div>}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <PaintingsPage />
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route
-                path="/painting/:id"
-                element={
-                  <ProtectedRoute>
-                    <PaintingComponent />
-                  </ProtectedRoute>
-                }
-              />
+                <Route
+                  path="/painting/:id"
+                  element={
+                    <ProtectedRoute>
+                      <PaintingComponent />
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route path="/login" element={<StartPage />} />
+                <Route path="/login" element={<StartPage />} />
 
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <ProfilePage />
-                  </ProtectedRoute>
-                }
-              />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route
-                path="/profile/edit"
-                element={
-                  <ProtectedRoute>
-                    <EditProfilePage />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+                <Route
+                  path="/profile/edit"
+                  element={
+                    <ProtectedRoute>
+                      <EditProfilePage />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </Suspense>
           </div>
         </Content>
 
